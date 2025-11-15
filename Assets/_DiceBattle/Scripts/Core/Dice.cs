@@ -39,5 +39,10 @@ namespace DiceBattle.Core
         {
             _isLocked = false;
         }
+        
+        public void Lock()
+        {
+            _isLocked = true;
+        }
     }
 }
