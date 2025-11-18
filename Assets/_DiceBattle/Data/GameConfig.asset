@@ -22,6 +22,6 @@ MonoBehaviour:
   EnemyDefenseGrowthRate: 3
   DiceSprites:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: -8224140922828908422, guid: 7a991db3246ca1e41ba2c0bbc4376667, type: 3}
+  - {fileID: 8435870454665208475, guid: 38fb132f9b5a1af4980a3aea84bef64f, type: 3}
+  - {fileID: -2421157395833703160, guid: 2c9627a526c29d7448e9d19ef4170ff9, type: 3}

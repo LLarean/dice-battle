@@ -25,8 +25,6 @@ namespace DiceBattle.UI
         {
             _button = GetComponent<Button>();
             _button.onClick.AddListener(OnClicked);
-
-            _typeIcon = GetComponent<Image>();
         }
 
         public void Initialize(Dice diceModel, Sprite[] sprites)
