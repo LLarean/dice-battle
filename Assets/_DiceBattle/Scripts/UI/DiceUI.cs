@@ -11,25 +11,22 @@ namespace DiceBattle.UI
     [RequireComponent(typeof(Button))]
     public class DiceUI : MonoBehaviour
     {
-        [Header("Visual")]
-        [SerializeField] private Image _diceImage;
+        [SerializeField] private Image _typeIcon;
         [SerializeField] private GameObject _lockIndicator;
-        
-        [Header("Colors")]
+        [Space]
         [SerializeField] private Color _normalColor = Color.white;
         [SerializeField] private Color _lockedColor = Color.green;
 
-        private Dice _dice;
         private Button _button;
+        private Dice _dice;
         private Sprite[] _diceSprites;
 
         private void Awake()
         {
             _button = GetComponent<Button>();
             _button.onClick.AddListener(OnClicked);
-            
-            if (_diceImage == null)
-                _diceImage = GetComponent<Image>();
+
+            _typeIcon = GetComponent<Image>();
         }
 
         public void Initialize(Dice diceModel, Sprite[] sprites)
@@ -44,22 +41,20 @@ namespace DiceBattle.UI
         /// </summary>
         public void UpdateVisual()
         {
-            if (_dice == null || _diceSprites == null)
-                return;
+            if (_dice == null || _diceSprites == null) return;
 
             // Show a sprite of the appropriate type
             int spriteIndex = (int)_dice.CurrentType;
             if (spriteIndex < _diceSprites.Length)
             {
-                _diceImage.sprite = _diceSprites[spriteIndex];
+                _typeIcon.sprite = _diceSprites[spriteIndex];
             }
 
             // Change the color depending on the lock
-            _diceImage.color = _dice.IsLocked ? _lockedColor : _normalColor;
+            _typeIcon.color = _dice.IsLocked ? _lockedColor : _normalColor;
             
             // Show/hide the lock indicator
-            if (_lockIndicator != null)
-                _lockIndicator.SetActive(_dice.IsLocked);
+            _lockIndicator.SetActive(_dice.IsLocked);
         }
 
         /// <summary>
