@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 38fb132f9b5a1af4980a3aea84bef64f
+guid: 64a52d2edcc0af241a2fe0f0d79c42b3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8435870454665208475
-    second: shield_1643195_0
+      213: -8276531532356017539
+    second: dice_empty_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: shield_1643195_0
+      name: dice_empty_0
       rect:
         serializedVersion: 2
-        x: 25
+        x: 0
         y: 0
-        width: 462
-        height: 512
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b92688dbb7b321570800000000000000
-      internalID: 8435870454665208475
+      spriteID: d72a9991c6ad32d80800000000000000
+      internalID: -8276531532356017539
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      shield_1643195_0: 8435870454665208475
+      dice_empty_0: -8276531532356017539
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

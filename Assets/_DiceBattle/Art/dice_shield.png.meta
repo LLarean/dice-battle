@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7a991db3246ca1e41ba2c0bbc4376667
+guid: defcbf24c708b9844a3654434ba738b2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8224140922828908422
-    second: chess_3412248_0
+      213: -4746029775332315738
+    second: dice_shield_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: chess_3412248_0
+      name: dice_shield_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 512
-        height: 512
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a789700776bfddd80800000000000000
-      internalID: -8224140922828908422
+      spriteID: 6ade3eb9017b22eb0800000000000000
+      internalID: -4746029775332315738
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      chess_3412248_0: -8224140922828908422
+      dice_shield_0: -4746029775332315738
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
