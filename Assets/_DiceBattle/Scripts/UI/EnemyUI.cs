@@ -15,6 +15,7 @@ namespace DiceBattle.UI
         [SerializeField] private TextMeshProUGUI _hpText;
         [SerializeField] private TextMeshProUGUI _attackText;
         [SerializeField] private TextMeshProUGUI _defenseText;
+        [SerializeField] private Image _portrait;
         [SerializeField] private Slider _hpSlider; // Optional - HP strip
 
         private Enemy _currentEnemy;
@@ -58,6 +59,10 @@ namespace DiceBattle.UI
             // Defense
             if (_defenseText != null)
                 _defenseText.text = $"Defense: {_currentEnemy.Defense}";
+            
+            // Portrait
+            if (_portrait != null)
+                _portrait.sprite = _currentEnemy.Portrait;
         }
 
         /// <summary>

@@ -12,6 +12,7 @@ namespace DiceBattle.Core
         public int Attack { get; private set; }
         public int Defense { get; private set; }
         public int Number { get; private set; }
+        public Sprite Portrait { get; private set; }
 
         public bool IsAlive => CurrentHP > 0;
 
@@ -20,7 +21,7 @@ namespace DiceBattle.Core
         /// </summary>
         /// <param name="enemyNumber">The sequential number of the enemy, which affects its characteristics.</param>
         /// <returns>The created enemy object.</returns>
-        public static Enemy Create(int enemyNumber)
+        public static Enemy Create(int enemyNumber, Sprite portrait)
         {
             var enemy = new Enemy();
             enemy.Number = enemyNumber;
@@ -28,6 +29,8 @@ namespace DiceBattle.Core
             enemy.MaxHP = 10 + (enemyNumber - 1) * 2;
             enemy.Attack = 2 + (enemyNumber - 1) / 2;
             enemy.Defense = (enemyNumber - 1) / 3;
+
+            enemy.Portrait = portrait;
             
             enemy.CurrentHP = enemy.MaxHP;
 

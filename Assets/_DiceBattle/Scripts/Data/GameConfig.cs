@@ -40,5 +40,9 @@ namespace DiceBattle.Data
         [Header("UI")]
         [Tooltip("Sprites for cube types (Empty, Attack, Defense, Heal)")]
         public Sprite[] DiceSprites = new Sprite[4];
+        
+        [Header("Enemies")]
+        [Tooltip("Enemy Sprites")]
+        public Sprite[] EnemiesPortraits = new Sprite[4];
     }
 }
