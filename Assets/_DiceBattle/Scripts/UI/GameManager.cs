@@ -86,7 +86,10 @@ namespace DiceBattle.UI
         private void SpawnNextEnemy()
         {
             _enemiesDefeated++;
-            _currentEnemy = Enemy.Create(_enemiesDefeated);
+
+            var portrait = _config.EnemiesPortraits[_enemiesDefeated - 1];
+            
+            _currentEnemy = Enemy.Create(_enemiesDefeated, portrait);
             _enemyUI.ShowEnemy(_currentEnemy);
             
             // TODO: SignalSystem.Raise - new enemy appearance

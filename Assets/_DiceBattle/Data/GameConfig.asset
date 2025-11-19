@@ -25,3 +25,8 @@ MonoBehaviour:
   - {fileID: -2500287713041957420, guid: 15934780e3fe3a44cbb0440d31a52a8f, type: 3}
   - {fileID: -4746029775332315738, guid: defcbf24c708b9844a3654434ba738b2, type: 3}
   - {fileID: -860402343928173957, guid: 2c4a6953c04e3b040b4be57c5fb79064, type: 3}
+  EnemiesPortraits:
+  - {fileID: -735669648, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+  - {fileID: 750657890, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+  - {fileID: 1682503996, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+  - {fileID: 1616578468, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
