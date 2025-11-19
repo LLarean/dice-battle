@@ -7,7 +7,7 @@ namespace DiceBattle.Core
     {
         private readonly System.Random _random;
 
-        private DiceType _currentType;
+        private DiceType _currentType = DiceType.Empty;
         private bool _isLocked;
         
         public DiceType CurrentType => _currentType;
@@ -20,7 +20,6 @@ namespace DiceBattle.Core
         public Dice()
         {
             _random = new System.Random();
-            Roll();
         }
 
         /// <summary>
