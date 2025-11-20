@@ -1,5 +1,15 @@
 {
   "dependencies": {
+    "com.llarean.signal-system": {
+      "version": "https://github.com/llarean/signal-system.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.33",
+        "com.unity.ext.nunit": "2.0.5"
+      },
+      "hash": "9b6166bee95e5fd60dc6a338e867433375feaf5a"
+    },
     "com.unity.2d.animation": {
       "version": "10.2.1",
       "depth": 1,
