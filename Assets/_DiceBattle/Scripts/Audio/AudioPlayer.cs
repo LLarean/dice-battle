@@ -1,3 +1,4 @@
+using GameSignals;
 using UnityEngine;
 
 namespace DiceBattle.Audio
@@ -6,7 +7,7 @@ namespace DiceBattle.Audio
     /// Simple audio controller for managing music and sound effects
     /// Uses two AudioSource components: one for music, another for sound effects
     /// </summary>
-    public class AudioPlayer : MonoBehaviour
+    public class AudioPlayer : MonoBehaviour, ISoundHandler
     {
         [Header("Audio Sources")]
         [SerializeField] private AudioSource _musicSource;
@@ -46,6 +47,16 @@ namespace DiceBattle.Audio
             {
                 _sfxSource.loop = false;
             }
+        }
+        
+        private void OnEnable()
+        {
+            SignalSystem.Subscribe(this);
+        }
+
+        private void OnDisable()
+        {
+            SignalSystem.Unsubscribe(this);
         }
 
         /// <summary>

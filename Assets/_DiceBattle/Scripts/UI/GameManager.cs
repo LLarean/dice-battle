@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
+using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Data;
+using GameSignals;
 
 namespace DiceBattle.UI
 {
@@ -110,7 +112,7 @@ namespace DiceBattle.UI
                 _isFirstRoll = false;
                 UpdateButtonStates();
                 
-                // TODO: SignalSystem.Raise - dice roll sound
+                SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceRoll));
             }
             else
             {
@@ -129,7 +131,7 @@ namespace DiceBattle.UI
 
             RerollUnlockedDice();
             
-            // TODO: SignalSystem.Raise - reroll sound
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceReroll));
         }
 
         /// <summary>
