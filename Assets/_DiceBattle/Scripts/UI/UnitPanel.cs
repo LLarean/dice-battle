@@ -1,3 +1,4 @@
+using DiceBattle.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,7 +31,7 @@ namespace DiceBattle
             
             if (unitData.Defence != 0)
             {
-                _unitStats.ShowDefence(unitData.Defence.ToString());
+                _unitStats.ShowDefense(unitData.Defence.ToString());
             }
         }
 
@@ -48,6 +49,18 @@ namespace DiceBattle
 
         public void UpdateDefense(int defense)
         {
+        }
+
+        public void ShowEnemy(Enemy currentEnemy)
+        {
+            _title.text = $"Enemy #{currentEnemy.Number}";
+            _portrait.sprite = currentEnemy.Portrait;
+
+            SetHealthMax(currentEnemy.MaxHP);
+            UpdateHealth(currentEnemy.CurrentHP);
+
+            _unitStats.ShowAttack(currentEnemy.Attack.ToString());
+            _unitStats.ShowDefense(currentEnemy.Defense.ToString());
         }
     }
 }

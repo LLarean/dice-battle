@@ -19,6 +19,7 @@ namespace DiceBattle.UI
         [Header("UI References")]
         [SerializeField] private GameUI _gameUI;
         [SerializeField] private EnemyUI _enemyUI;
+        [SerializeField] private UnitPanel _enemy;
         [SerializeField] private List<DiceUI> _diceUIList;
 
         // Game state
@@ -93,7 +94,8 @@ namespace DiceBattle.UI
             
             _currentEnemy = Enemy.Create(_enemiesDefeated, portrait);
             _enemyUI.ShowEnemy(_currentEnemy);
-            
+            _enemy.ShowEnemy(_currentEnemy);
+
             // TODO: SignalSystem.Raise - new enemy appearance
         }
 
