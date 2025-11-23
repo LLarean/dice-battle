@@ -32,7 +32,7 @@ namespace DiceBattle
             _attack.gameObject.SetActive(true);
         }
         
-        public void ShowDefence(string value)
+        public void ShowDefense(string value)
         {
             _defenceValue.text = value;
             _defence.gameObject.SetActive(true);
