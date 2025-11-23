@@ -9,6 +9,10 @@ namespace DiceBattle.UI
     /// </summary>
     public class GameUI : MonoBehaviour
     {
+        [Header("Unit Stats")]
+        [SerializeField] private UnitPanel _player;
+        [SerializeField] private UnitPanel _enemy;
+        
         [Header("Player Info")]
         [SerializeField] private TextMeshProUGUI _playerHPText;
         [SerializeField] private TextMeshProUGUI _playerDefenseText;
@@ -38,10 +42,11 @@ namespace DiceBattle.UI
         /// <param name="maxHP">The maximum HP value for the player.</param>
         public void Initialize(int maxHP)
         {
-            _playerMaxHP = maxHP;
+            _player.SetHealthMax(maxHP);
+            // _playerMaxHP = maxHP;
             
-            if (_playerHPSlider != null)
-                _playerHPSlider.maxValue = maxHP;
+            // if (_playerHPSlider != null)
+                // _playerHPSlider.maxValue = maxHP;
         }
 
         /// <summary>
@@ -49,11 +54,12 @@ namespace DiceBattle.UI
         /// </summary>
         public void UpdatePlayerHP(int currentHP)
         {
-            if (_playerHPText != null)
-                _playerHPText.text = $"HP: {currentHP}/{_playerMaxHP}";
+            _player.UpdateHealth(currentHP);
+            // if (_playerHPText != null)
+                // _playerHPText.text = $"HP: {currentHP}/{_playerMaxHP}";
 
-            if (_playerHPSlider != null)
-                _playerHPSlider.value = currentHP;
+            // if (_playerHPSlider != null)
+                // _playerHPSlider.value = currentHP;
         }
 
         /// <summary>
@@ -61,10 +67,11 @@ namespace DiceBattle.UI
         /// </summary>
         public void UpdatePlayerDefense(int defense)
         {
-            if (_playerDefenseText != null)
-            {
-                _playerDefenseText.text = defense > 0 ? $"Defense: {defense}" : "";
-            }
+            _player.UpdateDefense(defense);
+            // if (_playerDefenseText != null)
+            // {
+            //     _playerDefenseText.text = defense > 0 ? $"Defense: {defense}" : "";
+            // }
         }
 
         /// <summary>

@@ -8,7 +8,7 @@ namespace DiceBattle
         public Sprite Portrait;
         
         public int HealthMax;
-        public int HealthMin;
+        public int HealthCurrent;
         
         public int Attack;
         public int Defence;
