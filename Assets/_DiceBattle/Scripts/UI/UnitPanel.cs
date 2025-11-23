@@ -11,6 +11,8 @@ namespace DiceBattle
         [SerializeField] private Image _portrait;
         [SerializeField] private Slider _health;
         [SerializeField] private UnitStats _unitStats;
+        
+        private Enemy _currentEnemy;
 
         public void Construct(UnitData unitData)
         {
@@ -53,14 +55,20 @@ namespace DiceBattle
 
         public void ShowEnemy(Enemy currentEnemy)
         {
-            _title.text = $"Enemy #{currentEnemy.Number}";
-            _portrait.sprite = currentEnemy.Portrait;
+            _currentEnemy = currentEnemy;
+            UpdateDisplay();
+        }
 
-            SetHealthMax(currentEnemy.MaxHP);
-            UpdateHealth(currentEnemy.CurrentHP);
+        public void UpdateDisplay()
+        {
+            _title.text = $"Enemy #{_currentEnemy.Number}";
+            _portrait.sprite = _currentEnemy.Portrait;
 
-            _unitStats.ShowAttack(currentEnemy.Attack.ToString());
-            _unitStats.ShowDefense(currentEnemy.Defense.ToString());
+            SetHealthMax(_currentEnemy.MaxHP);
+            UpdateHealth(_currentEnemy.CurrentHP);
+
+            _unitStats.ShowAttack(_currentEnemy.Attack.ToString());
+            _unitStats.ShowDefense(_currentEnemy.Defense.ToString());
         }
     }
 }
