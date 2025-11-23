@@ -221,6 +221,7 @@ namespace DiceBattle.UI
             {
                 int damageDealt = _currentEnemy.TakeDamage(attack);
                 _enemyUI.UpdateDisplay();
+                _enemy.UpdateDisplay();
                 
                 // TODO: SignalSystem.Raise - player attack (damage: damageDealt)
                 
