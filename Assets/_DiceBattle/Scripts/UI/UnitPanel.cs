@@ -14,28 +14,28 @@ namespace DiceBattle
         
         private Enemy _currentEnemy;
 
-        public void Construct(UnitData unitData)
-        {
-            _title.text = unitData.Title;
-            _portrait.sprite = unitData.Portrait;
-
-            _health.maxValue = unitData.HealthMax;
-            _health.value = unitData.HealthCurrent;
-
-            _unitStats.HideAll();
-            
-            _unitStats.ShowHealth($"{unitData.HealthCurrent}/{unitData.HealthMax}");
-
-            if (unitData.Attack != 0)
-            {
-                _unitStats.ShowAttack(unitData.Attack.ToString());
-            }
-            
-            if (unitData.Defence != 0)
-            {
-                _unitStats.ShowDefense(unitData.Defence.ToString());
-            }
-        }
+        // public void Construct(UnitData unitData)
+        // {
+        //     _title.text = unitData.Title;
+        //     _portrait.sprite = unitData.Portrait;
+        //
+        //     _health.maxValue = unitData.HealthMax;
+        //     _health.value = unitData.HealthCurrent;
+        //
+        //     _unitStats.HideAll();
+        //     
+        //     _unitStats.ShowHealth($"{unitData.HealthCurrent}/{unitData.HealthMax}");
+        //
+        //     if (unitData.Attack != 0)
+        //     {
+        //         _unitStats.ShowAttack(unitData.Attack.ToString());
+        //     }
+        //     
+        //     if (unitData.Defence != 0)
+        //     {
+        //         _unitStats.ShowDefense(unitData.Defence.ToString());
+        //     }
+        // }
 
         public void SetHealthMax(int maxHealth)
         {

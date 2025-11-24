@@ -13,29 +13,30 @@ namespace DiceBattle
         [SerializeField] private TMP_Text _attackValue;
         [SerializeField] private TMP_Text _defenceValue;
 
-        public void HideAll()
-        {
-            _health.SetActive(false);
-            _attack.SetActive(false);
-            _defence.SetActive(false);
-        }
-
         public void ShowHealth(string value)
         {
             _healthValue.text = value;
             _health.gameObject.SetActive(true);
         }
-        
+
+
         public void ShowAttack(string value)
         {
             _attackValue.text = value;
             _attack.gameObject.SetActive(true);
         }
-        
+
+
         public void ShowDefense(string value)
         {
             _defenceValue.text = value;
             _defence.gameObject.SetActive(true);
         }
+
+        public void HideHealth() => _health.SetActive(false);
+        
+        public void HideAttack() => _attack.SetActive(false);
+        
+        public void HideDefense() => _defence.SetActive(false);
     }
 }
