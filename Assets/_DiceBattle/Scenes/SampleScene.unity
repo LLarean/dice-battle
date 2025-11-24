@@ -1448,6 +1448,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1345067138}
     m_Modifications:
+    - target: {fileID: 107145307264573963, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -25.896973
+      objectReference: {fileID: 0}
     - target: {fileID: 4086913022189076485, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
       propertyPath: m_Name
       value: Dice (3)
@@ -1563,6 +1567,7 @@ GameObject:
   m_Component:
   - component: {fileID: 985295442}
   - component: {fileID: 985295444}
+  - component: {fileID: 985295445}
   - component: {fileID: 985295443}
   m_Layer: 5
   m_Name: ContextBackground
@@ -1628,6 +1633,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 985295441}
   m_CullTransparentMesh: 1
+--- !u!114 &985295445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985295441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5710c044ddaad8e469776f97349f4f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _image: {fileID: 985295443}
 --- !u!1 &1004415169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1786,6 +1804,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1345067138}
     m_Modifications:
+    - target: {fileID: 107145307264573963, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -25.896973
+      objectReference: {fileID: 0}
     - target: {fileID: 4086913022189076485, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
       propertyPath: m_Name
       value: Dice (1)
@@ -2417,6 +2439,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1345067138}
     m_Modifications:
+    - target: {fileID: 107145307264573963, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -25.896973
+      objectReference: {fileID: 0}
     - target: {fileID: 4086913022189076485, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
       propertyPath: m_Name
       value: Dice (4)
@@ -2915,6 +2941,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1345067138}
     m_Modifications:
+    - target: {fileID: 107145307264573963, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -25.896973
+      objectReference: {fileID: 0}
     - target: {fileID: 4086913022189076485, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
       propertyPath: m_Name
       value: Dice (2)
@@ -3540,6 +3570,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4676854907724693762, guid: fbf5337ef3173194793bdb6a728539bf, type: 3}
+      propertyPath: m_text
+      value: Enemy #1
+      objectReference: {fileID: 0}
     - target: {fileID: 5454132596945229904, guid: fbf5337ef3173194793bdb6a728539bf, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -3793,6 +3827,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8956431861894724712, guid: fbf5337ef3173194793bdb6a728539bf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4802954496528926275, guid: e557c45d8e8417841aaddad0c73c579c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3817,6 +3855,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1345067138}
     m_Modifications:
+    - target: {fileID: 107145307264573963, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -25.896973
+      objectReference: {fileID: 0}
     - target: {fileID: 4086913022189076485, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
       propertyPath: m_Name
       value: Dice
