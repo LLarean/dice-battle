@@ -1757,7 +1757,7 @@ MonoBehaviour:
   _rollButton: {fileID: 657270278}
   _rerollButton: {fileID: 1341811156}
   _rollButtonText: {fileID: 1769482796}
-  _gameOverUI: {fileID: 0}
+  _gameOverUI: {fileID: 139924238}
 --- !u!1 &1006147705
 GameObject:
   m_ObjectHideFlags: 0
