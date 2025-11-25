@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -17,18 +18,20 @@ namespace DiceBattle.UI
         [SerializeField] private Button _rollButton;
         [SerializeField] private Button _rerollButton;
         [SerializeField] private TextMeshProUGUI _rollButtonText;
-
-        [Header("Game Over Panel")]
-        [SerializeField] private GameObject _gameOverPanel;
-        [SerializeField] private TextMeshProUGUI _finalScoreText;
-        [SerializeField] private Button _restartButton;
+        [Space]
+        [SerializeField] private GameOverUI _gameOverUI;
 
         private int _playerMaxHP;
+        private event Action _onRestartClicked;
 
-        private void Awake()
+        private void Start()
         {
-            if (_gameOverPanel != null)
-                _gameOverPanel.SetActive(false);
+            _gameOverUI.OnRestartClicked += OnRestartClick;
+        }
+
+        private void OnDestroy()
+        {
+            _gameOverUI.OnRestartClicked -= OnRestartClick;
         }
 
         /// <summary>
@@ -83,23 +86,12 @@ namespace DiceBattle.UI
         /// <summary>
         /// Show the Game Over screen
         /// </summary>
-        public void ShowGameOver(int enemiesDefeated)
-        {
-            if (_gameOverPanel != null)
-                _gameOverPanel.SetActive(true);
-
-            if (_finalScoreText != null)
-                _finalScoreText.text = $"You have defeated {enemiesDefeated} enemies!";
-        }
+        public void ShowGameOver(int enemiesDefeated) => _gameOverUI.Show(enemiesDefeated);
 
         /// <summary>
         /// Hide the Game Over screen
         /// </summary>
-        public void HideGameOver()
-        {
-            if (_gameOverPanel != null)
-                _gameOverPanel.SetActive(false);
-        }
+        public void HideGameOver() => _gameOverUI.gameObject.SetActive(false);
 
         /// <summary>
         /// Subscribe to button events (called from GameManager)
@@ -108,7 +100,10 @@ namespace DiceBattle.UI
         {
             _rollButton.onClick.AddListener(() => onRoll?.Invoke());
             _rerollButton.onClick.AddListener(() => onReroll?.Invoke());
-            _restartButton.onClick.AddListener(() => onRestart?.Invoke());
+
+            _onRestartClicked = onRestart;
         }
+
+        private void OnRestartClick() => _onRestartClicked?.Invoke();
     }
 }
