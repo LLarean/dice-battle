@@ -19,7 +19,6 @@ namespace DiceBattle.UI
 
         [Header("UI References")]
         [SerializeField] private GameUI _gameUI;
-        [SerializeField] private EnemyUI _enemyUI;
         [SerializeField] private UnitPanel _enemy;
         [SerializeField] private List<DiceUI> _diceUIList;
 
@@ -96,7 +95,6 @@ namespace DiceBattle.UI
             var portrait = _config.EnemiesPortraits[_enemiesDefeated - 1];
             
             _currentEnemy = Enemy.Create(_enemiesDefeated, portrait);
-            _enemyUI.ShowEnemy(_currentEnemy);
             _enemy.ShowEnemy(_currentEnemy);
 
             // TODO: SignalSystem.Raise - new enemy appearance
@@ -227,7 +225,6 @@ namespace DiceBattle.UI
             if (attack > 0 && _currentEnemy != null)
             {
                 int damageDealt = _currentEnemy.TakeDamage(attack);
-                _enemyUI.UpdateDisplay();
                 _enemy.UpdateDisplay();
                 
                 // TODO: SignalSystem.Raise - player attack (damage: damageDealt)
