@@ -40,6 +40,7 @@ namespace DiceBattle.UI
         /// <param name="maxHP">The maximum HP value for the player.</param>
         public void Initialize(int maxHP)
         {
+            _player.HideAllStats();
             _player.SetHealthMax(maxHP);
         }
 

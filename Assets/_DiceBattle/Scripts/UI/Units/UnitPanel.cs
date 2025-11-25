@@ -14,28 +14,12 @@ namespace DiceBattle
         
         private Enemy _currentEnemy;
 
-        // public void Construct(UnitData unitData)
-        // {
-        //     _title.text = unitData.Title;
-        //     _portrait.sprite = unitData.Portrait;
-        //
-        //     _health.maxValue = unitData.HealthMax;
-        //     _health.value = unitData.HealthCurrent;
-        //
-        //     _unitStats.HideAll();
-        //     
-        //     _unitStats.ShowHealth($"{unitData.HealthCurrent}/{unitData.HealthMax}");
-        //
-        //     if (unitData.Attack != 0)
-        //     {
-        //         _unitStats.ShowAttack(unitData.Attack.ToString());
-        //     }
-        //     
-        //     if (unitData.Defence != 0)
-        //     {
-        //         _unitStats.ShowDefense(unitData.Defence.ToString());
-        //     }
-        // }
+        public void HideAllStats()
+        {
+            _unitStats.HideHealth();
+            _unitStats.HideAttack();
+            _unitStats.HideDefense();
+        }
 
         public void SetHealthMax(int maxHealth)
         {
@@ -48,11 +32,29 @@ namespace DiceBattle
             _health.value = currentHealth;
             _unitStats.ShowHealth($"{currentHealth}/{_health.maxValue}");
         }
+        
+        public void UpdateAttack(int attack)
+        {
+            if (attack > 0)
+            {
+                _unitStats.ShowAttack(attack.ToString());
+            }
+            else
+            {
+                _unitStats.HideAttack();
+            }
+        }
 
         public void UpdateDefense(int defense)
         {
-            var defenseValue  = defense > 0 ? defense.ToString() : string.Empty;
-            _unitStats.ShowDefense(defenseValue);
+            if (defense > 0)
+            {
+                _unitStats.ShowDefense(defense.ToString());
+            }
+            else
+            {
+                _unitStats.HideDefense();
+            }
         }
 
         public void ShowEnemy(Enemy currentEnemy)
@@ -69,8 +71,8 @@ namespace DiceBattle
             SetHealthMax(_currentEnemy.MaxHP);
             UpdateHealth(_currentEnemy.CurrentHP);
 
-            _unitStats.ShowAttack(_currentEnemy.Attack.ToString());
-            _unitStats.ShowDefense(_currentEnemy.Defense.ToString());
+            UpdateAttack(_currentEnemy.Attack);
+            UpdateDefense(_currentEnemy.Defense);
         }
     }
 }
