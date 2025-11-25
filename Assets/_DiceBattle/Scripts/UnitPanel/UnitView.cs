@@ -18,21 +18,9 @@ namespace DiceBattle
             _title.text = unitModel.Title;
             _portrait.sprite = unitModel.Portrait;
             
-            _health.maxValue = unitModel.MaxHealth;
-            _health.value = unitModel.MaxHealth;
-            UpdateCurrentHealth(unitModel.MaxHealth);
-            
-            if (unitModel.Attack != 0)
-            {
-                _unitStats.ShowAttack(unitModel.Attack.ToString());
-            }
-            
-            if (unitModel.Defence != 0)
-            {
-                _unitStats.ShowDefense(unitModel.Defence.ToString());
-            }
+            UpdateStats(unitModel);
         }
-        
+
         public void UpdateCurrentHealth(int currentHealth)
         {
             _health.value = currentHealth;
@@ -44,6 +32,28 @@ namespace DiceBattle
             _unitStats.HideHealth();
             _unitStats.HideAttack();
             _unitStats.HideDefense();
+        }
+
+        private void UpdateStats(UnitModel unitModel)
+        {
+            UpdateMaxHealth(unitModel);
+
+            if (unitModel.Attack != 0)
+            {
+                _unitStats.ShowAttack(unitModel.Attack.ToString());
+            }
+            
+            if (unitModel.Defence != 0)
+            {
+                _unitStats.ShowDefense(unitModel.Defence.ToString());
+            }
+        }
+
+        private void UpdateMaxHealth(UnitModel unitModel)
+        {
+            _health.maxValue = unitModel.MaxHealth;
+            _health.value = unitModel.MaxHealth;
+            UpdateCurrentHealth(unitModel.MaxHealth);
         }
     }
 }
