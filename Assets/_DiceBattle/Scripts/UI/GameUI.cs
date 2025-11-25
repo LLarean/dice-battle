@@ -9,15 +9,10 @@ namespace DiceBattle.UI
     /// </summary>
     public class GameUI : MonoBehaviour
     {
-        [Header("Unit Stats")]
+        [Header("Unit Panels")]
         [SerializeField] private UnitPanel _player;
         [SerializeField] private UnitPanel _enemy;
         
-        [Header("Player Info")]
-        [SerializeField] private TextMeshProUGUI _playerHPText;
-        [SerializeField] private TextMeshProUGUI _playerDefenseText;
-        [SerializeField] private Slider _playerHPSlider; // Optional
-
         [Header("Buttons")]
         [SerializeField] private Button _rollButton;
         [SerializeField] private Button _rerollButton;
@@ -43,10 +38,6 @@ namespace DiceBattle.UI
         public void Initialize(int maxHP)
         {
             _player.SetHealthMax(maxHP);
-            // _playerMaxHP = maxHP;
-            
-            // if (_playerHPSlider != null)
-                // _playerHPSlider.maxValue = maxHP;
         }
 
         /// <summary>
@@ -55,11 +46,6 @@ namespace DiceBattle.UI
         public void UpdatePlayerHP(int currentHP)
         {
             _player.UpdateHealth(currentHP);
-            // if (_playerHPText != null)
-                // _playerHPText.text = $"HP: {currentHP}/{_playerMaxHP}";
-
-            // if (_playerHPSlider != null)
-                // _playerHPSlider.value = currentHP;
         }
 
         /// <summary>
@@ -68,10 +54,6 @@ namespace DiceBattle.UI
         public void UpdatePlayerDefense(int defense)
         {
             _player.UpdateDefense(defense);
-            // if (_playerDefenseText != null)
-            // {
-            //     _playerDefenseText.text = defense > 0 ? $"Defense: {defense}" : "";
-            // }
         }
 
         /// <summary>

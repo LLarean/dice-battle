@@ -873,7 +873,7 @@ MonoBehaviour:
   _config: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
   _gameUI: {fileID: 1004415171}
   _enemyUI: {fileID: 269206045}
-  _enemy: {fileID: 0}
+  _enemy: {fileID: 2121550418}
   _diceUIList:
   - {fileID: 1450869789}
   - {fileID: 1107512436}
@@ -3783,6 +3783,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7910445166608010002, guid: fbf5337ef3173194793bdb6a728539bf, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910445166608010002, guid: fbf5337ef3173194793bdb6a728539bf, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910445166608010002, guid: fbf5337ef3173194793bdb6a728539bf, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910445166608010002, guid: fbf5337ef3173194793bdb6a728539bf, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3793,6 +3809,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3587136657202855127, guid: fbf5337ef3173194793bdb6a728539bf, type: 3}
   m_PrefabInstance: {fileID: 2121550416}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2121550418 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9176265533338216426, guid: fbf5337ef3173194793bdb6a728539bf, type: 3}
+  m_PrefabInstance: {fileID: 2121550416}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207900a18e41cae4e9419ef25bdadba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2876026797013896314
 PrefabInstance:
   m_ObjectHideFlags: 0

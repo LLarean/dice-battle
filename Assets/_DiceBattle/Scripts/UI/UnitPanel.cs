@@ -51,6 +51,8 @@ namespace DiceBattle
 
         public void UpdateDefense(int defense)
         {
+            var defenseValue  = defense > 0 ? defense.ToString() : string.Empty;
+            _unitStats.ShowDefense(defenseValue);
         }
 
         public void ShowEnemy(Enemy currentEnemy)

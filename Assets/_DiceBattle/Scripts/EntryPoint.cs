@@ -34,7 +34,7 @@ namespace DiceBattle
 
     public class GamePresenter
     {
-        public GamePresenter(UnitView player, Unit)
+        public GamePresenter(UnitView view)
         {
             
         }
