@@ -14,7 +14,6 @@ namespace DiceBattle
         
         public event Action OnDiceClicked;
 
-        
         public void Initialize()
         {
             foreach (var dice in _dices)
@@ -23,7 +22,7 @@ namespace DiceBattle
                 dice.DisableInteractable();
             }
             
-            _hint.ShowAttempts(3);
+            // _hint.ShowAttempts(3);
         }
         
         public void RollAllDice()
