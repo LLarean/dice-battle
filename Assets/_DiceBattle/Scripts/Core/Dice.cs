@@ -1,9 +1,8 @@
-using DiceBattle.Core;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
 
-namespace DiceBattle.UI
+namespace DiceBattle.Core
 {
     [RequireComponent(typeof(Image))]
     [RequireComponent(typeof(Button))]
