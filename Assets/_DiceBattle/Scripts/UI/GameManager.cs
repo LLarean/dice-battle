@@ -9,7 +9,6 @@ namespace DiceBattle.UI
 {
     public class GameManager : MonoBehaviour
     {
-        [Header("Config")]
         [SerializeField] private GameConfig _config;
         [Header("UI References")]
         [SerializeField] private GameScreen _gameScreen;
@@ -17,16 +16,17 @@ namespace DiceBattle.UI
         [Space]
         [SerializeField] private UnitPanel _enemy;
 
-        // Game state
         private Enemy _currentEnemy;
         private int _currentHealth;
         private int _currentDefense;
         private int _enemiesDefeated;
-        
+
         private bool _isFirstRoll;
         private bool _isGameOver;
-        
+
         private int _attemptsCount;
+
+        #region Lifesycle
 
         private void Start()
         {
@@ -40,23 +40,11 @@ namespace DiceBattle.UI
             _gameScreen.OnContextClicked -= ContextAction;
             _gameOverScreen.OnRestartClicked -= OnRestartButtonClicked;
         }
-        
-        private void InitializeGame()
-        {
-            _currentHealth = _config.PlayerStartHealth;
-            _currentDefense = 0;
-            _enemiesDefeated = 0;
-            _isFirstRoll = true;
-            _isGameOver = false;
-            _attemptsCount = 0;
 
-            _gameScreen.Initialize(_config.PlayerStartHealth);
-            
-            _gameOverScreen.gameObject.SetActive(false);
-            
-            SpawnNextEnemy();
-        }
-        
+        #endregion
+
+        #region Button Actions
+
         private void ContextAction()
         {
             if (_attemptsCount < _config.MaxAttempts)
@@ -82,11 +70,29 @@ namespace DiceBattle.UI
             if (_attemptsCount == _config.MaxAttempts)
             {
                 _gameScreen.ShowAttempts(_config.MaxAttempts - _attemptsCount);
-                EndPlayerTurn();
+                EndTurn();
             }
         }
+
+        private void OnRestartButtonClicked() => InitializeGame();
+
+        #endregion
+
+        private void InitializeGame()
+        {
+            _currentHealth = _config.PlayerStartHealth;
+            _currentDefense = 0;
+            _enemiesDefeated = 0;
+            _isFirstRoll = true;
+            _isGameOver = false;
+            _attemptsCount = 0;
+
+            _gameScreen.Initialize(_config.PlayerStartHealth);
+            _gameOverScreen.gameObject.SetActive(false);
+            SpawnEnemy();
+        }
         
-        private void SpawnNextEnemy()
+        private void SpawnEnemy()
         {
             _enemiesDefeated++;
 
@@ -98,10 +104,7 @@ namespace DiceBattle.UI
             // TODO: SignalSystem.Raise - new enemy appearance
         }
 
-        /// <summary>
-        /// End player's turn (apply roll results)
-        /// </summary>
-        private void EndPlayerTurn()
+        private void EndTurn()
         {
             // Calculate roll results
             int attack = 0;
@@ -145,7 +148,7 @@ namespace DiceBattle.UI
                 if (!_currentEnemy.IsAlive)
                 {
                     OnEnemyDefeated();
-                    return; // Don't let enemy attack
+                    return;
                 }
             }
 
@@ -163,9 +166,6 @@ namespace DiceBattle.UI
             // TODO: SignalSystem.Raise - healing (amount: heal)
         }
 
-        /// <summary>
-        /// Enemy's turn (attack)
-        /// </summary>
         private void EnemyTurn()
         {
             if (_currentEnemy == null || !_currentEnemy.IsAlive)
@@ -188,7 +188,6 @@ namespace DiceBattle.UI
                 }
             }
 
-            // Reset defense after turn
             _currentDefense = 0;
             _gameScreen.UpdatePlayerDefense(0);
         }
@@ -201,7 +200,7 @@ namespace DiceBattle.UI
             // TODO: SignalSystem.Raise - enemy defeated
             
             // Spawn next enemy
-            SpawnNextEnemy();
+            SpawnEnemy();
 
             // Start new turn
             _isFirstRoll = true;
@@ -234,7 +233,5 @@ namespace DiceBattle.UI
 
             _gameScreen.SetContextLabel("Roll All");
         }
-
-        private void OnRestartButtonClicked() => InitializeGame();
     }
 }
