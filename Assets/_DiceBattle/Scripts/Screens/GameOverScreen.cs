@@ -3,9 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DiceBattle
+namespace DiceBattle.Screens
 {
-    public class GameOverUI : MonoBehaviour
+    public class GameOverScreen : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _finalScore;
         [SerializeField] private Button _restart;
