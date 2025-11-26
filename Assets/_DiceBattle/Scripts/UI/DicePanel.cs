@@ -7,19 +7,22 @@ namespace DiceBattle
 {
     public class DicePanel : MonoBehaviour
     {
-        [SerializeField] private GameConfig _config;
-        [Space]
-        [SerializeField] private List<DiceUI> _diceUIList;
+        [SerializeField] private List<Dice> _dices;
 
-        public List<DiceUI> Dices => _diceUIList;
+        public List<Dice> Dices => _dices;
         
         public void Initialize()
         {
+            foreach (var dice in _dices)
+            {
+                dice.Reset();
+                dice.DisableInteractable();
+            }
         }
         
         public void RollAllDice()
         {
-            foreach (var dice in _diceUIList)
+            foreach (var dice in _dices)
             {
                 dice.Unlock();
                 dice.Roll();
@@ -28,7 +31,7 @@ namespace DiceBattle
 
         public void RerollUnlockedDice()
         {
-            foreach (var dice in _diceUIList)
+            foreach (var dice in _dices)
             {
                 if (dice.IsLocked == false)
                 {
@@ -37,13 +40,9 @@ namespace DiceBattle
             }
         }
         
-        public void UpdateDiceVisuals()
-        {
-        }
-
         public void EnableInteractable()
         {
-            foreach (var diceUI in _diceUIList)
+            foreach (var diceUI in _dices)
             {
                 diceUI.EnableInteractable();
             }
