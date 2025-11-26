@@ -956,7 +956,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &722354672
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2149,6 +2149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1366a9af0cb939441b1195e3e14eec30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hint: {fileID: 2117777944}
   _dices:
   - {fileID: 1450869789}
   - {fileID: 1107512436}
@@ -2653,6 +2654,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2117777940}
   - component: {fileID: 2117777942}
+  - component: {fileID: 2117777944}
   - component: {fileID: 2117777941}
   - component: {fileID: 2117777943}
   m_Layer: 5
@@ -2740,6 +2742,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &2117777944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117777939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aefd4dbf10d7204da51da1b2c305454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _message: {fileID: 722354673}
 --- !u!1001 &2121550416
 PrefabInstance:
   m_ObjectHideFlags: 0

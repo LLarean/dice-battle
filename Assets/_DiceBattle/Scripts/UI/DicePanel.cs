@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using DiceBattle.Data;
-using DiceBattle.UI;
+using DiceBattle.Core;
 using UnityEngine;
 
 namespace DiceBattle
 {
     public class DicePanel : MonoBehaviour
     {
+        [SerializeField] private Hint _hint;
         [SerializeField] private List<Dice> _dices;
 
         public List<Dice> Dices => _dices;
@@ -18,6 +18,8 @@ namespace DiceBattle
                 dice.Reset();
                 dice.DisableInteractable();
             }
+            
+            _hint.ShowAttempts(3);
         }
         
         public void RollAllDice()
