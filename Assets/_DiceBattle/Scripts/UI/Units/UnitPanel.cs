@@ -21,7 +21,7 @@ namespace DiceBattle
             _unitStats.HideDefense();
         }
 
-        public void SetHealthMax(int maxHealth)
+        public void SetMaxHealth(int maxHealth)
         {
             _health.maxValue = maxHealth;
             _unitStats.ShowHealth($"{maxHealth}/{maxHealth}");
@@ -68,7 +68,7 @@ namespace DiceBattle
             _title.text = $"Enemy #{_currentEnemy.Number}";
             _portrait.sprite = _currentEnemy.Portrait;
 
-            SetHealthMax(_currentEnemy.MaxHP);
+            SetMaxHealth(_currentEnemy.MaxHP);
             UpdateHealth(_currentEnemy.CurrentHP);
 
             UpdateAttack(_currentEnemy.Attack);

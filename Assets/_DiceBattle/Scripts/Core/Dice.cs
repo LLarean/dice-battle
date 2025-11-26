@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
@@ -18,9 +19,11 @@ namespace DiceBattle.Core
         private Random _random;
         private DiceType _diceType = DiceType.Empty;
 
+        public event Action OnClicked;
+        
         public DiceType DiceType => _diceType;
         public bool IsLocked => _lockIndicator.gameObject.activeSelf;
-
+        
         public void Reset()
         {
             _diceType = DiceType.Empty;
@@ -48,7 +51,7 @@ namespace DiceBattle.Core
 
         private void Awake()
         {
-            _button.onClick.AddListener(OnClicked);
+            _button.onClick.AddListener(OnClick);
         }
 
         private void Start()
@@ -62,11 +65,11 @@ namespace DiceBattle.Core
             _button.onClick.RemoveAllListeners();
         }
 
-        private void OnClicked()
+        private void OnClick()
         {
             _lockIndicator.gameObject.SetActive(!_lockIndicator.gameObject.activeSelf);
             _typeIcon.color = _lockIndicator.gameObject.activeSelf ? Color.green : Color.white;
-
+            OnClicked?.Invoke();
             // TODO: SignalSystem.Raise - The cube is locked/unlocked (click sound)
         }
     }
