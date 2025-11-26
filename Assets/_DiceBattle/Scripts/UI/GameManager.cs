@@ -13,14 +13,13 @@ namespace DiceBattle.UI
     /// </summary>
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private DicePanel _dicePanel;
         [Header("Config")]
         [SerializeField] private GameConfig _config;
 
         [Header("UI References")]
         [SerializeField] private GameUI _gameUI;
         [SerializeField] private UnitPanel _enemy;
-        [SerializeField] private List<DiceUI> _diceUIList;
+        [SerializeField] private DicePanel _dicePanel;
 
         // Game state
         private List<Dice> _dices;
@@ -48,19 +47,6 @@ namespace DiceBattle.UI
         /// </summary>
         private void InitializeGame()
         {
-            // // Create dice
-            // _dices = new List<Dice>();
-            // for (int i = 0; i < _config.DiceCount; i++)
-            // {
-            //     _dices.Add(new Dice());
-            // }
-            //
-            // // Initialize dice UI
-            // for (int i = 0; i < _diceUIList.Count && i < _dices.Count; i++)
-            // {
-            //     _diceUIList[i].Initialize(_dices[i], _config.DiceSprites);
-            // }
-            
             _dicePanel.Initialize();
 
             // Initialize player
@@ -143,13 +129,7 @@ namespace DiceBattle.UI
         private void RollAllDice()
         {
             _dicePanel.RollAllDice();
-            // foreach (var dice in _dices)
-            // {
-            //     dice.Unlock();
-            //     dice.Roll();
-            // }
-            //
-            // UpdateDiceVisuals();
+            _dicePanel.UpdateDiceVisuals();
         }
 
         /// <summary>
@@ -158,27 +138,6 @@ namespace DiceBattle.UI
         private void RerollUnlockedDice()
         {
             _dicePanel.RerollUnlockedDice();
-            // foreach (var dice in _dices)
-            // {
-            //     if (!dice.IsLocked)
-            //     {
-            //         dice.Roll();
-            //     }
-            // }
-            //
-            // UpdateDiceVisuals();
-        }
-
-        /// <summary>
-        /// Update visual of all dice
-        /// </summary>
-        private void UpdateDiceVisuals()
-        {
-            // for (int i = 0; i < _diceUIList.Count && i < _dices.Count; i++)
-            // {
-            //     _diceUIList[i].UpdateVisual();
-            // }
-
             _dicePanel.UpdateDiceVisuals();
         }
 
@@ -328,12 +287,6 @@ namespace DiceBattle.UI
 
             // Reroll button (shown only after first roll)
             _gameUI.SetRerollButtonState(!_isFirstRoll, true);
-
-            // Dice are interactive only after first roll
-            foreach (var diceUI in _diceUIList)
-            {
-                diceUI.SetInteractable(!_isFirstRoll);
-            }
         }
 
         /// <summary>
