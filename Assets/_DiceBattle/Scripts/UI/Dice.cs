@@ -7,37 +7,46 @@ namespace DiceBattle.UI
 {
     [RequireComponent(typeof(Image))]
     [RequireComponent(typeof(Button))]
-    public class DiceUI : MonoBehaviour
+    public class Dice : MonoBehaviour
     {
         [SerializeField] private Button _button;
         [SerializeField] private Image _typeIcon;
-        [SerializeField] private Image _lockIndicator;
         [Space]
+        [SerializeField] private Image _lockIndicator;
+        [Header("Empty, Attack, Defense, Heal")]
         [SerializeField] private Sprite[] _diceSprites;
 
         private Random _random;
-        private DiceType _currentType = DiceType.Empty;
+        private DiceType _diceType = DiceType.Empty;
 
-        public DiceType CurrentType => _currentType;
+        public DiceType DiceType => _diceType;
         public bool IsLocked => _lockIndicator.gameObject.activeSelf;
 
-        public void Roll()
+        public void Reset()
         {
-            var randomValue = _random.Next(0, 4);
-            _currentType = (DiceType)randomValue;
-
-            SetTypeIcon();
+            _diceType = DiceType.Empty;
+            _typeIcon.sprite = _diceSprites[(int)_diceType];
             Unlock();
         }
 
-        public void Unlock() => _lockIndicator.gameObject.SetActive(false);
-        
-        public void Lock() => _lockIndicator.gameObject.SetActive(true);
+        public void Roll()
+        {
+            var randomIndex = _random.Next(0, _diceSprites.Length);
+            _diceType = (DiceType)randomIndex;
+            _typeIcon.sprite = _diceSprites[(int)_diceType];
+            Unlock();
+        }
+
+        public void Unlock()
+        {
+            _lockIndicator.gameObject.SetActive(false);
+            _typeIcon.color = Color.white;
+        }
 
         public void EnableInteractable() => _button.interactable = true;
-        
+
         public void DisableInteractable() => _button.interactable = false;
-        
+
         private void Awake()
         {
             _button.onClick.AddListener(OnClicked);
@@ -46,8 +55,7 @@ namespace DiceBattle.UI
         private void Start()
         {
             _random = new Random();
-            _typeIcon.sprite = _diceSprites[0];
-            _lockIndicator.gameObject.SetActive(false);
+            Reset();
         }
 
         private void OnDestroy()
@@ -61,16 +69,6 @@ namespace DiceBattle.UI
             _typeIcon.color = _lockIndicator.gameObject.activeSelf ? Color.green : Color.white;
 
             // TODO: SignalSystem.Raise - The cube is locked/unlocked (click sound)
-        }
-
-        private void SetTypeIcon()
-        {
-            var spriteIndex = (int)_currentType;
-            
-            if (spriteIndex < _diceSprites.Length)
-            {
-                _typeIcon.sprite = _diceSprites[spriteIndex];
-            }
         }
     }
 }

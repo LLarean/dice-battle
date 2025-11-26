@@ -132,7 +132,6 @@ namespace DiceBattle.UI
         private void RollAllDice()
         {
             _dicePanel.RollAllDice();
-            _dicePanel.UpdateDiceVisuals();
         }
 
         /// <summary>
@@ -141,7 +140,6 @@ namespace DiceBattle.UI
         private void RerollUnlockedDice()
         {
             _dicePanel.RerollUnlockedDice();
-            _dicePanel.UpdateDiceVisuals();
         }
 
         /// <summary>
@@ -156,7 +154,7 @@ namespace DiceBattle.UI
 
             foreach (var dice in _dicePanel.Dices)
             {
-                switch (dice.CurrentType)
+                switch (dice.DiceType)
                 {
                     case DiceType.Attack:
                         attack++;
