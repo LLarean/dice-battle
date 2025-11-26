@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -7,7 +8,6 @@ namespace DiceBattle.Screens
 {
     public class GameScreen : MonoBehaviour
     {
-        [Header("Panels")]
         [SerializeField] private UnitPanel _player;
         [SerializeField] private UnitPanel _enemy;
         [Space]
@@ -17,7 +17,6 @@ namespace DiceBattle.Screens
         [SerializeField] private TextMeshProUGUI _contextLabel;
 
         public event Action OnContextClicked;
-        public event Action OnDiceClicked;
 
         public void Initialize(int maxHealth)
         {
@@ -45,6 +44,21 @@ namespace DiceBattle.Screens
 
         private void ContextClick() => OnContextClicked?.Invoke();
 
-        private void DiceClick() => OnDiceClicked?.Invoke();
+        private void DiceClick()
+        {
+            SetContextLabel("Roll Selected");
+            
+            bool isAllLocked = _dicePanel.Dices.All(dice => dice.IsLocked);
+            bool isAllUnlocked = _dicePanel.Dices.All(dice => !dice.IsLocked);
+
+            if (isAllLocked)
+            {
+                SetContextLabel("End Turn");
+            }
+            if (isAllUnlocked)
+            {
+                SetContextLabel("Roll All");
+            }
+        }
     }
 }

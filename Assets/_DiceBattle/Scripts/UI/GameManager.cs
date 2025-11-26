@@ -34,7 +34,6 @@ namespace DiceBattle.UI
         private void Start()
         {
             _gameScreen.OnContextClicked += ContextAction;
-            _gameScreen.OnDiceClicked += DiceClick;
             _gameOverScreen.OnRestartClicked += OnRestartButtonClicked;
             InitializeGame();
         }
@@ -42,7 +41,6 @@ namespace DiceBattle.UI
         private void OnDestroy()
         {
             _gameScreen.OnContextClicked -= ContextAction;
-            _gameScreen.OnDiceClicked -= DiceClick;
             _gameOverScreen.OnRestartClicked -= OnRestartButtonClicked;
         }
         
@@ -74,38 +72,6 @@ namespace DiceBattle.UI
             {
                 _dicePanel.ShowAttempts(_maxAttempts - _attemptsCount);
                 EndPlayerTurn();
-            }
-        }
-        
-        private void DiceClick()
-        {
-            var isAllLocked = true;
-            var isAllUnlocked = true;
-            
-            foreach (var dice in _dicePanel.Dices)
-            {
-                if (dice.IsLocked == false)
-                {
-                    isAllLocked = false;
-                }
-                
-                if (dice.IsLocked)
-                {
-                    isAllUnlocked = false;
-                }
-            }
-
-            if (isAllLocked)
-            {
-                _gameScreen.SetContextLabel("Action");
-            }
-            else if (isAllUnlocked)
-            {
-                _gameScreen.SetContextLabel("Roll All");
-            }
-            else
-            {
-                _gameScreen.SetContextLabel("Roll Selected");
             }
         }
 
