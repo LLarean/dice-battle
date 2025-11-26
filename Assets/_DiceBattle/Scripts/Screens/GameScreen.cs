@@ -3,12 +3,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace DiceBattle.UI
+namespace DiceBattle.Screens
 {
     /// <summary>
     /// Control of the main UI of the game (Player's HP, buttons, Game Over)
     /// </summary>
-    public class GameUI : MonoBehaviour
+    public class GameScreen : MonoBehaviour
     {
         [Header("Unit Panels")]
         [SerializeField] private UnitPanel _player;
@@ -19,19 +19,19 @@ namespace DiceBattle.UI
         [SerializeField] private Button _rerollButton;
         [SerializeField] private TextMeshProUGUI _rollButtonText;
         [Space]
-        [SerializeField] private GameOverUI _gameOverUI;
+        [SerializeField] private GameOverScreen _gameOverScreen;
 
         private int _playerMaxHP;
         private event Action _onRestartClicked;
 
         private void Start()
         {
-            _gameOverUI.OnRestartClicked += OnRestartClick;
+            _gameOverScreen.OnRestartClicked += OnRestartClick;
         }
 
         private void OnDestroy()
         {
-            _gameOverUI.OnRestartClicked -= OnRestartClick;
+            _gameOverScreen.OnRestartClicked -= OnRestartClick;
         }
 
         /// <summary>
@@ -87,12 +87,12 @@ namespace DiceBattle.UI
         /// <summary>
         /// Show the Game Over screen
         /// </summary>
-        public void ShowGameOver(int enemiesDefeated) => _gameOverUI.Show(enemiesDefeated);
+        public void ShowGameOver(int enemiesDefeated) => _gameOverScreen.Show(enemiesDefeated);
 
         /// <summary>
         /// Hide the Game Over screen
         /// </summary>
-        public void HideGameOver() => _gameOverUI.gameObject.SetActive(false);
+        public void HideGameOver() => _gameOverScreen.gameObject.SetActive(false);
 
         /// <summary>
         /// Subscribe to button events (called from GameManager)

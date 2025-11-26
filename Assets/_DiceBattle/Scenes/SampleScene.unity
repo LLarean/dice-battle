@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 139924237}
   - component: {fileID: 139924238}
   m_Layer: 5
-  m_Name: GameOverUI
+  m_Name: GameOverScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -690,17 +690,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c41a0cc6d5264eb44b3e819cb73f4b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dicePanel: {fileID: 1345067140}
   _config: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
-  _gameUI: {fileID: 1004415171}
-  _enemyUI: {fileID: 0}
+  _gameScreen: {fileID: 1004415171}
   _enemy: {fileID: 2121550418}
-  _diceUIList:
-  - {fileID: 1450869789}
-  - {fileID: 1107512436}
-  - {fileID: 1975106483}
-  - {fileID: 961079922}
-  - {fileID: 1428900428}
+  _dicePanel: {fileID: 1345067140}
 --- !u!4 &580048881
 Transform:
   m_ObjectHideFlags: 0
@@ -1373,7 +1366,7 @@ GameObject:
   - component: {fileID: 1004415170}
   - component: {fileID: 1004415171}
   m_Layer: 5
-  m_Name: GameUI
+  m_Name: GameScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1422,7 +1415,7 @@ MonoBehaviour:
   _rollButton: {fileID: 657270278}
   _rerollButton: {fileID: 1341811156}
   _rollButtonText: {fileID: 1769482796}
-  _gameOverUI: {fileID: 139924238}
+  _gameOverScreen: {fileID: 139924238}
 --- !u!1 &1006147705
 GameObject:
   m_ObjectHideFlags: 0

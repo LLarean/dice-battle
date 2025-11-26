@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Data;
+using DiceBattle.Screens;
 using GameSignals;
 
 namespace DiceBattle.UI
@@ -17,7 +18,7 @@ namespace DiceBattle.UI
         [SerializeField] private GameConfig _config;
 
         [Header("UI References")]
-        [SerializeField] private GameUI _gameUI;
+        [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private UnitPanel _enemy;
         [SerializeField] private DicePanel _dicePanel;
 
@@ -58,11 +59,11 @@ namespace DiceBattle.UI
             _isGameOver = false;
 
             // Initialize UI
-            _gameUI.Initialize(_playerMaxHP);
-            _gameUI.UpdatePlayerHP(_playerHP);
-            _gameUI.UpdatePlayerDefense(0);
-            _gameUI.HideGameOver();
-            _gameUI.SubscribeToButtons(OnRollButtonClicked, OnRerollButtonClicked, OnRestartButtonClicked);
+            _gameScreen.Initialize(_playerMaxHP);
+            _gameScreen.UpdatePlayerHP(_playerHP);
+            _gameScreen.UpdatePlayerDefense(0);
+            _gameScreen.HideGameOver();
+            _gameScreen.SubscribeToButtons(OnRollButtonClicked, OnRerollButtonClicked, OnRestartButtonClicked);
 
             // Create first enemy
             SpawnNextEnemy();
@@ -171,14 +172,14 @@ namespace DiceBattle.UI
             if (heal > 0)
             {
                 _playerHP = Mathf.Min(_playerMaxHP, _playerHP + heal);
-                _gameUI.UpdatePlayerHP(_playerHP);
+                _gameScreen.UpdatePlayerHP(_playerHP);
                 
                 // TODO: SignalSystem.Raise - healing (amount: heal)
             }
 
             // Save defense for enemy's turn
             _currentDefense = defense;
-            _gameUI.UpdatePlayerDefense(_currentDefense);
+            _gameScreen.UpdatePlayerDefense(_currentDefense);
 
             // Attack enemy
             if (attack > 0 && _currentEnemy != null)
@@ -217,7 +218,7 @@ namespace DiceBattle.UI
             if (damageToPlayer > 0)
             {
                 _playerHP = Mathf.Max(0, _playerHP - damageToPlayer);
-                _gameUI.UpdatePlayerHP(_playerHP);
+                _gameScreen.UpdatePlayerHP(_playerHP);
                 
                 // TODO: SignalSystem.Raise - player took damage (amount: damageToPlayer)
 
@@ -230,7 +231,7 @@ namespace DiceBattle.UI
 
             // Reset defense after turn
             _currentDefense = 0;
-            _gameUI.UpdatePlayerDefense(0);
+            _gameScreen.UpdatePlayerDefense(0);
         }
 
         /// <summary>
@@ -246,7 +247,7 @@ namespace DiceBattle.UI
             // Start new turn
             _isFirstRoll = true;
             _currentDefense = 0;
-            _gameUI.UpdatePlayerDefense(0);
+            _gameScreen.UpdatePlayerDefense(0);
             UpdateButtonStates();
         }
 
@@ -259,7 +260,7 @@ namespace DiceBattle.UI
             
             // TODO: SignalSystem.Raise - Game Over
             
-            _gameUI.ShowGameOver(_enemiesDefeated - 1); // -1 because current enemy is not defeated
+            _gameScreen.ShowGameOver(_enemiesDefeated - 1); // -1 because current enemy is not defeated
             UpdateButtonStates();
         }
 
@@ -270,8 +271,8 @@ namespace DiceBattle.UI
         {
             if (_isGameOver)
             {
-                _gameUI.SetRollButtonState(true, false);
-                _gameUI.SetRerollButtonState(false, false);
+                _gameScreen.SetRollButtonState(true, false);
+                _gameScreen.SetRerollButtonState(false, false);
                 
                 // foreach (var diceUI in _diceUIList)
                 // {
@@ -283,10 +284,10 @@ namespace DiceBattle.UI
             }
 
             // Roll/Finish Turn button
-            _gameUI.SetRollButtonState(_isFirstRoll, true);
+            _gameScreen.SetRollButtonState(_isFirstRoll, true);
 
             // Reroll button (shown only after first roll)
-            _gameUI.SetRerollButtonState(!_isFirstRoll, true);
+            _gameScreen.SetRerollButtonState(!_isFirstRoll, true);
         }
 
         /// <summary>
