@@ -26,7 +26,6 @@ namespace DiceBattle.UI
         [SerializeField] private DicePanel _dicePanel;
 
         // Game state
-        private List<Dice> _dices;
         private Enemy _currentEnemy;
         private int _playerHP;
         private int _playerMaxHP;
