@@ -32,10 +32,10 @@ namespace DiceBattle.Data
         public int EnemyHPGrowth = 2;
         
         [Tooltip("Attack boost for every N enemies")]
-        public int EnemyAttackGrowthRate = 2; // +1 ATK каждые 2 врага
+        public int EnemyAttackGrowthRate = 2; // +1 ATK Every 2 enemies
         
         [Tooltip("Defense boost for every N enemies")]
-        public int EnemyDefenseGrowthRate = 3; // +1 DEF каждые 3 врага
+        public int EnemyDefenseGrowthRate = 3; // +1 DEF Every 3 enemies
 
         [Header("UI")]
         [Tooltip("Sprites for cube types (Empty, Attack, Defense, Heal)")]

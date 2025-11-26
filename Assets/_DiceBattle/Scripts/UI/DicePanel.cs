@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DiceBattle.Core;
 using UnityEngine;
@@ -10,6 +11,9 @@ namespace DiceBattle
         [SerializeField] private List<Dice> _dices;
 
         public List<Dice> Dices => _dices;
+        
+        public event Action OnDiceClicked;
+
         
         public void Initialize()
         {
@@ -31,7 +35,7 @@ namespace DiceBattle
             }
         }
 
-        public void RerollUnlockedDice()
+        public void RollUnlockedDice()
         {
             foreach (var dice in _dices)
             {
@@ -44,10 +48,38 @@ namespace DiceBattle
         
         public void EnableInteractable()
         {
-            foreach (var diceUI in _dices)
+            foreach (var dice in _dices)
             {
-                diceUI.EnableInteractable();
+                dice.EnableInteractable();
             }
         }
+        
+        public void DisableInteractable()
+        {
+            foreach (var dice in _dices)
+            {
+                dice.DisableInteractable();
+            }
+        }
+
+        public void ShowAttempts(int attemptCount) => _hint.ShowAttempts(attemptCount);
+
+        private void Start()
+        {
+            foreach (var dice in _dices)
+            {
+                dice.OnClicked += DiceClick;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var dice in _dices)
+            {
+                dice.OnClicked -= DiceClick;
+            }
+        }
+
+        private void DiceClick() => OnDiceClicked?.Invoke();
     }
 }
