@@ -22,17 +22,6 @@ namespace DiceBattle.Screens
         [SerializeField] private GameOverScreen _gameOverScreen;
 
         private int _playerMaxHP;
-        private event Action _onRestartClicked;
-
-        private void Start()
-        {
-            _gameOverScreen.OnRestartClicked += OnRestartClick;
-        }
-
-        private void OnDestroy()
-        {
-            _gameOverScreen.OnRestartClicked -= OnRestartClick;
-        }
 
         /// <summary>
         /// Initializes the game UI with the player's maximum HP.
@@ -97,14 +86,10 @@ namespace DiceBattle.Screens
         /// <summary>
         /// Subscribe to button events (called from GameManager)
         /// </summary>
-        public void SubscribeToButtons(System.Action onRoll, System.Action onReroll, System.Action onRestart)
+        public void SubscribeToButtons(Action onRoll, Action onReroll)
         {
             _rollButton.onClick.AddListener(() => onRoll?.Invoke());
             _rerollButton.onClick.AddListener(() => onReroll?.Invoke());
-
-            _onRestartClicked = onRestart;
         }
-
-        private void OnRestartClick() => _onRestartClicked?.Invoke();
     }
 }

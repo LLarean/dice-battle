@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using DiceBattle.Audio;
@@ -19,6 +20,8 @@ namespace DiceBattle.UI
 
         [Header("UI References")]
         [SerializeField] private GameScreen _gameScreen;
+        [SerializeField] private GameOverScreen _gameOverScreen;
+        [Space]
         [SerializeField] private UnitPanel _enemy;
         [SerializeField] private DicePanel _dicePanel;
 
@@ -34,13 +37,13 @@ namespace DiceBattle.UI
 
         private void Start()
         {
-            if (_config == null)
-            {
-                Debug.LogError("GameConfig is not assigned!");
-                return;
-            }
-
+            _gameOverScreen.OnRestartClicked += OnRestartButtonClicked;
             InitializeGame();
+        }
+
+        private void OnDestroy()
+        {
+            _gameOverScreen.OnRestartClicked -= OnRestartButtonClicked;
         }
 
         /// <summary>
@@ -63,7 +66,7 @@ namespace DiceBattle.UI
             _gameScreen.UpdatePlayerHP(_playerHP);
             _gameScreen.UpdatePlayerDefense(0);
             _gameScreen.HideGameOver();
-            _gameScreen.SubscribeToButtons(OnRollButtonClicked, OnRerollButtonClicked, OnRestartButtonClicked);
+            _gameScreen.SubscribeToButtons(OnRollButtonClicked, OnRerollButtonClicked);
 
             // Create first enemy
             SpawnNextEnemy();
