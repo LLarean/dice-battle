@@ -136,10 +136,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04ed7d2e2b117374c871a28d53722cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _button: {fileID: 799282914596039025}
   _typeIcon: {fileID: 2586893498527584149}
-  _lockIndicator: {fileID: 899951130923347657}
-  _normalColor: {r: 1, g: 1, b: 1, a: 1}
-  _lockedColor: {r: 0, g: 1, b: 0, a: 1}
+  _lockIndicator: {fileID: 7246564622824080386}
+  _diceSprites:
+  - {fileID: -8276531532356017539, guid: 64a52d2edcc0af241a2fe0f0d79c42b3, type: 3}
+  - {fileID: -2500287713041957420, guid: 15934780e3fe3a44cbb0440d31a52a8f, type: 3}
+  - {fileID: -4746029775332315738, guid: defcbf24c708b9844a3654434ba738b2, type: 3}
+  - {fileID: -860402343928173957, guid: 2c4a6953c04e3b040b4be57c5fb79064, type: 3}
 --- !u!114 &5989367836217258517
 MonoBehaviour:
   m_ObjectHideFlags: 0
