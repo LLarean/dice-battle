@@ -11,24 +11,21 @@ namespace DiceBattle.UI
     {
         [Header("Config")]
         [SerializeField] private GameConfig _config;
-
         [Header("UI References")]
         [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
         [Space]
         [SerializeField] private UnitPanel _enemy;
-        [SerializeField] private DicePanel _dicePanel;
 
         // Game state
         private Enemy _currentEnemy;
-        private int _playerHP;
-        private int _playerMaxHP;
-        private int _currentDefense; // Player's defense for this turn
+        private int _currentHealth;
+        private int _currentDefense;
         private int _enemiesDefeated;
-        private bool _isFirstRoll; // First roll or second (reroll)
+        
+        private bool _isFirstRoll;
         private bool _isGameOver;
         
-        private int _maxAttempts = 3;
         private int _attemptsCount;
 
         private void Start()
@@ -44,13 +41,27 @@ namespace DiceBattle.UI
             _gameOverScreen.OnRestartClicked -= OnRestartButtonClicked;
         }
         
+        private void InitializeGame()
+        {
+            _currentHealth = _config.PlayerStartHealth;
+            _currentDefense = 0;
+            _enemiesDefeated = 0;
+            _isFirstRoll = true;
+            _isGameOver = false;
+            _attemptsCount = 0;
+
+            _gameScreen.Initialize(_config.PlayerStartHealth);
+            
+            _gameOverScreen.gameObject.SetActive(false);
+            
+            SpawnNextEnemy();
+        }
+        
         private void ContextAction()
         {
-            if (_attemptsCount < _maxAttempts)
+            if (_attemptsCount < _config.MaxAttempts)
             {
-                _dicePanel.RollUnlockedDice();
-                
-                // _dicePanel.EnableInteractable();
+                _gameScreen.RollUnlockedDice();
                 
                 _isFirstRoll = false;
                 SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceRoll));
@@ -58,55 +69,23 @@ namespace DiceBattle.UI
 
             _attemptsCount++;
 
-            if (_attemptsCount < _maxAttempts)
+            if (_attemptsCount < _config.MaxAttempts)
             {
-                _dicePanel.EnableInteractable();
+                _gameScreen.EnableDiceInteractable();
             }
             else
             {
-                _dicePanel.DisableInteractable();
+                _gameScreen.DisableDiceInteractable();
             }
             
 
-            if (_attemptsCount == _maxAttempts)
+            if (_attemptsCount == _config.MaxAttempts)
             {
-                _dicePanel.ShowAttempts(_maxAttempts - _attemptsCount);
+                _gameScreen.ShowAttempts(_config.MaxAttempts - _attemptsCount);
                 EndPlayerTurn();
             }
         }
-
-        /// <summary>
-        /// Initialize a new game
-        /// </summary>
-        private void InitializeGame()
-        {
-            _dicePanel.Initialize();
-
-            // Initialize player
-            _playerMaxHP = _config.PlayerStartHP;
-            _playerHP = _playerMaxHP;
-            _currentDefense = 0;
-            _enemiesDefeated = 0;
-            _isFirstRoll = true;
-            _isGameOver = false;
-
-            // Initialize UI
-            _gameScreen.Initialize(_playerMaxHP);
-            _gameScreen.UpdateHealth(_playerHP);
-            _gameScreen.UpdatePlayerDefense(0);
-            
-            _gameOverScreen.gameObject.SetActive(false);
-            
-            // Create first enemy
-            SpawnNextEnemy();
-
-            // Configure button UI
-            UpdateButtonStates();
-        }
-
-        /// <summary>
-        /// Spawn next enemy
-        /// </summary>
+        
         private void SpawnNextEnemy()
         {
             _enemiesDefeated++;
@@ -120,45 +99,6 @@ namespace DiceBattle.UI
         }
 
         /// <summary>
-        /// "Roll Dice" / "End Turn" button
-        /// </summary>
-        private void OnRollButtonClicked()
-        {
-
-        }
-
-        /// <summary>
-        /// "Reroll" button
-        /// </summary>
-        private void OnRerollButtonClicked()
-        {
-            if (_isGameOver || _isFirstRoll) return;
-
-            if(_attemptsCount >= _maxAttempts) return;
-            
-            RerollUnlockedDice();
-            _attemptsCount++;
-            
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceReroll));
-        }
-
-        /// <summary>
-        /// Roll all dice
-        /// </summary>
-        private void RollAllDice()
-        {
-            _dicePanel.RollAllDice();
-        }
-
-        /// <summary>
-        /// Reroll unlocked dice
-        /// </summary>
-        private void RerollUnlockedDice()
-        {
-            
-        }
-
-        /// <summary>
         /// End player's turn (apply roll results)
         /// </summary>
         private void EndPlayerTurn()
@@ -168,7 +108,7 @@ namespace DiceBattle.UI
             int defense = 0;
             int heal = 0;
 
-            foreach (var dice in _dicePanel.Dices)
+            foreach (var dice in _gameScreen.Dices)
             {
                 switch (dice.DiceType)
                 {
@@ -209,18 +149,16 @@ namespace DiceBattle.UI
                 }
             }
 
-            // Enemy's turn
             EnemyTurn();
 
-            // Start new player turn
             _isFirstRoll = true;
             UpdateButtonStates();
         }
 
         private void ApplyHealing(int heal)
         {
-            _playerHP = Mathf.Min(_playerMaxHP, _playerHP + heal);
-            _gameScreen.UpdateHealth(_playerHP);
+            _currentHealth = Mathf.Min(_config.PlayerStartHealth, _currentHealth + heal);
+            _gameScreen.UpdateHealth(_currentHealth);
 
             // TODO: SignalSystem.Raise - healing (amount: heal)
         }
@@ -238,12 +176,12 @@ namespace DiceBattle.UI
 
             if (damageToPlayer > 0)
             {
-                _playerHP = Mathf.Max(0, _playerHP - damageToPlayer);
-                _gameScreen.UpdateHealth(_playerHP);
+                _currentHealth = Mathf.Max(0, _currentHealth - damageToPlayer);
+                _gameScreen.UpdateHealth(_currentHealth);
                 
                 // TODO: SignalSystem.Raise - player took damage (amount: damageToPlayer)
 
-                if (_playerHP <= 0)
+                if (_currentHealth <= 0)
                 {
                     OnPlayerDefeated();
                     return;
@@ -289,8 +227,8 @@ namespace DiceBattle.UI
         {
             if (_isGameOver)
             {
-                _gameScreen.SetContextLabel("Action");
-                _dicePanel.EnableInteractable();
+                // _gameScreen.SetContextLabel("Action");
+                _gameScreen.EnableDiceInteractable();
                 return;
             }
 

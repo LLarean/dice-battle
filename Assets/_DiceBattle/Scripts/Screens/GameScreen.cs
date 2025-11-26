@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using DiceBattle.Core;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -17,14 +19,26 @@ namespace DiceBattle.Screens
         [SerializeField] private TextMeshProUGUI _contextLabel;
 
         public event Action OnContextClicked;
+        
+        public List<Dice> Dices => _dicePanel.Dices;
 
         public void Initialize(int maxHealth)
         {
             _player.HideAllStats();
             _player.SetMaxHealth(maxHealth);
+            
+            _dicePanel.Initialize();
         }
 
+        public void EnableDiceInteractable() => _dicePanel.EnableInteractable();
+        
+        public void DisableDiceInteractable() => _dicePanel.DisableInteractable();
+
+        public void RollUnlockedDice() => _dicePanel.RollUnlockedDice();
+
         public void SetContextLabel(string label) => _contextLabel.text = label;
+
+        public void ShowAttempts(int attemptsCount) => _dicePanel.ShowAttempts(attemptsCount);
 
         public void UpdateHealth(int currentHealth) => _player.UpdateHealth(currentHealth);
 

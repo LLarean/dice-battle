@@ -11,7 +11,7 @@ namespace DiceBattle.Data
     {
         [Header("Player")]
         [Tooltip("The player's initial health")]
-        public int PlayerStartHP = 20;
+        public int PlayerStartHealth = 20;
 
         [Header("Dices")]
         [Tooltip("Number of dices")]
@@ -44,5 +44,9 @@ namespace DiceBattle.Data
         [Header("Enemies")]
         [Tooltip("Enemy Sprites")]
         public Sprite[] EnemiesPortraits = new Sprite[4];
+        
+        [Header("Maximum attempts")]
+        [Tooltip("Maximum number of dice rolls")]
+        public int MaxAttempts = 3;
     }
 }
