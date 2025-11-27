@@ -24,7 +24,7 @@ namespace DiceBattle.UI
         private bool _isFirstRoll;
         private bool _isGameOver;
 
-        private int _attemptsCount;
+        private int _attemptsIndex;
 
         #region Lifesycle
 
@@ -47,30 +47,29 @@ namespace DiceBattle.UI
 
         private void ContextAction()
         {
-            if (_attemptsCount < _config.MaxAttempts)
+            if (_attemptsIndex < _config.MaxAttempts - 1)
             {
                 _gameScreen.RollUnlockedDice();
                 
                 _isFirstRoll = false;
                 SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceRoll));
             }
+            else
+            {
+                _gameScreen.ShowAttempts(_config.MaxAttempts - _attemptsIndex);
+                EndTurn();
+            }
+            
+            _attemptsIndex++;
 
-            _attemptsCount++;
-
-            if (_attemptsCount < _config.MaxAttempts)
+            if (_attemptsIndex < _config.MaxAttempts - 1)
             {
                 _gameScreen.EnableDiceInteractable();
             }
             else
             {
                 _gameScreen.DisableDiceInteractable();
-            }
-            
-
-            if (_attemptsCount == _config.MaxAttempts)
-            {
-                _gameScreen.ShowAttempts(_config.MaxAttempts - _attemptsCount);
-                EndTurn();
+                _gameScreen.SetContextLabel("End Turn");
             }
         }
 
@@ -85,7 +84,7 @@ namespace DiceBattle.UI
             _enemiesDefeated = 0;
             _isFirstRoll = true;
             _isGameOver = false;
-            _attemptsCount = 0;
+            _attemptsIndex = 0;
 
             _gameScreen.Initialize(_config.PlayerStartHealth);
             _gameOverScreen.gameObject.SetActive(false);
