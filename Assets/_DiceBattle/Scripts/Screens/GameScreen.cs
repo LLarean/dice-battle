@@ -27,6 +27,7 @@ namespace DiceBattle.Screens
             _player.HideAllStats();
             _player.SetMaxHealth(maxHealth);
             
+            SetContextLabel("Roll All");
             _dicePanel.Initialize();
         }
 
