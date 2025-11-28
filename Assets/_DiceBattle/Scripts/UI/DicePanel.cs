@@ -33,6 +33,14 @@ namespace DiceBattle
                 dice.Roll();
             }
         }
+        
+        public void UnlockAll()
+        {
+            foreach (var dice in _dices)
+            {
+                dice.Unlock();
+            }
+        }
 
         public void RollUnlockedDice()
         {
