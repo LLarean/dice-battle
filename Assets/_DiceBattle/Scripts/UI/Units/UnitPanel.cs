@@ -24,6 +24,7 @@ namespace DiceBattle
         public void SetMaxHealth(int maxHealth)
         {
             _health.maxValue = maxHealth;
+            _health.value = _health.maxValue;
             _unitStats.ShowHealth($"{maxHealth}/{maxHealth}");
         }
 
