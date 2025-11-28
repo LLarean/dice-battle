@@ -45,6 +45,8 @@ namespace DiceBattle.Screens
 
         public void UpdatePlayerDefense(int defense) => _player.UpdateDefense(defense);
 
+        public void UnlockAll() => _dicePanel.UnlockAll();
+        
         private void Start()
         {
             _context.onClick.AddListener(ContextClick);

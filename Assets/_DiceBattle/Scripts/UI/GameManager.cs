@@ -49,7 +49,7 @@ namespace DiceBattle.UI
         {
             _attemptsIndex++;
 
-            if (_attemptsIndex is 1 or 2)
+            if (_attemptsIndex < _config.MaxAttempts)
             {
                 _gameScreen.RollUnlockedDice();
                 
@@ -62,15 +62,7 @@ namespace DiceBattle.UI
                 EndTurn();
             }
 
-            if (_attemptsIndex == 2)
-            {
-                _gameScreen.DisableDiceInteractable();
-                _gameScreen.SetContextLabel("End Turn");
-            }
-            else
-            {
-                _gameScreen.EnableDiceInteractable();
-            }
+            UpdateButtonStates();
         }
 
         private void OnRestartButtonClicked() => InitializeGame();
@@ -154,6 +146,11 @@ namespace DiceBattle.UI
             EnemyTurn();
 
             _isFirstRoll = true;
+            _attemptsIndex = 0;
+            
+            _gameScreen.UnlockAll();
+            _gameScreen.SetContextLabel("Roll All");
+            
             UpdateButtonStates();
         }
 
@@ -204,7 +201,9 @@ namespace DiceBattle.UI
             // Start new turn
             _isFirstRoll = true;
             _currentDefense = 0;
+            
             _gameScreen.UpdatePlayerDefense(0);
+            
             UpdateButtonStates();
         }
 
@@ -223,14 +222,22 @@ namespace DiceBattle.UI
 
         private void UpdateButtonStates()
         {
-            if (_isGameOver)
+            // if (_isGameOver)
+            // {
+            //     // _gameScreen.SetContextLabel("Action");
+            //     _gameScreen.EnableDiceInteractable();
+            //     return;
+            // }
+            
+            if (_attemptsIndex >= _config.MaxAttempts - 1)
             {
-                // _gameScreen.SetContextLabel("Action");
-                _gameScreen.EnableDiceInteractable();
-                return;
+                _gameScreen.DisableDiceInteractable();
+                _gameScreen.SetContextLabel("End Turn");
             }
-
-            _gameScreen.SetContextLabel("Roll All");
+            else
+            {
+                _gameScreen.EnableDiceInteractable();
+            }
         }
     }
 }
