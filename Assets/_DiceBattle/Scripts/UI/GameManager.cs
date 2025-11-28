@@ -232,6 +232,7 @@ namespace DiceBattle.UI
             if (_attemptsIndex >= _config.MaxAttempts - 1)
             {
                 _gameScreen.DisableDiceInteractable();
+                _gameScreen.UnlockAll();
                 _gameScreen.SetContextLabel("End Turn");
             }
             else

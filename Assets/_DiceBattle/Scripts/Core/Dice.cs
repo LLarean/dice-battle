@@ -68,7 +68,7 @@ namespace DiceBattle.Core
         private void OnClick()
         {
             _lockIndicator.gameObject.SetActive(!_lockIndicator.gameObject.activeSelf);
-            _typeIcon.color = _lockIndicator.gameObject.activeSelf ? Color.green : Color.white;
+            _typeIcon.color = _lockIndicator.gameObject.activeSelf ? Color.yellow : Color.white;
             OnClicked?.Invoke();
             // TODO: SignalSystem.Raise - The cube is locked/unlocked (click sound)
         }
