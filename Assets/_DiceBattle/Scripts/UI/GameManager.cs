@@ -47,7 +47,9 @@ namespace DiceBattle.UI
 
         private void ContextAction()
         {
-            if (_attemptsIndex < _config.MaxAttempts - 1)
+            _attemptsIndex++;
+
+            if (_attemptsIndex is 1 or 2)
             {
                 _gameScreen.RollUnlockedDice();
                 
@@ -59,17 +61,15 @@ namespace DiceBattle.UI
                 _gameScreen.ShowAttempts(_config.MaxAttempts - _attemptsIndex);
                 EndTurn();
             }
-            
-            _attemptsIndex++;
 
-            if (_attemptsIndex < _config.MaxAttempts - 1)
-            {
-                _gameScreen.EnableDiceInteractable();
-            }
-            else
+            if (_attemptsIndex == 2)
             {
                 _gameScreen.DisableDiceInteractable();
                 _gameScreen.SetContextLabel("End Turn");
+            }
+            else
+            {
+                _gameScreen.EnableDiceInteractable();
             }
         }
 
