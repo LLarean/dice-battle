@@ -16,6 +16,7 @@ namespace DiceBattle
         private void StartClick()
         {
             _gameScreen.gameObject.SetActive(true);
+            gameObject.SetActive(false);
         }
     }
 }
