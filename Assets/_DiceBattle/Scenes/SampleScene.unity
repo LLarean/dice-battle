@@ -990,6 +990,7 @@ MonoBehaviour:
   _config: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
   _gameScreen: {fileID: 1004415171}
   _gameOverScreen: {fileID: 139924238}
+  _lootScreen: {fileID: 30483745}
   _enemy: {fileID: 2121550418}
 --- !u!4 &580048881
 Transform:
@@ -3780,7 +3781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9095163842556213617, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       propertyPath: m_text
-      value: Start
+      value: Next
       objectReference: {fileID: 0}
     - target: {fileID: 9095163842556213617, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       propertyPath: m_fontSize

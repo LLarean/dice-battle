@@ -13,6 +13,7 @@ namespace DiceBattle.UI
         [Header("UI References")]
         [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
+        [SerializeField] private LootScreen _lootScreen;
         [Space]
         [SerializeField] private UnitPanel _enemy;
 
@@ -194,6 +195,8 @@ namespace DiceBattle.UI
         private void OnEnemyDefeated()
         {
             // TODO: SignalSystem.Raise - enemy defeated
+            
+            _lootScreen.gameObject.SetActive(true);
             
             // Spawn next enemy
             SpawnEnemy();
