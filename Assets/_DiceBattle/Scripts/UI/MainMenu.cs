@@ -17,6 +17,7 @@ namespace DiceBattle
         {
             _gameScreen.gameObject.SetActive(true);
             gameObject.SetActive(false);
+            // TODO: SignalSystem.Raise - The button is clicked (click sound)
         }
     }
 }
