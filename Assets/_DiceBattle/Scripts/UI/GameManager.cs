@@ -200,7 +200,7 @@ namespace DiceBattle.UI
         /// </summary>
         private void OnEnemyDefeated()
         {
-            // TODO: SignalSystem.Raise - enemy defeated
+            // TODO: SignalSystem.Raise - The sound of victory/defeat
             
             _lootScreen.gameObject.SetActive(true);
             
