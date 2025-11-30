@@ -14,6 +14,7 @@ namespace DiceBattle
         private void StartClick()
         {
             gameObject.SetActive(false);
+            // TODO: SignalSystem.Raise - The effect is clicked (select sound)
         }
     }
 }

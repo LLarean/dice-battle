@@ -64,9 +64,15 @@ namespace DiceBattle.UI
             }
 
             UpdateButtonStates();
+            // TODO: SignalSystem.Raise - The button is clicked (click sound)
         }
 
-        private void OnRestartButtonClicked() => InitializeGame();
+        private void OnRestartButtonClicked()
+        {
+            // TODO: SignalSystem.Raise - The button is clicked (click sound)
+            
+            InitializeGame();
+        }
 
         #endregion
 
