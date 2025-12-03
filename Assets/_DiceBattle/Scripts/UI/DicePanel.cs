@@ -7,11 +7,14 @@ namespace DiceBattle
 {
     public class DicePanel : MonoBehaviour
     {
+        [SerializeField] private Sockets _sockets;
+        [SerializeField] private DiceRollAnimation _diceRollAnimation;
+        [Space]
         [SerializeField] private Hint _hint;
         [SerializeField] private List<Dice> _dices;
 
         public List<Dice> Dices => _dices;
-        
+
         public event Action OnDiceClicked;
 
         public void Initialize()
@@ -21,10 +24,11 @@ namespace DiceBattle
                 dice.Reset();
                 dice.DisableInteractable();
             }
-            
+
+            _sockets.SetAll(_dices.ToArray());
             // _hint.ShowAttempts(3);
         }
-        
+
         public void RollAllDice()
         {
             foreach (var dice in _dices)
@@ -33,7 +37,7 @@ namespace DiceBattle
                 dice.Roll();
             }
         }
-        
+
         public void UnlockAll()
         {
             foreach (var dice in _dices)
@@ -44,15 +48,17 @@ namespace DiceBattle
 
         public void RollUnlockedDice()
         {
-            foreach (var dice in _dices)
+            var unclockedDices = GetUnlockedDices();
+
+            SetPosition(unclockedDices.ToArray());
+            _diceRollAnimation.RollAllDices();
+            
+            foreach (var dice in unclockedDices)
             {
-                if (dice.IsLocked == false)
-                {
-                    dice.Roll();
-                }
+                dice.Roll();
             }
         }
-        
+
         public void EnableInteractable()
         {
             foreach (var dice in _dices)
@@ -60,7 +66,7 @@ namespace DiceBattle
                 dice.EnableInteractable();
             }
         }
-        
+
         public void DisableInteractable()
         {
             foreach (var dice in _dices)
@@ -88,5 +94,29 @@ namespace DiceBattle
         }
 
         private void DiceClick() => OnDiceClicked?.Invoke();
+
+        private void SetPosition(Dice[] dices)
+        {
+            for (int i = 0; i < dices.Length; i++)
+            {
+                dices[i].transform.SetParent(transform);
+                dices[i].transform.localPosition = Vector3.zero;
+            }
+        }
+
+        private List<Dice> GetUnlockedDices()
+        {
+            List<Dice> dices = new List<Dice>();
+
+            foreach (var dice in _dices)
+            {
+                if (dice.IsLocked == false)
+                {
+                    dices.Add(dice);
+                }
+            }
+            
+            return dices;
+        }
     }
 }

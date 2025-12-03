@@ -3,9 +3,6 @@ using UnityEngine;
 
 namespace DiceBattle
 {
-    /// <summary>
-    /// Manages dice roll animations
-    /// </summary>
     public class DiceRollAnimation : MonoBehaviour
     {
         [Header("Dice Settings")]
@@ -23,71 +20,25 @@ namespace DiceBattle
         [SerializeField] private float _diceSize = 0.5f;
     
         private List<Vector2> _finalPositions = new List<Vector2>();
-    
-        /// <summary>
-        /// List of dice game objects
-        /// </summary>
-        public List<GameObject> Dices => _dices;
-    
-        /// <summary>
-        /// Roll area object reference
-        /// </summary>
-        public GameObject RollAreaObject => _rollAreaObject;
-    
-        /// <summary>
-        /// Minimum bounds of roll area
-        /// </summary>
-        public Vector2 RollAreaMin => _rollAreaMin;
-    
-        /// <summary>
-        /// Maximum bounds of roll area
-        /// </summary>
-        public Vector2 RollAreaMax => _rollAreaMax;
-    
-        /// <summary>
-        /// Duration of throw animation
-        /// </summary>
-        public float ThrowDuration => _throwDuration;
-    
-        /// <summary>
-        /// Height of throw arc
-        /// </summary>
-        public float ThrowHeight => _throwHeight;
-    
-        /// <summary>
-        /// Rotation speed in degrees per second
-        /// </summary>
-        public float RotationSpeed => _rotationSpeed;
-    
-        /// <summary>
-        /// Dice size for overlap checking
-        /// </summary>
-        public float DiceSize => _diceSize;
 
-        /// <summary>
-        /// Initialization
-        /// </summary>
         private void Start()
         {
+            LeanTween.init(1000);
+        
             // Check if dices are assigned
             if (_dices.Count == 0)
             {
-                Debug.LogError("Add dice objects to the list!");
+                Debug.LogError("Add dice to the list!");
             }
         }
 
-        /// <summary>
-        /// Roll all dice in the list
-        /// </summary>
+        // Call this method to roll ALL dice
         public void RollAllDices()
         {
             RollDices(_dices);
         }
     
-        /// <summary>
-        /// Roll specific dice from the list
-        /// </summary>
-        /// <param name="dicesToRoll">List of dice game objects to roll</param>
+        // Call this method to roll specific dice
         public void RollDices(List<GameObject> dicesToRoll)
         {
             if (dicesToRoll == null || dicesToRoll.Count == 0)
@@ -96,7 +47,7 @@ namespace DiceBattle
                 return;
             }
         
-            UpdateAreaBounds();
+            UpdateAreaBounds(); // Update bounds from object
             GenerateNonOverlappingPositions(dicesToRoll.Count);
         
             for (int i = 0; i < dicesToRoll.Count; i++)
@@ -105,10 +56,7 @@ namespace DiceBattle
             }
         }
     
-        /// <summary>
-        /// Roll dice by their indices
-        /// </summary>
-        /// <param name="indices">List of dice indices to roll</param>
+        // Roll dice by indices (e.g., [0, 2, 4] for 1st, 3rd and 5th dice)
         public void RollDicesByIndices(List<int> indices)
         {
             List<GameObject> dicesToRoll = new List<GameObject>();
@@ -124,9 +72,6 @@ namespace DiceBattle
             RollDices(dicesToRoll);
         }
 
-        /// <summary>
-        /// Update roll area bounds from the roll area object
-        /// </summary>
         private void UpdateAreaBounds()
         {
             if (_rollAreaObject != null)
@@ -168,10 +113,6 @@ namespace DiceBattle
             }
         }
 
-        /// <summary>
-        /// Generate non-overlapping positions for dice
-        /// </summary>
-        /// <param name="diceCount">Number of dice to position</param>
         private void GenerateNonOverlappingPositions(int diceCount)
         {
             _finalPositions.Clear();
@@ -185,7 +126,7 @@ namespace DiceBattle
             
                 while (!validPosition && attempts < maxAttempts)
                 {
-                    // Generate random position within area
+                    // Generate random position in area
                     newPos = new Vector2(
                         Random.Range(_rollAreaMin.x, _rollAreaMax.x),
                         Random.Range(_rollAreaMin.y, _rollAreaMax.y)
@@ -210,12 +151,6 @@ namespace DiceBattle
             }
         }
 
-        /// <summary>
-        /// Animate a single dice
-        /// </summary>
-        /// <param name="dice">Dice game object</param>
-        /// <param name="targetPos">Target position</param>
-        /// <param name="index">Dice index</param>
         private void AnimateDice(GameObject dice, Vector2 targetPos, int index)
         {
             Vector3 startPos = dice.transform.position;
@@ -274,24 +209,17 @@ namespace DiceBattle
                 .setLoopPingPong(1);
         }
 
-        /// <summary>
-        /// Called when dice roll animation completes
-        /// </summary>
-        /// <param name="dice">Dice game object</param>
-        /// <param name="index">Dice index</param>
         private void OnDiceRollComplete(GameObject dice, int index)
         {
-            // Add logic after animation completion here
+            // Here you can add logic after animation completion
             if (index == _dices.Count - 1)
             {
                 Debug.Log("All dice have landed!");
-                // Call your callback or event here
+                // Call your callback or event
             }
         }
 
-        /// <summary>
-        /// Editor testing
-        /// </summary>
+        // For testing in editor
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -312,9 +240,7 @@ namespace DiceBattle
             }
         }
 
-        /// <summary>
-        /// Visualize roll area in editor
-        /// </summary>
+        // Visualize roll area in editor
         private void OnDrawGizmos()
         {
             if (_rollAreaObject != null)

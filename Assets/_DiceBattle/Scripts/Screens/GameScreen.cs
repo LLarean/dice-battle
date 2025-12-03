@@ -14,7 +14,6 @@ namespace DiceBattle.Screens
         [SerializeField] private UnitPanel _enemy;
         [Space]
         [SerializeField] private DicePanel _dicePanel;
-        [SerializeField] private Sockets _sockets;
         [Space]
         [SerializeField] private Button _context;
         [SerializeField] private TextMeshProUGUI _contextLabel;
@@ -27,8 +26,6 @@ namespace DiceBattle.Screens
         {
             _player.HideAllStats();
             _player.SetMaxHealth(maxHealth);
-            
-            // _sockets.SetAll(_dicePanel.Dices.ToArray());
             
             SetContextLabel("Roll All");
             _dicePanel.Initialize();

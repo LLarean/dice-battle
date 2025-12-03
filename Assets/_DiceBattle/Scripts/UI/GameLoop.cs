@@ -7,9 +7,10 @@ using UnityEngine;
 
 namespace DiceBattle.UI
 {
-    public class GameManager : MonoBehaviour
+    public class GameLoop : MonoBehaviour
     {
         [SerializeField] private GameConfig _config;
+        [SerializeField] private DiceRollAnimation _diceRollAnimation;
         [Header("UI References")]
         [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
