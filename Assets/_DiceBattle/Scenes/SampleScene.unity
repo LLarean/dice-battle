@@ -551,7 +551,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2854828848614089432, guid: af7ac7decc0e74244af577063497e73f, type: 3}
       propertyPath: m_Name
-      value: Socket (2)
+      value: DiceSlot_2
       objectReference: {fileID: 0}
     - target: {fileID: 6413599442766105796, guid: af7ac7decc0e74244af577063497e73f, type: 3}
       propertyPath: m_Pivot.x
@@ -687,7 +687,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2854828848614089432, guid: af7ac7decc0e74244af577063497e73f, type: 3}
       propertyPath: m_Name
-      value: Socket (3)
+      value: DiceSlot_3
       objectReference: {fileID: 0}
     - target: {fileID: 6413599442766105796, guid: af7ac7decc0e74244af577063497e73f, type: 3}
       propertyPath: m_Pivot.x
@@ -1626,7 +1626,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2854828848614089432, guid: af7ac7decc0e74244af577063497e73f, type: 3}
       propertyPath: m_Name
-      value: Socket (4)
+      value: DiceSlot_4
       objectReference: {fileID: 0}
     - target: {fileID: 6413599442766105796, guid: af7ac7decc0e74244af577063497e73f, type: 3}
       propertyPath: m_Pivot.x
@@ -3329,7 +3329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1366a9af0cb939441b1195e3e14eec30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sockets: {fileID: 1607898075}
+  _diceHolder: {fileID: 1607898075}
   _diceRollAnimation: {fileID: 840026521}
   _hint: {fileID: 2117777944}
   _dices:
@@ -3525,7 +3525,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2854828848614089432, guid: af7ac7decc0e74244af577063497e73f, type: 3}
       propertyPath: m_Name
-      value: Socket (1)
+      value: DiceSlot_1
       objectReference: {fileID: 0}
     - target: {fileID: 6413599442766105796, guid: af7ac7decc0e74244af577063497e73f, type: 3}
       propertyPath: m_Pivot.x
@@ -3925,7 +3925,7 @@ GameObject:
   - component: {fileID: 1607898075}
   - component: {fileID: 1607898074}
   m_Layer: 5
-  m_Name: Sockets
+  m_Name: DiceHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5142,7 +5142,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2854828848614089432, guid: af7ac7decc0e74244af577063497e73f, type: 3}
       propertyPath: m_Name
-      value: Socket
+      value: DiceSlot_0
       objectReference: {fileID: 0}
     - target: {fileID: 6413599442766105796, guid: af7ac7decc0e74244af577063497e73f, type: 3}
       propertyPath: m_Pivot.x

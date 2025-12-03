@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 3594101302410419217}
   - component: {fileID: 5535317185315537237}
   m_Layer: 5
-  m_Name: Socket
+  m_Name: DiceSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
