@@ -21,8 +21,8 @@ namespace DiceBattle
         {
             foreach (var dice in _dices)
             {
-                dice.Reset();
-                dice.DisableInteractable();
+                dice.ResetToEmpty();
+                dice.DisableButton();
             }
 
             _diceHolder.PlaceSet(_dices);
@@ -33,7 +33,7 @@ namespace DiceBattle
         {
             foreach (var dice in _dices)
             {
-                dice.Unlock();
+                dice.ClearSelection();
             }
         }
 
@@ -54,7 +54,7 @@ namespace DiceBattle
         {
             foreach (var dice in _dices)
             {
-                dice.EnableInteractable();
+                dice.EnableButton();
             }
         }
 
@@ -62,7 +62,7 @@ namespace DiceBattle
         {
             foreach (var dice in _dices)
             {
-                dice.DisableInteractable();
+                dice.DisableButton();
             }
         }
 
