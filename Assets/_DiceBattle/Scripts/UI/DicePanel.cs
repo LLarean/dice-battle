@@ -7,7 +7,7 @@ namespace DiceBattle
 {
     public class DicePanel : MonoBehaviour
     {
-        [SerializeField] private Sockets _sockets;
+        [SerializeField] private DiceTray diceTray;
         [SerializeField] private DiceRollAnimation _diceRollAnimation;
         [Space]
         [SerializeField] private Hint _hint;
@@ -25,7 +25,7 @@ namespace DiceBattle
                 dice.DisableInteractable();
             }
 
-            _sockets.SetAll(_dices.ToArray());
+            diceTray.SetAllDices(_dices.ToArray());
             // _hint.ShowAttempts(3);
         }
 
