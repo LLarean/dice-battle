@@ -33,7 +33,7 @@ namespace DiceBattle
         //     }
         // }
 
-        public List<Dice> GetUnlockedDices()
+        public List<Dice> GetSelectedDices()
         {
             var dices = new List<Dice>();
 
@@ -44,7 +44,7 @@ namespace DiceBattle
                     continue;
                 }
 
-                if (_occupied[i].IsMarked)
+                if (_occupied[i].IsSelected == false)
                 {
                     continue;
                 }

@@ -37,9 +37,9 @@ namespace DiceBattle
             }
         }
 
-        public void RollUnlockedDice()
+        public void RollSelectedDices()
         {
-            List<Dice> unclockedDices = _diceHolder.GetUnlockedDices();
+            List<Dice> unclockedDices = _diceHolder.GetSelectedDices();
 
             SetPosition(unclockedDices.ToArray());
             _diceRollAnimation.RollAllDices();

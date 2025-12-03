@@ -53,8 +53,8 @@ namespace DiceBattle.UI
 
             if (_attemptsIndex < _config.MaxAttempts)
             {
-                _gameScreen.RollUnlockedDice();
-                
+                _gameScreen.RollSelectedDices();
+
                 _isFirstRoll = false;
                 SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceRoll));
             }
@@ -71,7 +71,7 @@ namespace DiceBattle.UI
         private void OnRestartButtonClicked()
         {
             // TODO: SignalSystem.Raise - The button is clicked (click sound)
-            
+
             InitializeGame();
         }
 
@@ -90,13 +90,13 @@ namespace DiceBattle.UI
             _gameOverScreen.gameObject.SetActive(false);
             SpawnEnemy();
         }
-        
+
         private void SpawnEnemy()
         {
             _enemiesDefeated++;
 
             var portrait = _config.EnemiesPortraits[_enemiesDefeated - 1];
-            
+
             _currentEnemy = Enemy.Create(_enemiesDefeated, portrait);
             _enemy.ShowEnemy(_currentEnemy);
 
@@ -141,9 +141,9 @@ namespace DiceBattle.UI
             {
                 int damageDealt = _currentEnemy.TakeDamage(attack);
                 _enemy.UpdateDisplay();
-                
+
                 // TODO: SignalSystem.Raise - player attack (damage: damageDealt)
-                
+
                 if (!_currentEnemy.IsAlive)
                 {
                     OnEnemyDefeated();
@@ -155,10 +155,10 @@ namespace DiceBattle.UI
 
             _isFirstRoll = true;
             _attemptsIndex = 0;
-            
+
             _gameScreen.UnlockAll();
             _gameScreen.SetContextLabel("Roll All");
-            
+
             UpdateButtonStates();
         }
 
@@ -182,7 +182,7 @@ namespace DiceBattle.UI
             {
                 _currentHealth = Mathf.Max(0, _currentHealth - damageToPlayer);
                 _gameScreen.UpdateHealth(_currentHealth);
-                
+
                 // TODO: SignalSystem.Raise - player took damage (amount: damageToPlayer)
 
                 if (_currentHealth <= 0)
@@ -202,18 +202,18 @@ namespace DiceBattle.UI
         private void OnEnemyDefeated()
         {
             // TODO: SignalSystem.Raise - The sound of victory/defeat
-            
+
             _lootScreen.gameObject.SetActive(true);
-            
+
             // Spawn next enemy
             SpawnEnemy();
 
             // Start new turn
             _isFirstRoll = true;
             _currentDefense = 0;
-            
+
             _gameScreen.UpdatePlayerDefense(0);
-            
+
             UpdateButtonStates();
         }
 
@@ -223,9 +223,9 @@ namespace DiceBattle.UI
         private void OnPlayerDefeated()
         {
             _isGameOver = true;
-            
+
             // TODO: SignalSystem.Raise - Game Over
-            
+
             _gameOverScreen.Show(_enemiesDefeated - 1);
             UpdateButtonStates();
         }
@@ -238,7 +238,7 @@ namespace DiceBattle.UI
             //     _gameScreen.EnableDiceInteractable();
             //     return;
             // }
-            
+
             if (_attemptsIndex >= _config.MaxAttempts - 1)
             {
                 _gameScreen.DisableDiceInteractable();
