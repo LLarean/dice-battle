@@ -23,7 +23,7 @@ namespace DiceBattle.Core
         public event Action OnClicked;
 
         public DiceType DiceType => _diceType;
-        public bool IsMarked => _selectionIcon.gameObject.activeSelf;
+        public bool IsSelected => _selectionIcon.gameObject.activeSelf;
 
         public void ResetToEmpty()
         {

@@ -19,23 +19,23 @@ namespace DiceBattle.Screens
         [SerializeField] private TextMeshProUGUI _contextLabel;
 
         public event Action OnContextClicked;
-        
+
         public List<Dice> Dices => _dicePanel.Dices;
 
         public void Initialize(int maxHealth)
         {
             _player.HideAllStats();
             _player.SetMaxHealth(maxHealth);
-            
+
             SetContextLabel("Roll All");
             _dicePanel.Initialize();
         }
 
         public void EnableDiceInteractable() => _dicePanel.EnableInteractable();
-        
+
         public void DisableDiceInteractable() => _dicePanel.DisableInteractable();
 
-        public void RollUnlockedDice() => _dicePanel.RollUnlockedDice();
+        public void RollSelectedDices() => _dicePanel.RollSelectedDices();
 
         public void SetContextLabel(string label) => _contextLabel.text = label;
 
@@ -46,7 +46,7 @@ namespace DiceBattle.Screens
         public void UpdatePlayerDefense(int defense) => _player.UpdateDefense(defense);
 
         public void UnlockAll() => _dicePanel.UnlockAll();
-        
+
         private void Start()
         {
             _context.onClick.AddListener(ContextClick);
@@ -64,9 +64,9 @@ namespace DiceBattle.Screens
         private void DiceClick()
         {
             SetContextLabel("Roll Unselected");
-            
-            bool isAllLocked = _dicePanel.Dices.All(dice => dice.IsMarked);
-            bool isAllUnlocked = _dicePanel.Dices.All(dice => !dice.IsMarked);
+
+            bool isAllLocked = _dicePanel.Dices.All(dice => dice.IsSelected);
+            bool isAllUnlocked = _dicePanel.Dices.All(dice => !dice.IsSelected);
 
             if (isAllLocked)
             {
