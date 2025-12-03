@@ -7,7 +7,7 @@ namespace DiceBattle
 {
     public class DicePanel : MonoBehaviour
     {
-        [SerializeField] private DiceTray diceTray;
+        [SerializeField] private DiceHolder _diceHolder;
         [SerializeField] private DiceRollAnimation _diceRollAnimation;
         [Space]
         [SerializeField] private Hint _hint;
@@ -25,17 +25,8 @@ namespace DiceBattle
                 dice.DisableInteractable();
             }
 
-            diceTray.SetAllDices(_dices.ToArray());
+            _diceHolder.PlaceSet(_dices);
             // _hint.ShowAttempts(3);
-        }
-
-        public void RollAllDice()
-        {
-            foreach (var dice in _dices)
-            {
-                dice.Unlock();
-                dice.Roll();
-            }
         }
 
         public void UnlockAll()
@@ -48,11 +39,11 @@ namespace DiceBattle
 
         public void RollUnlockedDice()
         {
-            var unclockedDices = GetUnlockedDices();
+            List<Dice> unclockedDices = _diceHolder.GetUnlockedDices();
 
             SetPosition(unclockedDices.ToArray());
             _diceRollAnimation.RollAllDices();
-            
+
             foreach (var dice in unclockedDices)
             {
                 dice.Roll();
@@ -83,6 +74,8 @@ namespace DiceBattle
             {
                 dice.OnClicked += DiceClick;
             }
+
+            _diceRollAnimation.OnDiceRollComplete += ReturnDiceToHolder;
         }
 
         private void OnDestroy()
@@ -91,6 +84,8 @@ namespace DiceBattle
             {
                 dice.OnClicked -= DiceClick;
             }
+
+            _diceRollAnimation.OnDiceRollComplete -= ReturnDiceToHolder;
         }
 
         private void DiceClick() => OnDiceClicked?.Invoke();
@@ -104,19 +99,10 @@ namespace DiceBattle
             }
         }
 
-        private List<Dice> GetUnlockedDices()
+        private void ReturnDiceToHolder()
         {
-            List<Dice> dices = new List<Dice>();
-
-            foreach (var dice in _dices)
-            {
-                if (dice.IsLocked == false)
-                {
-                    dices.Add(dice);
-                }
-            }
-            
-            return dices;
+            _diceHolder.PlaceSet(_dices);
         }
+
     }
 }
