@@ -10,54 +10,54 @@ namespace DiceBattle.Core
     public class Dice : MonoBehaviour
     {
         [SerializeField] private Button _button;
-        [SerializeField] private Image _typeIcon;
+        [SerializeField] private Image _image;
         [Space]
-        [SerializeField] private Image _lockIndicator;
+        [SerializeField] private Image _faceIcon;
+        [SerializeField] private Image _selectionIcon;
         [Header("Empty, Attack, Defense, Heal")]
-        [SerializeField] private Sprite[] _diceSprites;
+        [SerializeField] private Sprite[] _faceSprites;
 
         private Random _random;
         private DiceType _diceType = DiceType.Empty;
 
         public event Action OnClicked;
-        
+
         public DiceType DiceType => _diceType;
-        public bool IsLocked => _lockIndicator.gameObject.activeSelf;
-        
-        public void Reset()
+        public bool IsMarked => _selectionIcon.gameObject.activeSelf;
+
+        public void ResetToEmpty()
         {
             _diceType = DiceType.Empty;
-            _typeIcon.sprite = _diceSprites[(int)_diceType];
-            Unlock();
+            _faceIcon.sprite = _faceSprites[(int)_diceType];
+
+            ClearSelection();
         }
 
         public void Roll()
         {
-            var randomIndex = _random.Next(0, _diceSprites.Length);
+            int randomIndex = _random.Next(0, _faceSprites.Length);
             _diceType = (DiceType)randomIndex;
-            _typeIcon.sprite = _diceSprites[(int)_diceType];
-            Unlock();
+            _faceIcon.sprite = _faceSprites[(int)_diceType];
+
+            ClearSelection();
         }
 
-        public void Unlock()
+        public void ClearSelection()
         {
-            _lockIndicator.gameObject.SetActive(false);
-            _typeIcon.color = Color.black;
+            _selectionIcon.gameObject.SetActive(false);
+            _image.color = Color.white;
         }
 
-        public void EnableInteractable() => _button.interactable = true;
+        public void EnableButton() => _button.interactable = true;
 
-        public void DisableInteractable() => _button.interactable = false;
-
-        private void Awake()
-        {
-            _button.onClick.AddListener(OnClick);
-        }
+        public void DisableButton() => _button.interactable = false;
 
         private void Start()
         {
+            _button.onClick.AddListener(ToggleSelection);
             _random = new Random();
-            Reset();
+
+            ResetToEmpty();
         }
 
         private void OnDestroy()
@@ -65,12 +65,14 @@ namespace DiceBattle.Core
             _button.onClick.RemoveAllListeners();
         }
 
-        private void OnClick()
+        private void ToggleSelection()
         {
-            _lockIndicator.gameObject.SetActive(!_lockIndicator.gameObject.activeSelf);
-            _typeIcon.color = _lockIndicator.gameObject.activeSelf ? Color.green : Color.black;
+            // TODO: SignalSystem.Raise - The cube is marked/unmarked (click sound)
+
+            _selectionIcon.gameObject.SetActive(!_selectionIcon.gameObject.activeSelf);
+            _image.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
+
             OnClicked?.Invoke();
-            // TODO: SignalSystem.Raise - The cube is locked/unlocked (click sound)
         }
     }
 }

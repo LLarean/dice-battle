@@ -44,7 +44,7 @@ namespace DiceBattle
                     continue;
                 }
 
-                if (_occupied[i].IsLocked)
+                if (_occupied[i].IsMarked)
                 {
                     continue;
                 }

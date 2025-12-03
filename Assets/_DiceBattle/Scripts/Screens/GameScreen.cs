@@ -65,8 +65,8 @@ namespace DiceBattle.Screens
         {
             SetContextLabel("Roll Unselected");
             
-            bool isAllLocked = _dicePanel.Dices.All(dice => dice.IsLocked);
-            bool isAllUnlocked = _dicePanel.Dices.All(dice => !dice.IsLocked);
+            bool isAllLocked = _dicePanel.Dices.All(dice => dice.IsMarked);
+            bool isAllUnlocked = _dicePanel.Dices.All(dice => !dice.IsMarked);
 
             if (isAllLocked)
             {
