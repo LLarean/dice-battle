@@ -13,14 +13,14 @@ namespace DiceBattle.Screens
         [SerializeField] private UnitPanel _player;
         [SerializeField] private UnitPanel _enemy;
         [Space]
-        [SerializeField] private DicePanel _dicePanel;
+        [SerializeField] private GameBoard _gameBoard;
         [Space]
         [SerializeField] private Button _context;
         [SerializeField] private TextMeshProUGUI _contextLabel;
 
         public event Action OnContextClicked;
 
-        public List<Dice> Dices => _dicePanel.Dices;
+        public List<Dice> Dices => _gameBoard.Dices;
 
         public void Initialize(int maxHealth)
         {
@@ -28,54 +28,62 @@ namespace DiceBattle.Screens
             _player.SetMaxHealth(maxHealth);
 
             SetContextLabel("Roll All");
-            _dicePanel.Initialize();
         }
 
-        public void EnableDiceInteractable() => _dicePanel.EnableInteractable();
+        public void EnableDiceInteractable() => _gameBoard.EnableAllDice();
 
-        public void DisableDiceInteractable() => _dicePanel.DisableInteractable();
+        public void DisableDiceInteractable() => _gameBoard.DisableAllDice();
 
-        public void RollSelectedDices() => _dicePanel.RollSelectedDices();
+        public void RollAllDice() => _gameBoard.RollAllDice();
+
+        public void RerollSelectedDice() => _gameBoard.RerollSelectedDice();
 
         public void SetContextLabel(string label) => _contextLabel.text = label;
 
-        public void ShowAttempts(int attemptsCount) => _dicePanel.ShowAttempts(attemptsCount);
+        // public void ShowAttempts(int attemptsCount) => _dicePanel.ShowAttempts(attemptsCount);
 
         public void UpdateHealth(int currentHealth) => _player.UpdateHealth(currentHealth);
 
         public void UpdatePlayerDefense(int defense) => _player.UpdateDefense(defense);
 
-        public void UnlockAll() => _dicePanel.UnlockAll();
+        public void UnlockAll() => _gameBoard.ClearAllSelection();
 
         private void Start()
         {
             _context.onClick.AddListener(ContextClick);
-            _dicePanel.OnDiceClicked += DiceClick;
+            _gameBoard.OnDiceToggled += HandleDiceToggle;
+            _gameBoard.OnRollCompleted += HandleRollComplete;
         }
 
         private void OnDestroy()
         {
             _context.onClick.RemoveAllListeners();
-            _dicePanel.OnDiceClicked -= DiceClick;
+            _gameBoard.OnDiceToggled -= HandleDiceToggle;
+            _gameBoard.OnRollCompleted -= HandleRollComplete;
         }
 
         private void ContextClick() => OnContextClicked?.Invoke();
 
-        private void DiceClick()
+        private void HandleDiceToggle()
         {
-            SetContextLabel("Roll Unselected");
+            SetContextLabel("Reroll Selected");
 
-            bool isAllLocked = _dicePanel.Dices.All(dice => dice.IsSelected);
-            bool isAllUnlocked = _dicePanel.Dices.All(dice => !dice.IsSelected);
+            bool isAllSelected = _gameBoard.Dices.All(dice => dice.IsSelected);
+            bool isAllUnselected = _gameBoard.Dices.All(dice => !dice.IsSelected);
 
-            if (isAllLocked)
+            if (isAllSelected)
             {
-                SetContextLabel("End Turn");
+                SetContextLabel("Reroll All");
             }
-            if (isAllUnlocked)
+            if (isAllUnselected)
             {
-                SetContextLabel("Roll All");
+                SetContextLabel("Skip");
             }
+        }
+
+        private void HandleRollComplete()
+        {
+            //TODO logic unlock button
         }
     }
 }

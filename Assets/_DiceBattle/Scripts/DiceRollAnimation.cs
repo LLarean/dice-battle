@@ -37,22 +37,9 @@ namespace DiceBattle
             }
         }
 
-        // Call this method to roll ALL dice
-        public void RollAllDices()
-        {
-            RollDices(_dices);
-        }
-
-        // Call this method to roll specific dice
         public void RollDices(List<Dice> dicesToRoll)
         {
-            if (dicesToRoll == null || dicesToRoll.Count == 0)
-            {
-                Debug.LogWarning("No dice to roll!");
-                return;
-            }
-
-            UpdateAreaBounds(); // Update bounds from object
+            UpdateAreaBounds();
             GenerateNonOverlappingPositions(dicesToRoll.Count);
 
             for (int i = 0; i < dicesToRoll.Count; i++)
@@ -223,27 +210,6 @@ namespace DiceBattle
 
                 OnDiceRollComplete?.Invoke();
                 // Call your callback or event
-            }
-        }
-
-        // For testing in editor
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                RollAllDices();
-            }
-
-            // Test: roll only first 3 dice
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                RollDicesByIndices(new List<int> { 0, 1, 2 });
-            }
-
-            // Test: roll only 2nd and 4th dice
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                RollDicesByIndices(new List<int> { 1, 3 });
             }
         }
 
