@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DiceBattle.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,7 +9,7 @@ namespace DiceBattle
     public class DiceRollAnimation : MonoBehaviour
     {
         [Header("Dice Settings")]
-        [SerializeField] private List<GameObject> _dices = new List<GameObject>();
+        [SerializeField] private List<Dice> _dices = new();
 
         [Header("Roll Area")]
         [SerializeField] private GameObject _rollAreaObject;
@@ -21,7 +22,7 @@ namespace DiceBattle
         [SerializeField] private float _rotationSpeed = 720f;
         [SerializeField] private float _diceSize = 0.5f;
 
-        private List<Vector2> _finalPositions = new List<Vector2>();
+        private List<Vector2> _finalPositions = new();
 
         public event Action OnDiceRollComplete;
 
@@ -43,7 +44,7 @@ namespace DiceBattle
         }
 
         // Call this method to roll specific dice
-        public void RollDices(List<GameObject> dicesToRoll)
+        public void RollDices(List<Dice> dicesToRoll)
         {
             if (dicesToRoll == null || dicesToRoll.Count == 0)
             {
@@ -56,14 +57,14 @@ namespace DiceBattle
 
             for (int i = 0; i < dicesToRoll.Count; i++)
             {
-                AnimateDice(dicesToRoll[i], _finalPositions[i], i);
+                AnimateDice(dicesToRoll[i].gameObject, _finalPositions[i], i);
             }
         }
 
         // Roll dice by indices (e.g., [0, 2, 4] for 1st, 3rd and 5th dice)
         public void RollDicesByIndices(List<int> indices)
         {
-            List<GameObject> dicesToRoll = new List<GameObject>();
+            List<Dice> dicesToRoll = new List<Dice>();
 
             foreach (int index in indices)
             {
