@@ -51,18 +51,28 @@ namespace DiceBattle.UI
         {
             _attemptsIndex++;
 
-            if (_attemptsIndex < _config.MaxAttempts)
+            if (_isFirstRoll)
             {
-                _gameScreen.RollSelectedDices();
-
-                _isFirstRoll = false;
-                SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceRoll));
+                _gameScreen.RollAllDice();
             }
             else
             {
-                _gameScreen.ShowAttempts(_config.MaxAttempts - _attemptsIndex);
-                EndTurn();
+                if (_attemptsIndex < _config.MaxAttempts)
+                {
+                    _gameScreen.RerollSelectedDice();
+
+                    _isFirstRoll = false;
+                    SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceRoll));
+                }
+                else
+                {
+                    Debug.Log($"Player failed {_attemptsIndex} times");
+                    // _gameScreen.ShowAttempts(_config.MaxAttempts - _attemptsIndex);
+                    EndTurn();
+                }
             }
+
+
 
             UpdateButtonStates();
             // TODO: SignalSystem.Raise - The button is clicked (click sound)

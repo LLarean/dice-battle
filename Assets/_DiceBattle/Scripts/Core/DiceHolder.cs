@@ -14,7 +14,7 @@ namespace DiceBattle.Core
         public event Action OnDiceToggled;
 
         public List<Dice> Occupied => _occupied;
-        public List<Dice> Selected => GetSelectedDice();
+        public List<Dice> Selected => _occupied.Where(dice => dice.IsSelected).ToList();
 
         public void Initialize(List<Dice> dice)
         {
@@ -40,13 +40,6 @@ namespace DiceBattle.Core
         {
             dice.transform.SetParent(_slots[slotIndex]);
             dice.transform.localPosition = Vector3.zero;
-        }
-
-        private List<Dice> GetSelectedDice()
-        {
-            var selectedDices = new List<Dice>(_occupied.Count);
-            selectedDices.AddRange(_occupied.Where(dice => dice.IsSelected));
-            return selectedDices;
         }
 
         private void HandleDiceToggle() => OnDiceToggled?.Invoke();

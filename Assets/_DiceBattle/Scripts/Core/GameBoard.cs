@@ -14,21 +14,23 @@ namespace DiceBattle.Core
         public event Action OnRollCompleted;
         public event Action OnDiceToggled;
 
-        public bool HasSelectedDice => _diceHolder.Selected.Count > 0;
+        public List<Dice> Dices => _dices;
 
         public void RollAllDice() => _diceShaker.Roll(_diceHolder.Occupied);
 
         public void RerollSelectedDice() => _diceShaker.Roll(_diceHolder.Selected);
 
-        public void GetRollResult()
-        {
-            // TODO: to be implemented later
-        }
+        public void EnableAllDice() => _dices.ForEach(dice => dice.EnableButton());
+
+        public void DisableAllDice() => _dices.ForEach(dice => dice.DisableButton());
+
+        public void ClearAllSelection() => _dices.ForEach(dice => dice.ClearSelection());
 
         #region Event Handlers
 
         private void HandleRollComplete()
         {
+            _dices.ForEach(dice => dice.Roll());
             _diceHolder.RepositionDice();
             OnRollCompleted?.Invoke();
         }
