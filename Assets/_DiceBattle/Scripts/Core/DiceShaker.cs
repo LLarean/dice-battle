@@ -6,7 +6,7 @@ namespace DiceBattle.Core
 {
     public class DiceShaker : MonoBehaviour
     {
-        public event Action<List<Dice>> OnRollCompleted;
+        public event Action OnRollCompleted;
 
         public void Roll(List<Dice> allDices)
         {

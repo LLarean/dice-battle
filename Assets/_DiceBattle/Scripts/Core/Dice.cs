@@ -20,7 +20,7 @@ namespace DiceBattle.Core
         private Random _random;
         private DiceType _diceType = DiceType.Empty;
 
-        public event Action OnClicked;
+        public event Action OnToggled;
 
         public DiceType DiceType => _diceType;
         public bool IsSelected => _selectionIcon.gameObject.activeSelf;
@@ -72,7 +72,7 @@ namespace DiceBattle.Core
             _selectionIcon.gameObject.SetActive(!_selectionIcon.gameObject.activeSelf);
             _image.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
 
-            OnClicked?.Invoke();
+            OnToggled?.Invoke();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace DiceBattle
                 dice.DisableButton();
             }
 
-            _diceHolder.PlaceSet(_dices);
+            // _diceHolder.PlaceSet(_dices);
             // _hint.ShowAttempts(3);
         }
 
@@ -39,15 +39,15 @@ namespace DiceBattle
 
         public void RollSelectedDices()
         {
-            List<Dice> selectedDices = _diceHolder.GetSelectedDices();
-
-            SetPosition(selectedDices.ToArray());
-            _diceRollAnimation.RollDices(selectedDices);
-
-            foreach (var dice in selectedDices)
-            {
-                dice.Roll();
-            }
+            // List<Dice> selectedDices = _diceHolder.GetSelectedDices();
+            //
+            // SetPosition(selectedDices.ToArray());
+            // _diceRollAnimation.RollDices(selectedDices);
+            //
+            // foreach (var dice in selectedDices)
+            // {
+            //     dice.Roll();
+            // }
         }
 
         public void EnableInteractable()
@@ -72,7 +72,7 @@ namespace DiceBattle
         {
             foreach (var dice in _dices)
             {
-                dice.OnClicked += DiceClick;
+                dice.OnToggled += DiceClick;
             }
 
             _diceRollAnimation.OnDiceRollComplete += ReturnDiceToHolder;
@@ -82,7 +82,7 @@ namespace DiceBattle
         {
             foreach (var dice in _dices)
             {
-                dice.OnClicked -= DiceClick;
+                dice.OnToggled -= DiceClick;
             }
 
             _diceRollAnimation.OnDiceRollComplete -= ReturnDiceToHolder;
@@ -101,7 +101,7 @@ namespace DiceBattle
 
         private void ReturnDiceToHolder()
         {
-            _diceHolder.PlaceSet(_dices);
+            // _diceHolder.PlaceSet(_dices);
         }
 
     }
