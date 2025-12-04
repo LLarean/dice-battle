@@ -8,6 +8,8 @@ namespace DiceBattle.Core
     {
         [SerializeField] private DiceShaker _diceShaker;
         [SerializeField] private DiceHolder _diceHolder;
+        [Space]
+        [SerializeField] private List<Dice> _dices;
 
         public event Action OnRollCompleted;
         public event Action OnDiceToggled;
@@ -25,9 +27,9 @@ namespace DiceBattle.Core
 
         #region Event Handlers
 
-        private void HandleRollComplete(List<Dice> rolledDices)
+        private void HandleRollComplete()
         {
-            _diceHolder.PlaceSet(rolledDices);
+            _diceHolder.RepositionDice();
             OnRollCompleted?.Invoke();
         }
 
@@ -41,6 +43,8 @@ namespace DiceBattle.Core
         {
             _diceShaker.OnRollCompleted += HandleRollComplete;
             _diceHolder.OnDiceToggled += HandleDiceToggle;
+
+            _diceHolder.Initialize(_dices);
         }
 
         private void OnDestroy()
