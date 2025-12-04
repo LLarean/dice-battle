@@ -39,12 +39,12 @@ namespace DiceBattle
 
         public void RollSelectedDices()
         {
-            List<Dice> unclockedDices = _diceHolder.GetSelectedDices();
+            List<Dice> selectedDices = _diceHolder.GetSelectedDices();
 
-            SetPosition(unclockedDices.ToArray());
-            _diceRollAnimation.RollAllDices();
+            SetPosition(selectedDices.ToArray());
+            _diceRollAnimation.RollDices(selectedDices);
 
-            foreach (var dice in unclockedDices)
+            foreach (var dice in selectedDices)
             {
                 dice.Roll();
             }

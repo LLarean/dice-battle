@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DiceBattle.Core;
 using UnityEngine;
@@ -9,6 +10,11 @@ namespace DiceBattle
         [SerializeField] private List<Transform> _slots = new(5);
 
         private List<Dice> _occupied = new();
+
+        public event Action OnDiceToggled;
+
+        public List<Dice> Occupied => _occupied;
+        public List<Dice> Selected => GetSelectedDices();
 
         public void PlaceSet(List<Dice> dices)
         {
