@@ -25,95 +25,15 @@ namespace DiceBattle
 
         public event Action OnDiceRollComplete;
 
-        public void RollDices(List<Dice> dicesToRoll)
+        public void RollDice(List<Dice> dices)
         {
-            UpdateAreaBounds();
-            GenerateNonOverlappingPositions(dicesToRoll.Count);
+            GenerateNonOverlappingPositions(dices.Count);
 
-            _dicesToRoll = dicesToRoll;
+            _dicesToRoll = dices;
 
-            for (int i = 0; i < dicesToRoll.Count; i++)
+            for (int i = 0; i < dices.Count; i++)
             {
-                AnimateDice(dicesToRoll[i].gameObject, _finalPositions[i], i);
-            }
-        }
-
-        private void UpdateAreaBounds()
-        {
-            if (_rollAreaObject != null)
-            {
-                // Get bounds from SpriteRenderer, Collider2D or RectTransform
-                SpriteRenderer sprite = _rollAreaObject.GetComponent<SpriteRenderer>();
-                Collider2D col = _rollAreaObject.GetComponent<Collider2D>();
-                RectTransform rect = _rollAreaObject.GetComponent<RectTransform>();
-
-                if (sprite != null)
-                {
-                    Bounds bounds = sprite.bounds;
-                    _rollAreaMin = new Vector2(bounds.min.x, bounds.min.y);
-                    _rollAreaMax = new Vector2(bounds.max.x, bounds.max.y);
-                }
-                else if (col != null)
-                {
-                    Bounds bounds = col.bounds;
-                    _rollAreaMin = new Vector2(bounds.min.x, bounds.min.y);
-                    _rollAreaMax = new Vector2(bounds.max.x, bounds.max.y);
-                }
-                else if (rect != null)
-                {
-                    // For UI elements
-                    Vector3[] corners = new Vector3[4];
-                    rect.GetWorldCorners(corners);
-                    _rollAreaMin = new Vector2(corners[0].x, corners[0].y);
-                    _rollAreaMax = new Vector2(corners[2].x, corners[2].y);
-                }
-                else
-                {
-                    Debug.LogWarning("Roll Area Object should have SpriteRenderer, Collider2D or RectTransform!");
-                }
-
-                // Add margin from edges (so dice don't go outside bounds)
-                float margin = _diceSize;
-                _rollAreaMin += new Vector2(margin, margin);
-                _rollAreaMax -= new Vector2(margin, margin);
-            }
-        }
-
-        private void GenerateNonOverlappingPositions(int diceCount)
-        {
-            _finalPositions.Clear();
-            int maxAttempts = 100;
-
-            for (int i = 0; i < diceCount; i++)
-            {
-                Vector2 newPos = Vector2.zero;
-                bool validPosition = false;
-                int attempts = 0;
-
-                while (!validPosition && attempts < maxAttempts)
-                {
-                    // Generate random position in area
-                    newPos = new Vector2(
-                        Random.Range(_rollAreaMin.x, _rollAreaMax.x),
-                        Random.Range(_rollAreaMin.y, _rollAreaMax.y)
-                    );
-
-                    // Check overlap with already placed dice
-                    validPosition = true;
-                    foreach (Vector2 existingPos in _finalPositions)
-                    {
-                        float distance = Vector2.Distance(newPos, existingPos);
-                        if (distance < _diceSize * 2.2f) // 2.2f for small gap
-                        {
-                            validPosition = false;
-                            break;
-                        }
-                    }
-
-                    attempts++;
-                }
-
-                _finalPositions.Add(newPos);
+                AnimateDice(dices[i].gameObject, _finalPositions[i], i);
             }
         }
 
@@ -179,24 +99,76 @@ namespace DiceBattle
         {
             if (index == _dicesToRoll.Count - 1)
             {
-                OnDiceRollComplete?.Invoke();
+                LeanTween.delayedCall(1f, () => OnDiceRollComplete?.Invoke());
             }
         }
+
+        #region Additional methods
+
+        private void UpdateAreaBounds()
+        {
+            RectTransform rectTransform = _rollAreaObject.GetComponent<RectTransform>();
+
+            var corners = new Vector3[4];
+            rectTransform.GetWorldCorners(corners);
+            _rollAreaMin = new Vector2(corners[0].x, corners[0].y);
+            _rollAreaMax = new Vector2(corners[2].x, corners[2].y);
+
+            float margin = _diceSize;
+            _rollAreaMin += new Vector2(margin, margin);
+            _rollAreaMax -= new Vector2(margin, margin);
+        }
+
+        private void GenerateNonOverlappingPositions(int diceCount)
+        {
+            _finalPositions.Clear();
+            int maxAttempts = 100;
+
+            for (int i = 0; i < diceCount; i++)
+            {
+                Vector2 newPos = Vector2.zero;
+                bool validPosition = false;
+                int attempts = 0;
+
+                while (!validPosition && attempts < maxAttempts)
+                {
+                    // Generate random position in area
+                    newPos = new Vector2(
+                        Random.Range(_rollAreaMin.x, _rollAreaMax.x),
+                        Random.Range(_rollAreaMin.y, _rollAreaMax.y)
+                    );
+
+                    // Check overlap with already placed dice
+                    validPosition = true;
+                    foreach (Vector2 existingPos in _finalPositions)
+                    {
+                        float distance = Vector2.Distance(newPos, existingPos);
+                        if (distance < _diceSize * 2.2f) // 2.2f for small gap
+                        {
+                            validPosition = false;
+                            break;
+                        }
+                    }
+
+                    attempts++;
+                }
+
+                _finalPositions.Add(newPos);
+            }
+        }
+
+        #endregion
 
         #region Unity lifecycle
 
         private void Start()
         {
             LeanTween.init(1000);
+            UpdateAreaBounds();
         }
 
         private void OnDrawGizmos()
         {
-            if (_rollAreaObject != null)
-            {
-                UpdateAreaBounds();
-            }
-
             Gizmos.color = Color.yellow;
             Vector3 center = new Vector3(
                 (_rollAreaMin.x + _rollAreaMax.x) / 2f,

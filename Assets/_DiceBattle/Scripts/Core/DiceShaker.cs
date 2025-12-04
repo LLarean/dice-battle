@@ -19,7 +19,7 @@ namespace DiceBattle.Core
                 dice.transform.localPosition = Vector3.zero;
             }
 
-            _diceRollAnimation.RollDices(dices);
+            _diceRollAnimation.RollDice(dices);
         }
 
         private void HandleRollComplete() => OnRollCompleted?.Invoke();
