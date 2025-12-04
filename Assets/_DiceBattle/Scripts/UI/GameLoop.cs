@@ -53,6 +53,7 @@ namespace DiceBattle.UI
 
             if (_isFirstRoll)
             {
+                _isFirstRoll = false;
                 _gameScreen.RollAllDice();
             }
             else

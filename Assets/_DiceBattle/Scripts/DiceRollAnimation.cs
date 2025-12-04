@@ -8,8 +8,7 @@ namespace DiceBattle
 {
     public class DiceRollAnimation : MonoBehaviour
     {
-        [Header("Dice Settings")]
-        [SerializeField] private List<Dice> _dices = new();
+        private readonly List<Vector2> _finalPositions = new();
 
         [Header("Roll Area")]
         [SerializeField] private GameObject _rollAreaObject;
@@ -22,46 +21,21 @@ namespace DiceBattle
         [SerializeField] private float _rotationSpeed = 720f;
         [SerializeField] private float _diceSize = 0.5f;
 
-        private List<Vector2> _finalPositions = new();
+        private List<Dice> _dicesToRoll;
 
         public event Action OnDiceRollComplete;
-
-        private void Start()
-        {
-            LeanTween.init(1000);
-
-            // Check if dices are assigned
-            if (_dices.Count == 0)
-            {
-                Debug.LogError("Add dice to the list!");
-            }
-        }
 
         public void RollDices(List<Dice> dicesToRoll)
         {
             UpdateAreaBounds();
             GenerateNonOverlappingPositions(dicesToRoll.Count);
 
+            _dicesToRoll = dicesToRoll;
+
             for (int i = 0; i < dicesToRoll.Count; i++)
             {
                 AnimateDice(dicesToRoll[i].gameObject, _finalPositions[i], i);
             }
-        }
-
-        // Roll dice by indices (e.g., [0, 2, 4] for 1st, 3rd and 5th dice)
-        public void RollDicesByIndices(List<int> indices)
-        {
-            List<Dice> dicesToRoll = new List<Dice>();
-
-            foreach (int index in indices)
-            {
-                if (index >= 0 && index < _dices.Count)
-                {
-                    dicesToRoll.Add(_dices[index]);
-                }
-            }
-
-            RollDices(dicesToRoll);
         }
 
         private void UpdateAreaBounds()
@@ -203,17 +177,19 @@ namespace DiceBattle
 
         private void DiceRollComplete(GameObject dice, int index)
         {
-            // Here you can add logic after animation completion
-            if (index == _dices.Count - 1)
+            if (index == _dicesToRoll.Count - 1)
             {
-                Debug.Log("All dice have landed!");
-
                 OnDiceRollComplete?.Invoke();
-                // Call your callback or event
             }
         }
 
-        // Visualize roll area in editor
+        #region Unity lifecycle
+
+        private void Start()
+        {
+            LeanTween.init(1000);
+        }
+
         private void OnDrawGizmos()
         {
             if (_rollAreaObject != null)
@@ -234,5 +210,7 @@ namespace DiceBattle
             );
             Gizmos.DrawWireCube(center, size);
         }
+
+        #endregion
     }
 }
