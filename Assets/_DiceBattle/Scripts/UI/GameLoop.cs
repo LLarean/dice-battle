@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Data;
@@ -23,10 +24,12 @@ namespace DiceBattle.UI
         private int _currentDefense;
         private int _enemiesDefeated;
 
+        private TurnResult _turnResult = new();
+
         private bool _isFirstRoll;
         private bool _isGameOver;
 
-        private int _attemptsIndex;
+        private int _attemptsNumber;
 
         private void InitializeGame()
         {
@@ -35,7 +38,7 @@ namespace DiceBattle.UI
             _enemiesDefeated = 0;
             _isFirstRoll = true;
             _isGameOver = false;
-            _attemptsIndex = 0;
+            _attemptsNumber = 0;
 
             _gameScreen.Initialize(_config.PlayerStartHealth);
             _gameScreen.DisableDiceInteractable();
@@ -57,41 +60,21 @@ namespace DiceBattle.UI
         private void EndTurn()
         {
             Debug.Log("EndTurn");
-            // Calculate roll results
-            int attack = 0;
-            int defense = 0;
-            int heal = 0;
+            _turnResult.Calculate(_gameScreen.Dices);
 
-            foreach (var dice in _gameScreen.Dices)
+            if (_turnResult.Heal > 0)
             {
-                switch (dice.DiceType)
-                {
-                    case DiceType.Attack:
-                        attack++;
-                        break;
-                    case DiceType.Defense:
-                        defense++;
-                        break;
-                    case DiceType.Heal:
-                        heal++;
-                        break;
-                }
-            }
-
-            // Apply healing
-            if (heal > 0)
-            {
-                ApplyHealing(heal);
+                ApplyHealing(_turnResult.Heal);
             }
 
             // Save defense for enemy's turn
-            _currentDefense = defense;
+            _currentDefense = _turnResult.Defense;
             _gameScreen.UpdatePlayerDefense(_currentDefense);
 
             // Attack enemy
-            if (attack > 0 && _currentEnemy != null)
+            if (_turnResult.Attack > 0)
             {
-                int damageDealt = _currentEnemy.TakeDamage(attack);
+                int damageDealt = _currentEnemy.TakeDamage(_turnResult.Attack);
                 _enemy.UpdateDisplay();
 
                 // TODO: SignalSystem.Raise - player attack (damage: damageDealt)
@@ -106,7 +89,7 @@ namespace DiceBattle.UI
             EnemyTurn();
 
             _isFirstRoll = true;
-            _attemptsIndex = 0;
+            _attemptsNumber = 0;
 
             _gameScreen.ResetSelection();
             _gameScreen.SetContextLabel("Roll All");
@@ -191,7 +174,7 @@ namespace DiceBattle.UI
             //     return;
             // }
 
-            if (_attemptsIndex >= _config.MaxAttempts - 1)
+            if (_attemptsNumber >= _config.MaxAttempts - 1)
             {
                 _gameScreen.DisableDiceInteractable();
                 // _gameScreen.UnlockAll();
@@ -207,16 +190,18 @@ namespace DiceBattle.UI
 
         private void HandleContextAction()
         {
-            _attemptsIndex++;
+            _attemptsNumber++;
 
             if (_isFirstRoll)
             {
                 _isFirstRoll = false;
                 _gameScreen.RollDice();
+
+                SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceRoll));
             }
             else
             {
-                if (_attemptsIndex < _config.MaxAttempts)
+                if (_attemptsNumber < _config.MaxAttempts)
                 {
                     _gameScreen.RerollSelectedDice();
 
@@ -225,12 +210,11 @@ namespace DiceBattle.UI
                 }
                 else
                 {
-                    // _gameScreen.ShowAttempts(_config.MaxAttempts - _attemptsIndex);
                     EndTurn();
                 }
             }
 
-            Debug.Log($"Attempts = {_config.MaxAttempts - _attemptsIndex}");
+            Debug.Log($"Attempts = {_attemptsNumber}");
 
             UpdateButtonStates();
             // TODO: SignalSystem.Raise - The button is clicked (click sound)
@@ -261,5 +245,39 @@ namespace DiceBattle.UI
         }
 
         #endregion
+    }
+
+    public class TurnResult
+    {
+        private int _attack;
+        private int _defense;
+        private int _heal;
+
+        public int Attack => _attack;
+        public int Defense => _defense;
+        public int Heal => _heal;
+
+        public void Calculate(List<Dice> dices)
+        {
+            _attack = 0;
+            _defense = 0;
+            _heal = 0;
+
+            foreach (Dice dice in dices)
+            {
+                switch (dice.DiceType)
+                {
+                    case DiceType.Attack:
+                        _attack++;
+                        break;
+                    case DiceType.Defense:
+                        _defense++;
+                        break;
+                    case DiceType.Heal:
+                        _heal++;
+                        break;
+                }
+            }
+        }
     }
 }
