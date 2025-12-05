@@ -12,7 +12,6 @@ namespace DiceBattle.Screens
     {
         [SerializeField] private UnitPanel _player;
         [SerializeField] private UnitPanel _enemy;
-        [Space]
         [SerializeField] private GameBoard _gameBoard;
         [Space]
         [SerializeField] private Button _context;
@@ -22,19 +21,19 @@ namespace DiceBattle.Screens
 
         public List<Dice> Dices => _gameBoard.Dices;
 
-        public void Initialize(int maxHealth)
+        public void Initialize(int maxPlayerHealth)
         {
             _player.HideAllStats();
-            _player.SetMaxHealth(maxHealth);
+            _player.SetMaxHealth(maxPlayerHealth);
 
             SetContextLabel("Roll All");
         }
 
-        public void EnableDiceInteractable() => _gameBoard.EnableAllDice();
+        public void EnableDiceInteractable() => _gameBoard.EnableDiceInteractable();
 
-        public void DisableDiceInteractable() => _gameBoard.DisableAllDice();
+        public void DisableDiceInteractable() => _gameBoard.DisableDiceInteractable();
 
-        public void RollAllDice() => _gameBoard.RollAllDice();
+        public void RollDice() => _gameBoard.RollDice();
 
         public void RerollSelectedDice() => _gameBoard.RerollSelectedDice();
 
@@ -42,25 +41,13 @@ namespace DiceBattle.Screens
 
         // public void ShowAttempts(int attemptsCount) => _dicePanel.ShowAttempts(attemptsCount);
 
-        public void UpdateHealth(int currentHealth) => _player.UpdateHealth(currentHealth);
+        public void UpdatePlayerHealth(int currentHealth) => _player.UpdateHealth(currentHealth);
 
         public void UpdatePlayerDefense(int defense) => _player.UpdateDefense(defense);
 
-        public void UnlockAll() => _gameBoard.ClearAllSelection();
+        public void ResetSelection() => _gameBoard.ClearAllSelection();
 
-        private void Start()
-        {
-            _context.onClick.AddListener(ContextClick);
-            _gameBoard.OnDiceToggled += HandleDiceToggle;
-            _gameBoard.OnRollCompleted += HandleRollComplete;
-        }
-
-        private void OnDestroy()
-        {
-            _context.onClick.RemoveAllListeners();
-            _gameBoard.OnDiceToggled -= HandleDiceToggle;
-            _gameBoard.OnRollCompleted -= HandleRollComplete;
-        }
+        #region Event Handlers
 
         private void ContextClick() => OnContextClicked?.Invoke();
 
@@ -83,7 +70,27 @@ namespace DiceBattle.Screens
 
         private void HandleRollComplete()
         {
-            //TODO logic unlock button
+            //TODO Add lock/unlock action buttons
         }
+
+        #endregion
+
+        #region Unity lifecycle
+
+        private void Start()
+        {
+            _context.onClick.AddListener(ContextClick);
+            _gameBoard.OnDiceToggled += HandleDiceToggle;
+            _gameBoard.OnRollCompleted += HandleRollComplete;
+        }
+
+        private void OnDestroy()
+        {
+            _context.onClick.RemoveAllListeners();
+            _gameBoard.OnDiceToggled -= HandleDiceToggle;
+            _gameBoard.OnRollCompleted -= HandleRollComplete;
+        }
+
+        #endregion
     }
 }
