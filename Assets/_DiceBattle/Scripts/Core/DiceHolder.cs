@@ -20,7 +20,7 @@ namespace DiceBattle.Core
         {
             _occupied.Clear();
 
-            for (int i = 0; i < Mathf.Min(_slots.Count, dice.Count); i++)
+            for (int i = 0; i < dice.Count; i++)
             {
                 PlaceInSlot(dice[i], i);
                 dice[i].OnToggled += HandleDiceToggle;
@@ -30,9 +30,13 @@ namespace DiceBattle.Core
 
         public void RepositionDice()
         {
-            for (int i = 0; i < Mathf.Min(_slots.Count, _occupied.Count); i++)
+            for (int i = 0; i < _occupied.Count; i++)
             {
-                PlaceInSlot(_occupied[i], i);
+                if (_occupied[i].transform.parent != _slots[i].transform)
+                {
+                    _occupied[i].Roll();
+                    PlaceInSlot(_occupied[i], i);
+                }
             }
         }
 

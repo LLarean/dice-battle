@@ -98,6 +98,8 @@ namespace DiceBattle.UI
             _attemptsIndex = 0;
 
             _gameScreen.Initialize(_config.PlayerStartHealth);
+            _gameScreen.DisableDiceInteractable();
+
             _gameOverScreen.gameObject.SetActive(false);
             SpawnEnemy();
         }
