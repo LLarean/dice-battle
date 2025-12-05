@@ -39,7 +39,7 @@ namespace DiceBattle.UI
 
             // The enemy's number
             if (_enemyNumberText != null)
-                _enemyNumberText.text = $"Enemy #{_currentEnemy.Number}";
+                _enemyNumberText.text = $"Enemy #{_currentEnemy.Number + 1}";
 
             // HP
             if (_hpText != null)
@@ -59,7 +59,7 @@ namespace DiceBattle.UI
             // Defense
             if (_defenseText != null)
                 _defenseText.text = $"Defense: {_currentEnemy.Defense}";
-            
+
             // Portrait
             if (_portrait != null)
                 _portrait.sprite = _currentEnemy.Portrait;

@@ -16,13 +16,13 @@ namespace DiceBattle.Core
 
         public List<Dice> Dices => _dices;
 
-        public void RollAllDice() => _diceShaker.Roll(_diceHolder.Occupied);
+        public void RollDice() => _diceShaker.Roll(_diceHolder.Occupied);
 
         public void RerollSelectedDice() => _diceShaker.Roll(_diceHolder.Selected);
 
-        public void EnableAllDice() => _dices.ForEach(dice => dice.EnableButton());
+        public void EnableDiceInteractable() => _dices.ForEach(dice => dice.EnableButton());
 
-        public void DisableAllDice() => _dices.ForEach(dice => dice.DisableButton());
+        public void DisableDiceInteractable() => _dices.ForEach(dice => dice.DisableButton());
 
         public void ClearAllSelection() => _dices.ForEach(dice => dice.ClearSelection());
 
