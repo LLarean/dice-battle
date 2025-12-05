@@ -33,11 +33,11 @@ namespace DiceBattle
 
             for (int i = 0; i < dices.Count; i++)
             {
-                AnimateDice(dices[i].gameObject, _finalPositions[i], i);
+                AnimateDice(dices[i], _finalPositions[i], i);
             }
         }
 
-        private void AnimateDice(GameObject dice, Vector2 targetPos, int index)
+        private void AnimateDice(Dice dice, Vector2 targetPos, int index)
         {
             Vector3 startPos = dice.transform.position;
             Vector3 endPos = new Vector3(targetPos.x, targetPos.y, dice.transform.position.z);
@@ -46,13 +46,13 @@ namespace DiceBattle
             float delay = index * 0.05f;
 
             // Movement animation with parabola using moveLocal and separate Y animation
-            LeanTween.move(dice, endPos, _throwDuration)
+            LeanTween.move(dice.gameObject, endPos, _throwDuration)
                 .setDelay(delay)
                 .setEase(LeanTweenType.easeInOutQuad);
 
             // Separate height animation (parabola)
             float currentY = startPos.y;
-            LeanTween.value(dice, currentY, currentY + _throwHeight, _throwDuration * 0.5f)
+            LeanTween.value(dice.gameObject, currentY, currentY + _throwHeight, _throwDuration * 0.5f)
                 .setDelay(delay)
                 .setEase(LeanTweenType.easeOutQuad)
                 .setOnUpdate((float val) => {
@@ -61,7 +61,7 @@ namespace DiceBattle
                     dice.transform.position = pos;
                 });
 
-            LeanTween.value(dice, currentY + _throwHeight, endPos.y, _throwDuration * 0.5f)
+            LeanTween.value(dice.gameObject, currentY + _throwHeight, endPos.y, _throwDuration * 0.5f)
                 .setDelay(delay + _throwDuration * 0.5f)
                 .setEase(LeanTweenType.easeInQuad)
                 .setOnUpdate((float val) => {
@@ -75,30 +75,31 @@ namespace DiceBattle
             float randomRotY = Random.Range(2, 5) * 360f;
             float randomRotZ = Random.Range(2, 5) * 360f;
 
-            LeanTween.rotateX(dice, randomRotX, _throwDuration)
+            LeanTween.rotateX(dice.gameObject, randomRotX, _throwDuration)
                 .setDelay(delay)
                 .setEase(LeanTweenType.easeOutQuad);
 
-            LeanTween.rotateY(dice, randomRotY, _throwDuration)
+            LeanTween.rotateY(dice.gameObject, randomRotY, _throwDuration)
                 .setDelay(delay)
                 .setEase(LeanTweenType.easeOutQuad);
 
-            LeanTween.rotateZ(dice, randomRotZ, _throwDuration)
+            LeanTween.rotateZ(dice.gameObject, randomRotZ, _throwDuration)
                 .setDelay(delay)
                 .setEase(LeanTweenType.easeOutQuad)
                 .setOnComplete(() => DiceRollComplete(dice, index));
 
             // Small scale effect on landing
-            LeanTween.scale(dice, dice.transform.localScale * 1.1f, _throwDuration * 0.3f)
+            LeanTween.scale(dice.gameObject, dice.transform.localScale * 1.1f, _throwDuration * 0.3f)
                 .setDelay(delay + _throwDuration * 0.7f)
                 .setEase(LeanTweenType.easeOutQuad)
                 .setLoopPingPong(1);
         }
 
-        private void DiceRollComplete(GameObject dice, int index)
+        private void DiceRollComplete(Dice dice, int index)
         {
             if (index == _dicesToRoll.Count - 1)
             {
+                // dice.Roll();
                 LeanTween.delayedCall(1f, () => OnDiceRollComplete?.Invoke());
             }
         }

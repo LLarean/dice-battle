@@ -11,24 +11,14 @@ namespace DiceBattle.Core
         [Space]
         [SerializeField] private List<Dice> _dices;
 
-        private bool _isAll;
-
         public event Action OnRollCompleted;
         public event Action OnDiceToggled;
 
         public List<Dice> Dices => _dices;
 
-        public void RollAllDice()
-        {
-            _isAll = true;
-            _diceShaker.Roll(_diceHolder.Occupied);
-        }
+        public void RollAllDice() => _diceShaker.Roll(_diceHolder.Occupied);
 
-        public void RerollSelectedDice()
-        {
-            _isAll = false;
-            _diceShaker.Roll(_diceHolder.Selected);
-        }
+        public void RerollSelectedDice() => _diceShaker.Roll(_diceHolder.Selected);
 
         public void EnableAllDice() => _dices.ForEach(dice => dice.EnableButton());
 
@@ -40,17 +30,6 @@ namespace DiceBattle.Core
 
         private void HandleRollComplete()
         {
-            if (_isAll)
-            {
-                Debug.Log("Roll all dice");
-                _diceHolder.Occupied.ForEach(dice => dice.Roll());
-            }
-            else
-            {
-                Debug.Log("_diceHolder.Selected.Count = " + _diceHolder.Selected.Count);
-                _diceHolder.Selected.ForEach(dice => dice.Roll());
-            }
-
             _diceHolder.RepositionDice();
             OnRollCompleted?.Invoke();
         }
