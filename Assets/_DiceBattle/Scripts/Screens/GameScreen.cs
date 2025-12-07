@@ -21,10 +21,13 @@ namespace DiceBattle.Screens
 
         public List<Dice> Dices => _gameBoard.Dices;
 
-        public void Initialize(int maxPlayerHealth)
+        public void Initialize(int maxPlayerHealth, int enemyBaseHealth)
         {
             _player.HideAllStats();
             _player.SetMaxHealth(maxPlayerHealth);
+
+            _enemy.HideAllStats();
+            _enemy.SetMaxHealth(enemyBaseHealth);
 
             SetContextLabel("Roll All");
         }
@@ -39,12 +42,9 @@ namespace DiceBattle.Screens
 
         public void SetContextLabel(string label) => _contextLabel.text = label;
 
-        // public void ShowAttempts(int attemptsCount) => _dicePanel.ShowAttempts(attemptsCount);
-
         public void UpdatePlayerHealth(int currentHealth) => _player.UpdateHealth(currentHealth);
 
         public void UpdatePlayerDefense(int defense) => _player.UpdateDefense(defense);
-
         public void ResetSelection() => _gameBoard.ClearAllSelection();
 
         #region Event Handlers
