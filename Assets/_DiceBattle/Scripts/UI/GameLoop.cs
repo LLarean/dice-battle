@@ -40,7 +40,7 @@ namespace DiceBattle.UI
             _isGameOver = false;
             _attemptsNumber = 0;
 
-            _gameScreen.Initialize(_config.PlayerStartHealth);
+            _gameScreen.Initialize(_config.PlayerStartHealth, _config.EnemyBaseHealth);
             _gameScreen.DisableDiceInteractable();
 
             _gameOverScreen.gameObject.SetActive(false);
@@ -174,10 +174,13 @@ namespace DiceBattle.UI
             //     return;
             // }
 
-            if (_attemptsNumber >= _config.MaxAttempts - 1)
+            if (_attemptsNumber == 0)
             {
                 _gameScreen.DisableDiceInteractable();
-                // _gameScreen.UnlockAll();
+            }
+            else if (_attemptsNumber >= _config.MaxAttempts - 1)
+            {
+                _gameScreen.DisableDiceInteractable();
                 _gameScreen.SetContextLabel("End Turn");
             }
             else
