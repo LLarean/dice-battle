@@ -21,16 +21,7 @@ namespace DiceBattle.Screens
 
         public List<Dice> Dices => _gameBoard.Dices;
 
-        public void Initialize(int maxPlayerHealth, int enemyBaseHealth)
-        {
-            _player.HideAllStats();
-            _player.SetMaxHealth(maxPlayerHealth);
-
-            _enemy.HideAllStats();
-            _enemy.SetMaxHealth(enemyBaseHealth);
-
-            SetContextLabel("Roll All");
-        }
+        public void SetPlayerData(UnitData unitData) => _player.SetUnitData(unitData);
 
         public void SetEnemyData(UnitData unitData) => _enemy.SetUnitData(unitData);
 
@@ -49,6 +40,8 @@ namespace DiceBattle.Screens
         public void UpdatePlayerDefense(int defense) => _player.UpdateDefense(defense);
 
         public void ResetSelection() => _gameBoard.ClearAllSelection();
+
+        public void UpdateEnemyDisplay() => _enemy.UpdateDisplay();
 
         #region Event Handlers
 
@@ -85,6 +78,8 @@ namespace DiceBattle.Screens
             _context.onClick.AddListener(ContextClick);
             _gameBoard.OnDiceToggled += HandleDiceToggle;
             _gameBoard.OnRollCompleted += HandleRollComplete;
+
+            SetContextLabel("Roll All");
         }
 
         private void OnDestroy()

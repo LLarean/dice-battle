@@ -13,14 +13,16 @@ namespace DiceBattle
         public int Attack;
         public int Defense;
 
-        public void LogUnitData()
+        public void Log()
         {
-            Debug.Log("unitData.Title = " + Title);
-            Debug.Log("unitData.Portrait.name = " + Portrait.name);
-            Debug.Log("unitData.MaxHealth = " + MaxHealth);
-            Debug.Log("unitData.CurrentHealth = " + CurrentHealth);
-            Debug.Log("unitData.Attack = " + Attack);
-            Debug.Log("unitData.Defense = " + Defense);
+            Debug.Log("---UnitData---");
+            Debug.Log("Title = " + Title );
+            Debug.Log("Portrait.name = " + Portrait.name);
+            Debug.Log("MaxHealth = " + MaxHealth);
+            Debug.Log("CurrentHealth = " + CurrentHealth);
+            Debug.Log("Attack = " + Attack);
+            Debug.Log("Defense = " + Defense);
+            Debug.Log("---End---");
         }
     }
 }
