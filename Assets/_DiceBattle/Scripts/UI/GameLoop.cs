@@ -104,13 +104,6 @@ namespace DiceBattle.UI
 
         private void UpdateButtonStates()
         {
-            // if (_isGameOver)
-            // {
-            //     // _gameScreen.SetContextLabel("Action");
-            //     _gameScreen.EnableDiceInteractable();
-            //     return;
-            // }
-
             if (_attemptsNumber == 0)
             {
                 _gameScreen.DisableDiceInteractable();
@@ -123,6 +116,7 @@ namespace DiceBattle.UI
             else
             {
                 _gameScreen.EnableDiceInteractable();
+                _gameScreen.SetContextLabel("Skip");
             }
         }
 

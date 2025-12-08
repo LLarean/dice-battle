@@ -32,17 +32,23 @@ namespace DiceBattle
             UpdateDefense(_unitData.Defense);
         }
 
-        public void HideAllStats()
-        {
-            _unitStats.HideHealth();
-            _unitStats.HideAttack();
-            _unitStats.HideDefense();
-        }
-
         public void UpdateCurrentHealth(int currentHealth)
         {
             _health.value = currentHealth;
             _unitStats.ShowHealth($"{currentHealth}/{_health.maxValue}");
+            // TODO LLarean Separate the logic of taking damage and healing so that you can animate
+        }
+
+        public void UpdateDefense(int defense)
+        {
+            if (defense > 0)
+            {
+                _unitStats.ShowDefense(defense.ToString());
+            }
+            else
+            {
+                _unitStats.HideDefense();
+            }
         }
 
         private void SetMaxHealth(int maxHealth)
@@ -64,16 +70,11 @@ namespace DiceBattle
             }
         }
 
-        public void UpdateDefense(int defense)
+        private void HideAllStats()
         {
-            if (defense > 0)
-            {
-                _unitStats.ShowDefense(defense.ToString());
-            }
-            else
-            {
-                _unitStats.HideDefense();
-            }
+            _unitStats.HideHealth();
+            _unitStats.HideAttack();
+            _unitStats.HideDefense();
         }
     }
 }
