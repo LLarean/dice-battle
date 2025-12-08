@@ -1,13 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using DiceBattle.Core;
 
 namespace DiceBattle.UI
 {
-    /// <summary>
-    /// Displaying information about the enemy
-    /// </summary>
     public class EnemyUI : MonoBehaviour
     {
         [Header("UI Elements")]
@@ -18,56 +14,27 @@ namespace DiceBattle.UI
         [SerializeField] private Image _portrait;
         [SerializeField] private Slider _hpSlider; // Optional - HP strip
 
-        private Enemy _currentEnemy;
+        private UnitData _unitData;
 
-        /// <summary>
-        /// Show a new enemy
-        /// </summary>
-        public void ShowEnemy(Enemy enemy)
+        public void ShowEnemy(UnitData unitData)
         {
-            _currentEnemy = enemy;
+            _unitData = unitData;
             UpdateDisplay();
         }
 
-        /// <summary>
-        /// Update the display (HP has changed)
-        /// </summary>
         public void UpdateDisplay()
         {
-            if (_currentEnemy == null)
-                return;
+            _enemyNumberText.text = _unitData.Title;
+            _portrait.sprite = _unitData.Portrait;
 
-            // The enemy's number
-            if (_enemyNumberText != null)
-                _enemyNumberText.text = $"Enemy #{_currentEnemy.Number + 1}";
+            _hpText.text = $"HP: {_unitData.CurrentHealth}/{_unitData.MaxHealth}";
+            _hpSlider.maxValue = _unitData.MaxHealth;
+            _hpSlider.value = _unitData.CurrentHealth;
 
-            // HP
-            if (_hpText != null)
-                _hpText.text = $"HP: {_currentEnemy.CurrentHP}/{_currentEnemy.MaxHP}";
-
-            // HP Slider
-            if (_hpSlider != null)
-            {
-                _hpSlider.maxValue = _currentEnemy.MaxHP;
-                _hpSlider.value = _currentEnemy.CurrentHP;
-            }
-
-            // Attack
-            if (_attackText != null)
-                _attackText.text = $"Attack: {_currentEnemy.Attack}";
-
-            // Defense
-            if (_defenseText != null)
-                _defenseText.text = $"Defense: {_currentEnemy.Defense}";
-
-            // Portrait
-            if (_portrait != null)
-                _portrait.sprite = _currentEnemy.Portrait;
+            _attackText.text = $"Attack: {_unitData.Attack}";
+            _defenseText.text = $"Defense: {_unitData.Defense}";
         }
 
-        /// <summary>
-        /// Damage animation (optional)
-        /// </summary>
         public void PlayHitAnimation()
         {
             // TODO: Add a shake or blink animation

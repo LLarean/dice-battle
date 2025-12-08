@@ -26,8 +26,8 @@ namespace DiceBattle
             _title.text = _unitData.Title;
             _portrait.sprite = _unitData.Portrait;
 
-            SetMaxHealth(_unitData.HealthMax);
-            UpdateCurrentHealth(_unitData.HealthCurrent);
+            SetMaxHealth(_unitData.MaxHealth);
+            UpdateCurrentHealth(_unitData.CurrentHealth);
 
             UpdateAttack(_unitData.Attack);
             UpdateDefense(_unitData.Defense);
