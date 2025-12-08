@@ -217,8 +217,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4267145621063232680}
-  - component: {fileID: 6889647904704277766}
   - component: {fileID: 3983526661035154697}
+  - component: {fileID: 6889647904704277766}
   m_Layer: 5
   m_Name: UnitStats
   m_TagString: Untagged
@@ -248,6 +248,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 37.5025}
   m_SizeDelta: {x: 0, y: 75.005}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3983526661035154697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948807587782344172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e09c2aeb057e7b40b6c2de84e8014be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: {fileID: 4069725290036009474}
+  _attack: {fileID: 3475785960228740158}
+  _defence: {fileID: 3990991482229610750}
+  _healthValue: {fileID: 3864974779958912390}
+  _attackValue: {fileID: 5788045260126433955}
+  _defenceValue: {fileID: 3081667759923617375}
 --- !u!114 &6889647904704277766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,24 +292,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &3983526661035154697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 948807587782344172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e09c2aeb057e7b40b6c2de84e8014be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: {fileID: 4069725290036009474}
-  _attack: {fileID: 3475785960228740158}
-  _defence: {fileID: 3990991482229610750}
-  _healthValue: {fileID: 3864974779958912390}
-  _attackValue: {fileID: 5788045260126433955}
-  _defenceValue: {fileID: 3081667759923617375}
 --- !u!1 &1460096962549727452
 GameObject:
   m_ObjectHideFlags: 0

@@ -51,7 +51,26 @@ namespace DiceBattle.UI
         {
             Sprite portrait = _config.EnemiesPortraits[_enemiesDefeated];
             _currentEnemy = Enemy.Create(_enemiesDefeated, portrait);
-            _enemy.ShowEnemy(_currentEnemy);
+
+            var unitData = new UnitData
+            {
+                Title = $"Enemy #{_currentEnemy.Number}",
+                Portrait = _config.EnemiesPortraits[_enemiesDefeated],
+                HealthMax = _currentEnemy.MaxHP,
+                HealthCurrent = _currentEnemy.MaxHP,
+                Attack = _currentEnemy.Attack,
+                Defense = _currentEnemy.Defense,
+            };
+
+            Debug.Log("unitData.Title = " + unitData.Title);
+            Debug.Log("unitData.HealthMax = " + unitData.HealthMax);
+            Debug.Log("unitData.HealthCurrent = " + unitData.HealthCurrent);
+            Debug.Log("unitData.Attack = " + unitData.Attack);
+            Debug.Log("unitData.Defense = " + unitData.Defense);
+
+            _gameScreen.SetEnemyData(unitData);
+
+            // _enemy.ShowEnemy(_currentEnemy);
             _enemiesDefeated++;
 
             // TODO: SignalSystem.Raise - new enemy appearance
