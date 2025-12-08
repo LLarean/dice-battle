@@ -1222,6 +1222,7 @@ MonoBehaviour:
   _gameScreen: {fileID: 1004415171}
   _gameOverScreen: {fileID: 139924238}
   _lootScreen: {fileID: 30483745}
+  _gameLoop: {fileID: 580048880}
 --- !u!4 &565277595
 Transform:
   m_ObjectHideFlags: 0
@@ -1267,11 +1268,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
-  _diceRollAnimation: {fileID: 840026521}
   _gameScreen: {fileID: 1004415171}
   _gameOverScreen: {fileID: 139924238}
   _lootScreen: {fileID: 30483745}
-  _enemy: {fileID: 2121550418}
 --- !u!4 &580048881
 Transform:
   m_ObjectHideFlags: 0

@@ -1,4 +1,3 @@
-using DiceBattle.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,20 +39,20 @@ namespace DiceBattle
             _unitStats.HideDefense();
         }
 
-        public void SetMaxHealth(int maxHealth)
-        {
-            _health.maxValue = maxHealth;
-            _health.value = _health.maxValue;
-            _unitStats.ShowHealth($"{maxHealth}/{maxHealth}");
-        }
-
         public void UpdateCurrentHealth(int currentHealth)
         {
             _health.value = currentHealth;
             _unitStats.ShowHealth($"{currentHealth}/{_health.maxValue}");
         }
 
-        public void UpdateAttack(int attack)
+        private void SetMaxHealth(int maxHealth)
+        {
+            _health.maxValue = maxHealth;
+            _health.value = _health.maxValue;
+            _unitStats.ShowHealth($"{maxHealth}/{maxHealth}");
+        }
+
+        private void UpdateAttack(int attack)
         {
             if (attack > 0)
             {

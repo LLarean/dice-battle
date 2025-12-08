@@ -12,6 +12,8 @@ namespace DiceBattle.Data
         [Header("Player")]
         [Tooltip("The player's initial health")]
         public int PlayerStartHealth = 20;
+        [Tooltip("")]
+        public Sprite PlayerPortrait;
 
         [Header("Dices")]
         [Tooltip("Number of dices")]
@@ -36,10 +38,6 @@ namespace DiceBattle.Data
 
         [Tooltip("Defense boost for every N enemies")]
         public int EnemyDefenseGrowthRate = 3; // +1 DEF Every 3 enemies
-
-        [Header("UI")]
-        [Tooltip("Sprites for cube types (Empty, Attack, Defense, Heal)")]
-        public Sprite[] DiceSprites = new Sprite[4];
 
         [Header("Enemies")]
         [Tooltip("Enemy Sprites")]

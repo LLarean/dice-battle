@@ -8,45 +8,48 @@ namespace DiceBattle.UI
 {
     public class GameLoop : MonoBehaviour
     {
+        private readonly TurnResult _turnResult = new();
+
         [SerializeField] private GameConfig _config;
         [Space]
         [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
         [SerializeField] private LootScreen _lootScreen;
-        [Space]
-        [SerializeField] private UnitPanel _enemy;
 
         private UnitData _playerData;
         private UnitData _enemyData;
 
         private int _enemiesDefeated;
         private int _attemptsNumber;
-
-        private TurnResult _turnResult = new();
-
         private bool _isFirstRoll;
-        private bool _isGameOver;
 
-
-        private void InitializeGame()
+        public void InitializeGame()
         {
-            _playerData = new UnitData()
-            {
-                CurrentHealth = _config.PlayerStartHealth,
-                Defense = 0,
-
-            };
-
             _enemiesDefeated = 0;
             _isFirstRoll = true;
-            _isGameOver = false;
             _attemptsNumber = 0;
 
-            _gameScreen.Initialize(_config.PlayerStartHealth, _config.EnemyBaseHealth);
-            _gameScreen.DisableDiceInteractable();
-
-            _gameOverScreen.gameObject.SetActive(false);
+            SpawnHero();
             SpawnEnemy();
+
+            _gameScreen.DisableDiceInteractable();
+            _gameOverScreen.gameObject.SetActive(false);
+        }
+
+        private void SpawnHero()
+        {
+            _playerData = new UnitData
+            {
+                Title = "Hero (you)",
+                Portrait = _config.PlayerPortrait,
+                MaxHealth = _config.PlayerStartHealth,
+                CurrentHealth = _config.PlayerStartHealth,
+                Attack = 0,
+                Defense = 0,
+            };
+
+            _playerData.Log();
+            _gameScreen.SetPlayerData(_playerData);
         }
 
         private void SpawnEnemy()
@@ -59,19 +62,18 @@ namespace DiceBattle.UI
             {
                 Title = $"Enemy #{_enemiesDefeated + 1}",
                 Portrait = _config.EnemiesPortraits[_enemiesDefeated],
-
                 MaxHealth = maxHealth,
                 CurrentHealth = maxHealth,
                 Attack = attack,
                 Defense = defense,
             };
 
-            _enemyData.LogUnitData();
+            _enemyData.Log();
             _gameScreen.SetEnemyData(_enemyData);
 
             _enemiesDefeated++;
 
-            // TODO: SignalSystem.Raise - new enemy appearance
+            // TODO: SignalSystem.Raise - new enemy appearance (new level)
         }
 
         private void EndTurn()
@@ -82,7 +84,14 @@ namespace DiceBattle.UI
             ApplyDefense();
             ApplyAttack();
 
-            EnemyTurn();
+            if (_enemyData.CurrentHealth <= 0)
+            {
+                OnEnemyDefeated();
+            }
+            else
+            {
+                EnemyTurn();
+            }
 
             _isFirstRoll = true;
             _attemptsNumber = 0;
@@ -140,12 +149,7 @@ namespace DiceBattle.UI
             }
 
             TakeDamage(_turnResult.Attack);
-            _enemy.UpdateDisplay();
-
-            if (_enemyData.CurrentHealth <= 0)
-            {
-                OnEnemyDefeated();
-            }
+            _gameScreen.UpdateEnemyDisplay();
 
             // TODO: SignalSystem.Raise - player attack (damage: damageDealt)
         }
@@ -158,8 +162,6 @@ namespace DiceBattle.UI
 
         private void OnPlayerDefeated()
         {
-            _isGameOver = true;
-
             // TODO: SignalSystem.Raise - Game Over
 
             _gameOverScreen.Show(_enemiesDefeated - 1);
@@ -270,7 +272,6 @@ namespace DiceBattle.UI
         {
             _gameScreen.OnContextClicked += HandleContextAction;
             _gameOverScreen.OnRestartClicked += HandleRestartButtonClicked;
-            InitializeGame();
         }
 
         private void OnDestroy()

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   PlayerStartHealth: 20
+  PlayerPortrait: {fileID: 4723107735738678597, guid: cad7b6b54e3a5ee4ca7575b000421af4, type: 3}
   DiceCount: 5
   EnemyBaseHealth: 5
   EnemyBaseAttack: 2
