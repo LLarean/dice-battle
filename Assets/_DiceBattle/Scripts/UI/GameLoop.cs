@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Data;
@@ -19,7 +18,8 @@ namespace DiceBattle.UI
         [Space]
         [SerializeField] private UnitPanel _enemy;
 
-        private Enemy _currentEnemy;
+        private UnitData _enemyData;
+
         private int _currentHealth;
         private int _currentDefense;
         private int _enemiesDefeated;
@@ -49,28 +49,24 @@ namespace DiceBattle.UI
 
         private void SpawnEnemy()
         {
-            Sprite portrait = _config.EnemiesPortraits[_enemiesDefeated];
-            _currentEnemy = Enemy.Create(_enemiesDefeated, portrait);
+            int maxHealth = _config.EnemyBaseHealth + _config.EnemyHPGrowth * _enemiesDefeated;
+            int attack = _config.EnemyBaseAttack + _config.EnemyAttackGrowthRate * _enemiesDefeated;
+            int defense = _config.EnemyBaseDefense + _config.EnemyDefenseGrowthRate * _enemiesDefeated;
 
-            var unitData = new UnitData
+            _enemyData = new UnitData
             {
-                Title = $"Enemy #{_currentEnemy.Number}",
+                Title = $"Enemy #{_enemiesDefeated + 1}",
                 Portrait = _config.EnemiesPortraits[_enemiesDefeated],
-                HealthMax = _currentEnemy.MaxHP,
-                HealthCurrent = _currentEnemy.MaxHP,
-                Attack = _currentEnemy.Attack,
-                Defense = _currentEnemy.Defense,
+
+                MaxHealth = maxHealth,
+                CurrentHealth = maxHealth,
+                Attack = attack,
+                Defense = defense,
             };
 
-            Debug.Log("unitData.Title = " + unitData.Title);
-            Debug.Log("unitData.HealthMax = " + unitData.HealthMax);
-            Debug.Log("unitData.HealthCurrent = " + unitData.HealthCurrent);
-            Debug.Log("unitData.Attack = " + unitData.Attack);
-            Debug.Log("unitData.Defense = " + unitData.Defense);
+            _enemyData.LogUnitData();
+            _gameScreen.SetEnemyData(_enemyData);
 
-            _gameScreen.SetEnemyData(unitData);
-
-            // _enemy.ShowEnemy(_currentEnemy);
             _enemiesDefeated++;
 
             // TODO: SignalSystem.Raise - new enemy appearance
@@ -81,10 +77,7 @@ namespace DiceBattle.UI
             Debug.Log("EndTurn");
             _turnResult.Calculate(_gameScreen.Dices);
 
-            if (_turnResult.Heal > 0)
-            {
-                ApplyHealing(_turnResult.Heal);
-            }
+            ApplyHealing(_turnResult.Heal);
 
             // Save defense for enemy's turn
             _currentDefense = _turnResult.Defense;
@@ -93,12 +86,12 @@ namespace DiceBattle.UI
             // Attack enemy
             if (_turnResult.Attack > 0)
             {
-                int damageDealt = _currentEnemy.TakeDamage(_turnResult.Attack);
+                TakeDamage(_turnResult.Attack);
                 _enemy.UpdateDisplay();
 
                 // TODO: SignalSystem.Raise - player attack (damage: damageDealt)
 
-                if (!_currentEnemy.IsAlive)
+                if (_enemyData.CurrentHealth <= 0)
                 {
                     OnEnemyDefeated();
                     return;
@@ -118,6 +111,11 @@ namespace DiceBattle.UI
 
         private void ApplyHealing(int heal)
         {
+            if (_turnResult.Heal <= 0)
+            {
+                return;
+            }
+
             _currentHealth = Mathf.Min(_config.PlayerStartHealth, _currentHealth + heal);
             _gameScreen.UpdatePlayerHealth(_currentHealth);
 
@@ -126,10 +124,7 @@ namespace DiceBattle.UI
 
         private void EnemyTurn()
         {
-            if (_currentEnemy == null || !_currentEnemy.IsAlive)
-                return;
-
-            int enemyAttack = _currentEnemy.PerformAttack();
+            int enemyAttack = _enemyData.Attack;
             int damageToPlayer = Mathf.Max(0, enemyAttack - _currentDefense);
 
             if (damageToPlayer > 0)
@@ -249,6 +244,16 @@ namespace DiceBattle.UI
             InitializeGame();
         }
 
+        private int TakeDamage(int damage)
+        {
+            int actualDamage = Mathf.Max(0, damage - _enemyData.Defense);
+            _enemyData.CurrentHealth = Mathf.Max(0, _enemyData.CurrentHealth - actualDamage);
+
+            // TODO: SignalSystem.Raise - The enemy has taken damage (actualDamage)
+
+            return actualDamage;
+        }
+
         #endregion
 
         #region Unity lifecycle
@@ -267,39 +272,5 @@ namespace DiceBattle.UI
         }
 
         #endregion
-    }
-
-    public class TurnResult
-    {
-        private int _attack;
-        private int _defense;
-        private int _heal;
-
-        public int Attack => _attack;
-        public int Defense => _defense;
-        public int Heal => _heal;
-
-        public void Calculate(List<Dice> dices)
-        {
-            _attack = 0;
-            _defense = 0;
-            _heal = 0;
-
-            foreach (Dice dice in dices)
-            {
-                switch (dice.DiceType)
-                {
-                    case DiceType.Attack:
-                        _attack++;
-                        break;
-                    case DiceType.Defense:
-                        _defense++;
-                        break;
-                    case DiceType.Heal:
-                        _heal++;
-                        break;
-                }
-            }
-        }
     }
 }
