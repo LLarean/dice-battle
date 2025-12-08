@@ -1,5 +1,4 @@
 using DiceBattle.Audio;
-using DiceBattle.Core;
 using DiceBattle.Data;
 using DiceBattle.Screens;
 using GameSignals;
@@ -10,31 +9,34 @@ namespace DiceBattle.UI
     public class GameLoop : MonoBehaviour
     {
         [SerializeField] private GameConfig _config;
-        [SerializeField] private DiceRollAnimation _diceRollAnimation;
-        [Header("UI References")]
+        [Space]
         [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
         [SerializeField] private LootScreen _lootScreen;
         [Space]
         [SerializeField] private UnitPanel _enemy;
 
+        private UnitData _playerData;
         private UnitData _enemyData;
 
-        private int _currentHealth;
-        private int _currentDefense;
         private int _enemiesDefeated;
+        private int _attemptsNumber;
 
         private TurnResult _turnResult = new();
 
         private bool _isFirstRoll;
         private bool _isGameOver;
 
-        private int _attemptsNumber;
 
         private void InitializeGame()
         {
-            _currentHealth = _config.PlayerStartHealth;
-            _currentDefense = 0;
+            _playerData = new UnitData()
+            {
+                CurrentHealth = _config.PlayerStartHealth,
+                Defense = 0,
+
+            };
+
             _enemiesDefeated = 0;
             _isFirstRoll = true;
             _isGameOver = false;
@@ -74,29 +76,11 @@ namespace DiceBattle.UI
 
         private void EndTurn()
         {
-            Debug.Log("EndTurn");
             _turnResult.Calculate(_gameScreen.Dices);
 
-            ApplyHealing(_turnResult.Heal);
-
-            // Save defense for enemy's turn
-            _currentDefense = _turnResult.Defense;
-            _gameScreen.UpdatePlayerDefense(_currentDefense);
-
-            // Attack enemy
-            if (_turnResult.Attack > 0)
-            {
-                TakeDamage(_turnResult.Attack);
-                _enemy.UpdateDisplay();
-
-                // TODO: SignalSystem.Raise - player attack (damage: damageDealt)
-
-                if (_enemyData.CurrentHealth <= 0)
-                {
-                    OnEnemyDefeated();
-                    return;
-                }
-            }
+            ApplyHealing();
+            ApplyDefense();
+            ApplyAttack();
 
             EnemyTurn();
 
@@ -106,76 +90,6 @@ namespace DiceBattle.UI
             _gameScreen.ResetSelection();
             _gameScreen.SetContextLabel("Roll All");
 
-            UpdateButtonStates();
-        }
-
-        private void ApplyHealing(int heal)
-        {
-            if (_turnResult.Heal <= 0)
-            {
-                return;
-            }
-
-            _currentHealth = Mathf.Min(_config.PlayerStartHealth, _currentHealth + heal);
-            _gameScreen.UpdatePlayerHealth(_currentHealth);
-
-            // TODO: SignalSystem.Raise - healing (amount: heal)
-        }
-
-        private void EnemyTurn()
-        {
-            int enemyAttack = _enemyData.Attack;
-            int damageToPlayer = Mathf.Max(0, enemyAttack - _currentDefense);
-
-            if (damageToPlayer > 0)
-            {
-                _currentHealth = Mathf.Max(0, _currentHealth - damageToPlayer);
-                _gameScreen.UpdatePlayerHealth(_currentHealth);
-
-                // TODO: SignalSystem.Raise - player took damage (amount: damageToPlayer)
-
-                if (_currentHealth <= 0)
-                {
-                    OnPlayerDefeated();
-                    return;
-                }
-            }
-
-            _currentDefense = 0;
-            _gameScreen.UpdatePlayerDefense(0);
-        }
-
-        /// <summary>
-        /// Enemy defeated
-        /// </summary>
-        private void OnEnemyDefeated()
-        {
-            // TODO: SignalSystem.Raise - The sound of victory/defeat
-
-            _lootScreen.gameObject.SetActive(true);
-
-            // Spawn next enemy
-            SpawnEnemy();
-
-            // Start new turn
-            _isFirstRoll = true;
-            _currentDefense = 0;
-
-            _gameScreen.UpdatePlayerDefense(0);
-
-            UpdateButtonStates();
-        }
-
-        /// <summary>
-        /// Player defeated (Game Over)
-        /// </summary>
-        private void OnPlayerDefeated()
-        {
-            _isGameOver = true;
-
-            // TODO: SignalSystem.Raise - Game Over
-
-            _gameOverScreen.Show(_enemiesDefeated - 1);
             UpdateButtonStates();
         }
 
@@ -202,6 +116,100 @@ namespace DiceBattle.UI
                 _gameScreen.EnableDiceInteractable();
             }
         }
+
+        #region Player actions
+
+        private void ApplyHealing()
+        {
+            if (_turnResult.Heal <= 0)
+            {
+                return;
+            }
+
+            _playerData.CurrentHealth = Mathf.Min(_config.PlayerStartHealth, _playerData.CurrentHealth + _turnResult.Heal);
+            _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
+
+            // TODO: SignalSystem.Raise - healing (amount: heal)
+        }
+
+        private void ApplyAttack()
+        {
+            if (_turnResult.Attack <= 0)
+            {
+                return;
+            }
+
+            TakeDamage(_turnResult.Attack);
+            _enemy.UpdateDisplay();
+
+            if (_enemyData.CurrentHealth <= 0)
+            {
+                OnEnemyDefeated();
+            }
+
+            // TODO: SignalSystem.Raise - player attack (damage: damageDealt)
+        }
+
+        private void ApplyDefense()
+        {
+            _playerData.Defense = _turnResult.Defense;
+            _gameScreen.UpdatePlayerDefense(_playerData.Defense);
+        }
+
+        private void OnPlayerDefeated()
+        {
+            _isGameOver = true;
+
+            // TODO: SignalSystem.Raise - Game Over
+
+            _gameOverScreen.Show(_enemiesDefeated - 1);
+            UpdateButtonStates();
+        }
+
+        #endregion
+
+        #region Enemy actions
+
+        private void EnemyTurn()
+        {
+            int enemyAttack = _enemyData.Attack;
+            int damageToPlayer = Mathf.Max(0, enemyAttack - _playerData.Defense);
+
+            if (damageToPlayer > 0)
+            {
+                _playerData.CurrentHealth = Mathf.Max(0, _playerData.CurrentHealth - damageToPlayer);
+                _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
+
+                // TODO: SignalSystem.Raise - player took damage (amount: damageToPlayer)
+
+                if (_playerData.CurrentHealth <= 0)
+                {
+                    OnPlayerDefeated();
+                    return;
+                }
+            }
+
+            _playerData.Defense = 0;
+            _gameScreen.UpdatePlayerDefense(0);
+        }
+
+        private void OnEnemyDefeated()
+        {
+            // TODO: SignalSystem.Raise - The sound of victory/defeat
+
+            _lootScreen.gameObject.SetActive(true);
+
+            SpawnEnemy();
+
+            _isFirstRoll = true;
+            _playerData.Defense = 0;
+
+            _gameScreen.UpdatePlayerDefense(0);
+
+            UpdateButtonStates();
+        }
+
+        #endregion
 
         #region Event Handlers
 
