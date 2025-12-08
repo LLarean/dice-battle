@@ -6,11 +6,11 @@ namespace DiceBattle
     {
         public string Title;
         public Sprite Portrait;
-        
+
         public int HealthMax;
         public int HealthCurrent;
-        
+
         public int Attack;
-        public int Defence;
+        public int Defense;
     }
 }

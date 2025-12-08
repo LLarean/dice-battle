@@ -11,8 +11,27 @@ namespace DiceBattle
         [SerializeField] private Image _portrait;
         [SerializeField] private Slider _health;
         [SerializeField] private UnitStats _unitStats;
-        
-        private Enemy _currentEnemy;
+
+        private UnitData _unitData;
+
+        public void SetUnitData(UnitData unitData)
+        {
+            _unitData = unitData;
+            HideAllStats();
+            UpdateDisplay();
+        }
+
+        public void UpdateDisplay()
+        {
+            _title.text = _unitData.Title;
+            _portrait.sprite = _unitData.Portrait;
+
+            SetMaxHealth(_unitData.HealthMax);
+            UpdateCurrentHealth(_unitData.HealthCurrent);
+
+            UpdateAttack(_unitData.Attack);
+            UpdateDefense(_unitData.Defense);
+        }
 
         public void HideAllStats()
         {
@@ -28,12 +47,12 @@ namespace DiceBattle
             _unitStats.ShowHealth($"{maxHealth}/{maxHealth}");
         }
 
-        public void UpdateHealth(int currentHealth)
+        public void UpdateCurrentHealth(int currentHealth)
         {
             _health.value = currentHealth;
             _unitStats.ShowHealth($"{currentHealth}/{_health.maxValue}");
         }
-        
+
         public void UpdateAttack(int attack)
         {
             if (attack > 0)
@@ -56,24 +75,6 @@ namespace DiceBattle
             {
                 _unitStats.HideDefense();
             }
-        }
-
-        public void ShowEnemy(Enemy currentEnemy)
-        {
-            _currentEnemy = currentEnemy;
-            UpdateDisplay();
-        }
-
-        public void UpdateDisplay()
-        {
-            _title.text = $"Enemy #{_currentEnemy.Number}";
-            _portrait.sprite = _currentEnemy.Portrait;
-
-            SetMaxHealth(_currentEnemy.MaxHP);
-            UpdateHealth(_currentEnemy.CurrentHP);
-
-            UpdateAttack(_currentEnemy.Attack);
-            UpdateDefense(_currentEnemy.Defense);
         }
     }
 }

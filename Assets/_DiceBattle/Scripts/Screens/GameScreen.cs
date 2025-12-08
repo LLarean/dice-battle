@@ -32,6 +32,8 @@ namespace DiceBattle.Screens
             SetContextLabel("Roll All");
         }
 
+        public void SetEnemyData(UnitData unitData) => _enemy.SetUnitData(unitData);
+
         public void EnableDiceInteractable() => _gameBoard.EnableDiceInteractable();
 
         public void DisableDiceInteractable() => _gameBoard.DisableDiceInteractable();
@@ -42,9 +44,10 @@ namespace DiceBattle.Screens
 
         public void SetContextLabel(string label) => _contextLabel.text = label;
 
-        public void UpdatePlayerHealth(int currentHealth) => _player.UpdateHealth(currentHealth);
+        public void UpdatePlayerHealth(int currentHealth) => _player.UpdateCurrentHealth(currentHealth);
 
         public void UpdatePlayerDefense(int defense) => _player.UpdateDefense(defense);
+
         public void ResetSelection() => _gameBoard.ClearAllSelection();
 
         #region Event Handlers
