@@ -18,6 +18,8 @@ namespace DiceBattle.Core
         [SerializeField] private Image _selectionIcon;
         [Header("Empty, Attack, Defense, Heal")]
         [SerializeField] private Sprite[] _faceSprites;
+        [Space]
+        [SerializeField] private bool _isMenu;
 
         private Random _random;
         private DiceType _diceType = DiceType.Empty;
@@ -59,7 +61,10 @@ namespace DiceBattle.Core
             _button.onClick.AddListener(ToggleSelection);
             _random = new Random();
 
-            ResetToEmpty();
+            if (_isMenu == false)
+            {
+                ResetToEmpty();
+            }
         }
 
         private void OnDestroy()
@@ -71,8 +76,15 @@ namespace DiceBattle.Core
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceGrab));
 
-            _selectionIcon.gameObject.SetActive(!_selectionIcon.gameObject.activeSelf);
-            _image.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
+            if (_isMenu == false)
+            {
+                _selectionIcon.gameObject.SetActive(!_selectionIcon.gameObject.activeSelf);
+                _image.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
+            }
+            else
+            {
+                Roll();
+            }
 
             OnToggled?.Invoke();
         }

@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Roll
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aaf52b4b126f1f747a55b83a340a3339, type: 2}
-  m_sharedMaterial: {fileID: 6517415391076214505, guid: aaf52b4b126f1f747a55b83a340a3339, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e6e33cb490ad0f64d953f243b8da0b70, type: 2}
+  m_sharedMaterial: {fileID: 1414109234843699102, guid: e6e33cb490ad0f64d953f243b8da0b70, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,15 +92,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 64
   m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 64
   m_fontStyle: 1
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
