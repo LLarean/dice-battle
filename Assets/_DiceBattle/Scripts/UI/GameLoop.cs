@@ -217,8 +217,6 @@ namespace DiceBattle.UI
             {
                 _isFirstRoll = false;
                 _gameScreen.RollDice();
-
-                // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceRoll));
             }
             else
             {
@@ -227,7 +225,6 @@ namespace DiceBattle.UI
                     _gameScreen.RerollSelectedDice();
 
                     _isFirstRoll = false;
-                    // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceRoll));
                 }
                 else
                 {
@@ -235,16 +232,13 @@ namespace DiceBattle.UI
                 }
             }
 
-            Debug.Log($"Attempts = {_attemptsNumber}");
-
             UpdateButtonStates();
-            // TODO: SignalSystem.Raise - The button is clicked (click sound)
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
         }
 
         private void HandleRestartButtonClicked()
         {
-            // TODO: SignalSystem.Raise - The button is clicked (click sound)
-
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
             InitializeGame();
         }
 

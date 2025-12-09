@@ -3314,16 +3314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _musicSource: {fileID: 674676628}
   _sfxSource: {fileID: 1284191428}
-  _diceRollClip: {fileID: 8300000, guid: 053ee829c22f4384ab223c530df0a421, type: 3}
-  _diceRerollClip: {fileID: 8300000, guid: 3ece16278000573408902cbe35de7635, type: 3}
-  _diceLockClip: {fileID: 8300000, guid: a0c60e40113ddfd428af48ef6fb2344b, type: 3}
-  _playerAttackClip: {fileID: 0}
-  _playerHealClip: {fileID: 0}
-  _playerHitClip: {fileID: 0}
-  _enemyHitClip: {fileID: 0}
-  _enemyDefeatedClip: {fileID: 0}
-  _enemySpawnClip: {fileID: 0}
-  _gameOverClip: {fileID: 0}
+  _click: {fileID: 8300000, guid: a0c60e40113ddfd428af48ef6fb2344b, type: 3}
   _diceGrab:
   - {fileID: 8300000, guid: 1ab86209378551645a0c0ce999d78714, type: 3}
   - {fileID: 8300000, guid: ef15578d5aea88e45a2e2a93f6a9a9a3, type: 3}
@@ -3340,6 +3331,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9a1b23fb5965a68428a63a9cd50f9410, type: 3}
   - {fileID: 8300000, guid: 21d5f3fdc68e81440bb0ff64d078f458, type: 3}
   - {fileID: 8300000, guid: 5165ae0b7db80cb479e193089ad303bd, type: 3}
+  _playerAttackClip: {fileID: 0}
+  _playerHealClip: {fileID: 0}
+  _playerHitClip: {fileID: 0}
+  _enemyHitClip: {fileID: 0}
+  _enemyDefeatedClip: {fileID: 0}
+  _enemySpawnClip: {fileID: 0}
+  _gameOverClip: {fileID: 0}
   _backgroundMusic: {fileID: 0}
   _playMusicOnStart: 1
 --- !u!1001 &1428900426

@@ -11,7 +11,10 @@ namespace DiceBattle.Audio
         [SerializeField] private AudioSource _sfxSource;
 
         [Header("Audio Clips")]
+        [Header("Actions with UI")]
+        [SerializeField] private AudioClip _click;
         [Header("Actions with dice")]
+        [Space]
         [SerializeField] private List<AudioClip> _diceGrab;
         [SerializeField] private List<AudioClip> _diceShake;
         [SerializeField] private List<AudioClip> _diceThrow;
