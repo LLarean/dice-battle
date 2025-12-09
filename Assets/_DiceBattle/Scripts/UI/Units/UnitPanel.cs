@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,12 +7,16 @@ namespace DiceBattle
 {
     public class UnitPanel : MonoBehaviour
     {
+        private const float _flashDuration = 0.1f;
+        private const int _flashCount = 3;
+
         [SerializeField] private TMP_Text _title;
         [SerializeField] private Image _portrait;
         [SerializeField] private Slider _health;
         [SerializeField] private UnitStats _unitStats;
 
         private UnitData _unitData;
+        private Color _originalColor;
 
         public void SetUnitData(UnitData unitData)
         {
@@ -34,6 +39,7 @@ namespace DiceBattle
 
         public void UpdateCurrentHealth(int currentHealth)
         {
+            AnimateHealth(currentHealth);
             _health.value = currentHealth;
             _unitStats.ShowHealth($"{currentHealth}/{_health.maxValue}");
             // TODO LLarean Separate the logic of taking damage and healing so that you can animate
@@ -75,6 +81,31 @@ namespace DiceBattle
             _unitStats.HideHealth();
             _unitStats.HideAttack();
             _unitStats.HideDefense();
+        }
+
+        private void AnimateHealth(int currentHealth)
+        {
+            Color flashColor = currentHealth > _health.value ? Color.green : Color.red;
+
+            LeanTween.cancel(_portrait.gameObject);
+
+            LTSeq sequence = LeanTween.sequence();
+
+            for (int i = 0; i < _flashCount; i++)
+            {
+                sequence.append(LeanTween.value(_portrait.gameObject, _portrait.color, flashColor, _flashDuration)
+                    .setOnUpdate(val => _portrait.color = val));
+
+                sequence.append(LeanTween.value(_portrait.gameObject, flashColor, _originalColor, _flashDuration)
+                    .setOnUpdate(val => _portrait.color = val));
+            }
+
+            sequence.append(() => _portrait.color = _originalColor);
+        }
+
+        private void Awake()
+        {
+            _originalColor = _portrait.color;
         }
     }
 }
