@@ -1,4 +1,6 @@
 using System;
+using DiceBattle.Audio;
+using GameSignals;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
@@ -67,7 +69,7 @@ namespace DiceBattle.Core
 
         private void ToggleSelection()
         {
-            // TODO: SignalSystem.Raise - The cube is marked/unmarked (click sound)
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceLock));
 
             _selectionIcon.gameObject.SetActive(!_selectionIcon.gameObject.activeSelf);
             _image.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
