@@ -6,42 +6,36 @@ namespace DiceBattle.Audio
 {
     public class AudioPlayer : MonoBehaviour, ISoundHandler
     {
-        [Header("Audio Sources")] [SerializeField]
-        private AudioSource _musicSource;
-
+        [Header("Audio Sources")]
+        [SerializeField] private AudioSource _musicSource;
         [SerializeField] private AudioSource _sfxSource;
 
-        [Header("Audio Clips")] [SerializeField]
-        private AudioClip _diceRollClip;
-
-        [SerializeField] private AudioClip _diceRerollClip;
-        [SerializeField] private AudioClip _diceLockClip;
-        [SerializeField] private AudioClip _playerAttackClip;
-        [SerializeField] private AudioClip _playerHealClip;
-        [SerializeField] private AudioClip _playerHitClip;
-        [SerializeField] private AudioClip _enemyHitClip;
-        [SerializeField] private AudioClip _enemyDefeatedClip;
-        [SerializeField] private AudioClip _enemySpawnClip;
-        [SerializeField] private AudioClip _gameOverClip;
-        [Space]
+        [Header("Audio Clips")]
+        [Header("Actions with dice")]
         [SerializeField] private List<AudioClip> _diceGrab;
         [SerializeField] private List<AudioClip> _diceShake;
         [SerializeField] private List<AudioClip> _diceThrow;
         [SerializeField] private List<AudioClip> _dieThrow;
         [Space]
-        [Header("Music")] [SerializeField]
-        private AudioClip _backgroundMusic;
+        [SerializeField] private AudioClip _playerAttackClip;
+        [SerializeField] private AudioClip _playerHealClip;
+        [SerializeField] private AudioClip _playerHitClip;
+        [Space]
+        [SerializeField] private AudioClip _enemyHitClip;
+        [SerializeField] private AudioClip _enemyDefeatedClip;
+        [SerializeField] private AudioClip _enemySpawnClip;
+        [Space]
+        [SerializeField] private AudioClip _gameOverClip;
 
+        [Header("Music")]
+        [SerializeField] private AudioClip _backgroundMusic;
+        [Space]
         [SerializeField] private bool _playMusicOnStart = true;
 
         public void PlaySound(SoundType soundType)
         {
             AudioClip clip = GetClipByType(soundType);
-
-            if (clip != null && _sfxSource != null)
-            {
-                _sfxSource.PlayOneShot(clip);
-            }
+            _sfxSource.PlayOneShot(clip);
         }
 
         public void SetMusicEnabled(bool enabled)
@@ -88,12 +82,6 @@ namespace DiceBattle.Audio
                 case SoundType.DieThrow:
                     return _dieThrow[Random.Range(0, _dieThrow.Count)];
 
-                case SoundType.DiceRoll:
-                    return _diceRollClip;
-                case SoundType.DiceReroll:
-                    return _diceRerollClip;
-                case SoundType.DiceLock:
-                    return _diceLockClip;
                 case SoundType.PlayerAttack:
                     return _playerAttackClip;
                 case SoundType.PlayerHeal:
