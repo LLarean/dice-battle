@@ -69,7 +69,7 @@ namespace DiceBattle.Core
 
         private void ToggleSelection()
         {
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceLock));
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceGrab));
 
             _selectionIcon.gameObject.SetActive(!_selectionIcon.gameObject.activeSelf);
             _image.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
