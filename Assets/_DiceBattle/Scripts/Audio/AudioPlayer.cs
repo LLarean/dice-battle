@@ -6,31 +6,32 @@ namespace DiceBattle.Audio
 {
     public class AudioPlayer : MonoBehaviour, ISoundHandler
     {
-        [Header("Audio Sources")]
+        [Header("---AUDIO SOURCES---")]
         [SerializeField] private AudioSource _musicSource;
         [SerializeField] private AudioSource _sfxSource;
 
-        [Header("Audio Clips")]
+        [Header("---AUDIO CPLIPS---")]
         [Header("Actions with UI")]
         [SerializeField] private AudioClip _click;
-        [Header("Actions with dice")]
         [Space]
+        [Header("Actions with dice")]
         [SerializeField] private List<AudioClip> _diceGrab;
         [SerializeField] private List<AudioClip> _diceShake;
         [SerializeField] private List<AudioClip> _diceThrow;
         [SerializeField] private List<AudioClip> _dieThrow;
         [Space]
-        [SerializeField] private AudioClip _playerAttackClip;
-        [SerializeField] private AudioClip _playerHealClip;
-        [SerializeField] private AudioClip _playerHitClip;
+        [SerializeField] private List<AudioClip> _playerAttack;
+        [SerializeField] private List<AudioClip> _playerHeal;
         [Space]
+        [Header("Actions of enemies")]
+        [SerializeField] private List<AudioClip> _slimeAttack;
         [SerializeField] private AudioClip _enemyHitClip;
         [SerializeField] private AudioClip _enemyDefeatedClip;
         [SerializeField] private AudioClip _enemySpawnClip;
         [Space]
         [SerializeField] private AudioClip _gameOverClip;
 
-        [Header("Music")]
+        [Header("---MUSIC---")]
         [SerializeField] private AudioClip _backgroundMusic;
         [Space]
         [SerializeField] private bool _playMusicOnStart = true;
@@ -86,17 +87,19 @@ namespace DiceBattle.Audio
                     return _dieThrow[Random.Range(0, _dieThrow.Count)];
 
                 case SoundType.PlayerAttack:
-                    return _playerAttackClip;
+                    return _playerAttack[Random.Range(0, _playerAttack.Count)];
                 case SoundType.PlayerHeal:
-                    return _playerHealClip;
-                case SoundType.PlayerHit:
-                    return _playerHitClip;
+                    return _playerHeal[Random.Range(0, _playerHeal.Count)];
+
+                case SoundType.SlimeAttack:
+                    return _slimeAttack[Random.Range(0, _slimeAttack.Count)];
                 case SoundType.EnemyHit:
                     return _enemyHitClip;
                 case SoundType.EnemyDefeated:
                     return _enemyDefeatedClip;
                 case SoundType.EnemySpawn:
                     return _enemySpawnClip;
+
                 case SoundType.GameOver:
                     return _gameOverClip;
                 default:

@@ -11,8 +11,8 @@
 
         PlayerAttack,
         PlayerHeal,
-        PlayerHit,
 
+        SlimeAttack,
         EnemyHit,
         EnemyDefeated,
         EnemySpawn,

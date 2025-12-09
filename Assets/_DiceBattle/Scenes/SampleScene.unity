@@ -3331,9 +3331,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9a1b23fb5965a68428a63a9cd50f9410, type: 3}
   - {fileID: 8300000, guid: 21d5f3fdc68e81440bb0ff64d078f458, type: 3}
   - {fileID: 8300000, guid: 5165ae0b7db80cb479e193089ad303bd, type: 3}
-  _playerAttackClip: {fileID: 0}
+  _playerAttack:
+  - {fileID: 8300000, guid: 07969c5864fad4541b6a070ee244e7fd, type: 3}
   _playerHealClip: {fileID: 0}
   _playerHitClip: {fileID: 0}
+  _slimeAttack:
+  - {fileID: 8300000, guid: b115d40303f048145b158c5717fa4da9, type: 3}
+  - {fileID: 8300000, guid: bba0d6e286693504fabaa84e9eb63068, type: 3}
+  - {fileID: 8300000, guid: efcd5dda84e5daa4093b017c4675c929, type: 3}
+  - {fileID: 8300000, guid: c07fd654769e36540b297aaa9b1e9b9e, type: 3}
   _enemyHitClip: {fileID: 0}
   _enemyDefeatedClip: {fileID: 0}
   _enemySpawnClip: {fileID: 0}

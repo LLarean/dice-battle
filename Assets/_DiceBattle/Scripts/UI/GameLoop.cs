@@ -145,6 +145,8 @@ namespace DiceBattle.UI
             TakeDamage(_turnResult.Attack);
             _gameScreen.UpdateEnemyDisplay();
 
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
+
             // TODO: SignalSystem.Raise - player attack (damage: damageDealt)
         }
 
@@ -176,7 +178,7 @@ namespace DiceBattle.UI
                 _playerData.CurrentHealth = Mathf.Max(0, _playerData.CurrentHealth - damageToPlayer);
                 _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
 
-                // TODO: SignalSystem.Raise - player took damage (amount: damageToPlayer)
+                SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
 
                 if (_playerData.CurrentHealth <= 0)
                 {
