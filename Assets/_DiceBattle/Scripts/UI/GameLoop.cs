@@ -218,7 +218,7 @@ namespace DiceBattle.UI
                 _isFirstRoll = false;
                 _gameScreen.RollDice();
 
-                SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceRoll));
+                // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceRoll));
             }
             else
             {
@@ -227,7 +227,7 @@ namespace DiceBattle.UI
                     _gameScreen.RerollSelectedDice();
 
                     _isFirstRoll = false;
-                    SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceRoll));
+                    // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceRoll));
                 }
                 else
                 {

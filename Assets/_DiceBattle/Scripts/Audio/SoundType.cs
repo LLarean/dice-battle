@@ -5,6 +5,11 @@
     /// </summary>
     public enum SoundType
     {
+        DiceGrab,
+        DiceShake,
+        DiceThrow,
+        DieThrow,
+
         DiceRoll,        // Dice roll
         DiceReroll,      // Dice reroll
         DiceLock,        // Dice lock/unlock

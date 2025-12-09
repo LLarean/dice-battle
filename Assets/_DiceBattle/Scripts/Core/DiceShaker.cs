@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using DiceBattle.Audio;
+using GameSignals;
 using UnityEngine;
 
 namespace DiceBattle.Core
@@ -20,6 +22,19 @@ namespace DiceBattle.Core
             }
 
             _diceRollAnimation.RollDice(dices);
+            PlaySound(dices);
+        }
+
+        private static void PlaySound(List<Dice> dices)
+        {
+            if (dices.Count > 1)
+            {
+                SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceThrow));
+            }
+            else
+            {
+                SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DieThrow));
+            }
         }
 
         private void HandleRollComplete() => OnRollCompleted?.Invoke();
