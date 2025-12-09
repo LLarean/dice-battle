@@ -1,4 +1,6 @@
+using DiceBattle.Audio;
 using DiceBattle.Screens;
+using GameSignals;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,9 +17,10 @@ namespace DiceBattle
 
         private void StartClick()
         {
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
+
             _gameScreen.gameObject.SetActive(true);
             gameObject.SetActive(false);
-            // TODO: SignalSystem.Raise - The button is clicked (click sound)
         }
     }
 }
