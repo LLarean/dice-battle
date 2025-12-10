@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +15,6 @@ namespace DiceBattle
         [SerializeField] private UnitStats _unitStats;
 
         private UnitData _unitData;
-        private Color _originalColor;
 
         public void SetUnitData(UnitData unitData)
         {
@@ -96,16 +94,11 @@ namespace DiceBattle
                 sequence.append(LeanTween.value(_portrait.gameObject, _portrait.color, flashColor, _flashDuration)
                     .setOnUpdate(val => _portrait.color = val));
 
-                sequence.append(LeanTween.value(_portrait.gameObject, flashColor, _originalColor, _flashDuration)
+                sequence.append(LeanTween.value(_portrait.gameObject, flashColor, Color.white, _flashDuration)
                     .setOnUpdate(val => _portrait.color = val));
             }
 
-            sequence.append(() => _portrait.color = _originalColor);
-        }
-
-        private void Awake()
-        {
-            _originalColor = _portrait.color;
+            sequence.append(() => _portrait.color = Color.white);
         }
     }
 }
