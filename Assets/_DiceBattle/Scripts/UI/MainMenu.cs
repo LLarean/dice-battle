@@ -16,8 +16,8 @@ namespace DiceBattle
         private void StartClick()
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
-            gameObject.SetActive(false);
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.DungeonsScreen));
+            // gameObject.SetActive(false);
         }
     }
 }
