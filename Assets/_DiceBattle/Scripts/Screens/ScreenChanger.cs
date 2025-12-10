@@ -37,13 +37,13 @@ namespace DiceBattle.Screens
 
         private void Awake()
         {
-            SignalSystem.Subscribe(this);
-
             _mainMenu.gameObject.SetActive(false);
             _dungeonsScreen.gameObject.SetActive(false);
             _gameOverScreen.gameObject.SetActive(false);
             _gameScreen.gameObject.SetActive(false);
             _lootScreen.gameObject.SetActive(false);
+
+            SignalSystem.Subscribe(this);
         }
 
         private void OnDestroy()
