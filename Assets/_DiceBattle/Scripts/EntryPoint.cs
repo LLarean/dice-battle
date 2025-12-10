@@ -15,8 +15,6 @@ namespace DiceBattle
 
         private void Start()
         {
-            // TODO: SignalSystem.Raise - Background music
-
             _mainMenu.gameObject.SetActive(true);
             _gameOverScreen.gameObject.SetActive(false);
             _gameScreen.gameObject.SetActive(false);
