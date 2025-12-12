@@ -16,25 +16,17 @@ namespace DiceBattle.Screens
         [Space]
         [SerializeField] private DiceRollAnimation _diceRollAnimation;
 
-        private Vector2 _titleStartPosition;
-        private Vector2 _buttonStartPosition;
-
-        private void Start()
-        {
-            _start.onClick.AddListener(HandleStartClick);
-            _titleStartPosition = _title.rectTransform.anchoredPosition;
-            _buttonStartPosition = _start.GetComponent<RectTransform>().anchoredPosition;
-        }
+        private void Start() => _start.onClick.AddListener(HandleStartClick);
 
         private void OnDestroy() => _start.onClick.RemoveAllListeners();
 
-        // private void OnEnable()
-        // {
-        //     SlideIn(_title.rectTransform, _titleStartPosition);
-        //     SlideIn(_start.GetComponent<RectTransform>(), _buttonStartPosition, -1);
-        //
-        //     _diceRollAnimation.RollDice(_dice);
-        // }
+        private void OnEnable()
+        {
+            SlideIn(_title.rectTransform);
+            SlideIn(_start.GetComponent<RectTransform>(), -1);
+
+            _diceRollAnimation.RollDice(_dice);
+        }
 
         private void HandleStartClick()
         {
@@ -42,11 +34,17 @@ namespace DiceBattle.Screens
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
         }
 
-        private void SlideIn(RectTransform animationObject, Vector2 startPosition, int direction = 1)
+        private void SlideIn(RectTransform animationObject, int direction = 1)
         {
+            Vector2 startPosition = Vector2.zero;
+
             if (LeanTween.isTweening(animationObject.gameObject))
             {
                 LeanTween.cancel(animationObject.gameObject);
+            }
+            else
+            {
+                startPosition = animationObject.GetComponent<RectTransform>().anchoredPosition;
             }
 
             RectTransform canvasRect = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
