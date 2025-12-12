@@ -28,13 +28,6 @@ namespace DiceBattle.Screens
             _diceRollAnimation.RollDice(_dice);
         }
 
-        [ContextMenu("Test")]
-        public void Test()
-        {
-            _diceRollAnimation.RollDice(_dice);
-
-        }
-
         private void HandleStartClick()
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));

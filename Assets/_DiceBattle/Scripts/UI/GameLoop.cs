@@ -40,7 +40,7 @@ namespace DiceBattle.UI
         {
             _playerData = new UnitData
             {
-                Title = "Hero (you)",
+                Title = "Герой (вы)",
                 Portrait = _config.PlayerPortrait,
                 MaxHealth = _config.PlayerStartHealth,
                 CurrentHealth = _config.PlayerStartHealth,
@@ -60,7 +60,7 @@ namespace DiceBattle.UI
 
             _enemyData = new UnitData
             {
-                Title = $"Enemy #{_enemiesDefeated + 1}",
+                Title = $"Враг #{_enemiesDefeated + 1}",
                 Portrait = _config.EnemiesPortraits[_enemiesDefeated],
                 MaxHealth = maxHealth,
                 CurrentHealth = maxHealth,
@@ -97,7 +97,7 @@ namespace DiceBattle.UI
             _attemptsNumber = 0;
 
             _gameScreen.ResetSelection();
-            _gameScreen.SetContextLabel("Roll All");
+            _gameScreen.SetContextLabel("Бросить все");
 
             UpdateButtonStates();
         }
@@ -111,12 +111,12 @@ namespace DiceBattle.UI
             else if (_attemptsNumber >= _config.MaxAttempts - 1)
             {
                 _gameScreen.DisableDiceInteractable();
-                _gameScreen.SetContextLabel("End Turn");
+                _gameScreen.SetContextLabel("Закончить");
             }
             else
             {
                 _gameScreen.EnableDiceInteractable();
-                _gameScreen.SetContextLabel("Skip");
+                _gameScreen.SetContextLabel("Пропустить");
             }
         }
 
