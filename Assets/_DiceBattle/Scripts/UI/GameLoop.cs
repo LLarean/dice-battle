@@ -196,6 +196,7 @@ namespace DiceBattle.UI
             // TODO: SignalSystem.Raise - The sound of victory/defeat
 
             _lootScreen.gameObject.SetActive(true);
+            _lootScreen.RollReward();
 
             SpawnEnemy();
 
