@@ -7,7 +7,7 @@ namespace DiceBattle.Screens
 {
     public class ScreenChanger : MonoBehaviour, IScreenHandler
     {
-        [SerializeField] private MainMenu _mainMenu;
+        [SerializeField] private MainMenuScreen _mainMenuScreen;
         [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
         [SerializeField] private LootScreen _lootScreen;
@@ -23,7 +23,7 @@ namespace DiceBattle.Screens
             }
 
             GameObject screen = screenType switch {
-                ScreenType.MainMenu => _mainMenu.gameObject,
+                ScreenType.MainMenu => _mainMenuScreen.gameObject,
                 ScreenType.GameScreen => _gameScreen.gameObject,
                 ScreenType.GameOverScreen => _gameOverScreen.gameObject,
                 ScreenType.LootScreen => _lootScreen.gameObject,
@@ -37,7 +37,7 @@ namespace DiceBattle.Screens
 
         private void Awake()
         {
-            _mainMenu.gameObject.SetActive(false);
+            _mainMenuScreen.gameObject.SetActive(false);
             _dungeonsScreen.gameObject.SetActive(false);
             _gameOverScreen.gameObject.SetActive(false);
             _gameScreen.gameObject.SetActive(false);
