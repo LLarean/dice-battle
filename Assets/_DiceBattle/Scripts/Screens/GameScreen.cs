@@ -49,18 +49,18 @@ namespace DiceBattle.Screens
 
         private void HandleDiceToggle()
         {
-            SetContextLabel("Reroll Selected");
+            SetContextLabel("Перебросить выбранные");
 
             bool isAllSelected = _gameBoard.Dices.All(dice => dice.IsSelected);
             bool isAllUnselected = _gameBoard.Dices.All(dice => !dice.IsSelected);
 
             if (isAllSelected)
             {
-                SetContextLabel("Reroll All");
+                SetContextLabel("Перебросить все");
             }
             if (isAllUnselected)
             {
-                SetContextLabel("Skip");
+                SetContextLabel("Пропустить");
             }
         }
 
@@ -79,7 +79,7 @@ namespace DiceBattle.Screens
             _gameBoard.OnDiceToggled += HandleDiceToggle;
             _gameBoard.OnRollCompleted += HandleRollComplete;
 
-            SetContextLabel("Roll All");
+            SetContextLabel("Бросить все");
         }
 
         private void OnDestroy()
