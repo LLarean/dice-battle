@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DiceBattle.Audio;
 using GameSignals;
 using TMPro;
@@ -10,6 +11,7 @@ namespace DiceBattle
 {
     public class LootScreen : MonoBehaviour
     {
+        [SerializeField] private List<RewardItem> _rewardItem;
         [SerializeField] private TextMeshProUGUI _reward;
         [SerializeField] private Button _next;
 
@@ -20,7 +22,11 @@ namespace DiceBattle
             var allValues = (RewardType[])Enum.GetValues(typeof(RewardType));
             int randomIndex = _random.Next(0, allValues.Length);
             var rewardType = (RewardType)randomIndex;
-            _reward.text = rewardType.ToString();
+            _rewardItem[0].SetReward(rewardType);
+
+            randomIndex = _random.Next(0, allValues.Length);
+            rewardType = (RewardType)randomIndex;
+            _rewardItem[1].SetReward(rewardType);
         }
 
         private void Awake() => _random = new Random();
