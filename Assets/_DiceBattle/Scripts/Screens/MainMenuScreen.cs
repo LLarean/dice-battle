@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DiceBattle.Audio;
 using DiceBattle.Core;
@@ -12,11 +13,23 @@ namespace DiceBattle.Screens
     {
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private List<Dice> _dice;
+        [Space]
+        [SerializeField] private Button _options;
+        [SerializeField] private Button _restart;
         [SerializeField] private Button _start;
         [Space]
         [SerializeField] private DiceRollAnimation _diceRollAnimation;
 
-        private void Start() => _start.onClick.AddListener(HandleStartClick);
+        private RectTransform _canvasRect;
+
+        private void Awake() => _canvasRect = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+
+        private void Start()
+        {
+            _options.onClick.AddListener(HandleOptionsClick);
+            _start.onClick.AddListener(HandleStartClick);
+            _start.onClick.AddListener(HandleStartClick);
+        }
 
         private void OnDestroy() => _start.onClick.RemoveAllListeners();
 
@@ -34,6 +47,12 @@ namespace DiceBattle.Screens
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
         }
 
+        private void HandleOptionsClick()
+        {
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
+        }
+
+
         private void SlideIn(RectTransform animationObject, int direction = 1)
         {
             Vector2 startPosition = Vector2.zero;
@@ -47,8 +66,7 @@ namespace DiceBattle.Screens
                 startPosition = animationObject.GetComponent<RectTransform>().anchoredPosition;
             }
 
-            RectTransform canvasRect = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
-            float canvasHeight = canvasRect.rect.height;
+            float canvasHeight = _canvasRect.rect.height;
 
             Vector2 offScreenPos = startPosition + new Vector2(0, canvasHeight * direction);
             animationObject.anchoredPosition = offScreenPos;
