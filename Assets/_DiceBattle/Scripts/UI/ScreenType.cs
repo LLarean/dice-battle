@@ -6,6 +6,7 @@
         GameScreen,
         GameOverScreen,
         LootScreen,
-        DungeonsScreen
+        DungeonsScreen,
+        OptionsWindow,
     }
 }
