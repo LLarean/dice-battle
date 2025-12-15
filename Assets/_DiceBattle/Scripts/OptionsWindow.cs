@@ -1,19 +1,31 @@
+using DiceBattle.Audio;
+using GameSignals;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DiceBattle
 {
     public class OptionsWindow : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        [SerializeField] private Transform _substrate;
+        [Space]
+        [SerializeField] private Button _close;
+
+        private void Start()
         {
-        
+            _close.onClick.AddListener(HandleCloseClick);
+            _substrate.gameObject.SetActive(false);
         }
 
-        // Update is called once per frame
-        void Update()
+        private void OnDestroy()
         {
-        
+            _close.onClick.RemoveAllListeners();
+        }
+
+        private void HandleCloseClick()
+        {
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
+            _substrate.gameObject.SetActive(false);
         }
     }
 }
