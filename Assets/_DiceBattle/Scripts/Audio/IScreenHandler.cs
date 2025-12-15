@@ -6,4 +6,10 @@ namespace DiceBattle.Audio
     {
         void ShowScreen(ScreenType screenType);
     }
+
+    public interface ITopBatHandler : IGlobalSubscriber
+    {
+        void Show();
+        void Hide();
+    }
 }
