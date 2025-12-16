@@ -1,12 +1,18 @@
+using DiceBattle.Audio;
+using GameSignals;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace DiceBattle
 {
-    public class ButtonScaleAnimation : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public class BaseButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         private const float _duration = 0.2f;
         private const float _pressScale = 0.9f;
+
+        [SerializeField] private Button _button;
+        [SerializeField] private SoundType _soundType = SoundType.Click;
 
         private Vector3 _originalScale;
 
@@ -24,13 +30,15 @@ namespace DiceBattle
                 .setEase(LeanTweenType.easeOutQuad);
         }
 
-        private void Awake()
-        {
-            _originalScale = transform.localScale;
-        }
+        private void Awake() => _originalScale = transform.localScale;
+
+        private void Start() => _button.onClick.AddListener(HandleClick);
+
+        private void HandleClick() => SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(_soundType));
 
         private void OnDestroy()
         {
+            _button.onClick.RemoveAllListeners();
             LeanTween.cancel(gameObject);
         }
     }

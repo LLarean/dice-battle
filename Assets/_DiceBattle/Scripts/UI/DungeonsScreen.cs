@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DiceBattle.Audio;
 using GameSignals;
@@ -29,6 +30,11 @@ namespace DiceBattle
             }
 
             _back.onClick.RemoveAllListeners();
+        }
+
+        private void OnEnable()
+        {
+            SignalSystem.Raise<ITopBatHandler>(handler => handler.Hide());
         }
 
         private void ShowMainMenu()

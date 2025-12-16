@@ -146,6 +146,7 @@ MonoBehaviour:
   - {fileID: -2500287713041957420, guid: 15934780e3fe3a44cbb0440d31a52a8f, type: 3}
   - {fileID: -4746029775332315738, guid: defcbf24c708b9844a3654434ba738b2, type: 3}
   - {fileID: -860402343928173957, guid: 2c4a6953c04e3b040b4be57c5fb79064, type: 3}
+  _isMenu: 0
 --- !u!114 &8128745317300924866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe44ccc53def9a439d9d63be1c23d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _button: {fileID: 799282914596039025}
+  _soundType: 0
 --- !u!114 &5989367836217258517
 MonoBehaviour:
   m_ObjectHideFlags: 0
