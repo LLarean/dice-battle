@@ -8,10 +8,10 @@ namespace DiceBattle.Screens
     public class ScreenChanger : MonoBehaviour, IScreenHandler
     {
         [SerializeField] private MainMenuScreen _mainMenuScreen;
+        [SerializeField] private DungeonsScreen _dungeonsScreen;
         [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
         [SerializeField] private LootScreen _lootScreen;
-        [SerializeField] private DungeonsScreen _dungeonsScreen;
 
         private GameObject _currentScreen;
 
@@ -35,6 +35,18 @@ namespace DiceBattle.Screens
             _currentScreen = screen;
         }
 
+        public void Back()
+        {
+            if (_currentScreen.TryGetComponent(out DungeonsScreen dungeonsScreen))
+            {
+                ShowScreen(ScreenType.MainMenu);
+            }
+            else if (_currentScreen.TryGetComponent(out GameScreen gameScreen))
+            {
+                ShowScreen(ScreenType.DungeonsScreen);
+            }
+        }
+
         private void Awake()
         {
             _mainMenuScreen.gameObject.SetActive(false);
@@ -46,9 +58,6 @@ namespace DiceBattle.Screens
             SignalSystem.Subscribe(this);
         }
 
-        private void OnDestroy()
-        {
-            SignalSystem.Unsubscribe(this);
-        }
+        private void OnDestroy() => SignalSystem.Unsubscribe(this);
     }
 }

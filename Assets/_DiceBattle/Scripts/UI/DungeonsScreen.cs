@@ -34,7 +34,7 @@ namespace DiceBattle
 
         private void OnEnable()
         {
-            SignalSystem.Raise<ITopBatHandler>(handler => handler.Hide());
+            SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
         }
 
         private void ShowMainMenu()
