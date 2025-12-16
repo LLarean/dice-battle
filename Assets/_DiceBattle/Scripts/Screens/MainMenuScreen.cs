@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using DiceBattle.Audio;
 using DiceBattle.Core;
