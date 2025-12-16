@@ -26,7 +26,7 @@ namespace DiceBattle.Screens
         private void Start()
         {
             _options.onClick.AddListener(HandleOptionsClick);
-            _start.onClick.AddListener(HandleStartClick);
+            _restart.onClick.AddListener(HandleStartClick);
             _start.onClick.AddListener(HandleStartClick);
         }
 
@@ -39,20 +39,16 @@ namespace DiceBattle.Screens
 
             _diceRollAnimation.RollDice(_dice);
 
-            SignalSystem.Raise<ITopBatHandler>(handler => handler.Hide());
+            SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
         }
 
         private void HandleStartClick()
         {
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.DungeonsScreen));
+            SignalSystem.Raise<ITopBarHandler>(handler => handler.Show());
         }
 
-        private void HandleOptionsClick()
-        {
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
-        }
-
+        private void HandleOptionsClick() => SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
 
         private void SlideIn(RectTransform animationObject, int direction = 1)
         {

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace DiceBattle
 {
-    public class TopBar : MonoBehaviour, ITopBatHandler
+    public class TopBar : MonoBehaviour, ITopBarHandler
     {
         [SerializeField] private Transform _panel;
         [Space]
@@ -32,23 +32,18 @@ namespace DiceBattle
         {
             _back.onClick.AddListener(HandleBackClick);
             _options.onClick.AddListener(HandleOptionsClick);
+            SignalSystem.Subscribe(this);
         }
 
         private void OnDestroy()
         {
             _back.onClick.RemoveAllListeners();
             _options.onClick.RemoveAllListeners();
+            SignalSystem.Unsubscribe(this);
         }
 
-        private void HandleBackClick()
-        {
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
-        }
+        private void HandleBackClick() => SignalSystem.Raise<IScreenHandler>(handler => handler.Back());
 
-        private void HandleOptionsClick()
-        {
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.OptionsWindow));
-        }
+        private void HandleOptionsClick() => SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.OptionsWindow));
     }
 }
