@@ -15,11 +15,10 @@ namespace DiceBattle
 
         private RectTransform _canvasRect;
 
-        [ContextMenu("Show")]
         public void Show()
         {
             _panel.gameObject.SetActive(true);
-            
+
             var gameObjectAnimations = new GameObjectAnimations(_canvasRect);
             gameObjectAnimations.SetParams(.2f, .5f, LeanTweenType.easeOutBack);
             gameObjectAnimations.SlideIn(gameObject.GetComponent<RectTransform>());

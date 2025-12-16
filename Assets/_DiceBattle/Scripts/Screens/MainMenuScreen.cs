@@ -38,6 +38,8 @@ namespace DiceBattle.Screens
             SlideIn(_start.GetComponent<RectTransform>(), -1);
 
             _diceRollAnimation.RollDice(_dice);
+
+            SignalSystem.Raise<ITopBatHandler>(handler => handler.Hide());
         }
 
         private void HandleStartClick()
