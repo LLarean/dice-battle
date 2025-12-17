@@ -5,12 +5,13 @@ using GameSignals;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DiceBattle
+namespace DiceBattle.Screens
 {
     public class DungeonsScreen : MonoBehaviour
     {
         [SerializeField] private List<LevelItem> _levelItems;
-        [SerializeField] private Button _back;
+        [SerializeField] private Button _restart;
+        [SerializeField] private Button _inventory;
 
         private void Start()
         {
@@ -19,7 +20,8 @@ namespace DiceBattle
                 levelItem.OnClicked += OpenLevel;
             }
 
-            _back.onClick.AddListener(ShowMainMenu);
+            _restart.onClick.AddListener(RestartGame);
+            _inventory.onClick.AddListener(ShowInventory);
         }
 
         private void OnDestroy()
@@ -29,7 +31,8 @@ namespace DiceBattle
                 levelItem.OnClicked -= OpenLevel;
             }
 
-            _back.onClick.RemoveAllListeners();
+            _restart.onClick.RemoveAllListeners();
+            _inventory.onClick.RemoveAllListeners();
         }
 
         private void OnEnable()
@@ -37,9 +40,14 @@ namespace DiceBattle
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
         }
 
-        private void ShowMainMenu()
+        private void RestartGame()
         {
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
+        }
+
+        private void ShowInventory()
+        {
+            SignalSystem.Raise<IInventoryWindowHandler>(handler => handler.Show());
         }
 
         private void OpenLevel(int levelIndex)
