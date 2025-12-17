@@ -5,27 +5,29 @@ using UnityEngine.UI;
 
 namespace DiceBattle
 {
-    public class OptionsWindow : MonoBehaviour
+    public class OptionsWindow : MonoBehaviour, IOptionsWindowHandler
     {
         [SerializeField] private Transform _substrate;
         [Space]
         [SerializeField] private Button _close;
 
+        public void Show() => _substrate.gameObject.SetActive(true);
+
+        public void Hide() => _substrate.gameObject.SetActive(false);
+
         private void Start()
         {
             _close.onClick.AddListener(HandleCloseClick);
-            _substrate.gameObject.SetActive(false);
+            Hide();
+            SignalSystem.Subscribe(this);
         }
 
         private void OnDestroy()
         {
             _close.onClick.RemoveAllListeners();
+            SignalSystem.Unsubscribe(this);
         }
 
-        private void HandleCloseClick()
-        {
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
-            _substrate.gameObject.SetActive(false);
-        }
+        private void HandleCloseClick() => Hide();
     }
 }

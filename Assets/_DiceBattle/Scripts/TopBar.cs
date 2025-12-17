@@ -44,6 +44,6 @@ namespace DiceBattle
 
         private void HandleBackClick() => SignalSystem.Raise<IScreenHandler>(handler => handler.Back());
 
-        private void HandleOptionsClick() => SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.OptionsWindow));
+        private void HandleOptionsClick() => SignalSystem.Raise<IOptionsWindowHandler>(handler => handler.Show());
     }
 }
