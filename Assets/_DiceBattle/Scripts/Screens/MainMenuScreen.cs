@@ -48,7 +48,7 @@ namespace DiceBattle.Screens
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Show());
         }
 
-        private void HandleOptionsClick() => SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
+        private void HandleOptionsClick() => SignalSystem.Raise<IOptionsWindowHandler>(handler => handler.Show());
 
         private void SlideIn(RectTransform animationObject, int direction = 1)
         {

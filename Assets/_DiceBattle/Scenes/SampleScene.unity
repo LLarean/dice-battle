@@ -294,9 +294,9 @@ RectTransform:
   m_Children:
   - {fileID: 1004415170}
   - {fileID: 139924237}
-  - {fileID: 1513456416}
   - {fileID: 1017251807}
   - {fileID: 30483744}
+  - {fileID: 1513456416}
   - {fileID: 1433861932}
   - {fileID: 1283449930}
   m_Father: {fileID: 0}
@@ -5412,7 +5412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1283449930
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7784,7 +7784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1990185139
 RectTransform:
   m_ObjectHideFlags: 0
