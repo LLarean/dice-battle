@@ -17,7 +17,7 @@ namespace DiceBattle.Screens
         [SerializeField] private Button _restart;
         [SerializeField] private Button _start;
         [Space]
-        [SerializeField] private DiceRollAnimation _diceRollAnimation;
+        [SerializeField] private RectTransform _rollAnimationArea;
 
         private RectTransform _canvasRect;
 
@@ -37,7 +37,7 @@ namespace DiceBattle.Screens
             SlideIn(_title.rectTransform);
             SlideIn(_start.GetComponent<RectTransform>(), -1);
 
-            _diceRollAnimation.RollDice(_dice);
+            new DiceAnimation(_rollAnimationArea).Animate(_dice);
 
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
         }

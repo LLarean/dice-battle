@@ -25,7 +25,7 @@ namespace DiceBattle
 
         public event Action OnDiceRollComplete;
 
-        public void RollDice(List<Dice> dices)
+        public void Animate(List<Dice> dices)
         {
             GenerateNonOverlappingPositions(dices.Count);
 
@@ -99,7 +99,6 @@ namespace DiceBattle
         {
             if (index == _dicesToRoll.Count - 1)
             {
-                // dice.Roll();
                 LeanTween.delayedCall(1f, () => OnDiceRollComplete?.Invoke());
             }
         }
