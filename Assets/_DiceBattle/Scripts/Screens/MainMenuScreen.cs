@@ -34,8 +34,14 @@ namespace DiceBattle.Screens
 
         private void OnEnable()
         {
-            SlideIn(_title.rectTransform);
-            SlideIn(_start.GetComponent<RectTransform>(), -1);
+            var gameObjectAnimations = new GameObjectAnimations(_canvasRect);
+            gameObjectAnimations.SetParams(.2f, .5f, LeanTweenType.easeOutBack);
+
+            // SlideIn(_title.rectTransform);
+            gameObjectAnimations.SlideIn(_title.rectTransform);
+
+            // SlideIn(_start.GetComponent<RectTransform>(), -1);
+            gameObjectAnimations.SlideIn(_start.GetComponent<RectTransform>(), -1);
 
             new DiceAnimation(_rollAnimationArea).Animate(_dice);
 
