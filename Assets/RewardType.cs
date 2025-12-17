@@ -2,11 +2,14 @@
 {
     public enum RewardType
     {
-        DoubleDamage,
-        DoubleHealth,
-        RestoreHealth,
         AdditionalDice,
+
         MagicDamage,
+        DoubleDamage,
+
+        RestoreHealth,
+        DoubleHealth,
+
         DisableEmptyState,
     }
 }

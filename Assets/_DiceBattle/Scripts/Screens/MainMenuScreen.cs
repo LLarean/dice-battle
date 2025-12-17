@@ -37,10 +37,7 @@ namespace DiceBattle.Screens
             var gameObjectAnimations = new GameObjectAnimations(_canvasRect);
             gameObjectAnimations.SetParams(.2f, .5f, LeanTweenType.easeOutBack);
 
-            // SlideIn(_title.rectTransform);
             gameObjectAnimations.SlideIn(_title.rectTransform);
-
-            // SlideIn(_start.GetComponent<RectTransform>(), -1);
             gameObjectAnimations.SlideIn(_start.GetComponent<RectTransform>(), -1);
 
             new DiceAnimation(_rollAnimationArea).Animate(_dice);
@@ -55,28 +52,5 @@ namespace DiceBattle.Screens
         }
 
         private void HandleOptionsClick() => SignalSystem.Raise<IOptionsWindowHandler>(handler => handler.Show());
-
-        private void SlideIn(RectTransform animationObject, int direction = 1)
-        {
-            Vector2 startPosition = Vector2.zero;
-
-            if (LeanTween.isTweening(animationObject.gameObject))
-            {
-                LeanTween.cancel(animationObject.gameObject);
-            }
-            else
-            {
-                startPosition = animationObject.GetComponent<RectTransform>().anchoredPosition;
-            }
-
-            float canvasHeight = _canvasRect.rect.height;
-
-            Vector2 offScreenPos = startPosition + new Vector2(0, canvasHeight * direction);
-            animationObject.anchoredPosition = offScreenPos;
-
-            LeanTween.move(animationObject, startPosition, 1)
-                .setDelay(.5f)
-                .setEase(LeanTweenType.easeOutBack);
-        }
     }
 }
