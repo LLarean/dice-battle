@@ -21,7 +21,7 @@ namespace DiceBattle.Core
                 dice.transform.localPosition = Vector3.zero;
             }
 
-            _diceRollAnimation.RollDice(dices);
+            _diceRollAnimation.Animate(dices);
             PlaySound(dices);
         }
 
