@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using DiceBattle.Audio;
 using GameSignals;
@@ -37,7 +36,24 @@ namespace DiceBattle.Screens
 
         private void OnEnable()
         {
-            SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
+            int availableLevels = PlayerPrefs.GetInt("AvailableLevels", 1);
+
+            for (int i = 0; i < _levelItems.Count; i++)
+            {
+                if (i < availableLevels)
+                {
+                    _levelItems[i].EnableAvailable();
+                }
+                else
+                {
+                    _levelItems[i].DisableAvailable();
+                }
+
+                if (i == availableLevels - 1)
+                {
+                    _levelItems[i].DisableAggry();
+                }
+            }
         }
 
         private void RestartGame()
