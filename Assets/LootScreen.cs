@@ -12,8 +12,7 @@ namespace DiceBattle
     public class LootScreen : MonoBehaviour
     {
         [SerializeField] private List<RewardItem> _rewardItem;
-        [SerializeField] private TextMeshProUGUI _reward;
-        [SerializeField] private Button _next;
+        [SerializeField] private Button _take;
 
         private Random _random;
 
@@ -31,13 +30,13 @@ namespace DiceBattle
 
         private void Awake() => _random = new Random();
 
-        private void Start() => _next.onClick.AddListener(HandleStartClick);
+        private void Start() => _take.onClick.AddListener(HandleTakeClick);
 
-        private void OnDestroy() => _next.onClick.RemoveAllListeners();
+        private void OnDestroy() => _take.onClick.RemoveAllListeners();
 
         private void OnEnable() => RollReward();
 
-        private void HandleStartClick()
+        private void HandleTakeClick()
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
 
