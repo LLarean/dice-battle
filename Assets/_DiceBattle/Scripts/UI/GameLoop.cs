@@ -25,9 +25,10 @@ namespace DiceBattle.UI
 
         public void InitializeGame()
         {
-            int availableLevels = PlayerPrefs.GetInt("AvailableLevels", 1);
+            // int availableLevels = PlayerPrefs.GetInt("AvailableLevels", 1);
+            int currentLevel = GameProgress.CurrentLevel;
 
-            _enemiesDefeated = 2;
+            _enemiesDefeated = currentLevel;
             _isFirstRoll = true;
             _attemptsNumber = 0;
 
@@ -199,6 +200,8 @@ namespace DiceBattle.UI
 
             _lootScreen.gameObject.SetActive(true);
             _lootScreen.RollReward();
+
+            GameProgress.IncrementCurrentLevel();
 
             SpawnEnemy();
 

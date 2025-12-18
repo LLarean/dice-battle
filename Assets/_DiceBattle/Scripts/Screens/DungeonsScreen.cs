@@ -36,11 +36,12 @@ namespace DiceBattle.Screens
 
         private void OnEnable()
         {
-            int availableLevels = PlayerPrefs.GetInt("AvailableLevels", 1);
+            int currentLevel = GameProgress.CurrentLevel;
+            // int availableLevels = PlayerPrefs.GetInt("AvailableLevels", 1);
 
             for (int i = 0; i < _levelItems.Count; i++)
             {
-                if (i < availableLevels)
+                if (i <= currentLevel)
                 {
                     _levelItems[i].EnableAvailable();
                 }
@@ -49,7 +50,7 @@ namespace DiceBattle.Screens
                     _levelItems[i].DisableAvailable();
                 }
 
-                if (i == availableLevels - 1)
+                if (i == currentLevel)
                 {
                     _levelItems[i].DisableAggry();
                 }
