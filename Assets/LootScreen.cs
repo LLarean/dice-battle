@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using DiceBattle.Audio;
 using GameSignals;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
@@ -15,24 +14,36 @@ namespace DiceBattle
         [SerializeField] private Button _take;
 
         private Random _random;
+        private RewardType _firstReward;
+        private RewardType _secondReward;
 
         public void RollReward()
         {
             var allValues = (RewardType[])Enum.GetValues(typeof(RewardType));
             int randomIndex = _random.Next(0, allValues.Length);
-            var rewardType = (RewardType)randomIndex;
-            _rewardItem[0].SetReward(rewardType);
+            _firstReward = (RewardType)randomIndex;
+            _rewardItem[0].SetReward(_firstReward);
 
             randomIndex = _random.Next(0, allValues.Length);
-            rewardType = (RewardType)randomIndex;
-            _rewardItem[1].SetReward(rewardType);
+            _secondReward = (RewardType)randomIndex;
+            _rewardItem[1].SetReward(_secondReward);
         }
 
         private void Awake() => _random = new Random();
 
-        private void Start() => _take.onClick.AddListener(HandleTakeClick);
+        private void Start()
+        {
+            _take.onClick.AddListener(HandleTakeClick);
+            _rewardItem[0].OnClicked += SelectFirst;
+            _rewardItem[1].OnClicked += SelectSecond;
+        }
 
-        private void OnDestroy() => _take.onClick.RemoveAllListeners();
+        private void OnDestroy()
+        {
+            _take.onClick.RemoveAllListeners();
+            _rewardItem[0].OnClicked -= SelectFirst;
+            _rewardItem[1].OnClicked -= SelectSecond;
+        }
 
         private void OnEnable() => RollReward();
 
@@ -41,6 +52,18 @@ namespace DiceBattle
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
 
             gameObject.SetActive(false);
+        }
+
+        private void SelectFirst()
+        {
+            HandleTakeClick();
+            PlayerPrefs.SetInt(_firstReward.ToString(), 1);
+        }
+
+        private void SelectSecond()
+        {
+            HandleTakeClick();
+            PlayerPrefs.SetInt(_secondReward.ToString(), 1);
         }
     }
 }
