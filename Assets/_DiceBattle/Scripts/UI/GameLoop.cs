@@ -25,7 +25,9 @@ namespace DiceBattle.UI
 
         public void InitializeGame()
         {
-            _enemiesDefeated = 0;
+            int availableLevels = PlayerPrefs.GetInt("AvailableLevels", 1);
+
+            _enemiesDefeated = 2;
             _isFirstRoll = true;
             _attemptsNumber = 0;
 
