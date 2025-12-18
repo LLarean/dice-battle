@@ -77,6 +77,9 @@ namespace DiceBattle.Audio
         {
             switch (soundType)
             {
+                case SoundType.Click:
+                    return _click;
+
                 case SoundType.DiceGrab:
                     return _diceGrab[Random.Range(0, _diceGrab.Count)];
                 case SoundType.DiceShake:
