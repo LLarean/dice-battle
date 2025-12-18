@@ -14,10 +14,10 @@ namespace DiceBattle.Screens
         [SerializeField] private List<Dice> _dice;
         [Space]
         [SerializeField] private Button _options;
-        [SerializeField] private Button _restart;
         [SerializeField] private Button _start;
         [Space]
         [SerializeField] private RectTransform _rollAnimationArea;
+        [SerializeField] private RectTransform _bottomButtons;
 
         private RectTransform _canvasRect;
 
@@ -26,11 +26,14 @@ namespace DiceBattle.Screens
         private void Start()
         {
             _options.onClick.AddListener(HandleOptionsClick);
-            _restart.onClick.AddListener(HandleStartClick);
             _start.onClick.AddListener(HandleStartClick);
         }
 
-        private void OnDestroy() => _start.onClick.RemoveAllListeners();
+        private void OnDestroy()
+        {
+            _options.onClick.RemoveAllListeners();
+            _start.onClick.RemoveAllListeners();
+        }
 
         private void OnEnable()
         {
@@ -38,7 +41,7 @@ namespace DiceBattle.Screens
             gameObjectAnimations.SetParams(.2f, .5f, LeanTweenType.easeOutBack);
 
             gameObjectAnimations.SlideIn(_title.rectTransform);
-            gameObjectAnimations.SlideIn(_start.GetComponent<RectTransform>(), -1);
+            gameObjectAnimations.SlideIn(_bottomButtons, -1);
 
             new DiceAnimation(_rollAnimationArea).Animate(_dice);
 
