@@ -323,7 +323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &30483744
 RectTransform:
   m_ObjectHideFlags: 0
@@ -363,7 +363,6 @@ MonoBehaviour:
   _rewardItem:
   - {fileID: 1312515278}
   - {fileID: 195218924}
-  _reward: {fileID: 0}
   _take: {fileID: 339711526}
 --- !u!1 &52125912
 GameObject:
@@ -7509,7 +7508,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1513456416
 RectTransform:
   m_ObjectHideFlags: 0
