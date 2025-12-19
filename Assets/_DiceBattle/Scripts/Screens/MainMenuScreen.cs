@@ -10,6 +10,8 @@ namespace DiceBattle.Screens
 {
     public class MainMenuScreen : MonoBehaviour
     {
+        [SerializeField] private RectTransform _rootUI;
+        [Space]
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private List<Dice> _dice;
         [Space]
@@ -19,9 +21,15 @@ namespace DiceBattle.Screens
         [SerializeField] private RectTransform _rollAnimationArea;
         [SerializeField] private RectTransform _bottomButtons;
 
-        private RectTransform _canvasRect;
+        private GameObjectAnimations _gameObjectAnimations;
+        private DiceAnimation _diceAnimation;
 
-        private void Awake() => _canvasRect = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+        private void Awake()
+        {
+            _gameObjectAnimations = new GameObjectAnimations(_rootUI);
+            _gameObjectAnimations.SetParams(.2f, .5f, LeanTweenType.easeOutBack);
+            _diceAnimation = new DiceAnimation(_rollAnimationArea);
+        }
 
         private void Start()
         {
@@ -37,13 +45,10 @@ namespace DiceBattle.Screens
 
         private void OnEnable()
         {
-            var gameObjectAnimations = new GameObjectAnimations(_canvasRect);
-            gameObjectAnimations.SetParams(.2f, .5f, LeanTweenType.easeOutBack);
+            _gameObjectAnimations.SlideIn(_title.rectTransform);
+            _gameObjectAnimations.SlideIn(_bottomButtons, -1);
 
-            gameObjectAnimations.SlideIn(_title.rectTransform);
-            gameObjectAnimations.SlideIn(_bottomButtons, -1);
-
-            new DiceAnimation(_rollAnimationArea).Animate(_dice);
+            _diceAnimation.Animate(_dice);
 
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
         }
