@@ -8,8 +8,9 @@ namespace DiceBattle.Core
 {
     public class DiceShaker : MonoBehaviour
     {
-        [SerializeField] private DiceRollAnimation _diceRollAnimation;
-        [SerializeField] private Transform _rollArea;
+        [SerializeField] private RectTransform _rollArea;
+
+        private DiceAnimation _diceAnimation;
 
         public event Action OnRollCompleted;
 
@@ -21,32 +22,22 @@ namespace DiceBattle.Core
                 dice.transform.localPosition = Vector3.zero;
             }
 
-            _diceRollAnimation.Animate(dices);
+            _diceAnimation.Animate(dices);
             PlaySound(dices);
         }
 
         private static void PlaySound(List<Dice> dices)
         {
-            if (dices.Count > 1)
-            {
-                SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceThrow));
-            }
-            else
-            {
-                SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DieThrow));
-            }
+            SoundType soundType = dices.Count > 1 ? SoundType.DiceThrow : SoundType.DieThrow;
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(soundType));
         }
 
         private void HandleRollComplete() => OnRollCompleted?.Invoke();
 
-        private void Start()
-        {
-            _diceRollAnimation.OnDiceRollComplete += HandleRollComplete;
-        }
+        private void Awake() => _diceAnimation = new DiceAnimation(_rollArea);
 
-        private void OnDestroy()
-        {
-            _diceRollAnimation.OnDiceRollComplete -= HandleRollComplete;
-        }
+        private void Start() => _diceAnimation.OnDiceRollComplete += HandleRollComplete;
+
+        private void OnDestroy() => _diceAnimation.OnDiceRollComplete -= HandleRollComplete;
     }
 }
