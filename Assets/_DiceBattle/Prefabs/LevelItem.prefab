@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 6336315383029870335}
   - component: {fileID: 6858188901369620135}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: Portrait
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -427,9 +427,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 7897490344749087317}
+  _portrait: {fileID: 6858188901369620135}
+  _label: {fileID: 4153576395146064921}
   _aggry: {fileID: 7866726163058972683}
   _blackout: {fileID: 3897070614816823900}
-  _levelIndex: 0
 --- !u!114 &6311835597732679071
 MonoBehaviour:
   m_ObjectHideFlags: 0
