@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +9,19 @@ namespace DiceBattle
     public class LevelItem : MonoBehaviour
     {
         [SerializeField] private Button _button;
+        [SerializeField] private Image _portrait;
+        [SerializeField] private TextMeshProUGUI _label;
+        [Space]
         [SerializeField] private Image _aggry;
         [SerializeField] private Image _blackout;
-        [SerializeField] private int _levelIndex;
 
-        public event Action<int> OnClicked;
+        public event Action OnClicked;
+
+        public void Initialize(Sprite portrait, int levelIndex)
+        {
+            _portrait.sprite = portrait;
+            _label.text = $"Level {levelIndex}";
+        }
 
         public void EnableAvailable()
         {
@@ -31,7 +40,7 @@ namespace DiceBattle
 
         private void Start() => _button.onClick.AddListener(ClickHandle);
 
-        private void ClickHandle() => OnClicked?.Invoke(_levelIndex);
+        private void ClickHandle() => OnClicked?.Invoke();
 
         private void OnDestroy() => _button.onClick.RemoveAllListeners();
     }
