@@ -3945,6 +3945,7 @@ MonoBehaviour:
   _throwHeight: 3
   _rotationSpeed: 720
   _diceSize: 0.5
+  _dicesToRoll: []
 --- !u!4 &840026522
 Transform:
   m_ObjectHideFlags: 0
@@ -6679,7 +6680,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c73f4cc12e4970a880d54b98f8cb87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _diceRollAnimation: {fileID: 840026521}
   _rollArea: {fileID: 1345067138}
 --- !u!1 &1346465878
 GameObject:
@@ -7538,6 +7538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bdd488e3fde8b8418f7e91d5afb0469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rootUI: {fileID: 14530408}
   _title: {fileID: 1574294879}
   _dice:
   - {fileID: 1269819813}
