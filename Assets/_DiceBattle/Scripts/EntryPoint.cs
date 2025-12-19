@@ -1,4 +1,4 @@
-using DiceBattle.Audio;
+using DiceBattle.Events;
 using DiceBattle.UI;
 using GameSignals;
 using UnityEngine;

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DiceBattle.Audio;
 using DiceBattle.Core;
+using DiceBattle.Events;
 using GameSignals;
 using TMPro;
 using UnityEngine;

@@ -1,13 +1,14 @@
 using System;
-using DiceBattle.Audio;
+using DiceBattle.Events;
+using DiceBattle.Screens;
 using DiceBattle.Windows;
 using GameSignals;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
-namespace DiceBattle.Screens
+namespace DiceBattle.Infrastructure
 {
-    public class ScreenChanger : MonoBehaviour, IScreenHandler
+    public class ScreenChanger : MonoBehaviour,
+        IScreenHandler
     {
         [Header("Screens")]
         [SerializeField] private MainMenuScreen _mainMenuScreen;
@@ -28,14 +29,14 @@ namespace DiceBattle.Screens
                 _currentScreen.gameObject.SetActive(false);
             }
 
-            GameObject nextScreen = GetUI(ScreenType.GameScreen);
+            GameObject nextScreen = GetUI(screenType);
             nextScreen.SetActive(true);
             _currentScreen = nextScreen;
         }
 
         public void ShowWindow(ScreenType screenType)
         {
-            GameObject window = GetUI(ScreenType.GameScreen);
+            GameObject window = GetUI(screenType);
             window.SetActive(true);
         }
 
