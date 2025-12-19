@@ -16,7 +16,7 @@ namespace DiceBattle.Screens
         [SerializeField] private Button _restart;
         [SerializeField] private Button _inventory;
 
-        private List<LevelItem> _levelItems;
+        private List<LevelItem> _levelItems = new();
 
         private void Start()
         {
@@ -33,6 +33,40 @@ namespace DiceBattle.Screens
                 _levelItems.Add(levelItem);
             }
 
+            UpdateLevelItemsAvailability();
+        }
+
+        private void OnDestroy()
+        {
+            foreach (LevelItem levelItem in _levelItems)
+            {
+                levelItem.OnClicked -= OpenLevel;
+            }
+
+            _restart.onClick.RemoveAllListeners();
+            _inventory.onClick.RemoveAllListeners();
+        }
+
+        private void OnEnable() => UpdateLevelItemsAvailability();
+
+        private void RestartGame()
+        {
+            GameProgress.ResetCurrentLevel();
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
+        }
+
+        private void ShowInventory()
+        {
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.InventoryWindow));
+        }
+
+        private void OpenLevel()
+        {
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
+        }
+
+        private void UpdateLevelItemsAvailability()
+        {
             int currentLevel = GameProgress.CurrentLevel;
 
             for (int i = 0; i < _levelItems.Count; i++)
@@ -51,56 +85,6 @@ namespace DiceBattle.Screens
                     _levelItems[i].DisableAggry();
                 }
             }
-        }
-
-        private void OnDestroy()
-        {
-            foreach (LevelItem levelItem in _levelItems)
-            {
-                levelItem.OnClicked -= OpenLevel;
-            }
-
-            _restart.onClick.RemoveAllListeners();
-            _inventory.onClick.RemoveAllListeners();
-        }
-
-        private void OnEnable()
-        {
-            int currentLevel = GameProgress.CurrentLevel;
-            // int availableLevels = PlayerPrefs.GetInt("AvailableLevels", 1);
-
-            // for (int i = 0; i < _levelItems.Count; i++)
-            // {
-            //     if (i <= currentLevel)
-            //     {
-            //         _levelItems[i].EnableAvailable();
-            //     }
-            //     else
-            //     {
-            //         _levelItems[i].DisableAvailable();
-            //     }
-            //
-            //     if (i == currentLevel)
-            //     {
-            //         _levelItems[i].DisableAggry();
-            //     }
-            // }
-        }
-
-        private void RestartGame()
-        {
-            GameProgress.ResetCurrentLevel();
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
-        }
-
-        private void ShowInventory()
-        {
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.InventoryWindow));
-        }
-
-        private void OpenLevel()
-        {
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
         }
     }
 }
