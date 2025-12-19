@@ -2703,6 +2703,8 @@ MonoBehaviour:
   _gameScreen: {fileID: 1004415171}
   _gameOverScreen: {fileID: 139924238}
   _lootScreen: {fileID: 30483745}
+  _optionsWindow: {fileID: 1283449931}
+  _inventoryWindow: {fileID: 1032611115}
 --- !u!4 &597192748
 Transform:
   m_ObjectHideFlags: 0

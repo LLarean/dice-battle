@@ -1,13 +1,11 @@
 using System.Collections.Generic;
-using DiceBattle.Audio;
 using DiceBattle.Core;
-using GameSignals;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace DiceBattle.Windows
 {
-    public class InventoryWindow : MonoBehaviour, IInventoryWindowHandler
+    public class InventoryWindow : MonoBehaviour
     {
         [SerializeField] private Transform _substrate;
         [SerializeField] private Button _close;
@@ -15,27 +13,19 @@ namespace DiceBattle.Windows
         [SerializeField] private List<Dice> _dices;
         [SerializeField] private List<InventoryItem> _items;
 
-        public void Show() => _substrate.gameObject.SetActive(true);
-
-        public void Hide() => _substrate.gameObject.SetActive(false);
-
         private void Start()
         {
             _close.onClick.AddListener(HandleCloseClick);
-            Hide();
-            SignalSystem.Subscribe(this);
 
             foreach (Dice dice in _dices)
             {
                 dice.DisableButton();
             }
+
+            gameObject.SetActive(false);
         }
 
-        private void OnDestroy()
-        {
-            _close.onClick.RemoveAllListeners();
-            SignalSystem.Unsubscribe(this);
-        }
+        private void OnDestroy() => _close.onClick.RemoveAllListeners();
 
         private void OnEnable()
         {
@@ -43,7 +33,7 @@ namespace DiceBattle.Windows
             EnableItems();
         }
 
-        private void HandleCloseClick() => Hide();
+        private void HandleCloseClick() => gameObject.SetActive(false);
 
         private void EnableDice()
         {
