@@ -2,6 +2,7 @@ using System;
 using DiceBattle.Audio;
 using DiceBattle.Windows;
 using GameSignals;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 namespace DiceBattle.Screens
@@ -27,27 +28,14 @@ namespace DiceBattle.Screens
                 _currentScreen.gameObject.SetActive(false);
             }
 
-            GameObject screen = screenType switch {
-                ScreenType.MainMenu => _mainMenuScreen.gameObject,
-                ScreenType.GameScreen => _gameScreen.gameObject,
-                ScreenType.GameOverScreen => _gameOverScreen.gameObject,
-                ScreenType.LootScreen => _lootScreen.gameObject,
-                ScreenType.DungeonsScreen => _dungeonsScreen.gameObject,
-                _ => throw new ArgumentOutOfRangeException(nameof(screenType), screenType, null)
-            };
-
-            screen.SetActive(true);
-            _currentScreen = screen;
+            GameObject nextScreen = GetUI(ScreenType.GameScreen);
+            nextScreen.SetActive(true);
+            _currentScreen = nextScreen;
         }
 
         public void ShowWindow(ScreenType screenType)
         {
-            GameObject window = screenType switch {
-                ScreenType.OptionsWindow => _optionsWindow.gameObject,
-                ScreenType.InventoryWindow => _inventoryWindow.gameObject,
-                _ => throw new ArgumentOutOfRangeException(nameof(screenType), screenType, null)
-            };
-
+            GameObject window = GetUI(ScreenType.GameScreen);
             window.SetActive(true);
         }
 
@@ -61,6 +49,20 @@ namespace DiceBattle.Screens
             {
                 ShowScreen(ScreenType.DungeonsScreen);
             }
+        }
+
+        private GameObject GetUI(ScreenType screenType)
+        {
+            return screenType switch {
+                ScreenType.MainMenu => _mainMenuScreen.gameObject,
+                ScreenType.GameScreen => _gameScreen.gameObject,
+                ScreenType.GameOverScreen => _gameOverScreen.gameObject,
+                ScreenType.LootScreen => _lootScreen.gameObject,
+                ScreenType.DungeonsScreen => _dungeonsScreen.gameObject,
+                ScreenType.OptionsWindow => _optionsWindow.gameObject,
+                ScreenType.InventoryWindow => _inventoryWindow.gameObject,
+                _ => throw new ArgumentOutOfRangeException(nameof(screenType), screenType, null)
+            };
         }
 
         private void Awake()
