@@ -1,33 +1,22 @@
-using DiceBattle.Audio;
-using GameSignals;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace DiceBattle
 {
-    public class OptionsWindow : MonoBehaviour, IOptionsWindowHandler
+    public class OptionsWindow : MonoBehaviour
     {
         [SerializeField] private Transform _substrate;
         [Space]
         [SerializeField] private Button _close;
 
-        public void Show() => _substrate.gameObject.SetActive(true);
-
-        public void Hide() => _substrate.gameObject.SetActive(false);
-
         private void Start()
         {
             _close.onClick.AddListener(HandleCloseClick);
-            Hide();
-            SignalSystem.Subscribe(this);
+            gameObject.SetActive(false);
         }
 
-        private void OnDestroy()
-        {
-            _close.onClick.RemoveAllListeners();
-            SignalSystem.Unsubscribe(this);
-        }
+        private void OnDestroy() => _close.onClick.RemoveAllListeners();
 
-        private void HandleCloseClick() => Hide();
+        private void HandleCloseClick() => gameObject.SetActive(false);
     }
 }

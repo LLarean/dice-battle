@@ -1,5 +1,6 @@
 using System;
 using DiceBattle.Audio;
+using DiceBattle.Windows;
 using GameSignals;
 using UnityEngine;
 
@@ -7,11 +8,15 @@ namespace DiceBattle.Screens
 {
     public class ScreenChanger : MonoBehaviour, IScreenHandler
     {
+        [Header("Screens")]
         [SerializeField] private MainMenuScreen _mainMenuScreen;
         [SerializeField] private DungeonsScreen _dungeonsScreen;
         [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
         [SerializeField] private LootScreen _lootScreen;
+        [Header("Windows")]
+        [SerializeField] private OptionsWindow _optionsWindow;
+        [SerializeField] private InventoryWindow _inventoryWindow;
 
         private GameObject _currentScreen;
 
@@ -33,6 +38,17 @@ namespace DiceBattle.Screens
 
             screen.SetActive(true);
             _currentScreen = screen;
+        }
+
+        public void ShowWindow(ScreenType screenType)
+        {
+            GameObject window = screenType switch {
+                ScreenType.OptionsWindow => _optionsWindow.gameObject,
+                ScreenType.InventoryWindow => _inventoryWindow.gameObject,
+                _ => throw new ArgumentOutOfRangeException(nameof(screenType), screenType, null)
+            };
+
+            window.SetActive(true);
         }
 
         public void Back()

@@ -59,12 +59,13 @@ namespace DiceBattle.Screens
 
         private void RestartGame()
         {
+            GameProgress.ResetCurrentLevel();
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
         }
 
         private void ShowInventory()
         {
-            SignalSystem.Raise<IInventoryWindowHandler>(handler => handler.Show());
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.InventoryWindow));
         }
 
         private void OpenLevel(int levelIndex)

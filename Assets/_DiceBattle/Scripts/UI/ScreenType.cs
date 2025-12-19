@@ -7,6 +7,8 @@
         GameOverScreen,
         LootScreen,
         DungeonsScreen,
+
         OptionsWindow,
+        InventoryWindow,
     }
 }
