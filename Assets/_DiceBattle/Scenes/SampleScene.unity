@@ -360,10 +360,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: debe64618a7f55146b8496739573f532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rewardItem:
+  _rewardItems:
   - {fileID: 1312515278}
   - {fileID: 195218924}
-  _take: {fileID: 339711526}
 --- !u!1 &52125912
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,17 +1528,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6691906081132345294, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
   m_PrefabInstance: {fileID: 339711524}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &339711526 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5408422912977510510, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
-  m_PrefabInstance: {fileID: 339711524}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &351619945 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2983668718188166613, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}

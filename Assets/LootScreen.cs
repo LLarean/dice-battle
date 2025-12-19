@@ -10,60 +10,50 @@ namespace DiceBattle
 {
     public class LootScreen : MonoBehaviour
     {
-        [SerializeField] private List<RewardItem> _rewardItem;
-        [SerializeField] private Button _take;
+        [SerializeField] private List<RewardItem> _rewardItems;
 
         private Random _random;
-        private RewardType _firstReward;
-        private RewardType _secondReward;
 
         public void RollReward()
         {
             var allValues = (RewardType[])Enum.GetValues(typeof(RewardType));
-            int randomIndex = _random.Next(0, allValues.Length);
-            _firstReward = (RewardType)randomIndex;
-            _rewardItem[0].SetReward(_firstReward);
 
-            randomIndex = _random.Next(0, allValues.Length);
-            _secondReward = (RewardType)randomIndex;
-            _rewardItem[1].SetReward(_secondReward);
+            foreach (RewardItem rewardItem in _rewardItems)
+            {
+                int randomIndex = _random.Next(0, allValues.Length);
+                var reward = (RewardType)randomIndex;
+
+                rewardItem.SetReward(reward);
+            }
         }
 
         private void Awake() => _random = new Random();
 
         private void Start()
         {
-            _take.onClick.AddListener(HandleTakeClick);
-            _rewardItem[0].OnClicked += SelectFirst;
-            _rewardItem[1].OnClicked += SelectSecond;
+            foreach (RewardItem rewardItem in _rewardItems)
+            {
+                rewardItem.OnClicked += HandleItemSelect;
+            }
         }
 
         private void OnDestroy()
         {
-            _take.onClick.RemoveAllListeners();
-            _rewardItem[0].OnClicked -= SelectFirst;
-            _rewardItem[1].OnClicked -= SelectSecond;
+            foreach (RewardItem rewardItem in _rewardItems)
+            {
+                rewardItem.OnClicked -= HandleItemSelect;
+            }
         }
 
         private void OnEnable() => RollReward();
 
-        private void HandleTakeClick()
+        private void HandleItemSelect(RewardType rewardType)
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
 
+            PlayerPrefs.SetInt(rewardType.ToString(), 1);
+
             gameObject.SetActive(false);
-        }
-
-        private void SelectFirst()
-        {
-            HandleTakeClick();
-            PlayerPrefs.SetInt(_firstReward.ToString(), 1);
-        }
-
-        private void SelectSecond()
-        {
-            HandleTakeClick();
-            PlayerPrefs.SetInt(_secondReward.ToString(), 1);
         }
     }
 }
