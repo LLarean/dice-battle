@@ -66,8 +66,19 @@ namespace DiceBattle.UI
             int attack = rewardTypes.Where(rewardType => rewardType == RewardType.DoubleDamage).Sum(rewardType => 2);
             int doubleHealth = rewardTypes.Where(rewardType => rewardType == RewardType.DoubleHealth).Sum(rewardType => 2);
 
-            int maxHealth = _config.PlayerStartHealth * doubleHealth;
-            int currentHealth = _playerData.CurrentHealth * doubleHealth;
+            int maxHealth = _config.PlayerStartHealth;
+
+            if (doubleHealth > 0)
+            {
+                maxHealth *= doubleHealth;
+            }
+
+            int currentHealth = _playerData.CurrentHealth;
+
+            if (doubleHealth > 0)
+            {
+                currentHealth *= doubleHealth;
+            }
 
             _playerData = new UnitData
             {

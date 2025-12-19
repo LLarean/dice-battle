@@ -5028,6 +5028,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 30483744}
     m_Modifications:
+    - target: {fileID: 1926796356689245904, guid: 79afa0cbecf846847b390cdc5648fbe1, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2270572370052681216, guid: 79afa0cbecf846847b390cdc5648fbe1, type: 3}
       propertyPath: m_Name
       value: Substrate
