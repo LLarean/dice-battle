@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using DiceBattle.Audio;
+using DiceBattle.Events;
 using GameSignals;
 using UnityEngine;
 using UnityEngine.UI;
