@@ -14,6 +14,8 @@ namespace DiceBattle
 
         private Random _random;
 
+        public event Action OnRewardSelected;
+
         public void RollReward()
         {
             var allValues = (RewardType[])Enum.GetValues(typeof(RewardType));
@@ -51,8 +53,9 @@ namespace DiceBattle
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
 
-            PlayerPrefs.SetInt(rewardType.ToString(), 1);
+            GameProgress.SetRewardItem(rewardType);
 
+            OnRewardSelected?.Invoke();
             gameObject.SetActive(false);
         }
     }

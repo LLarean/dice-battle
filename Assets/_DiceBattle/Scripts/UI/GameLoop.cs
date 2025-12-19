@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using DiceBattle.Audio;
 using DiceBattle.Data;
 using DiceBattle.Screens;
@@ -28,7 +30,7 @@ namespace DiceBattle.UI
             // int availableLevels = PlayerPrefs.GetInt("AvailableLevels", 1);
             int currentLevel = GameProgress.CurrentLevel;
 
-            _enemiesDefeated = currentLevel;
+            _enemiesDefeated = 0; //currentLevel;
             _isFirstRoll = true;
             _attemptsNumber = 0;
 
@@ -49,6 +51,32 @@ namespace DiceBattle.UI
                 CurrentHealth = _config.PlayerStartHealth,
                 Attack = 0,
                 Defense = 0,
+            };
+
+            _playerData.Log();
+            _gameScreen.SetPlayerData(_playerData);
+        }
+
+        // TODO Refactoring is needed
+        private void UpdateHero()
+        {
+            List<RewardType> rewardTypes = GameProgress.GetRewardTypes();
+
+            int armor = rewardTypes.Where(rewardType => rewardType == RewardType.Armor).Sum(rewardType => 2);
+            int attack = rewardTypes.Where(rewardType => rewardType == RewardType.DoubleDamage).Sum(rewardType => 2);
+            int doubleHealth = rewardTypes.Where(rewardType => rewardType == RewardType.DoubleHealth).Sum(rewardType => 2);
+
+            int maxHealth = _config.PlayerStartHealth * doubleHealth;
+            int currentHealth = _playerData.CurrentHealth * doubleHealth;
+
+            _playerData = new UnitData
+            {
+                Title = "Герой (upd)",
+                Portrait = _config.PlayerPortrait,
+                MaxHealth = maxHealth,
+                CurrentHealth = currentHealth,
+                Attack = attack,
+                Defense = armor,
             };
 
             _playerData.Log();
@@ -203,6 +231,7 @@ namespace DiceBattle.UI
 
             GameProgress.IncrementCurrentLevel();
 
+            UpdateHero();
             SpawnEnemy();
 
             _isFirstRoll = true;
@@ -268,6 +297,7 @@ namespace DiceBattle.UI
         {
             _gameScreen.OnContextClicked += HandleContextAction;
             _gameOverScreen.OnRestartClicked += HandleRestartButtonClicked;
+            _lootScreen.OnRewardSelected += UpdateHero;
         }
 
         private void OnDestroy()

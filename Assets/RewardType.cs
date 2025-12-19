@@ -5,6 +5,8 @@
         DisableEmptyState,
         DisableArmorState,
 
+        AdditionalTry,
+
         FirstAdditionalDice,
         SecondAdditionalDice,
 
