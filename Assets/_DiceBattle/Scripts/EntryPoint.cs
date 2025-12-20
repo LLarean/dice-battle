@@ -11,6 +11,7 @@ namespace DiceBattle
 
         private void Start()
         {
+            GameProgress.ResetAll();
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
 
             _gameLoop.InitializeGame();
