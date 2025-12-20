@@ -18,22 +18,51 @@ namespace DiceBattle.Screens
 
         private List<LevelItem> _levelItems = new();
 
-        private void Start()
+        private void CreateLevelItems()
         {
-            _restart.onClick.AddListener(RestartGame);
-            _inventory.onClick.AddListener(ShowInventory);
-
-            _levelItems = new List<LevelItem>();
+            ClearLevelItems();
 
             for (int i = 0; i < _gameConfig.EnemiesPortraits.Length; i++)
             {
                 LevelItem levelItem = Instantiate(_levelItem, _levelItemSpawn);
-                levelItem.Initialize(_gameConfig.EnemiesPortraits[i], i + 1);
+                LevelData levelData = GetLevelData(i);
+                levelItem.Initialize(levelData);
                 levelItem.OnClicked += OpenLevel;
                 _levelItems.Add(levelItem);
             }
+        }
 
-            UpdateLevelItemsAvailability();
+        private void ClearLevelItems()
+        {
+            foreach (LevelItem levelItem in _levelItems)
+            {
+                Destroy(levelItem);
+            }
+
+            _levelItems = new List<LevelItem>();
+        }
+
+        private LevelData GetLevelData(int index)
+        {
+            int currentLevel = GameProgress.CurrentLevel;
+            bool isAvailable = index <= currentLevel;
+            bool isCompleted = index == currentLevel;
+
+            return new LevelData
+            {
+                Portrait = _gameConfig.EnemiesPortraits[index],
+                Title = $"Уровень {index + 1}",
+                IsAvailable = isAvailable,
+                IsCompleted = isCompleted,
+            };
+        }
+
+        #region Unity lifecycle
+
+        private void Start()
+        {
+            _restart.onClick.AddListener(HandleRestartGameClick);
+            _inventory.onClick.AddListener(HandleShowInventoryClick);
         }
 
         private void OnDestroy()
@@ -47,15 +76,19 @@ namespace DiceBattle.Screens
             _inventory.onClick.RemoveAllListeners();
         }
 
-        private void OnEnable() => UpdateLevelItemsAvailability();
+        private void OnEnable() => CreateLevelItems();
 
-        private void RestartGame()
+        #endregion
+
+        #region Handlers
+
+        private void HandleRestartGameClick()
         {
             GameProgress.ResetCurrentLevel();
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
         }
 
-        private void ShowInventory()
+        private void HandleShowInventoryClick()
         {
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.InventoryWindow));
         }
@@ -65,26 +98,6 @@ namespace DiceBattle.Screens
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
         }
 
-        private void UpdateLevelItemsAvailability()
-        {
-            int currentLevel = GameProgress.CurrentLevel;
-
-            for (int i = 0; i < _levelItems.Count; i++)
-            {
-                if (i <= currentLevel)
-                {
-                    _levelItems[i].EnableAvailable();
-                }
-                else
-                {
-                    _levelItems[i].DisableAvailable();
-                }
-
-                if (i == currentLevel)
-                {
-                    _levelItems[i].DisableAggry();
-                }
-            }
-        }
+        #endregion
     }
 }

@@ -235,7 +235,7 @@ namespace DiceBattle.UI
 
         private void OnEnemyDefeated()
         {
-            // TODO: SignalSystem.Raise - The sound of victory/defeat
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyDefeated));
 
             _lootScreen.gameObject.SetActive(true);
             _lootScreen.RollReward();
