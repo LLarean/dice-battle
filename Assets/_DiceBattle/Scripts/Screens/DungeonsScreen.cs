@@ -84,7 +84,7 @@ namespace DiceBattle.Screens
 
         private void HandleRestartGameClick()
         {
-            GameProgress.ResetCurrentLevel();
+            GameProgress.ResetAll();
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
         }
 

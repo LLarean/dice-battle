@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,9 +10,15 @@ namespace DiceBattle
 
         public static int CurrentLevel => PlayerPrefs.GetInt(_currentLevelKey, 0);
 
+        public static void ResetAll()
+        {
+            ResetCurrentLevel();
+            ResetRewards();
+        }
+
         public static void IncrementCurrentLevel() => PlayerPrefs.SetInt(_currentLevelKey, CurrentLevel + 1);
 
-        public static void ResetCurrentLevel() => PlayerPrefs.SetInt(_currentLevelKey, 0);
+        public static void ResetCurrentLevel() => PlayerPrefs.DeleteKey(_currentLevelKey);
 
         public static void AddRewardItem(RewardType rewardType)
         {
@@ -69,9 +74,6 @@ namespace DiceBattle
             // return rewardTypes;
         }
 
-        private static int GetValue(RewardType key)
-        {
-            return PlayerPrefs.GetInt(nameof(key), 0);
-        }
+        public static void ResetRewards() => PlayerPrefs.DeleteKey(_rewardsKey);
     }
 }
