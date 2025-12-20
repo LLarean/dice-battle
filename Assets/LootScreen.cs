@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using DiceBattle.Audio;
 using GameSignals;
 using UnityEngine;
-using UnityEngine.UI;
 using Random = System.Random;
 
 namespace DiceBattle
@@ -53,7 +52,7 @@ namespace DiceBattle
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
 
-            GameProgress.SetRewardItem(rewardType);
+            GameProgress.AddRewardItem(rewardType);
 
             OnRewardSelected?.Invoke();
             gameObject.SetActive(false);
