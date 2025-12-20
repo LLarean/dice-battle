@@ -1,4 +1,6 @@
 using System;
+using DiceBattle.Audio;
+using GameSignals;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,10 +19,14 @@ namespace DiceBattle
 
         public event Action OnClicked;
 
-        public void Initialize(Sprite portrait, int levelIndex)
+        public void Initialize(LevelData levelData)
         {
-            _portrait.sprite = portrait;
-            _label.text = $"Level {levelIndex}";
+            _portrait.sprite = levelData.Portrait;
+            _label.text = levelData.Title;
+
+            _button.interactable = levelData.IsAvailable;
+            _aggry.gameObject.SetActive(levelData.IsCompleted);
+            _blackout.gameObject.SetActive(levelData.IsAvailable == false);
         }
 
         public void EnableAvailable()
@@ -40,8 +46,12 @@ namespace DiceBattle
 
         private void Start() => _button.onClick.AddListener(ClickHandle);
 
-        private void ClickHandle() => OnClicked?.Invoke();
-
         private void OnDestroy() => _button.onClick.RemoveAllListeners();
+
+        private void ClickHandle()
+        {
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
+            OnClicked?.Invoke();
+        }
     }
 }
