@@ -60,7 +60,7 @@ namespace DiceBattle.UI
         // TODO Refactoring is needed
         private void UpdateHero()
         {
-            List<RewardType> rewardTypes = GameProgress.GetRewardTypes();
+            List<RewardType> rewardTypes = GameProgress.GetRewards().RewardTypes;
 
             int armor = rewardTypes.Where(rewardType => rewardType == RewardType.Armor).Sum(rewardType => 2);
             int attack = rewardTypes.Where(rewardType => rewardType == RewardType.DoubleDamage).Sum(rewardType => 2);
