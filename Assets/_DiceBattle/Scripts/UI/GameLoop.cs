@@ -30,7 +30,8 @@ namespace DiceBattle.UI
             // int availableLevels = PlayerPrefs.GetInt("AvailableLevels", 1);
             int currentLevel = GameProgress.CurrentLevel;
 
-            _enemiesDefeated = 0; //currentLevel;
+            // _enemiesDefeated = 0;
+            _enemiesDefeated = currentLevel;
             _isFirstRoll = true;
             _attemptsNumber = 0;
 
@@ -112,7 +113,7 @@ namespace DiceBattle.UI
 
             _enemyData.Log();
             _gameScreen.SetEnemyData(_enemyData);
-
+            _gameScreen.SetDiceCount(3);
             _enemiesDefeated++;
 
             // TODO: SignalSystem.Raise - new enemy appearance (new level)

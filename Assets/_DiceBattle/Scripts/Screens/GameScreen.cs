@@ -25,6 +25,8 @@ namespace DiceBattle.Screens
 
         public void SetEnemyData(UnitData unitData) => _enemy.SetUnitData(unitData);
 
+        public void SetDiceCount(int count) => _gameBoard.SetDiceCount(count);
+
         public void EnableDiceInteractable() => _gameBoard.EnableDiceInteractable();
 
         public void DisableDiceInteractable() => _gameBoard.DisableDiceInteractable();

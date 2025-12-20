@@ -26,6 +26,14 @@ namespace DiceBattle.Core
 
         public void ClearAllSelection() => _dices.ForEach(dice => dice.ClearSelection());
 
+        public void SetDiceCount(int count)
+        {
+            for (int i = 0; i < _dices.Count; i++)
+            {
+                _dices[i].gameObject.SetActive(i < count);
+            }
+        }
+
         #region Event Handlers
 
         private void HandleRollComplete()
