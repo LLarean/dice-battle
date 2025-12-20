@@ -36,7 +36,7 @@ namespace DiceBattle.Screens
         {
             foreach (LevelItem levelItem in _levelItems)
             {
-                Destroy(levelItem);
+                Destroy(levelItem.gameObject);
             }
 
             _levelItems = new List<LevelItem>();

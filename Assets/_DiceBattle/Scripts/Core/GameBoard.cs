@@ -28,6 +28,7 @@ namespace DiceBattle.Core
 
         public void SetDiceCount(int count)
         {
+            Debug.Log("Set dice count: " + count);
             for (int i = 0; i < _dices.Count; i++)
             {
                 _dices[i].gameObject.SetActive(i < count);
