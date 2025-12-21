@@ -93,6 +93,27 @@ namespace DiceBattle.UI
 
             _playerData.Log();
             _gameScreen.SetPlayerData(_playerData);
+
+            UpdateDiceCount(rewardTypes);
+        }
+
+        private void UpdateDiceCount(List<RewardType> rewardTypes)
+        {
+            int firstDice = rewardTypes.Where(rewardType => rewardType == RewardType.FirstAdditionalDice).Sum(rewardType => 1);
+            int secondDice = rewardTypes.Where(rewardType => rewardType == RewardType.SecondAdditionalDice).Sum(rewardType => 1);
+
+            if (secondDice == 1)
+            {
+                _gameScreen.SetDiceCount(5);
+            }
+            else if (firstDice == 1)
+            {
+                _gameScreen.SetDiceCount(4);
+            }
+            else
+            {
+                _gameScreen.SetDiceCount(3);
+            }
         }
 
         private void SpawnEnemy()
@@ -113,7 +134,7 @@ namespace DiceBattle.UI
 
             _enemyData.Log();
             _gameScreen.SetEnemyData(_enemyData);
-            _gameScreen.SetDiceCount(3);
+
             _enemiesDefeated++;
 
             // TODO: SignalSystem.Raise - new enemy appearance (new level)
