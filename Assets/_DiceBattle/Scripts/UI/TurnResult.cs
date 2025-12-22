@@ -24,7 +24,10 @@ namespace DiceBattle.UI
                 switch (dice.DiceType)
                 {
                     case DiceType.Attack:
-                        _attack++;
+                        if (dice.gameObject.activeSelf)
+                        {
+                            _attack++;
+                        }
                         break;
                     case DiceType.Defense:
                         _defense++;

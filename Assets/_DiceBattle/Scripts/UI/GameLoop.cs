@@ -94,13 +94,15 @@ namespace DiceBattle.UI
             _playerData.Log();
             _gameScreen.SetPlayerData(_playerData);
 
-            UpdateDiceCount(rewardTypes);
+            _gameScreen.SetDiceCount(3);
+            // UpdateDiceCount(rewardTypes);
         }
 
         private void UpdateDiceCount(List<RewardType> rewardTypes)
         {
             int firstDice = rewardTypes.Where(rewardType => rewardType == RewardType.FirstAdditionalDice).Sum(rewardType => 1);
             int secondDice = rewardTypes.Where(rewardType => rewardType == RewardType.SecondAdditionalDice).Sum(rewardType => 1);
+
 
             if (secondDice == 1)
             {
