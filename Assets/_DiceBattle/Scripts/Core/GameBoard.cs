@@ -18,10 +18,7 @@ namespace DiceBattle.Core
 
         public void RollDice() => _diceShaker.Roll(_diceHolder.Occupied);
 
-        public void RerollSelectedDice()
-        {
-            _diceShaker.Roll(_diceHolder.Selected);
-        }
+        public void RerollSelectedDice() => _diceShaker.Roll(_diceHolder.Selected);
 
         public void EnableDiceInteractable() => _dices.ForEach(dice => dice.EnableButton());
 
@@ -31,15 +28,12 @@ namespace DiceBattle.Core
 
         public void SetDiceCount(int count)
         {
-            Debug.Log("Set dice count: " + count);
             for (int i = 0; i < _dices.Count; i++)
             {
                 _dices[i].gameObject.SetActive(i < count);
             }
 
-            _dices[0].gameObject.SetActive(false);
-            _dices[3].gameObject.SetActive(false);
-            _dices[4].gameObject.SetActive(false);
+            _diceHolder.SetSocketCount(count);
         }
 
         #region Event Handlers

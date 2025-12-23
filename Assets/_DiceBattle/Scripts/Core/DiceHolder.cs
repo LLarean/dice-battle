@@ -40,6 +40,14 @@ namespace DiceBattle.Core
             }
         }
 
+        public void SetSocketCount(int count)
+        {
+            for (int i = 0; i < _slots.Count; i++)
+            {
+                _slots[i].gameObject.SetActive(i < count);
+            }
+        }
+
         private void PlaceInSlot(Dice dice, int slotIndex)
         {
             dice.transform.SetParent(_slots[slotIndex]);
