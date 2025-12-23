@@ -1,5 +1,5 @@
 using DiceBattle.Audio;
-using DiceBattle.Events;
+using DiceBattle.Global;
 using GameSignals;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,6 +24,12 @@ namespace DiceBattle.Windows
             _close.onClick.RemoveAllListeners();
             _music.onValueChanged.RemoveAllListeners();
             _sound.onValueChanged.RemoveAllListeners();
+        }
+
+        private void OnEnable()
+        {
+            _music.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.SoundVolume, 1);
+            _sound.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.SoundVolume, 1);
         }
 
         private void HandleCloseClick() => gameObject.SetActive(false);
