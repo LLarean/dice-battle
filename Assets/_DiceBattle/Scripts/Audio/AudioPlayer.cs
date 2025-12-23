@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DiceBattle.Global;
 using GameSignals;
 using UnityEngine;
 
@@ -45,11 +46,13 @@ namespace DiceBattle.Audio
         public void ChangeMusicValue(float value)
         {
             _musicSource.volume = value;
+            PlayerPrefs.SetFloat(PlayerPrefsKeys.MusicVolume, value);
         }
 
         public void ChangeSoundValue(float value)
         {
             _sfxSource.volume = value;
+            PlayerPrefs.SetFloat(PlayerPrefsKeys.SoundVolume, value);
         }
 
         public void SetMusicEnabled(bool enabled)
@@ -133,6 +136,9 @@ namespace DiceBattle.Audio
             }
 
             _sfxSource.loop = false;
+
+            _musicSource.volume = PlayerPrefs.GetFloat(PlayerPrefsKeys.SoundVolume, 1);
+            _sfxSource.volume = PlayerPrefs.GetFloat(PlayerPrefsKeys.SoundVolume, 1);
         }
 
         private void OnEnable()
