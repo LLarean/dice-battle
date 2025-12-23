@@ -42,6 +42,16 @@ namespace DiceBattle.Audio
             _sfxSource.PlayOneShot(clip);
         }
 
+        public void ChangeMusicValue(float value)
+        {
+            _musicSource.volume = value;
+        }
+
+        public void ChangeSoundValue(float value)
+        {
+            _sfxSource.volume = value;
+        }
+
         public void SetMusicEnabled(bool enabled)
         {
             if (_musicSource == null)
