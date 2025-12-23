@@ -38,6 +38,10 @@ namespace DiceBattle.UI
             SpawnHero();
             SpawnEnemy();
 
+            _gameScreen.SetDiceCount(5);
+            // List<RewardType> rewardTypes = GameProgress.GetRewards().RewardTypes;
+            // UpdateDiceCount(rewardTypes);
+
             _gameScreen.DisableDiceInteractable();
             _gameOverScreen.gameObject.SetActive(false);
         }
@@ -94,8 +98,7 @@ namespace DiceBattle.UI
             _playerData.Log();
             _gameScreen.SetPlayerData(_playerData);
 
-            _gameScreen.SetDiceCount(3);
-            // UpdateDiceCount(rewardTypes);
+            UpdateDiceCount(rewardTypes);
         }
 
         private void UpdateDiceCount(List<RewardType> rewardTypes)
