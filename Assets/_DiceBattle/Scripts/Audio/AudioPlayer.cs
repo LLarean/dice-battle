@@ -55,37 +55,6 @@ namespace DiceBattle.Audio
             PlayerPrefs.SetFloat(PlayerPrefsKeys.SoundVolume, value);
         }
 
-        public void SetMusicEnabled(bool enabled)
-        {
-            if (_musicSource == null)
-                return;
-
-            if (enabled && !_musicSource.isPlaying)
-            {
-                _musicSource.Play();
-            }
-            else if (!enabled && _musicSource.isPlaying)
-            {
-                _musicSource.Pause();
-            }
-        }
-
-        public void SetMusicVolume(float volume)
-        {
-            if (_musicSource != null)
-            {
-                _musicSource.volume = Mathf.Clamp01(volume);
-            }
-        }
-
-        public void SetSFXVolume(float volume)
-        {
-            if (_sfxSource != null)
-            {
-                _sfxSource.volume = Mathf.Clamp01(volume);
-            }
-        }
-
         private AudioClip GetClipByType(SoundType soundType)
         {
             switch (soundType)
