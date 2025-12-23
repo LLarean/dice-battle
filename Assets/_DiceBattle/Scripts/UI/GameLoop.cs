@@ -98,7 +98,7 @@ namespace DiceBattle.UI
             _playerData.Log();
             _gameScreen.SetPlayerData(_playerData);
 
-            UpdateDiceCount(rewardTypes);
+            // UpdateDiceCount(rewardTypes);
         }
 
         private void UpdateDiceCount(List<RewardType> rewardTypes)
