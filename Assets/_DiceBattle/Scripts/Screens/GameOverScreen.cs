@@ -1,5 +1,5 @@
 ﻿using System;
-using DiceBattle.Audio;
+using DiceBattle.Events;
 using GameSignals;
 using TMPro;
 using UnityEngine;
@@ -14,20 +14,21 @@ namespace DiceBattle.Screens
 
         public event Action OnRestartClicked;
 
-        public void Show(int enemiesDefeated)
-        {
-            gameObject.SetActive(true);
-            _finalScore.text = $"You have defeated {enemiesDefeated} enemies!";
-        }
-
-        private void Start() => _restart.onClick.AddListener(RestartClick);
+        private void Start() => _restart.onClick.AddListener(HandleRestartClick);
 
         private void OnDestroy() => _restart.onClick.RemoveAllListeners();
 
-        private void RestartClick()
+        private void OnEnable()
         {
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
-            OnRestartClicked?.Invoke();
+            _finalScore.text = $"You have defeated {GameProgress.CompletedLevels} enemies!";
         }
+
+        private void HandleRestartClick()
+        {
+            GameProgress.ResetAll();
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
+
+            // OnRestartClicked?.Invoke();
+        } 
     }
 }

@@ -1,39 +1,49 @@
 using System.Collections.Generic;
+using DiceBattle.Global;
 using UnityEngine;
 
 namespace DiceBattle
 {
     public static class GameProgress
     {
-        private static string _currentLevelKey = "CurrentLevel";
-        private static string _rewardsKey = "Rewards";
-
-        public static int CurrentLevel => PlayerPrefs.GetInt(_currentLevelKey, 0);
+        public static int CompletedLevels => PlayerPrefs.GetInt(PlayerPrefsKeys.CompletedLevels, 0);
+        public static int CurrentLevel => PlayerPrefs.GetInt(PlayerPrefsKeys.CurrentLevel, 0);
 
         public static void ResetAll()
         {
+            ResetCompletedLevels();
             ResetCurrentLevel();
             ResetRewards();
         }
 
-        public static void IncrementCurrentLevel() => PlayerPrefs.SetInt(_currentLevelKey, CurrentLevel + 1);
+        public static void IncrementLevels()
+        {
+            PlayerPrefs.SetInt(PlayerPrefsKeys.CompletedLevels, CompletedLevels + 1);
+            PlayerPrefs.SetInt(PlayerPrefsKeys.CurrentLevel, CurrentLevel + 1);
+        }
 
-        public static void ResetCurrentLevel() => PlayerPrefs.DeleteKey(_currentLevelKey);
+        public static void IncrementCompletedLevels() => PlayerPrefs.SetInt(PlayerPrefsKeys.CompletedLevels, CompletedLevels + 1);
+
+        public static void ResetCompletedLevels() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.CompletedLevels);
+
+        public static void IncrementCurrentLevel() => PlayerPrefs.SetInt(PlayerPrefsKeys.CurrentLevel, CurrentLevel + 1);
+
+        public static void ResetCurrentLevel() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.CurrentLevel);
 
         public static void AddRewardItem(RewardType rewardType)
         {
-            string rewardsJson = PlayerPrefs.GetString(_rewardsKey, "{}");
+            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.Rewards, "{}");
             Rewards rewards = JsonUtility.FromJson<Rewards>(rewardsJson) ?? new Rewards();
 
             rewards.RewardTypes ??= new List<RewardType>();
             rewards.RewardTypes.Add(rewardType);
 
-            PlayerPrefs.SetString(_rewardsKey, JsonUtility.ToJson(rewards));
+            PlayerPrefs.SetString(PlayerPrefsKeys.Rewards, JsonUtility.ToJson(rewards));
         }
 
         public static Rewards GetRewards()
         {
-            string rewardsJson = PlayerPrefs.GetString(_rewardsKey, "{}");
+            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.Rewards, "{}");
             Rewards rewards = JsonUtility.FromJson<Rewards>(rewardsJson) ?? new Rewards();
 
             rewards.RewardTypes ??= new List<RewardType>();
@@ -74,6 +84,6 @@ namespace DiceBattle
             // return rewardTypes;
         }
 
-        public static void ResetRewards() => PlayerPrefs.DeleteKey(_rewardsKey);
+        public static void ResetRewards() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.Rewards);
     }
 }

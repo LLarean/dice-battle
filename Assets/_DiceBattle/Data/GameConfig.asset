@@ -12,20 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d7c85972362f14b978d77f1fa270b9, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  PlayerStartHealth: 20
+  PlayerStartHealth: 2
   PlayerPortrait: {fileID: 4723107735738678597, guid: cad7b6b54e3a5ee4ca7575b000421af4, type: 3}
   DiceCount: 5
   EnemyBaseHealth: 5
   EnemyBaseAttack: 2
   EnemyBaseDefense: 0
   EnemyHPGrowth: 2
-  EnemyAttackGrowthRate: 2
-  EnemyDefenseGrowthRate: 3
-  DiceSprites:
-  - {fileID: -8276531532356017539, guid: 64a52d2edcc0af241a2fe0f0d79c42b3, type: 3}
-  - {fileID: -2500287713041957420, guid: 15934780e3fe3a44cbb0440d31a52a8f, type: 3}
-  - {fileID: -4746029775332315738, guid: defcbf24c708b9844a3654434ba738b2, type: 3}
-  - {fileID: -860402343928173957, guid: 2c4a6953c04e3b040b4be57c5fb79064, type: 3}
+  EnemyAttackGrowthRate: 1
+  EnemyDefenseGrowthRate: 0
   EnemiesPortraits:
   - {fileID: -735669648, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
   - {fileID: 750657890, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
