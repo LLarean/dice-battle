@@ -7,8 +7,7 @@ using UnityEngine;
 
 namespace DiceBattle.Infrastructure
 {
-    public class ScreenChanger : MonoBehaviour,
-        IScreenHandler
+    public class ScreenChanger : MonoBehaviour, IScreenHandler
     {
         [Header("Screens")]
         [SerializeField] private MainMenuScreen _mainMenuScreen;
@@ -73,6 +72,9 @@ namespace DiceBattle.Infrastructure
             _gameOverScreen.gameObject.SetActive(false);
             _gameScreen.gameObject.SetActive(false);
             _lootScreen.gameObject.SetActive(false);
+
+            _optionsWindow.gameObject.SetActive(false);
+            _inventoryWindow.gameObject.SetActive(false);
 
             SignalSystem.Subscribe(this);
         }

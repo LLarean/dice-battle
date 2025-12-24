@@ -29,6 +29,6 @@ namespace DiceBattle.Screens
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
 
             // OnRestartClicked?.Invoke();
-        } 
+        }
     }
 }
