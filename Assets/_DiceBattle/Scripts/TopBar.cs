@@ -1,4 +1,3 @@
-using DiceBattle.Audio;
 using DiceBattle.Events;
 using DiceBattle.Screens;
 using GameSignals;
@@ -9,30 +8,31 @@ namespace DiceBattle
 {
     public class TopBar : MonoBehaviour, ITopBarHandler
     {
+        [SerializeField] private RectTransform _rootUI;
         [SerializeField] private Transform _panel;
         [Space]
         [SerializeField] private Button _back;
         [SerializeField] private Button _options;
 
-        private RectTransform _canvasRect;
+        private GameObjectAnimations _gameObjectAnimations;
 
         public void Show()
         {
             _panel.gameObject.SetActive(true);
 
-            var gameObjectAnimations = new GameObjectAnimations(_canvasRect);
-            gameObjectAnimations.SetParams(.2f, .5f, LeanTweenType.easeOutBack);
-            gameObjectAnimations.SlideIn(gameObject.GetComponent<RectTransform>());
+            _gameObjectAnimations.SetParams(.2f, .5f, LeanTweenType.easeOutBack);
+            _gameObjectAnimations.SlideIn(gameObject.GetComponent<RectTransform>());
         }
 
         public void Hide() => _panel.gameObject.SetActive(false);
 
-        private void Awake() => _canvasRect = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+        private void Awake() => _gameObjectAnimations = new GameObjectAnimations(_rootUI);
 
         private void Start()
         {
             _back.onClick.AddListener(HandleBackClick);
             _options.onClick.AddListener(HandleOptionsClick);
+
             SignalSystem.Subscribe(this);
         }
 
@@ -40,6 +40,7 @@ namespace DiceBattle
         {
             _back.onClick.RemoveAllListeners();
             _options.onClick.RemoveAllListeners();
+
             SignalSystem.Unsubscribe(this);
         }
 

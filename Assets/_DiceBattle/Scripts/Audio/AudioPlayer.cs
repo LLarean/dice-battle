@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using DiceBattle.Global;
 using GameSignals;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DiceBattle.Audio
 {
@@ -11,30 +13,29 @@ namespace DiceBattle.Audio
         [SerializeField] private AudioSource _musicSource;
         [SerializeField] private AudioSource _sfxSource;
 
-        [Header("---AUDIO CPLIPS---")]
+        [Header("---AUDIO CLIPS---")]
         [Header("Actions with UI")]
         [SerializeField] private AudioClip _click;
-        [Space]
+
         [Header("Actions with dice")]
         [SerializeField] private List<AudioClip> _diceGrab;
         [SerializeField] private List<AudioClip> _diceShake;
         [SerializeField] private List<AudioClip> _diceThrow;
         [SerializeField] private List<AudioClip> _dieThrow;
-        [Space]
         [SerializeField] private List<AudioClip> _playerAttack;
         [SerializeField] private List<AudioClip> _playerHeal;
-        [Space]
+
         [Header("Actions of enemies")]
         [SerializeField] private List<AudioClip> _slimeAttack;
         [SerializeField] private AudioClip _enemyHitClip;
         [SerializeField] private AudioClip _enemyDefeatedClip;
         [SerializeField] private AudioClip _enemySpawnClip;
-        [Space]
         [SerializeField] private AudioClip _gameOverClip;
 
-        [Header("---MUSIC---")]
+        [Header("---MUSIC CLIPS---")]
         [SerializeField] private AudioClip _backgroundMusic;
-        [Space]
+
+        [Header("---OPTIONS---")]
         [SerializeField] private bool _playMusicOnStart = true;
 
         public void PlaySound(SoundType soundType)
@@ -94,6 +95,8 @@ namespace DiceBattle.Audio
 
         #region Unity lifecycle
 
+        private void Awake() => SignalSystem.Subscribe(this);
+
         private void Start()
         {
             _musicSource.loop = true;
@@ -110,15 +113,7 @@ namespace DiceBattle.Audio
             _sfxSource.volume = PlayerPrefs.GetFloat(PlayerPrefsKeys.SoundVolume, 1);
         }
 
-        private void OnEnable()
-        {
-            SignalSystem.Subscribe(this);
-        }
-
-        private void OnDisable()
-        {
-            SignalSystem.Unsubscribe(this);
-        }
+        private void OnDestroy() => SignalSystem.Unsubscribe(this);
 
         #endregion
     }
