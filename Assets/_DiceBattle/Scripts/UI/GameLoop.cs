@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DiceBattle.Audio;
 using DiceBattle.Data;
+using DiceBattle.Events;
 using DiceBattle.Screens;
 using GameSignals;
 using UnityEngine;
@@ -21,17 +22,13 @@ namespace DiceBattle.UI
         private UnitData _playerData;
         private UnitData _enemyData;
 
-        private int _enemiesDefeated;
-        private int _attemptsNumber;
+        // private int _enemiesDefeated;
         private bool _isFirstRoll;
+        private int _attemptsNumber;
 
         public void InitializeGame()
         {
-            // int availableLevels = PlayerPrefs.GetInt("AvailableLevels", 1);
-            int currentLevel = GameProgress.CurrentLevel;
-
-            // _enemiesDefeated = 0;
-            _enemiesDefeated = currentLevel;
+            // _enemiesDefeated = GameProgress.CompletedLevels;
             _isFirstRoll = true;
             _attemptsNumber = 0;
 
@@ -123,14 +120,14 @@ namespace DiceBattle.UI
 
         private void SpawnEnemy()
         {
-            int maxHealth = _config.EnemyBaseHealth + _config.EnemyHPGrowth * _enemiesDefeated;
-            int attack = _config.EnemyBaseAttack + _config.EnemyAttackGrowthRate * _enemiesDefeated;
-            int defense = _config.EnemyBaseDefense + _config.EnemyDefenseGrowthRate * _enemiesDefeated;
+            int maxHealth = _config.EnemyBaseHealth + _config.EnemyHPGrowth * GameProgress.CompletedLevels;
+            int attack = _config.EnemyBaseAttack + _config.EnemyAttackGrowthRate * GameProgress.CompletedLevels;
+            int defense = _config.EnemyBaseDefense + _config.EnemyDefenseGrowthRate * GameProgress.CompletedLevels;
 
             _enemyData = new UnitData
             {
-                Title = $"Враг #{_enemiesDefeated + 1}",
-                Portrait = _config.EnemiesPortraits[_enemiesDefeated],
+                Title = $"Враг #{GameProgress.CompletedLevels + 1}",
+                Portrait = _config.EnemiesPortraits[GameProgress.CompletedLevels],
                 MaxHealth = maxHealth,
                 CurrentHealth = maxHealth,
                 Attack = attack,
@@ -140,7 +137,8 @@ namespace DiceBattle.UI
             _enemyData.Log();
             _gameScreen.SetEnemyData(_enemyData);
 
-            _enemiesDefeated++;
+            GameProgress.IncrementLevels();
+            // _enemiesDefeated++;
 
             // TODO: SignalSystem.Raise - new enemy appearance (new level)
         }
@@ -229,7 +227,10 @@ namespace DiceBattle.UI
         {
             // TODO: SignalSystem.Raise - Game Over
 
-            _gameOverScreen.Show(_enemiesDefeated - 1);
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameOverScreen));
+            // asd
+            // _gameOverScreen.Show(GameProgress.CompletedLevels);
+
             UpdateButtonStates();
         }
 
@@ -311,11 +312,7 @@ namespace DiceBattle.UI
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
         }
 
-        private void HandleRestartButtonClicked()
-        {
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
-            InitializeGame();
-        }
+        private void HandleRestartButtonClicked() => InitializeGame();
 
         private int TakeDamage(int damage)
         {
