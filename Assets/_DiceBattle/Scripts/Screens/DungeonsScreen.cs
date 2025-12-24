@@ -24,10 +24,12 @@ namespace DiceBattle.Screens
 
             for (int i = 0; i < _gameConfig.EnemiesPortraits.Length; i++)
             {
-                LevelItem levelItem = Instantiate(_levelItem, _levelItemSpawn);
                 LevelData levelData = GetLevelData(i);
+                LevelItem levelItem = Instantiate(_levelItem, _levelItemSpawn);
+
                 levelItem.Initialize(levelData);
                 levelItem.OnClicked += OpenLevel;
+
                 _levelItems.Add(levelItem);
             }
         }
@@ -45,8 +47,8 @@ namespace DiceBattle.Screens
         private LevelData GetLevelData(int index)
         {
             int currentLevel = GameProgress.CurrentLevel;
-            bool isAvailable = index <= currentLevel;
-            bool isCompleted = index == currentLevel;
+            bool isAvailable = index == currentLevel;
+            bool isCompleted = index < currentLevel;
 
             return new LevelData
             {

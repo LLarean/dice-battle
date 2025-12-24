@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using DiceBattle.Global;
 using GameSignals;
