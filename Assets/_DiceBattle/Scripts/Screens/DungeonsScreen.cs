@@ -51,7 +51,7 @@ namespace DiceBattle.Screens
             return new LevelData
             {
                 Portrait = _gameConfig.EnemiesPortraits[index],
-                Title = $"Уровень {index + 1}",
+                Title = $"Уровень {index + 1}", // TODO Translation into other languages
                 IsAvailable = isAvailable,
                 IsCompleted = isCompleted,
             };

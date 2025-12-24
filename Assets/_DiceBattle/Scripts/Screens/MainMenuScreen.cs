@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Events;
 using GameSignals;
@@ -54,15 +53,15 @@ namespace DiceBattle.Screens
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
         }
 
+        private void HandleOptionsClick()
+        {
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.OptionsWindow));
+        }
+
         private void HandleStartClick()
         {
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.DungeonsScreen));
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Show());
-        }
-
-        private void HandleOptionsClick()
-        {
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.OptionsWindow));
         }
     }
 }
