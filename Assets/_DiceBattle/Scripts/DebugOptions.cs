@@ -5,13 +5,14 @@ namespace DiceBattle
 {
     public class DebugOptions : MonoBehaviour
     {
-        [SerializeField] private bool _needReset;
+        [SerializeField] private bool _needResetAll;
 
         private void Start()
         {
-            if (_needReset)
+            if (_needResetAll)
             {
                 GameProgress.ResetAll();
+                GameSettings.ResetVolume();
             }
         }
     }

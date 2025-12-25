@@ -46,13 +46,13 @@ namespace DiceBattle.Audio
         public void ChangeMusicValue(float value)
         {
             _musicSource.volume = value;
-            PlayerPrefs.SetFloat(PlayerPrefsKeys.MusicVolume, value);
+            GameSettings.SetMusicVolume(value);
         }
 
         public void ChangeSoundValue(float value)
         {
             _sfxSource.volume = value;
-            PlayerPrefs.SetFloat(PlayerPrefsKeys.SoundVolume, value);
+            GameSettings.SetSoundVolume(value);
         }
 
         private AudioClip GetClipByType(SoundType soundType)
@@ -108,8 +108,8 @@ namespace DiceBattle.Audio
 
             _sfxSource.loop = false;
 
-            _musicSource.volume = PlayerPrefs.GetFloat(PlayerPrefsKeys.SoundVolume, 1);
-            _sfxSource.volume = PlayerPrefs.GetFloat(PlayerPrefsKeys.SoundVolume, 1);
+            _musicSource.volume = GameSettings.MusicVolume;
+            _sfxSource.volume = GameSettings.SoundVolume;
         }
 
         private void OnDestroy() => SignalSystem.Unsubscribe(this);

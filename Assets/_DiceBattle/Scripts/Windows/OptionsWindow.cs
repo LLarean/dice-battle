@@ -1,5 +1,4 @@
 using DiceBattle.Audio;
-using DiceBattle.Global;
 using GameSignals;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,8 +27,8 @@ namespace DiceBattle.Windows
 
         private void OnEnable()
         {
-            _music.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.SoundVolume, 1);
-            _sound.value = PlayerPrefs.GetFloat(PlayerPrefsKeys.SoundVolume, 1);
+            _music.value = GameSettings.MusicVolume;
+            _sound.value = GameSettings.SoundVolume;
         }
 
         private void HandleCloseClick() => gameObject.SetActive(false);
