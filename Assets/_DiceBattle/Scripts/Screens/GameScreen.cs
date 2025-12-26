@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DiceBattle.Core;
+using DiceBattle.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -10,6 +11,8 @@ namespace DiceBattle.Screens
 {
     public class GameScreen : MonoBehaviour
     {
+        [SerializeField] private GameLoop _gameLoop;
+        [Space]
         [SerializeField] private UnitPanel _player;
         [SerializeField] private UnitPanel _enemy;
         [SerializeField] private GameBoard _gameBoard;
@@ -89,6 +92,11 @@ namespace DiceBattle.Screens
             _context.onClick.RemoveAllListeners();
             _gameBoard.OnDiceToggled -= HandleDiceToggle;
             _gameBoard.OnRollCompleted -= HandleRollComplete;
+        }
+
+        private void OnEnable()
+        {
+            _gameLoop.InitializeGame();
         }
 
         #endregion

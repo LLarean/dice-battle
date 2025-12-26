@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DiceBattle.Global;
 using UnityEngine;
 
@@ -39,6 +40,28 @@ namespace DiceBattle
             rewards.RewardTypes.Add(rewardType);
 
             PlayerPrefs.SetString(PlayerPrefsKeys.Rewards, JsonUtility.ToJson(rewards));
+        }
+
+        public static int GetDiceCount()
+        {
+            Rewards rewards = GetRewards();
+
+            int firstDice = rewards.RewardTypes.Where(rewardType => rewardType == RewardType.FirstAdditionalDice).Sum(rewardType => 1);
+            int secondDice = rewards.RewardTypes.Where(rewardType => rewardType == RewardType.SecondAdditionalDice).Sum(rewardType => 1);
+
+            int diceCount = 3;
+
+            if (firstDice == 1)
+            {
+                diceCount++;
+            }
+
+            if (secondDice == 1)
+            {
+                diceCount++;
+            }
+
+            return diceCount;
         }
 
         public static Rewards GetRewards()
