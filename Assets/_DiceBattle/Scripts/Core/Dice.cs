@@ -39,7 +39,11 @@ namespace DiceBattle.Core
 
         public void Roll()
         {
-            int randomIndex = _random.Next(0, _faceSprites.Length);
+            int diceCount = GameProgress.GetDiceCount();
+            int clampCount = Math.Clamp(diceCount, 0, _faceSprites.Length);
+            int randomIndex = _random.Next(0, clampCount);
+
+            // int randomIndex = _random.Next(0, _faceSprites.Length);
             _diceType = (DiceType)randomIndex;
             _faceIcon.sprite = _faceSprites[(int)_diceType];
 

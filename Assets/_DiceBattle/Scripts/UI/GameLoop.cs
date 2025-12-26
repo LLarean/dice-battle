@@ -22,22 +22,20 @@ namespace DiceBattle.UI
         private UnitData _playerData;
         private UnitData _enemyData;
 
-        // private int _enemiesDefeated;
         private bool _isFirstRoll;
         private int _attemptsNumber;
 
         public void InitializeGame()
         {
-            // _enemiesDefeated = GameProgress.CompletedLevels;
             _isFirstRoll = true;
             _attemptsNumber = 0;
 
             SpawnHero();
             SpawnEnemy();
 
-            _gameScreen.SetDiceCount(5);
-            // List<RewardType> rewardTypes = GameProgress.GetRewards().RewardTypes;
-            // UpdateDiceCount(rewardTypes);
+            // _gameScreen.SetDiceCount(5);
+            List<RewardType> rewardTypes = GameProgress.GetRewards().RewardTypes;
+            UpdateDiceCount();
 
             _gameScreen.DisableDiceInteractable();
             _gameOverScreen.gameObject.SetActive(false);
@@ -98,24 +96,10 @@ namespace DiceBattle.UI
             // UpdateDiceCount(rewardTypes);
         }
 
-        private void UpdateDiceCount(List<RewardType> rewardTypes)
+        private void UpdateDiceCount()
         {
-            int firstDice = rewardTypes.Where(rewardType => rewardType == RewardType.FirstAdditionalDice).Sum(rewardType => 1);
-            int secondDice = rewardTypes.Where(rewardType => rewardType == RewardType.SecondAdditionalDice).Sum(rewardType => 1);
-
-
-            if (secondDice == 1)
-            {
-                _gameScreen.SetDiceCount(5);
-            }
-            else if (firstDice == 1)
-            {
-                _gameScreen.SetDiceCount(4);
-            }
-            else
-            {
-                _gameScreen.SetDiceCount(3);
-            }
+            int diceCount = GameProgress.GetDiceCount();
+            _gameScreen.SetDiceCount(diceCount);
         }
 
         private void SpawnEnemy()
