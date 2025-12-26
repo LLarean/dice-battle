@@ -6816,6 +6816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _musicSource: {fileID: 674676628}
   _sfxSource: {fileID: 1284191428}
+  _soundConfig: {fileID: 11400000, guid: 527b5ce29ac9fc54fa552b3c3fce38ac, type: 2}
   _click: {fileID: 8300000, guid: a0c60e40113ddfd428af48ef6fb2344b, type: 3}
   _diceGrab:
   - {fileID: 8300000, guid: 1ab86209378551645a0c0ce999d78714, type: 3}

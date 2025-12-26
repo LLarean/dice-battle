@@ -23,21 +23,22 @@ namespace DiceBattle.Data
 
                 if (soundItem.AudioClips == null)
                 {
-                    Debug.LogWarning("soundItem.AudioClips == null");
+                    Debug.LogWarning("soundItem.AudioClips == null, soundType = " + soundType);
                     return false;
                 }
 
                 if (soundItem.AudioClips.Count == 0)
                 {
-                    Debug.LogWarning("soundItem.AudioClips.Count == 0");
+                    Debug.LogWarning("soundItem.AudioClips.Count == 0, soundType = " + soundType);
                     return false;
                 }
 
-                audioClip = soundItem.AudioClips[Random.Range(0, soundItem.AudioClips.Count)];
+                int randomIndex = Random.Range(0, soundItem.AudioClips.Count);
+                audioClip = soundItem.AudioClips[randomIndex];
 
                 if (audioClip == null)
                 {
-                    Debug.LogWarning("audioClip == null");
+                    Debug.LogWarning($"audioClip == null, soundType = {soundType}, randomIndex = {randomIndex}" );
                     return false;
                 }
 

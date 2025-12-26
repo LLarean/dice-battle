@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DiceBattle.Data;
 using GameSignals;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -10,14 +11,12 @@ namespace DiceBattle.Audio
         [Header("---AUDIO SOURCES---")]
         [SerializeField] private AudioSource _musicSource;
         [SerializeField] private AudioSource _sfxSource;
+        [Space]
+        [SerializeField] private SoundConfig _soundConfig;
 
         [Header("---AUDIO CLIPS---")]
         [Header("Actions with UI")]
         [SerializeField] private AudioClip _click;
-        [SerializeField] private AudioClip _gold;
-        [SerializeField] private AudioClip _victory;
-        [SerializeField] private AudioClip _defeat;
-        [SerializeField] private AudioClip _tavern;
 
         [Header("Actions with dice")]
         [SerializeField] private List<AudioClip> _diceGrab;
@@ -42,8 +41,10 @@ namespace DiceBattle.Audio
 
         public void PlaySound(SoundType soundType)
         {
-            AudioClip clip = GetClipByType(soundType);
-            _sfxSource.PlayOneShot(clip);
+            if (_soundConfig.TryGetAudioClip(soundType, out AudioClip audioClip))
+            {
+                _sfxSource.PlayOneShot(audioClip);
+            }
         }
 
         public void ChangeMusicValue(float value)
