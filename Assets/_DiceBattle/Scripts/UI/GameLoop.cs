@@ -121,7 +121,7 @@ namespace DiceBattle.UI
             GameProgress.IncrementLevels();
             // _enemiesDefeated++;
 
-            // TODO: SignalSystem.Raise - new enemy appearance (new level)
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Victory));
         }
 
         private void EndTurn()
@@ -180,7 +180,7 @@ namespace DiceBattle.UI
             _playerData.CurrentHealth = Mathf.Min(_config.PlayerStartHealth, _playerData.CurrentHealth + _turnResult.Heal);
             _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
 
-            // TODO: SignalSystem.Raise - healing (amount: heal)
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerHeal));
         }
 
         private void ApplyAttack()
@@ -193,9 +193,8 @@ namespace DiceBattle.UI
             TakeDamage(_turnResult.Attack);
             _gameScreen.UpdateEnemyDisplay();
 
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
-
-            // TODO: SignalSystem.Raise - player attack (damage: damageDealt)
+            // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyHit));
         }
 
         private void ApplyDefense()
@@ -206,11 +205,8 @@ namespace DiceBattle.UI
 
         private void OnPlayerDefeated()
         {
-            // TODO: SignalSystem.Raise - Game Over
-
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Defeat));
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameOverScreen));
-            // asd
-            // _gameOverScreen.Show(GameProgress.CompletedLevels);
 
             UpdateButtonStates();
         }

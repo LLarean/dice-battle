@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DiceBattle.Audio;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using GameSignals;
@@ -78,7 +79,11 @@ namespace DiceBattle.Screens
             _inventory.onClick.RemoveAllListeners();
         }
 
-        private void OnEnable() => CreateLevelItems();
+        private void OnEnable()
+        {
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Tavern));
+            CreateLevelItems();
+        }
 
         #endregion
 
