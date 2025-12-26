@@ -51,6 +51,7 @@ namespace DiceBattle
         private void HandleItemSelect(RewardType rewardType)
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Reward));
 
             GameProgress.AddRewardItem(rewardType);
 

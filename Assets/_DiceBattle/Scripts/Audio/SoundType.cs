@@ -23,5 +23,8 @@
         Victory,
         Defeat,
         Tavern,
+
+        Menu,
+        Battle,
     }
 }
