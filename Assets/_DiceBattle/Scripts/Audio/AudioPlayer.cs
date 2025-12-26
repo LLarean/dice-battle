@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using DiceBattle.Global;
 using GameSignals;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -15,6 +14,10 @@ namespace DiceBattle.Audio
         [Header("---AUDIO CLIPS---")]
         [Header("Actions with UI")]
         [SerializeField] private AudioClip _click;
+        [SerializeField] private AudioClip _gold;
+        [SerializeField] private AudioClip _victory;
+        [SerializeField] private AudioClip _defeat;
+        [SerializeField] private AudioClip _tavern;
 
         [Header("Actions with dice")]
         [SerializeField] private List<AudioClip> _diceGrab;

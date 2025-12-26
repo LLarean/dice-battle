@@ -18,5 +18,10 @@
         EnemySpawn,
 
         GameOver,
+
+        Reward,
+        Victory,
+        Defeat,
+        Tavern,
     }
 }
