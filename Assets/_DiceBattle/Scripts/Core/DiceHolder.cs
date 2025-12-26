@@ -32,6 +32,11 @@ namespace DiceBattle.Core
         {
             for (int i = 0; i < _occupied.Count; i++)
             {
+                if (_occupied[i].gameObject.activeSelf == false)
+                {
+                    continue;
+                }
+
                 if (_occupied[i].transform.parent != _slots[i].transform)
                 {
                     _occupied[i].Roll();
