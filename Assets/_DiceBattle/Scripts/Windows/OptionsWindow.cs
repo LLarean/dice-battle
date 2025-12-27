@@ -35,12 +35,12 @@ namespace DiceBattle.Windows
 
         private void HandleMusicChange(float musicValue)
         {
-            SignalSystem.Raise<ISoundHandler>(handler => handler.ChangeMusicValue(musicValue));
+            SignalSystem.Raise<ISoundHandler>(handler => handler.SetMusicValue(musicValue));
         }
 
         private void HandleSoundChange(float soundValue)
         {
-            SignalSystem.Raise<ISoundHandler>(handler => handler.ChangeSoundValue(soundValue));
+            SignalSystem.Raise<ISoundHandler>(handler => handler.SetSoundValue(soundValue));
         }
     }
 }

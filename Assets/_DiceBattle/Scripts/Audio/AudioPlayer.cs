@@ -47,56 +47,17 @@ namespace DiceBattle.Audio
             }
         }
 
-        public void ChangeMusicValue(float value)
+        public void SetMusicValue(float value)
         {
             _musicSource.volume = value;
             GameSettings.SetMusicVolume(value);
         }
 
-        public void ChangeSoundValue(float value)
+        public void SetSoundValue(float value)
         {
             _sfxSource.volume = value;
             GameSettings.SetSoundVolume(value);
         }
-
-        private AudioClip GetClipByType(SoundType soundType)
-        {
-            switch (soundType)
-            {
-                case SoundType.Click:
-                    return _click;
-
-                case SoundType.DiceGrab:
-                    return _diceGrab[Random.Range(0, _diceGrab.Count)];
-                case SoundType.DiceShake:
-                    return _diceShake[Random.Range(0, _diceShake.Count)];
-                case SoundType.DiceThrow:
-                    return _diceThrow[Random.Range(0, _diceThrow.Count)];
-                case SoundType.DieThrow:
-                    return _dieThrow[Random.Range(0, _dieThrow.Count)];
-
-                case SoundType.PlayerAttack:
-                    return _playerAttack[Random.Range(0, _playerAttack.Count)];
-                case SoundType.PlayerHeal:
-                    return _playerHeal[Random.Range(0, _playerHeal.Count)];
-
-                case SoundType.SlimeAttack:
-                    return _slimeAttack[Random.Range(0, _slimeAttack.Count)];
-                case SoundType.EnemyHit:
-                    return _enemyHitClip;
-                case SoundType.EnemyDefeated:
-                    return _enemyDefeatedClip;
-                case SoundType.EnemySpawn:
-                    return _enemySpawnClip;
-
-                case SoundType.GameOver:
-                    return _gameOverClip;
-                default:
-                    return null;
-            }
-        }
-
-        #region Unity lifecycle
 
         private void Awake() => SignalSystem.Subscribe(this);
 
@@ -117,7 +78,5 @@ namespace DiceBattle.Audio
         }
 
         private void OnDestroy() => SignalSystem.Unsubscribe(this);
-
-        #endregion
     }
 }

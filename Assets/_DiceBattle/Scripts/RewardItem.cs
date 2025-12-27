@@ -35,6 +35,7 @@ namespace DiceBattle
                 RewardType.AdditionalTry => "Добавить попытку",
                 RewardType.FirstAdditionalDice => "Дополнительный кубик 1",
                 RewardType.SecondAdditionalDice => "Дополнительный кубик 1",
+                RewardType.AdditionalDamage => "Дополнительный урон",
                 RewardType.DoubleDamage => "Двойной урон",
                 RewardType.MagicDamage => "Магический урон",
                 RewardType.HealthRegen => "Регенерация здоровья",
