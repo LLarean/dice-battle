@@ -42,12 +42,12 @@ namespace DiceBattle.UI
         {
             _playerData = new UnitData
             {
-                Title = "Герой (вы)",
+                Title = "Герой (вы)", // TODO Translation
                 Portrait = _config.PlayerPortrait,
                 MaxHealth = _config.PlayerStartHealth,
                 CurrentHealth = _config.PlayerStartHealth,
                 Attack = 0,
-                Defense = 0,
+                Armor = 0,
             };
 
             _playerData.Log();
@@ -57,36 +57,39 @@ namespace DiceBattle.UI
         // TODO Refactoring is needed
         private void UpdateHero()
         {
-            List<RewardType> rewardTypes = GameProgress.GetRewards().RewardTypes;
+            // var unitRewards = new UnitDataExtensions(_config, _playerData);
 
-            int armor = rewardTypes.Where(rewardType => rewardType == RewardType.Armor).Sum(rewardType => 2);
-            int attack = rewardTypes.Where(rewardType => rewardType == RewardType.DoubleDamage).Sum(rewardType => 2);
-            int doubleHealth = rewardTypes.Where(rewardType => rewardType == RewardType.DoubleHealth).Sum(rewardType => 2);
+            // List<RewardType> rewardTypes = GameProgress.GetRewards().RewardTypes;
+            //
+            // int armor = rewardTypes.Where(rewardType => rewardType == RewardType.Armor).Sum(rewardType => 2);
+            // int attack = rewardTypes.Where(rewardType => rewardType == RewardType.DoubleDamage).Sum(rewardType => 2);
+            // int doubleHealth = rewardTypes.Where(rewardType => rewardType == RewardType.DoubleHealth).Sum(rewardType => 2);
+            //
+            // int maxHealth = _config.PlayerStartHealth;
+            //
+            // if (doubleHealth > 0)
+            // {
+            //     maxHealth *= doubleHealth;
+            // }
+            //
+            // int currentHealth = _playerData.CurrentHealth;
+            //
+            // if (doubleHealth > 0)
+            // {
+            //     currentHealth *= doubleHealth;
+            // }
 
-            int maxHealth = _config.PlayerStartHealth;
+            // _playerData = new UnitData
+            // {
+            //     Title = "Герой (upd)", // TODO Translation
+            //     Portrait = _config.PlayerPortrait,
+            //     MaxHealth = maxHealth,
+            //     CurrentHealth = currentHealth,
+            //     Attack = attack,
+            //     Armor = armor,
+            // };
 
-            if (doubleHealth > 0)
-            {
-                maxHealth *= doubleHealth;
-            }
-
-            int currentHealth = _playerData.CurrentHealth;
-
-            if (doubleHealth > 0)
-            {
-                currentHealth *= doubleHealth;
-            }
-
-            _playerData = new UnitData
-            {
-                Title = "Герой (upd)",
-                Portrait = _config.PlayerPortrait,
-                MaxHealth = maxHealth,
-                CurrentHealth = currentHealth,
-                Attack = attack,
-                Defense = armor,
-            };
-
+            _playerData.Update(_config);
             _playerData.Log();
             _gameScreen.SetPlayerData(_playerData);
 
@@ -107,12 +110,12 @@ namespace DiceBattle.UI
 
             _enemyData = new UnitData
             {
-                Title = $"Враг #{GameProgress.CompletedLevels + 1}",
+                Title = $"Враг #{GameProgress.CompletedLevels + 1}", // TODO Translation
                 Portrait = _config.EnemiesPortraits[GameProgress.CompletedLevels],
                 MaxHealth = maxHealth,
                 CurrentHealth = maxHealth,
                 Attack = attack,
-                Defense = defense,
+                Armor = defense,
             };
 
             _enemyData.Log();
@@ -145,7 +148,7 @@ namespace DiceBattle.UI
             _attemptsNumber = 0;
 
             _gameScreen.ResetSelection();
-            _gameScreen.SetContextLabel("Бросить все");
+            _gameScreen.SetContextLabel("Бросить все"); // TODO Translation
 
             UpdateButtonStates();
         }
@@ -159,12 +162,12 @@ namespace DiceBattle.UI
             else if (_attemptsNumber >= _config.MaxAttempts - 1)
             {
                 _gameScreen.DisableDiceInteractable();
-                _gameScreen.SetContextLabel("Закончить");
+                _gameScreen.SetContextLabel("Закончить"); // TODO Translation
             }
             else
             {
                 _gameScreen.EnableDiceInteractable();
-                _gameScreen.SetContextLabel("Пропустить");
+                _gameScreen.SetContextLabel("Пропустить"); // TODO Translation
             }
         }
 
@@ -199,8 +202,8 @@ namespace DiceBattle.UI
 
         private void ApplyDefense()
         {
-            _playerData.Defense = _turnResult.Defense;
-            _gameScreen.UpdatePlayerDefense(_playerData.Defense);
+            _playerData.Armor = _turnResult.Defense;
+            _gameScreen.UpdatePlayerDefense(_playerData.Armor);
         }
 
         private void OnPlayerDefeated()
@@ -218,7 +221,7 @@ namespace DiceBattle.UI
         private void EnemyTurn()
         {
             int enemyAttack = _enemyData.Attack;
-            int damageToPlayer = Mathf.Max(0, enemyAttack - _playerData.Defense);
+            int damageToPlayer = Mathf.Max(0, enemyAttack - _playerData.Armor);
 
             if (damageToPlayer > 0)
             {
@@ -234,7 +237,7 @@ namespace DiceBattle.UI
                 }
             }
 
-            _playerData.Defense = 0;
+            _playerData.Armor = 0;
             _gameScreen.UpdatePlayerDefense(0);
         }
 
@@ -251,7 +254,7 @@ namespace DiceBattle.UI
             SpawnEnemy();
 
             _isFirstRoll = true;
-            _playerData.Defense = 0;
+            _playerData.Armor = 0;
 
             _gameScreen.UpdatePlayerDefense(0);
 
@@ -293,7 +296,7 @@ namespace DiceBattle.UI
 
         private int TakeDamage(int damage)
         {
-            int actualDamage = Mathf.Max(0, damage - _enemyData.Defense);
+            int actualDamage = Mathf.Max(0, damage - _enemyData.Armor);
             _enemyData.CurrentHealth = Mathf.Max(0, _enemyData.CurrentHealth - actualDamage);
 
             // TODO: SignalSystem.Raise - The enemy has taken damage (actualDamage)
@@ -316,6 +319,7 @@ namespace DiceBattle.UI
         {
             _gameScreen.OnContextClicked -= HandleContextAction;
             _gameOverScreen.OnRestartClicked -= HandleRestartButtonClicked;
+            _lootScreen.OnRewardSelected -= UpdateHero;
         }
 
         #endregion

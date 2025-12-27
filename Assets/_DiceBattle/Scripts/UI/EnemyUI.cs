@@ -32,7 +32,7 @@ namespace DiceBattle.UI
             _hpSlider.value = _unitData.CurrentHealth;
 
             _attackText.text = $"Attack: {_unitData.Attack}";
-            _defenseText.text = $"Defense: {_unitData.Defense}";
+            _defenseText.text = $"Defense: {_unitData.Armor}";
         }
 
         public void PlayHitAnimation()

@@ -10,6 +10,7 @@
         FirstAdditionalDice,
         SecondAdditionalDice,
 
+        AdditionalDamage,
         DoubleDamage,
         MagicDamage,
 

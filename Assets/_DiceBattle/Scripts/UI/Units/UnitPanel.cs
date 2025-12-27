@@ -32,7 +32,7 @@ namespace DiceBattle
             UpdateCurrentHealth(_unitData.CurrentHealth);
 
             UpdateAttack(_unitData.Attack);
-            UpdateDefense(_unitData.Defense);
+            UpdateDefense(_unitData.Armor);
         }
 
         public void UpdateCurrentHealth(int currentHealth)
