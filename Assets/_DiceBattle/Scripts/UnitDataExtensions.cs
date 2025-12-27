@@ -9,13 +9,9 @@ namespace DiceBattle
     {
         public static void Log(this UnitData unitData)
         {
+            string json = JsonUtility.ToJson(unitData);
             Debug.Log("---UnitData---");
-            Debug.Log("Title = " + unitData.Title );
-            Debug.Log("Portrait.name = " + unitData.Portrait.name);
-            Debug.Log("MaxHealth = " + unitData.MaxHealth);
-            Debug.Log("CurrentHealth = " + unitData.CurrentHealth);
-            Debug.Log("Attack = " + unitData.Attack);
-            Debug.Log("Defense = " + unitData.Armor);
+            Debug.Log(json);
             Debug.Log("---End---");
         }
 
@@ -25,16 +21,16 @@ namespace DiceBattle
 
             unitData.Title = "Герой (upd)"; // TODO Translation
 
-            unitData.Armor = rewardTypes.Count(r => r == RewardType.Armor) * config.ArmorBonus;
-            unitData.Attack = rewardTypes.Count(r => r == RewardType.AdditionalDamage) * config.AttackBonus;
+            unitData.Armor = rewardTypes.Count(r => r == RewardType.Armor) * config.PlayerBonusArmor;
+            unitData.Attack = rewardTypes.Count(r => r == RewardType.AdditionalDamage) * config.PlayerBonusDamage;
 
-            // int doubleHealth = rewardTypes.Count(r => r == RewardType.DoubleHealth) * 2;
-            //
-            // if (doubleHealth > 0)
-            // {
-            //     _playerData.MaxHealth *= doubleHealth;
-            //     _playerData.CurrentHealth *= doubleHealth;
-            // }
+            int doubleHealth = rewardTypes.Count(r => r == RewardType.DoubleHealth) * 2;
+
+            if (doubleHealth > 0)
+            {
+                unitData.MaxHealth *= doubleHealth;
+                unitData.CurrentHealth *= doubleHealth;
+            }
         }
     }
 }

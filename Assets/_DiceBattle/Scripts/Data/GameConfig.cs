@@ -10,15 +10,14 @@ namespace DiceBattle.Data
     public class GameConfig : ScriptableObject
     {
         [Header("Player")]
-        [Tooltip("The player's initial health")]
         public int PlayerStartHealth = 20;
-        [Tooltip("The player's initial armor")]
+
+        public int PlayerStartDamage = 0;
+        public int PlayerBonusDamage = 2;
+
         public int PlayerStartArmor = 0;
-        [Tooltip("Armor boost for each armor reward")]
-        public int ArmorBonus = 2;
-        [Tooltip("Attack boost for each attack reward")]
-        public int AttackBonus = 2;
-        [Tooltip("")]
+        public int PlayerBonusArmor = 2;
+
         public Sprite PlayerPortrait;
 
         [Header("Dices")]
