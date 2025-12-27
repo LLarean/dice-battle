@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using DiceBattle.Audio;
 using DiceBattle.Data;
 using DiceBattle.Events;
@@ -32,7 +30,7 @@ namespace DiceBattle.UI
 
             SpawnHero();
             SpawnEnemy();
-            UpdateDiceCount();
+            // UpdateDiceCount();
 
             _gameScreen.DisableDiceInteractable();
             _gameOverScreen.gameObject.SetActive(false);
@@ -46,8 +44,8 @@ namespace DiceBattle.UI
                 Portrait = _config.PlayerPortrait,
                 MaxHealth = _config.PlayerStartHealth,
                 CurrentHealth = _config.PlayerStartHealth,
-                Attack = 0,
-                Armor = 0,
+                Attack = _config.PlayerStartDamage,
+                Armor = _config.PlayerStartArmor,
             };
 
             _playerData.Log();
@@ -57,42 +55,9 @@ namespace DiceBattle.UI
         // TODO Refactoring is needed
         private void UpdateHero()
         {
-            // var unitRewards = new UnitDataExtensions(_config, _playerData);
-
-            // List<RewardType> rewardTypes = GameProgress.GetRewards().RewardTypes;
-            //
-            // int armor = rewardTypes.Where(rewardType => rewardType == RewardType.Armor).Sum(rewardType => 2);
-            // int attack = rewardTypes.Where(rewardType => rewardType == RewardType.DoubleDamage).Sum(rewardType => 2);
-            // int doubleHealth = rewardTypes.Where(rewardType => rewardType == RewardType.DoubleHealth).Sum(rewardType => 2);
-            //
-            // int maxHealth = _config.PlayerStartHealth;
-            //
-            // if (doubleHealth > 0)
-            // {
-            //     maxHealth *= doubleHealth;
-            // }
-            //
-            // int currentHealth = _playerData.CurrentHealth;
-            //
-            // if (doubleHealth > 0)
-            // {
-            //     currentHealth *= doubleHealth;
-            // }
-
-            // _playerData = new UnitData
-            // {
-            //     Title = "Герой (upd)", // TODO Translation
-            //     Portrait = _config.PlayerPortrait,
-            //     MaxHealth = maxHealth,
-            //     CurrentHealth = currentHealth,
-            //     Attack = attack,
-            //     Armor = armor,
-            // };
-
             _playerData.Update(_config);
             _playerData.Log();
             _gameScreen.SetPlayerData(_playerData);
-
             // UpdateDiceCount(rewardTypes);
         }
 
