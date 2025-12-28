@@ -38,6 +38,10 @@ namespace DiceBattle.UI
 
         private void SpawnHero()
         {
+            // _playerData = new UnitData();
+
+            // _playerData.Create(_config);
+
             _playerData = new UnitData
             {
                 Title = "Герой (вы)", // TODO Translation
