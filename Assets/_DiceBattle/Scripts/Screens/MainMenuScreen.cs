@@ -30,8 +30,6 @@ namespace DiceBattle.Screens
             _gameObjectAnimations = new GameObjectAnimations(_rootUI);
             _gameObjectAnimations.SetParams(.2f, .5f, LeanTweenType.easeOutBack);
             _diceAnimation = new DiceAnimation(_rollAnimationArea);
-
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Victory));
         }
 
         private void Start()
