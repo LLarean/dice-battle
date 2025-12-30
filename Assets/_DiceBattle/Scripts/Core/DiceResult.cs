@@ -2,7 +2,7 @@
 
 namespace DiceBattle.Core
 {
-    public class TurnResult
+    public class DiceResult
     {
         private int _damage;
         private int _armor;
