@@ -65,7 +65,7 @@ namespace DiceBattle.Screens
             }
             if (isAllUnselected)
             {
-                SetContextLabel("Пропустить"); // TODO Translation
+                SetContextLabel("Закончить"); // TODO Translation
             }
         }
 

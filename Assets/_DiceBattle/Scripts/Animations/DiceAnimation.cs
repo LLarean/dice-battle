@@ -4,7 +4,7 @@ using DiceBattle.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace DiceBattle
+namespace DiceBattle.Animations
 {
     public class DiceAnimation
     {

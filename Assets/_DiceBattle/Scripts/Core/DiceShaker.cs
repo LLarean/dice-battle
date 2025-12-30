@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DiceBattle.Animations;
 using DiceBattle.Audio;
 using GameSignals;
 using UnityEngine;
