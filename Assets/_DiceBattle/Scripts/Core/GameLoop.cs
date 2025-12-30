@@ -5,14 +5,13 @@ using DiceBattle.Events;
 using DiceBattle.Global;
 using DiceBattle.UI;
 using GameSignals;
-using Unity.Mathematics.Geometry;
 using UnityEngine;
 
 namespace DiceBattle.Core
 {
     public class GameLoop : MonoBehaviour
     {
-        private readonly TurnResult _turnResult = new();
+        private readonly DiceResult _diceResult = new();
 
         [SerializeField] private GameConfig _config;
         [Space]
@@ -41,8 +40,8 @@ namespace DiceBattle.Core
         private void SpawnEnemy()
         {
             int maxHealth = _config.EnemyBaseHealth + _config.EnemyHPGrowth * GameProgress.CompletedLevels;
-            int attack = _config.EnemyBaseAttack + _config.EnemyAttackGrowthRate * GameProgress.CompletedLevels;
-            int defense = _config.EnemyBaseDefense + _config.EnemyDefenseGrowthRate * GameProgress.CompletedLevels;
+            int damage = _config.EnemyBaseAttack + _config.EnemyAttackGrowthRate * GameProgress.CompletedLevels;
+            int armor = _config.EnemyBaseDefense + _config.EnemyDefenseGrowthRate * GameProgress.CompletedLevels;
 
             _enemyData = new UnitData
             {
@@ -50,8 +49,8 @@ namespace DiceBattle.Core
                 Portrait = _config.EnemiesPortraits[GameProgress.CompletedLevels],
                 MaxHealth = maxHealth,
                 CurrentHealth = maxHealth,
-                Attack = attack,
-                Armor = defense,
+                Attack = damage,
+                Armor = armor,
             };
 
             _enemyData.Log();
@@ -84,6 +83,7 @@ namespace DiceBattle.Core
 
         private void UpdateDiceCount()
         {
+            // TODO Improvements in the number of cubes
             // int diceCount = GameProgress.GetDiceCount();
             _gameScreen.SetDiceCount(_config.DiceStartCount);
         }
@@ -91,9 +91,9 @@ namespace DiceBattle.Core
         private void EndTurn()
         {
             _rewards = GameProgress.GetRewards();
-            _turnResult.Calculate(_gameScreen.Dices);
+            _diceResult.Calculate(_gameScreen.Dices);
 
-            ApplyDefense();
+            // ApplyDefense();
             ApplyAttack();
             ApplyHealing();
 
@@ -137,15 +137,22 @@ namespace DiceBattle.Core
 
         private void ApplyDefense()
         {
-            int bonusArmor = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.Armor).Sum(rewardType => 1);
-            _playerData.Armor = Mathf.Max(0, _turnResult.Armor + bonusArmor);
+            int bonusArmor = _rewards.RewardTypes.Count(r => r == RewardType.Armor) * _config.PlayerBonusArmor;
+
+            _playerData.Armor = Mathf.Max(0, _diceResult.Armor + bonusArmor);
             _gameScreen.UpdatePlayerDefense(_playerData.Armor);
         }
 
         private void ApplyAttack()
         {
-            int doubleDamage = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.DoubleDamage).Sum(rewardType => 1);
-            int damageToEnemy = _turnResult.Damage * doubleDamage;
+            int doubleDamageCount = _rewards.RewardTypes.Count(r => r == RewardType.DoubleDamage);
+            // int doubleDamage = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.DoubleDamage).Sum(rewardType => 1);
+
+            Debug.Log("doubleDamage = " + doubleDamageCount);
+
+            int damageToEnemy = Mathf.Max(_diceResult.Damage, _diceResult.Damage * doubleDamageCount);
+
+            Debug.Log("damageToEnemy = " + damageToEnemy);
 
             EnemyTakeDamage(damageToEnemy);
             _gameScreen.UpdateEnemyDisplay();
@@ -157,11 +164,16 @@ namespace DiceBattle.Core
 
         private void ApplyHealing()
         {
-            int doubleHealth = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.DoubleHealth).Sum(rewardType => 1);
-            int regenHealth = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.RegenHealth).Sum(rewardType => 1);
+            int doubleHealth = _rewards.RewardTypes.Count(r => r == RewardType.DoubleHealth);
+            int regenHealth = _rewards.RewardTypes.Count(r => r == RewardType.RegenHealth);
 
-            int fullHealth = _config.PlayerStartHealth * doubleHealth;
-            int currentHealth = _playerData.CurrentHealth + _turnResult.Heal + regenHealth;
+            // int doubleHealth = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.DoubleHealth).Sum(rewardType => 1);
+            // int regenHealth = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.RegenHealth).Sum(rewardType => 1);
+
+            int fullHealth = Mathf.Max(_config.PlayerStartHealth, _config.PlayerStartHealth * doubleHealth);
+
+            // int fullHealth = _config.PlayerStartHealth * doubleHealth;
+            int currentHealth = _playerData.CurrentHealth + _diceResult.Heal + regenHealth;
 
             _playerData.CurrentHealth = Mathf.Min(fullHealth, currentHealth);
             _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
@@ -186,15 +198,21 @@ namespace DiceBattle.Core
             int enemyAttack = _enemyData.Attack;
             int damageToPlayer = Mathf.Max(0, enemyAttack - _playerData.Armor);
 
+            Debug.Log("damageToPlayer = " + damageToPlayer);
+
             if (damageToPlayer > 0)
             {
                 _playerData.CurrentHealth = Mathf.Max(0, _playerData.CurrentHealth - damageToPlayer);
+
+                Debug.Log("Player health = " + _playerData.CurrentHealth);
+
                 _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
 
                 SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
 
                 if (_playerData.CurrentHealth <= 0)
                 {
+                    Debug.Log("Player health = 0");
                     OnPlayerDefeated();
                     return;
                 }
