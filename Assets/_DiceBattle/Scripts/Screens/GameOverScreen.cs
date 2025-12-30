@@ -20,15 +20,13 @@ namespace DiceBattle.Screens
 
         private void OnEnable()
         {
-            _finalScore.text = $"You have defeated {GameProgress.CompletedLevels} enemies!";
+            _finalScore.text = $"Вы победили {GameProgress.CompletedLevels} врагов!"; // TODO Translation
         }
 
         private void HandleRestartClick()
         {
             GameProgress.ResetAll();
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
-
-            // OnRestartClicked?.Invoke();
         }
     }
 }
