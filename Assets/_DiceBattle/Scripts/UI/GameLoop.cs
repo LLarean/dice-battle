@@ -124,7 +124,7 @@ namespace DiceBattle.UI
             else
             {
                 _gameScreen.EnableDiceInteractable();
-                _gameScreen.SetContextLabel("Пропустить"); // TODO Translation
+                _gameScreen.SetContextLabel("Закончить"); // TODO Translation
             }
         }
 

@@ -1,7 +1,7 @@
 #if UNITY_EDITOR
 using UnityEngine;
 
-namespace DiceBattle
+namespace DiceBattle.Auxiliary
 {
     public class DebugOptions : MonoBehaviour
     {

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using DiceBattle.Audio;
+using DiceBattle.Animations;
 using DiceBattle.Core;
 using DiceBattle.Events;
 using GameSignals;
@@ -42,13 +42,14 @@ namespace DiceBattle.Screens
         {
             _options.onClick.RemoveAllListeners();
             _start.onClick.RemoveAllListeners();
+
+            LeanTween.cancel(gameObject);
         }
 
         private void OnEnable()
         {
             _gameObjectAnimations.SlideIn(_title.rectTransform);
             _gameObjectAnimations.SlideIn(_bottomButtons, -1);
-
             _diceAnimation.Animate(_dice);
 
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());

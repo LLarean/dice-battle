@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace DiceBattle.Screens
+namespace DiceBattle.Animations
 {
     public class GameObjectAnimations
     {
