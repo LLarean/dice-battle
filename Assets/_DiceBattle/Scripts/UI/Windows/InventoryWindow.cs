@@ -49,7 +49,7 @@ namespace DiceBattle.UI
         {
             ToggleRewardItem(RewardType.DisableEmptyState);
             ToggleRewardItem(RewardType.DoubleDamage);
-            ToggleRewardItem(RewardType.HealthRegen);
+            ToggleRewardItem(RewardType.RegenHealth);
             ToggleRewardItem(RewardType.Armor);
         }
 

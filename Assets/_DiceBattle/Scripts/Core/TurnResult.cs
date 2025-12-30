@@ -4,18 +4,18 @@ namespace DiceBattle.Core
 {
     public class TurnResult
     {
-        private int _attack;
-        private int _defense;
+        private int _damage;
+        private int _armor;
         private int _heal;
 
-        public int Attack => _attack;
-        public int Defense => _defense;
+        public int Damage => _damage;
+        public int Armor => _armor;
         public int Heal => _heal;
 
         public void Calculate(List<Dice> dices)
         {
-            _attack = 0;
-            _defense = 0;
+            _damage = 0;
+            _armor = 0;
             _heal = 0;
 
             foreach (Dice dice in dices)
@@ -23,13 +23,13 @@ namespace DiceBattle.Core
                 switch (dice.DiceType)
                 {
                     case DiceType.Attack:
-                        if (dice.gameObject.activeSelf)
-                        {
-                            _attack++;
-                        }
+                        // if (dice.gameObject.activeSelf)
+                        // {
+                            _damage++;
+                        // }
                         break;
                     case DiceType.Defense:
-                        _defense++;
+                        _armor++;
                         break;
                     case DiceType.Heal:
                         _heal++;
