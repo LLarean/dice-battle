@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using DiceBattle.Core;
 
-namespace DiceBattle.UI
+namespace DiceBattle.Core
 {
     public class TurnResult
     {

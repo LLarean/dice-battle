@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using DiceBattle.Data;
+using DiceBattle.Events;
+using DiceBattle.Global;
 using GameSignals;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace DiceBattle.Audio
 {
@@ -13,25 +14,6 @@ namespace DiceBattle.Audio
         [SerializeField] private AudioSource _sfxSource;
         [Space]
         [SerializeField] private SoundConfig _soundConfig;
-
-        [Header("---AUDIO CLIPS---")]
-        [Header("Actions with UI")]
-        [SerializeField] private AudioClip _click;
-
-        [Header("Actions with dice")]
-        [SerializeField] private List<AudioClip> _diceGrab;
-        [SerializeField] private List<AudioClip> _diceShake;
-        [SerializeField] private List<AudioClip> _diceThrow;
-        [SerializeField] private List<AudioClip> _dieThrow;
-        [SerializeField] private List<AudioClip> _playerAttack;
-        [SerializeField] private List<AudioClip> _playerHeal;
-
-        [Header("Actions of enemies")]
-        [SerializeField] private List<AudioClip> _slimeAttack;
-        [SerializeField] private AudioClip _enemyHitClip;
-        [SerializeField] private AudioClip _enemyDefeatedClip;
-        [SerializeField] private AudioClip _enemySpawnClip;
-        [SerializeField] private AudioClip _gameOverClip;
 
         [Header("---MUSIC CLIPS---")]
         [SerializeField] private AudioClip _backgroundMusic;

@@ -1,4 +1,5 @@
-﻿using GameSignals;
+﻿using DiceBattle.UI;
+using GameSignals;
 
 namespace DiceBattle.Events
 {

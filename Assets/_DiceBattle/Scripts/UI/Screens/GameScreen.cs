@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DiceBattle.Core;
-using DiceBattle.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace DiceBattle.Screens
+namespace DiceBattle.UI
 {
     public class GameScreen : MonoBehaviour
     {

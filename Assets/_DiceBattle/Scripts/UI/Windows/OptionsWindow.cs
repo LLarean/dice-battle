@@ -1,9 +1,10 @@
-using DiceBattle.Audio;
+using DiceBattle.Events;
+using DiceBattle.Global;
 using GameSignals;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DiceBattle.Windows
+namespace DiceBattle.UI
 {
     public class OptionsWindow : MonoBehaviour
     {

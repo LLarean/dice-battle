@@ -1,10 +1,11 @@
 using DiceBattle.Audio;
+using DiceBattle.Events;
 using GameSignals;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace DiceBattle
+namespace DiceBattle.UI
 {
     public class BaseButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using DiceBattle.Global;
+using DiceBattle.UI;
 using UnityEngine;
 
-namespace DiceBattle
+namespace DiceBattle.Global
 {
     public static class GameProgress
     {

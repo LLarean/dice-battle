@@ -1,11 +1,12 @@
 ﻿using System;
 using DiceBattle.Events;
+using DiceBattle.Global;
 using GameSignals;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DiceBattle.Screens
+namespace DiceBattle.UI
 {
     public class GameOverScreen : MonoBehaviour
     {

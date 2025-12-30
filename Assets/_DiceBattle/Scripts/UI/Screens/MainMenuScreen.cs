@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DiceBattle.Screens
+namespace DiceBattle.UI
 {
     public class MainMenuScreen : MonoBehaviour
     {

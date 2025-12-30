@@ -3,7 +3,7 @@ using DiceBattle.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DiceBattle.Windows
+namespace DiceBattle.UI
 {
     public class InventoryWindow : MonoBehaviour
     {

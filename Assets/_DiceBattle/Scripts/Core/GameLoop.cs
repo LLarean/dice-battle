@@ -1,11 +1,12 @@
 using DiceBattle.Audio;
 using DiceBattle.Data;
 using DiceBattle.Events;
-using DiceBattle.Screens;
+using DiceBattle.Global;
+using DiceBattle.UI;
 using GameSignals;
 using UnityEngine;
 
-namespace DiceBattle.UI
+namespace DiceBattle.Core
 {
     public class GameLoop : MonoBehaviour
     {

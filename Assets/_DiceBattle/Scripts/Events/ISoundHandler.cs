@@ -1,6 +1,7 @@
+using DiceBattle.Audio;
 using GameSignals;
 
-namespace DiceBattle.Audio
+namespace DiceBattle.Events
 {
     public interface ISoundHandler : IGlobalSubscriber
     {

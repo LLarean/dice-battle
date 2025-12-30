@@ -1,11 +1,9 @@
 using System;
 using DiceBattle.Events;
-using DiceBattle.Screens;
-using DiceBattle.Windows;
 using GameSignals;
 using UnityEngine;
 
-namespace DiceBattle.Infrastructure
+namespace DiceBattle.UI
 {
     public class ScreenChanger : MonoBehaviour, IScreenHandler
     {

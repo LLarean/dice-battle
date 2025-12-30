@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using DiceBattle.Audio;
+using DiceBattle.Core;
 using DiceBattle.Data;
 using DiceBattle.Events;
+using DiceBattle.Global;
 using GameSignals;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DiceBattle.Screens
+namespace DiceBattle.UI
 {
     public class DungeonsScreen : MonoBehaviour
     {
