@@ -9,10 +9,12 @@ namespace DiceBattle
     {
         public static void Log(this UnitData unitData)
         {
+#if UNITY_EDITOR
             string json = JsonUtility.ToJson(unitData);
             Debug.Log("---UnitData---");
             Debug.Log(json);
             Debug.Log("---End---");
+#endif
         }
 
         public static void Update(this UnitData unitData, GameConfig config)

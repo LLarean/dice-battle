@@ -14,7 +14,6 @@ namespace DiceBattle.UI
         [SerializeField] private GameConfig _config;
         [Space]
         [SerializeField] private GameScreen _gameScreen;
-        [SerializeField] private GameOverScreen _gameOverScreen;
         [SerializeField] private LootScreen _lootScreen;
 
         private UnitData _playerData;
@@ -28,47 +27,11 @@ namespace DiceBattle.UI
             _isFirstRoll = true;
             _attemptsNumber = 0;
 
-            SpawnHero();
             SpawnEnemy();
-            // UpdateDiceCount();
+            SpawnHero();
+            UpdateDiceCount();
 
             _gameScreen.DisableDiceInteractable();
-            _gameOverScreen.gameObject.SetActive(false);
-        }
-
-        private void SpawnHero()
-        {
-            // _playerData = new UnitData();
-
-            // _playerData.Create(_config);
-
-            _playerData = new UnitData
-            {
-                Title = "Герой (вы)", // TODO Translation
-                Portrait = _config.PlayerPortrait,
-                MaxHealth = _config.PlayerStartHealth,
-                CurrentHealth = _config.PlayerStartHealth,
-                Attack = _config.PlayerStartDamage,
-                Armor = _config.PlayerStartArmor,
-            };
-
-            _playerData.Log();
-            _gameScreen.SetPlayerData(_playerData);
-        }
-
-        // TODO Refactoring is needed
-        private void UpdateHero()
-        {
-            _playerData.Update(_config);
-            _playerData.Log();
-            _gameScreen.SetPlayerData(_playerData);
-            // UpdateDiceCount(rewardTypes);
-        }
-
-        private void UpdateDiceCount()
-        {
-            int diceCount = GameProgress.GetDiceCount();
-            _gameScreen.SetDiceCount(diceCount);
         }
 
         private void SpawnEnemy()
@@ -89,11 +52,36 @@ namespace DiceBattle.UI
 
             _enemyData.Log();
             _gameScreen.SetEnemyData(_enemyData);
+        }
 
-            GameProgress.IncrementLevels();
-            // _enemiesDefeated++;
+        private void SpawnHero()
+        {
+            _playerData = new UnitData
+            {
+                Title = "Герой (вы)", // TODO Translation
+                Portrait = _config.PlayerPortrait,
+                MaxHealth = _config.PlayerStartHealth,
+                CurrentHealth = _config.PlayerStartHealth,
+                Attack = _config.PlayerStartDamage,
+                Armor = _config.PlayerStartArmor,
+            };
 
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Victory));
+            _playerData.Log();
+            _gameScreen.SetPlayerData(_playerData);
+        }
+
+        private void UpdateHero()
+        {
+            _playerData.Update(_config);
+            _playerData.Log();
+            _gameScreen.SetPlayerData(_playerData);
+            // UpdateDiceCount(rewardTypes);
+        }
+
+        private void UpdateDiceCount()
+        {
+            // int diceCount = GameProgress.GetDiceCount();
+            _gameScreen.SetDiceCount(_config.DiceStartCount);
         }
 
         private void EndTurn()
@@ -222,6 +210,9 @@ namespace DiceBattle.UI
             UpdateHero();
             SpawnEnemy();
 
+            GameProgress.IncrementLevels();
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Victory));
+
             _isFirstRoll = true;
             _playerData.Armor = 0;
 
@@ -280,14 +271,12 @@ namespace DiceBattle.UI
         private void Start()
         {
             _gameScreen.OnContextClicked += HandleContextAction;
-            _gameOverScreen.OnRestartClicked += HandleRestartButtonClicked;
             _lootScreen.OnRewardSelected += UpdateHero;
         }
 
         private void OnDestroy()
         {
             _gameScreen.OnContextClicked -= HandleContextAction;
-            _gameOverScreen.OnRestartClicked -= HandleRestartButtonClicked;
             _lootScreen.OnRewardSelected -= UpdateHero;
         }
 

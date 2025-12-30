@@ -21,8 +21,10 @@ namespace DiceBattle.Data
         public Sprite PlayerPortrait;
 
         [Header("Dices")]
-        [Tooltip("Number of dices")]
-        public int DiceCount = 5;
+        public int DiceStartCount = 5;
+        public int DiceBonusCount = 1;
+        public int AttemptsCount = 2;
+        public int AttemptsBonusCount = 1;
 
         [Header("Enemies - Basic Stats (Enemy #1)")]
         [Tooltip("The base health of the first enemy")]

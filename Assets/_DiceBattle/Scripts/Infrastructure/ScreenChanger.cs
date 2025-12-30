@@ -59,6 +59,7 @@ namespace DiceBattle.Infrastructure
                 ScreenType.GameOverScreen => _gameOverScreen.gameObject,
                 ScreenType.LootScreen => _lootScreen.gameObject,
                 ScreenType.DungeonsScreen => _dungeonsScreen.gameObject,
+
                 ScreenType.OptionsWindow => _optionsWindow.gameObject,
                 ScreenType.InventoryWindow => _inventoryWindow.gameObject,
                 _ => throw new ArgumentOutOfRangeException(nameof(screenType), screenType, null)
