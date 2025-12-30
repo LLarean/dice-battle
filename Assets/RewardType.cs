@@ -14,7 +14,7 @@
         DoubleDamage,
         MagicDamage,
 
-        HealthRegen,
+        RegenHealth,
         RestoreHealth,
         DoubleHealth,
 

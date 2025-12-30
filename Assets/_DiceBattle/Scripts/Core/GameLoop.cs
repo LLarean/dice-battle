@@ -1,9 +1,11 @@
+using System.Linq;
 using DiceBattle.Audio;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
 using DiceBattle.UI;
 using GameSignals;
+using Unity.Mathematics.Geometry;
 using UnityEngine;
 
 namespace DiceBattle.Core
@@ -19,6 +21,7 @@ namespace DiceBattle.Core
 
         private UnitData _playerData;
         private UnitData _enemyData;
+        private Rewards _rewards;
 
         private bool _isFirstRoll;
         private int _attemptsNumber;
@@ -76,7 +79,7 @@ namespace DiceBattle.Core
             _playerData.Update(_config);
             _playerData.Log();
             _gameScreen.SetPlayerData(_playerData);
-            // UpdateDiceCount(rewardTypes);
+            UpdateDiceCount();
         }
 
         private void UpdateDiceCount()
@@ -87,11 +90,12 @@ namespace DiceBattle.Core
 
         private void EndTurn()
         {
+            _rewards = GameProgress.GetRewards();
             _turnResult.Calculate(_gameScreen.Dices);
 
-            ApplyHealing();
             ApplyDefense();
             ApplyAttack();
+            ApplyHealing();
 
             if (_enemyData.CurrentHealth <= 0)
             {
@@ -131,37 +135,38 @@ namespace DiceBattle.Core
 
         #region Player actions
 
-        private void ApplyHealing()
+        private void ApplyDefense()
         {
-            if (_turnResult.Heal <= 0)
-            {
-                return;
-            }
-
-            _playerData.CurrentHealth = Mathf.Min(_config.PlayerStartHealth, _playerData.CurrentHealth + _turnResult.Heal);
-            _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
-
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerHeal));
+            int bonusArmor = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.Armor).Sum(rewardType => 1);
+            _playerData.Armor = Mathf.Max(0, _turnResult.Armor + bonusArmor);
+            _gameScreen.UpdatePlayerDefense(_playerData.Armor);
         }
 
         private void ApplyAttack()
         {
-            if (_turnResult.Attack <= 0)
-            {
-                return;
-            }
+            int doubleDamage = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.DoubleDamage).Sum(rewardType => 1);
+            int damageToEnemy = _turnResult.Damage * doubleDamage;
 
-            TakeDamage(_turnResult.Attack);
+            EnemyTakeDamage(damageToEnemy);
             _gameScreen.UpdateEnemyDisplay();
 
+            // TODO You can add different sounds to attack different enemies
             // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyHit));
         }
 
-        private void ApplyDefense()
+        private void ApplyHealing()
         {
-            _playerData.Armor = _turnResult.Defense;
-            _gameScreen.UpdatePlayerDefense(_playerData.Armor);
+            int doubleHealth = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.DoubleHealth).Sum(rewardType => 1);
+            int regenHealth = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.RegenHealth).Sum(rewardType => 1);
+
+            int fullHealth = _config.PlayerStartHealth * doubleHealth;
+            int currentHealth = _playerData.CurrentHealth + _turnResult.Heal + regenHealth;
+
+            _playerData.CurrentHealth = Mathf.Min(fullHealth, currentHealth);
+            _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
+
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerHeal));
         }
 
         private void OnPlayerDefeated()
@@ -195,8 +200,9 @@ namespace DiceBattle.Core
                 }
             }
 
-            _playerData.Armor = 0;
-            _gameScreen.UpdatePlayerDefense(0);
+            int bonusArmor = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.Armor).Sum(rewardType => 1);
+            _playerData.Armor = bonusArmor;
+            _gameScreen.UpdatePlayerDefense(bonusArmor);
         }
 
         private void OnEnemyDefeated()
@@ -255,7 +261,7 @@ namespace DiceBattle.Core
 
         private void HandleRestartButtonClicked() => InitializeGame();
 
-        private int TakeDamage(int damage)
+        private int EnemyTakeDamage(int damage)
         {
             int actualDamage = Mathf.Max(0, damage - _enemyData.Armor);
             _enemyData.CurrentHealth = Mathf.Max(0, _enemyData.CurrentHealth - actualDamage);

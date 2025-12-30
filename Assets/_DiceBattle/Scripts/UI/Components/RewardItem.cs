@@ -38,7 +38,7 @@ namespace DiceBattle.UI
                 RewardType.AdditionalDamage => "Дополнительный урон",
                 RewardType.DoubleDamage => "Двойной урон",
                 RewardType.MagicDamage => "Магический урон",
-                RewardType.HealthRegen => "Регенерация здоровья",
+                RewardType.RegenHealth => "Регенерация здоровья",
                 RewardType.RestoreHealth => "Восстановить здоровье",
                 RewardType.DoubleHealth => "Двойное здоровье",
                 RewardType.Armor => "Армор",
