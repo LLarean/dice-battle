@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using DiceBattle.Audio;
+using DiceBattle.Events;
+using DiceBattle.Global;
+using DiceBattle.UI;
 using GameSignals;
 using UnityEngine;
 using Random = System.Random;

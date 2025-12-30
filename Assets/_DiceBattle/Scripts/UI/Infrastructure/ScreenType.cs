@@ -1,4 +1,4 @@
-﻿namespace DiceBattle
+﻿namespace DiceBattle.UI
 {
     public enum ScreenType
     {

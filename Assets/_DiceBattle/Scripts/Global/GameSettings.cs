@@ -1,7 +1,6 @@
-﻿using DiceBattle.Global;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace DiceBattle
+namespace DiceBattle.Global
 {
     public static class GameSettings
     {

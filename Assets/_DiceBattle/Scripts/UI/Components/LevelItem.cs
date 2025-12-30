@@ -1,11 +1,13 @@
 using System;
 using DiceBattle.Audio;
+using DiceBattle.Core;
+using DiceBattle.Events;
 using GameSignals;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DiceBattle
+namespace DiceBattle.UI
 {
     [RequireComponent(typeof(Button))]
     public class LevelItem : MonoBehaviour

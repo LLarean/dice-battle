@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using DiceBattle.Global;
 using UnityEngine;
 
 namespace DiceBattle.Auxiliary

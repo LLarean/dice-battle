@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DiceBattle
+namespace DiceBattle.UI
 {
     public class Rewards
     {

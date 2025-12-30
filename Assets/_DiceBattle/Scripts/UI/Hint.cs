@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace DiceBattle
+namespace DiceBattle.UI
 {
     public class Hint : MonoBehaviour
     {

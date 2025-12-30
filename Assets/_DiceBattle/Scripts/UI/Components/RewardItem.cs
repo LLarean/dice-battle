@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DiceBattle
+namespace DiceBattle.UI
 {
     public class RewardItem : MonoBehaviour
     {

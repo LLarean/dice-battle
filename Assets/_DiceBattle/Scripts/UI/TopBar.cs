@@ -1,11 +1,11 @@
 using DiceBattle.Animations;
 using DiceBattle.Events;
-using DiceBattle.Screens;
+using DiceBattle.UI;
 using GameSignals;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DiceBattle
+namespace DiceBattle.UI
 {
     public class TopBar : MonoBehaviour, ITopBarHandler
     {

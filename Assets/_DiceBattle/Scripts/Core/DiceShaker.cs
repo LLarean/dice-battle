@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DiceBattle.Animations;
 using DiceBattle.Audio;
+using DiceBattle.Events;
 using GameSignals;
 using UnityEngine;
 
