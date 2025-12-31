@@ -39,9 +39,38 @@ namespace DiceBattle.Core
 
         public void ContextClick()
         {
-            throw new System.NotImplementedException();
+            _attemptsNumber++;
+            HandleContextAction();
         }
 
+        private void EndTurn()
+        {
+            _rewards = GameProgress.GetRewards();
+            _diceResult.Calculate(_gameScreen.Dices);
+
+            ApplyDefense();
+            ApplyAttack();
+            ApplyHealing();
+
+            if (_enemyData.CurrentHealth <= 0)
+            {
+                OnEnemyDefeated();
+            }
+            else
+            {
+                EnemyTurn();
+            }
+
+            _isFirstRoll = true;
+            _attemptsNumber = 0;
+
+            _gameScreen.ResetSelection();
+            _gameScreen.SetContextLabel("Бросить все"); // TODO Translation
+
+            UpdateButtonStates();
+        }
+
+        #region Spawns
         private void SpawnEnemy()
         {
             int maxHealth = _config.EnemyBaseHealth + _config.EnemyHPGrowth * GameProgress.CompletedLevels;
@@ -78,6 +107,10 @@ namespace DiceBattle.Core
             _gameScreen.SetPlayerData(_playerData);
         }
 
+        #endregion
+
+        #region Updates
+
         private void UpdateHero()
         {
             _playerData.Update(_config);
@@ -91,33 +124,6 @@ namespace DiceBattle.Core
             // TODO Improvements in the number of cubes
             // int diceCount = GameProgress.GetDiceCount();
             _gameScreen.SetDiceCount(_config.DiceStartCount);
-        }
-
-        private void EndTurn()
-        {
-            _rewards = GameProgress.GetRewards();
-            _diceResult.Calculate(_gameScreen.Dices);
-
-            // ApplyDefense();
-            ApplyAttack();
-            ApplyHealing();
-
-            if (_enemyData.CurrentHealth <= 0)
-            {
-                OnEnemyDefeated();
-            }
-            else
-            {
-                EnemyTurn();
-            }
-
-            _isFirstRoll = true;
-            _attemptsNumber = 0;
-
-            _gameScreen.ResetSelection();
-            _gameScreen.SetContextLabel("Бросить все"); // TODO Translation
-
-            UpdateButtonStates();
         }
 
         private void UpdateButtonStates()
@@ -138,26 +144,21 @@ namespace DiceBattle.Core
             }
         }
 
+        #endregion
+
         #region Player actions
 
         private void ApplyDefense()
         {
             int bonusArmor = _rewards.RewardTypes.Count(r => r == RewardType.Armor) * _config.PlayerBonusArmor;
-
             _playerData.Armor = Mathf.Max(0, _diceResult.Armor + bonusArmor);
-            _gameScreen.UpdatePlayerDefense(_playerData.Armor);
+            _gameScreen.UpdatePlayerArmor(_playerData.Armor);
         }
 
         private void ApplyAttack()
         {
             int doubleDamageCount = _rewards.RewardTypes.Count(r => r == RewardType.DoubleDamage);
-            // int doubleDamage = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.DoubleDamage).Sum(rewardType => 1);
-
-            Debug.Log("doubleDamage = " + doubleDamageCount);
-
             int damageToEnemy = Mathf.Max(_diceResult.Damage, _diceResult.Damage * doubleDamageCount);
-
-            Debug.Log("damageToEnemy = " + damageToEnemy);
 
             EnemyTakeDamage(damageToEnemy);
             _gameScreen.UpdateEnemyDisplay();
@@ -169,18 +170,9 @@ namespace DiceBattle.Core
 
         private void ApplyHealing()
         {
-            int doubleHealth = _rewards.RewardTypes.Count(r => r == RewardType.DoubleHealth);
-            int regenHealth = _rewards.RewardTypes.Count(r => r == RewardType.RegenHealth);
-
-            // int doubleHealth = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.DoubleHealth).Sum(rewardType => 1);
-            // int regenHealth = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.RegenHealth).Sum(rewardType => 1);
-
-            int fullHealth = Mathf.Max(_config.PlayerStartHealth, _config.PlayerStartHealth * doubleHealth);
-
-            // int fullHealth = _config.PlayerStartHealth * doubleHealth;
-            int currentHealth = _playerData.CurrentHealth + _diceResult.Heal + regenHealth;
-
-            _playerData.CurrentHealth = Mathf.Min(fullHealth, currentHealth);
+            int rewardRegenHealth = _rewards.RewardTypes.Count(r => r == RewardType.RegenHealth) * _config.PlayerRegenHealth;
+            int allRegenHealth = _diceResult.Heal + rewardRegenHealth;
+            _playerData.CurrentHealth = Mathf.Min(_playerData.MaxHealth, _playerData.CurrentHealth + allRegenHealth);
             _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerHeal));
@@ -225,7 +217,7 @@ namespace DiceBattle.Core
 
             int bonusArmor = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.Armor).Sum(rewardType => 1);
             _playerData.Armor = bonusArmor;
-            _gameScreen.UpdatePlayerDefense(bonusArmor);
+            _gameScreen.UpdatePlayerArmor(bonusArmor);
         }
 
         private void OnEnemyDefeated()
@@ -246,7 +238,7 @@ namespace DiceBattle.Core
             _isFirstRoll = true;
             _playerData.Armor = 0;
 
-            _gameScreen.UpdatePlayerDefense(0);
+            _gameScreen.UpdatePlayerArmor(0);
 
             UpdateButtonStates();
         }
@@ -257,8 +249,6 @@ namespace DiceBattle.Core
 
         private void HandleContextAction()
         {
-            _attemptsNumber++;
-
             if (_isFirstRoll)
             {
                 _isFirstRoll = false;
@@ -279,10 +269,7 @@ namespace DiceBattle.Core
             }
 
             UpdateButtonStates();
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
         }
-
-        private void HandleRestartButtonClicked() => InitializeGame();
 
         private int EnemyTakeDamage(int damage)
         {

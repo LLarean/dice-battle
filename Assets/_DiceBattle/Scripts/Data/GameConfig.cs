@@ -11,6 +11,7 @@ namespace DiceBattle.Data
     {
         [Header("Player")]
         public int PlayerStartHealth = 20;
+        public int PlayerRegenHealth = 2;
 
         public int PlayerStartDamage = 0;
         public int PlayerBonusDamage = 2;
