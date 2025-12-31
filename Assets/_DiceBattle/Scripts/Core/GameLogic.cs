@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace DiceBattle.Core
 {
-    public class GameLoop : MonoBehaviour
+    public class GameLogic : MonoBehaviour
     {
         private readonly DiceResult _diceResult = new();
 
@@ -35,6 +35,11 @@ namespace DiceBattle.Core
             UpdateDiceCount();
 
             _gameScreen.DisableDiceInteractable();
+        }
+
+        public void ContextClick()
+        {
+            throw new System.NotImplementedException();
         }
 
         private void SpawnEnemy()
@@ -295,13 +300,11 @@ namespace DiceBattle.Core
 
         private void Start()
         {
-            _gameScreen.OnContextClicked += HandleContextAction;
             _lootScreen.OnRewardSelected += UpdateHero;
         }
 
         private void OnDestroy()
         {
-            _gameScreen.OnContextClicked -= HandleContextAction;
             _lootScreen.OnRewardSelected -= UpdateHero;
         }
 
