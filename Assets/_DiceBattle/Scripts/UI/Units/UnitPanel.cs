@@ -32,7 +32,7 @@ namespace DiceBattle.UI
             UpdateCurrentHealth(_unitData.CurrentHealth);
 
             UpdateAttack(_unitData.Attack);
-            UpdateDefense(_unitData.Armor);
+            UpdateArmor(_unitData.Armor);
         }
 
         public void UpdateCurrentHealth(int currentHealth)
@@ -43,7 +43,7 @@ namespace DiceBattle.UI
             // TODO LLarean Separate the logic of taking damage and healing so that you can animate
         }
 
-        public void UpdateDefense(int defense)
+        public void UpdateArmor(int defense)
         {
             if (defense > 0)
             {
