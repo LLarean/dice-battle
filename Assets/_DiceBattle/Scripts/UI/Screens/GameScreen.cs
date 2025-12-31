@@ -10,7 +10,7 @@ namespace DiceBattle.UI
 {
     public class GameScreen : MonoBehaviour
     {
-        [SerializeField] private GameLoop _gameLoop;
+        [SerializeField] private GameLogic _gameLogic;
         [Space]
         [SerializeField] private UnitPanel _player;
         [SerializeField] private UnitPanel _enemy;
@@ -18,8 +18,6 @@ namespace DiceBattle.UI
         [Space]
         [SerializeField] private Button _context;
         [SerializeField] private TextMeshProUGUI _contextLabel;
-
-        public event Action OnContextClicked;
 
         public List<Dice> Dices => _gameBoard.Dices;
 
@@ -49,7 +47,7 @@ namespace DiceBattle.UI
 
         #region Event Handlers
 
-        private void ContextClick() => OnContextClicked?.Invoke();
+        private void ContextClick() => _gameLogic.ContextClick();
 
         private void HandleDiceToggle()
         {
@@ -95,7 +93,7 @@ namespace DiceBattle.UI
 
         private void OnEnable()
         {
-            _gameLoop.InitializeGame();
+            _gameLogic.InitializeGame();
         }
 
         #endregion
