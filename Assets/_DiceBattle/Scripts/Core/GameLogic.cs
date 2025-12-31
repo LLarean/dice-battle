@@ -71,6 +71,7 @@ namespace DiceBattle.Core
         }
 
         #region Spawns
+
         private void SpawnEnemy()
         {
             int maxHealth = _config.EnemyBaseHealth + _config.EnemyHPGrowth * GameProgress.CompletedLevels;
@@ -182,8 +183,6 @@ namespace DiceBattle.Core
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Defeat));
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameOverScreen));
-
-            UpdateButtonStates();
         }
 
         #endregion

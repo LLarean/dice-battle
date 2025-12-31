@@ -4674,7 +4674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ab628cbfb80a7849afd9e614ed94b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameLoop: {fileID: 1004415172}
+  _gameLogic: {fileID: 1004415172}
   _player: {fileID: 1023513239}
   _enemy: {fileID: 2121550418}
   _gameBoard: {fileID: 1634146617}
@@ -6816,35 +6816,6 @@ MonoBehaviour:
   _musicSource: {fileID: 674676628}
   _sfxSource: {fileID: 1284191428}
   _soundConfig: {fileID: 11400000, guid: 527b5ce29ac9fc54fa552b3c3fce38ac, type: 2}
-  _click: {fileID: 8300000, guid: a0c60e40113ddfd428af48ef6fb2344b, type: 3}
-  _diceGrab:
-  - {fileID: 8300000, guid: 1ab86209378551645a0c0ce999d78714, type: 3}
-  - {fileID: 8300000, guid: ef15578d5aea88e45a2e2a93f6a9a9a3, type: 3}
-  _diceShake:
-  - {fileID: 8300000, guid: 7dd39e04d200737429436dd574c51fb3, type: 3}
-  - {fileID: 8300000, guid: 8c47683bfd6b827479bce52bfa6528f9, type: 3}
-  - {fileID: 8300000, guid: 76466d313c959f5429a8a0be90363bf9, type: 3}
-  _diceThrow:
-  - {fileID: 8300000, guid: 053ee829c22f4384ab223c530df0a421, type: 3}
-  - {fileID: 8300000, guid: 3ece16278000573408902cbe35de7635, type: 3}
-  - {fileID: 8300000, guid: c93687a14296eb84d9973f4ca9a3d241, type: 3}
-  _dieThrow:
-  - {fileID: 8300000, guid: 4da7e3421db3ea9419ad409ad696cc62, type: 3}
-  - {fileID: 8300000, guid: 9a1b23fb5965a68428a63a9cd50f9410, type: 3}
-  - {fileID: 8300000, guid: 21d5f3fdc68e81440bb0ff64d078f458, type: 3}
-  - {fileID: 8300000, guid: 5165ae0b7db80cb479e193089ad303bd, type: 3}
-  _playerAttack:
-  - {fileID: 8300000, guid: 07969c5864fad4541b6a070ee244e7fd, type: 3}
-  _playerHeal: []
-  _slimeAttack:
-  - {fileID: 8300000, guid: b115d40303f048145b158c5717fa4da9, type: 3}
-  - {fileID: 8300000, guid: bba0d6e286693504fabaa84e9eb63068, type: 3}
-  - {fileID: 8300000, guid: efcd5dda84e5daa4093b017c4675c929, type: 3}
-  - {fileID: 8300000, guid: c07fd654769e36540b297aaa9b1e9b9e, type: 3}
-  _enemyHitClip: {fileID: 0}
-  _enemyDefeatedClip: {fileID: 0}
-  _enemySpawnClip: {fileID: 0}
-  _gameOverClip: {fileID: 0}
   _backgroundMusic: {fileID: 8300000, guid: 1ba74a0b0f8a4684996aa1bf7febd2dc, type: 3}
   _playMusicOnStart: 1
 --- !u!1 &1382821740
