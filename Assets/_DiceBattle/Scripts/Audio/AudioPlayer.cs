@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
