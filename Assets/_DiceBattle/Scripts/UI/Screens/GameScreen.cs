@@ -2,15 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DiceBattle.Core;
+using DiceBattle.Data;
+using DiceBattle.Events;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 namespace DiceBattle.UI
 {
-    public class GameScreen : MonoBehaviour
+    public class GameScreen : MonoBehaviour, IChangeHandler
     {
-        [SerializeField] private GameLogic _gameLogic;
+        [SerializeField] private GameConfig _config;
         [Space]
         [SerializeField] private UnitPanel _player;
         [SerializeField] private UnitPanel _enemy;
@@ -19,7 +21,11 @@ namespace DiceBattle.UI
         [SerializeField] private Button _context;
         [SerializeField] private TextMeshProUGUI _contextLabel;
 
+        private GameLogic _gameLogic;
+
         public List<Dice> Dices => _gameBoard.Dices;
+
+        public void UpdateRewards() => _gameLogic.UpdateHero();
 
         public void SetPlayerData(UnitData unitData) => _player.SetUnitData(unitData);
 
@@ -74,6 +80,8 @@ namespace DiceBattle.UI
         #endregion
 
         #region Unity lifecycle
+
+        private void Awake() => _gameLogic = new GameLogic(_config, this);
 
         private void Start()
         {

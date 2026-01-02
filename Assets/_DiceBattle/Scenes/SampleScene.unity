@@ -4632,7 +4632,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1004415170}
   - component: {fileID: 1004415171}
-  - component: {fileID: 1004415172}
   m_Layer: 5
   m_Name: GameScreen
   m_TagString: Untagged
@@ -4674,27 +4673,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ab628cbfb80a7849afd9e614ed94b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameLogic: {fileID: 1004415172}
+  _config: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
   _player: {fileID: 1023513239}
   _enemy: {fileID: 2121550418}
   _gameBoard: {fileID: 1634146617}
   _context: {fileID: 1244453484}
   _contextLabel: {fileID: 1327711119}
---- !u!114 &1004415172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1004415169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c41a0cc6d5264eb44b3e819cb73f4b7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _config: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
-  _gameScreen: {fileID: 1004415171}
-  _lootScreen: {fileID: 30483745}
 --- !u!1 &1006147705
 GameObject:
   m_ObjectHideFlags: 0

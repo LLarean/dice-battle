@@ -16,21 +16,6 @@ namespace DiceBattle
 
         private Random _random;
 
-        public event Action OnRewardSelected;
-
-        public void RollReward()
-        {
-            var allValues = (RewardType[])Enum.GetValues(typeof(RewardType));
-
-            foreach (RewardItem rewardItem in _rewardItems)
-            {
-                int randomIndex = _random.Next(0, allValues.Length);
-                var reward = (RewardType)randomIndex;
-
-                rewardItem.SetReward(reward);
-            }
-        }
-
         private void Awake() => _random = new Random();
 
         private void Start()
@@ -53,13 +38,26 @@ namespace DiceBattle
 
         private void HandleItemSelect(RewardType rewardType)
         {
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Reward));
-
             GameProgress.AddRewardItem(rewardType);
 
-            OnRewardSelected?.Invoke();
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Reward));
+            SignalSystem.Raise<IChangeHandler>(handler => handler.UpdateRewards());
+
             gameObject.SetActive(false);
+        }
+
+        private void RollReward()
+        {
+            var allValues = (RewardType[])Enum.GetValues(typeof(RewardType));
+
+            foreach (RewardItem rewardItem in _rewardItems)
+            {
+                int randomIndex = _random.Next(0, allValues.Length);
+                var reward = (RewardType)randomIndex;
+
+                rewardItem.SetReward(reward);
+            }
         }
     }
 }
