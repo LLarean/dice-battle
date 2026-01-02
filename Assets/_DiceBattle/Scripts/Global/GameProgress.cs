@@ -14,7 +14,8 @@ namespace DiceBattle.Global
         {
             ResetCompletedLevels();
             ResetCurrentLevel();
-            ResetRewards();
+            ResetRewardsList();
+            ResetReceivedRewards();
         }
 
         public static void IncrementLevels()
@@ -31,20 +32,20 @@ namespace DiceBattle.Global
 
         public static void ResetCurrentLevel() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.CurrentLevel);
 
-        public static void AddRewardItem(RewardType rewardType)
+        public static void AddReceivedReward(RewardType rewardType)
         {
-            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.Rewards, "{}");
+            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, "{}");
             Rewards rewards = JsonUtility.FromJson<Rewards>(rewardsJson) ?? new Rewards();
 
             rewards.RewardTypes ??= new List<RewardType>();
             rewards.RewardTypes.Add(rewardType);
 
-            PlayerPrefs.SetString(PlayerPrefsKeys.Rewards, JsonUtility.ToJson(rewards));
+            PlayerPrefs.SetString(PlayerPrefsKeys.ReceivedRewards, JsonUtility.ToJson(rewards));
         }
 
         public static int GetDiceCount()
         {
-            Rewards rewards = GetRewards();
+            Rewards rewards = GetReceivedRewards();
 
             int firstDice = rewards.RewardTypes.Where(rewardType => rewardType == RewardType.FirstAdditionalDice).Sum(rewardType => 1);
             int secondDice = rewards.RewardTypes.Where(rewardType => rewardType == RewardType.SecondAdditionalDice).Sum(rewardType => 1);
@@ -64,15 +65,31 @@ namespace DiceBattle.Global
             return diceCount;
         }
 
-        public static Rewards GetRewards()
+        public static void AddRewardList(Rewards rewards)
         {
-            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.Rewards, "{}");
+            PlayerPrefs.SetString(PlayerPrefsKeys.RewardsList, JsonUtility.ToJson(rewards));
+        }
+
+        public static Rewards GetRewardList()
+        {
+            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.RewardsList, "{}");
             Rewards rewards = JsonUtility.FromJson<Rewards>(rewardsJson) ?? new Rewards();
 
             rewards.RewardTypes ??= new List<RewardType>();
             return rewards;
         }
 
-        public static void ResetRewards() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.Rewards);
+        public static void ResetRewardsList() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.RewardsList);
+
+        public static Rewards GetReceivedRewards()
+        {
+            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, "{}");
+            Rewards rewards = JsonUtility.FromJson<Rewards>(rewardsJson) ?? new Rewards();
+
+            rewards.RewardTypes ??= new List<RewardType>();
+            return rewards;
+        }
+
+        public static void ResetReceivedRewards() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.ReceivedRewards);
     }
 }

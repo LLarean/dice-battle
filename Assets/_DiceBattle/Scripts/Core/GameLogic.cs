@@ -49,7 +49,7 @@ namespace DiceBattle.Core
 
         private void EndTurn()
         {
-            _rewards = GameProgress.GetRewards();
+            _rewards = GameProgress.GetReceivedRewards();
             _diceResult.Calculate(_gameScreen.Dices);
 
             ApplyDefense();
@@ -226,11 +226,7 @@ namespace DiceBattle.Core
         private void OnEnemyDefeated()
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyDefeated));
-
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.LootScreen));
-
-            // _lootScreen.gameObject.SetActive(true);
-            // _lootScreen.RollReward();
 
             GameProgress.IncrementCurrentLevel();
 

@@ -7,7 +7,8 @@
 
         public const string CompletedLevels = "CompletedLevels";
         public const string CurrentLevel = "CurrentLevel";
-        public const string Rewards = "Rewards";
+        public const string ReceivedRewards = "RewardsReceived";
+        public const string RewardsList = "RewardsList";
 
 
     }
