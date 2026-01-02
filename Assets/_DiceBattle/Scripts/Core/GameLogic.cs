@@ -9,14 +9,12 @@ using UnityEngine;
 
 namespace DiceBattle.Core
 {
-    public class GameLogic : MonoBehaviour
+    public class GameLogic
     {
         private readonly DiceResult _diceResult = new();
 
-        [SerializeField] private GameConfig _config;
-        [Space]
-        [SerializeField] private GameScreen _gameScreen;
-        [SerializeField] private LootScreen _lootScreen;
+        private GameConfig _config;
+        private GameScreen _gameScreen;
 
         private UnitData _playerData;
         private UnitData _enemyData;
@@ -24,6 +22,12 @@ namespace DiceBattle.Core
 
         private bool _isFirstRoll;
         private int _attemptsNumber;
+
+        public GameLogic(GameConfig config, GameScreen gameScreen)
+        {
+            _config = config;
+            _gameScreen = gameScreen;
+        }
 
         public void InitializeGame()
         {
@@ -112,7 +116,7 @@ namespace DiceBattle.Core
 
         #region Updates
 
-        private void UpdateHero()
+        public void UpdateHero()
         {
             _playerData.Update(_config);
             _playerData.Log();
@@ -223,8 +227,10 @@ namespace DiceBattle.Core
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyDefeated));
 
-            _lootScreen.gameObject.SetActive(true);
-            _lootScreen.RollReward();
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.LootScreen));
+
+            // _lootScreen.gameObject.SetActive(true);
+            // _lootScreen.RollReward();
 
             GameProgress.IncrementCurrentLevel();
 
@@ -278,20 +284,6 @@ namespace DiceBattle.Core
             // TODO: SignalSystem.Raise - The enemy has taken damage (actualDamage)
 
             return actualDamage;
-        }
-
-        #endregion
-
-        #region Unity lifecycle
-
-        private void Start()
-        {
-            _lootScreen.OnRewardSelected += UpdateHero;
-        }
-
-        private void OnDestroy()
-        {
-            _lootScreen.OnRewardSelected -= UpdateHero;
         }
 
         #endregion
