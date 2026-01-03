@@ -1,5 +1,4 @@
-﻿using System;
-using DiceBattle.Events;
+﻿using DiceBattle.Events;
 using DiceBattle.Global;
 using GameSignals;
 using TMPro;
@@ -12,8 +11,6 @@ namespace DiceBattle.UI
     {
         [SerializeField] private TextMeshProUGUI _finalScore;
         [SerializeField] private Button _restart;
-
-        public event Action OnRestartClicked;
 
         private void Start() => _restart.onClick.AddListener(HandleRestartClick);
 
