@@ -78,9 +78,9 @@ namespace DiceBattle.Core
 
         private void SpawnEnemy()
         {
-            int maxHealth = _config.EnemyBaseHealth + _config.EnemyHPGrowth * GameProgress.CompletedLevels;
-            int damage = _config.EnemyBaseAttack + _config.EnemyAttackGrowthRate * GameProgress.CompletedLevels;
-            int armor = _config.EnemyBaseDefense + _config.EnemyDefenseGrowthRate * GameProgress.CompletedLevels;
+            int maxHealth = _config.Enemy.StartHealth + _config.Enemy.GrowthHealth * GameProgress.CompletedLevels;
+            int damage = _config.Enemy.StartDamage + _config.Enemy.GrowthDamage * GameProgress.CompletedLevels;
+            int armor = _config.Enemy.StartArmor + _config.Enemy.GrowthArmor * GameProgress.CompletedLevels;
 
             _enemyData = new UnitData
             {
@@ -102,10 +102,10 @@ namespace DiceBattle.Core
             {
                 Title = "Герой (вы)", // TODO Translation
                 Portrait = _config.PlayerPortrait,
-                MaxHealth = _config.PlayerStartHealth,
-                CurrentHealth = _config.PlayerStartHealth,
-                Attack = _config.PlayerStartDamage,
-                Armor = _config.PlayerStartArmor,
+                MaxHealth = _config.Player.StartHealth,
+                CurrentHealth = _config.Player.StartHealth,
+                Attack = _config.Player.StartDamage,
+                Armor = _config.Player.StartArmor,
             };
 
             _playerData.Log();
@@ -155,7 +155,7 @@ namespace DiceBattle.Core
 
         private void ApplyDefense()
         {
-            int bonusArmor = _rewards.RewardTypes.Count(r => r == RewardType.Armor) * _config.PlayerBonusArmor;
+            int bonusArmor = _rewards.RewardTypes.Count(r => r == RewardType.Armor) * _config.Player.GrowthArmor;
             _playerData.Armor = Mathf.Max(0, _diceResult.Armor + bonusArmor);
             _gameScreen.UpdatePlayerArmor(_playerData.Armor);
         }
@@ -175,7 +175,7 @@ namespace DiceBattle.Core
 
         private void ApplyHealing()
         {
-            int rewardRegenHealth = _rewards.RewardTypes.Count(r => r == RewardType.RegenHealth) * _config.PlayerRegenHealth;
+            int rewardRegenHealth = _rewards.RewardTypes.Count(r => r == RewardType.RegenHealth) * _config.Player.RegenHealth;
             int allRegenHealth = _diceResult.Heal + rewardRegenHealth;
             _playerData.CurrentHealth = Mathf.Min(_playerData.MaxHealth, _playerData.CurrentHealth + allRegenHealth);
             _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
