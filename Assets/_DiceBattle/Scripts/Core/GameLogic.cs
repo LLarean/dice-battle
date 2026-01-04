@@ -12,6 +12,7 @@ namespace DiceBattle.Core
     public class GameLogic
     {
         private readonly DiceResult _diceResult = new();
+        private readonly Spawner _spawner;
 
         private GameConfig _config;
         private GameScreen _gameScreen;
@@ -27,6 +28,8 @@ namespace DiceBattle.Core
         {
             _config = config;
             _gameScreen = gameScreen;
+
+            _spawner = new Spawner(config, gameScreen);
         }
 
         public void InitializeGame()
@@ -78,38 +81,12 @@ namespace DiceBattle.Core
 
         private void SpawnEnemy()
         {
-            int maxHealth = _config.Enemy.StartHealth + _config.Enemy.GrowthHealth * GameProgress.CompletedLevels;
-            int damage = _config.Enemy.StartDamage + _config.Enemy.GrowthDamage * GameProgress.CompletedLevels;
-            int armor = _config.Enemy.StartArmor + _config.Enemy.GrowthArmor * GameProgress.CompletedLevels;
-
-            _enemyData = new UnitData
-            {
-                Title = $"Враг #{GameProgress.CompletedLevels + 1}", // TODO Translation
-                Portrait = _config.EnemiesPortraits[GameProgress.CompletedLevels],
-                MaxHealth = maxHealth,
-                CurrentHealth = maxHealth,
-                Attack = damage,
-                Armor = armor,
-            };
-
-            _enemyData.Log();
-            _gameScreen.SetEnemyData(_enemyData);
+            _enemyData = _spawner.SpawnEnemy();
         }
 
         private void SpawnHero()
         {
-            _playerData = new UnitData
-            {
-                Title = "Герой (вы)", // TODO Translation
-                Portrait = _config.PlayerPortrait,
-                MaxHealth = _config.Player.StartHealth,
-                CurrentHealth = _config.Player.StartHealth,
-                Attack = _config.Player.StartDamage,
-                Armor = _config.Player.StartArmor,
-            };
-
-            _playerData.Log();
-            _gameScreen.SetPlayerData(_playerData);
+            _playerData = _spawner.SpawnHero();
         }
 
         #endregion
