@@ -55,7 +55,7 @@ namespace DiceBattle.Core
             _rewards = GameProgress.GetReceivedRewards();
             _diceResult.Calculate(_gameScreen.Dices);
 
-            ApplyDefense();
+            ApplyArmor();
             ApplyAttack();
             ApplyHealing();
 
@@ -130,11 +130,18 @@ namespace DiceBattle.Core
 
         #region Player actions
 
-        private void ApplyDefense()
+        private void ApplyArmor()
         {
             int bonusArmor = _rewards.RewardTypes.Count(r => r == RewardType.Armor) * _config.Player.GrowthArmor;
             _playerData.Armor = Mathf.Max(0, _diceResult.Armor + bonusArmor);
             _gameScreen.UpdatePlayerArmor(_playerData.Armor);
+        }
+
+        private void RemoveArmor()
+        {
+            int bonusArmor = _rewards.RewardTypes.Count(r => r == RewardType.Armor) * _config.Player.GrowthArmor;
+            _playerData.Armor = Mathf.Max(0, bonusArmor);
+            _gameScreen.UpdatePlayerArmor(bonusArmor);
         }
 
         private void ApplyAttack()
@@ -175,29 +182,21 @@ namespace DiceBattle.Core
             int enemyAttack = _enemyData.Attack;
             int damageToPlayer = Mathf.Max(0, enemyAttack - _playerData.Armor);
 
-            Debug.Log("damageToPlayer = " + damageToPlayer);
-
             if (damageToPlayer > 0)
             {
                 _playerData.CurrentHealth = Mathf.Max(0, _playerData.CurrentHealth - damageToPlayer);
-
-                Debug.Log("Player health = " + _playerData.CurrentHealth);
-
                 _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
 
                 SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
 
                 if (_playerData.CurrentHealth <= 0)
                 {
-                    Debug.Log("Player health = 0");
                     OnPlayerDefeated();
                     return;
                 }
             }
 
-            int bonusArmor = _rewards.RewardTypes.Where(rewardType => rewardType == RewardType.Armor).Sum(rewardType => 1);
-            _playerData.Armor = bonusArmor;
-            _gameScreen.UpdatePlayerArmor(bonusArmor);
+            RemoveArmor();
         }
 
         private void OnEnemyDefeated()
