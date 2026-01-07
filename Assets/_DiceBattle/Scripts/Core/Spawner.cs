@@ -15,23 +15,6 @@ namespace DiceBattle.Core
             _gameScreen = gameScreen;
         }
 
-        public UnitData SpawnHero()
-        {
-            var playerData = new UnitData
-            {
-                Title = "Герой (вы)", // TODO Translation
-                Portrait = _config.PlayerPortrait,
-                MaxHealth = _config.Player.StartHealth,
-                CurrentHealth = _config.Player.StartHealth,
-                Attack = _config.Player.StartDamage,
-                Armor = _config.Player.StartArmor,
-            };
-
-            playerData.Log();
-            _gameScreen.SetPlayerData(playerData);
-            return playerData;
-        }
-
         public UnitData SpawnEnemy()
         {
             int maxHealth = _config.Enemy.StartHealth + _config.Enemy.GrowthHealth * GameProgress.CompletedLevels;
@@ -44,13 +27,30 @@ namespace DiceBattle.Core
                 Portrait = _config.EnemiesPortraits[GameProgress.CompletedLevels],
                 MaxHealth = maxHealth,
                 CurrentHealth = maxHealth,
-                Attack = damage,
+                Damage = damage,
                 Armor = armor,
             };
 
             enemyData.Log();
             _gameScreen.SetEnemyData(enemyData);
             return enemyData;
+        }
+
+        public UnitData SpawnHero()
+        {
+            var playerData = new UnitData
+            {
+                Title = "Герой (вы)", // TODO Translation
+                Portrait = _config.PlayerPortrait,
+                MaxHealth = _config.Player.StartHealth,
+                CurrentHealth = _config.Player.StartHealth,
+                Damage = _config.Player.StartDamage,
+                Armor = _config.Player.StartArmor,
+            };
+
+            playerData.Log();
+            _gameScreen.SetPlayerData(playerData);
+            return playerData;
         }
     }
 }

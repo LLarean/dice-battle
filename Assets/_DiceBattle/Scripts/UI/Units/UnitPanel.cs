@@ -31,7 +31,7 @@ namespace DiceBattle.UI
             SetMaxHealth(_unitData.MaxHealth);
             UpdateCurrentHealth(_unitData.CurrentHealth);
 
-            UpdateAttack(_unitData.Attack);
+            UpdateAttack(_unitData.Damage);
             UpdateArmor(_unitData.Armor);
         }
 
