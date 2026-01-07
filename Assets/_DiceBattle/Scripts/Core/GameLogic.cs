@@ -11,14 +11,14 @@ namespace DiceBattle.Core
 {
     public class GameLogic
     {
-        private readonly DiceResult _diceResult = new();
+        private readonly GameConfig _config;
+        private readonly GameScreen _gameScreen;
         private readonly Spawner _spawner;
-
-        private GameConfig _config;
-        private GameScreen _gameScreen;
+        private readonly DiceResult _diceResult = new();
 
         private UnitData _playerData;
         private UnitData _enemyData;
+
         private Rewards _rewards;
 
         private bool _isFirstRoll;
@@ -37,10 +37,10 @@ namespace DiceBattle.Core
             _isFirstRoll = true;
             _attemptsNumber = 0;
 
-            SpawnEnemy();
-            SpawnHero();
-            UpdateDiceCount();
+            _enemyData = _spawner.SpawnEnemy();
+            _playerData = _spawner.SpawnHero();
 
+            UpdateDiceCount();
             _gameScreen.DisableDiceInteractable();
         }
 
@@ -76,20 +76,6 @@ namespace DiceBattle.Core
 
             UpdateButtonStates();
         }
-
-        #region Spawns
-
-        private void SpawnEnemy()
-        {
-            _enemyData = _spawner.SpawnEnemy();
-        }
-
-        private void SpawnHero()
-        {
-            _playerData = _spawner.SpawnHero();
-        }
-
-        #endregion
 
         #region Updates
 
@@ -179,7 +165,7 @@ namespace DiceBattle.Core
 
         private void EnemyTurn()
         {
-            int enemyAttack = _enemyData.Attack;
+            int enemyAttack = _enemyData.Damage;
             int damageToPlayer = Mathf.Max(0, enemyAttack - _playerData.Armor);
 
             if (damageToPlayer > 0)
@@ -207,7 +193,7 @@ namespace DiceBattle.Core
             GameProgress.IncrementCurrentLevel();
 
             UpdateHero();
-            SpawnEnemy();
+            _enemyData = _spawner.SpawnEnemy();
 
             GameProgress.IncrementLevels();
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Victory));

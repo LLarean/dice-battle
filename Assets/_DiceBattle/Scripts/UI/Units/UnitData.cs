@@ -10,7 +10,7 @@ namespace DiceBattle.UI
         public int MaxHealth;
         public int CurrentHealth;
 
-        public int Attack;
+        public int Damage;
         public int Armor;
     }
 }
