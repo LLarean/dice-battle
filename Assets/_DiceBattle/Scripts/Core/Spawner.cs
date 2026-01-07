@@ -24,7 +24,7 @@ namespace DiceBattle.Core
             var enemyData = new UnitData
             {
                 Title = $"Враг #{GameProgress.CompletedLevels + 1}", // TODO Translation
-                Portrait = _config.EnemiesPortraits[GameProgress.CompletedLevels],
+                Portrait = _config.Enemy.Portraits[GameProgress.CompletedLevels],
                 MaxHealth = maxHealth,
                 CurrentHealth = maxHealth,
                 Damage = damage,
@@ -41,7 +41,7 @@ namespace DiceBattle.Core
             var playerData = new UnitData
             {
                 Title = "Герой (вы)", // TODO Translation
-                Portrait = _config.PlayerPortrait,
+                Portrait = _config.Player.Portraits[0],
                 MaxHealth = _config.Player.StartHealth,
                 CurrentHealth = _config.Player.StartHealth,
                 Damage = _config.Player.StartDamage,

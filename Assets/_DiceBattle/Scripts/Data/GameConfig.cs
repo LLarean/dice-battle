@@ -9,15 +9,11 @@ namespace DiceBattle.Data
     [CreateAssetMenu(fileName = "GameConfig", menuName = "Dice Battle/Game Config", order = 0)]
     public class GameConfig : ScriptableObject
     {
-        [Header("Player")]
-        public Sprite PlayerPortrait;
+        [Header("UnitConfigs")]
         public UnitConfig Player;
-
-        [Header("Enemies")]
-        public Sprite[] EnemiesPortraits = new Sprite[4];
         public UnitConfig Enemy;
 
-        [Header("Dices")]
+        [Header("Dice")]
         public int DiceStartCount = 5;
         public int DiceBonusCount = 1;
         public int AttemptsCount = 2;
