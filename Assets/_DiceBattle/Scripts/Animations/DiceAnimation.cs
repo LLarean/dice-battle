@@ -150,6 +150,8 @@ namespace DiceBattle.Animations
 
         private void DiceRollComplete(int index)
         {
+            _dicesToRoll[index].Roll();
+
             if (index >= _dicesToRoll.Count - 1)
             {
                 LeanTween.delayedCall(1f, () => OnDiceRollComplete?.Invoke());

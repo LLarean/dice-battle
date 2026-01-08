@@ -36,8 +36,6 @@ namespace DiceBattle.Core
             _diceHolder.SetSocketCount(count);
         }
 
-        #region Event Handlers
-
         private void HandleRollComplete()
         {
             _diceHolder.RepositionDice();
@@ -45,10 +43,6 @@ namespace DiceBattle.Core
         }
 
         private void HandleDiceToggle() => OnDiceToggled?.Invoke();
-
-        #endregion
-
-        #region Unity lifecycle
 
         private void Start()
         {
@@ -63,7 +57,5 @@ namespace DiceBattle.Core
             _diceShaker.OnRollCompleted -= HandleRollComplete;
             _diceHolder.OnDiceToggled -= HandleDiceToggle;
         }
-
-        #endregion
     }
 }
