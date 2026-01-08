@@ -39,7 +39,7 @@ namespace DiceBattle.Core
 
                 if (_occupied[i].transform.parent != _slots[i].transform)
                 {
-                    _occupied[i].Roll();
+                    // _occupied[i].Roll();
                     PlaceInSlot(_occupied[i], i);
                 }
             }

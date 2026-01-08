@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d7c85972362f14b978d77f1fa270b9, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  PlayerPortrait: {fileID: 4723107735738678597, guid: cad7b6b54e3a5ee4ca7575b000421af4, type: 3}
   Player:
-    Portraits: []
+    Portraits:
+    - {fileID: 4723107735738678597, guid: cad7b6b54e3a5ee4ca7575b000421af4, type: 3}
     StartHealth: 20
     RegenHealth: 2
     GrowthHealth: 2
@@ -22,13 +22,12 @@ MonoBehaviour:
     GrowthDamage: 2
     StartArmor: 0
     GrowthArmor: 0
-  EnemiesPortraits:
-  - {fileID: -735669648, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-  - {fileID: 750657890, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-  - {fileID: 1682503996, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-  - {fileID: 1616578468, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
   Enemy:
-    Portraits: []
+    Portraits:
+    - {fileID: -735669648, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    - {fileID: 750657890, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    - {fileID: 1682503996, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    - {fileID: 1616578468, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     StartHealth: 5
     RegenHealth: 0
     GrowthHealth: 2
