@@ -20,8 +20,6 @@ namespace DiceBattle.Core
         private UnitData _enemyData;
 
         private Rewards _rewards;
-
-        private bool _isFirstRoll;
         private int _attemptsNumber;
 
         public GameLogic(GameConfig config, GameScreen gameScreen)
@@ -34,7 +32,6 @@ namespace DiceBattle.Core
 
         public void InitializeGame()
         {
-            _isFirstRoll = true;
             _attemptsNumber = 0;
 
             _enemyData = _spawner.SpawnEnemy();
@@ -46,7 +43,6 @@ namespace DiceBattle.Core
 
         public void ContextClick()
         {
-            _attemptsNumber++;
             HandleContextAction();
         }
 
@@ -68,9 +64,7 @@ namespace DiceBattle.Core
                 EnemyTurn();
             }
 
-            _isFirstRoll = true;
             _attemptsNumber = 0;
-
             _gameScreen.ResetSelection();
             _gameScreen.SetContextLabel("Бросить все"); // TODO Translation
 
@@ -198,9 +192,7 @@ namespace DiceBattle.Core
             GameProgress.IncrementLevels();
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Victory));
 
-            _isFirstRoll = true;
             _playerData.Armor = 0;
-
             _gameScreen.UpdatePlayerArmor(0);
 
             UpdateButtonStates();
@@ -212,23 +204,26 @@ namespace DiceBattle.Core
 
         private void HandleContextAction()
         {
-            if (_isFirstRoll)
+            _attemptsNumber++;
+
+            if (_attemptsNumber == 1)
             {
-                _isFirstRoll = false;
                 _gameScreen.RollDice();
             }
-            else
+            else if (_attemptsNumber < _config.MaxAttempts)
             {
-                if (_attemptsNumber < _config.MaxAttempts)
+                if (_gameScreen.HaveSelectedDice)
                 {
                     _gameScreen.RerollSelectedDice();
-
-                    _isFirstRoll = false;
                 }
                 else
                 {
                     EndTurn();
                 }
+            }
+            else
+            {
+                EndTurn();
             }
 
             UpdateButtonStates();

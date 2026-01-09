@@ -23,6 +23,7 @@ namespace DiceBattle.UI
         private GameLogic _gameLogic;
 
         public List<Dice> Dices => _gameBoard.Dices;
+        public bool HaveSelectedDice => _gameBoard.HaveSelectedDice;
 
         public void UpdateRewards() => _gameLogic.UpdateHero();
 
