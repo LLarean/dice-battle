@@ -192,6 +192,7 @@ namespace DiceBattle.Core
             GameProgress.IncrementLevels();
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Victory));
 
+            // TODO Add bonus armor
             _playerData.Armor = 0;
             _gameScreen.UpdatePlayerArmor(0);
 
