@@ -11,7 +11,7 @@ using Random = System.Random;
 
 namespace DiceBattle
 {
-    public class LootScreen : MonoBehaviour
+    public class LootScreen : Screen
     {
         [SerializeField] private List<RewardItem> _rewardItems;
 

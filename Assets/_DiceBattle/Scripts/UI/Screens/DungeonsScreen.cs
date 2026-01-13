@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace DiceBattle.UI
 {
-    public class DungeonsScreen : MonoBehaviour
+    public class DungeonsScreen : Screen
     {
         [SerializeField] private GameConfig _gameConfig;
         [SerializeField] private LevelItem _levelItem;

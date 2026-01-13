@@ -21,8 +21,8 @@ namespace DiceBattle.UI
         {
             _panel.gameObject.SetActive(true);
 
-            _gameObjectAnimations.SetParams(.2f, .5f, LeanTweenType.easeOutBack);
-            _gameObjectAnimations.SlideIn(gameObject.GetComponent<RectTransform>());
+            // _gameObjectAnimations.SetParams(.2f, .5f, LeanTweenType.easeOutBack);
+            // _gameObjectAnimations.SlideIn(gameObject.GetComponent<RectTransform>());
         }
 
         public void Hide() => _panel.gameObject.SetActive(false);

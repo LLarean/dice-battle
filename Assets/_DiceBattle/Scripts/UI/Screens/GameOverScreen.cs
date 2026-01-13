@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace DiceBattle.UI
 {
-    public class GameOverScreen : MonoBehaviour
+    public class GameOverScreen : Screen
     {
         [SerializeField] private TextMeshProUGUI _finalScore;
         [SerializeField] private Button _restart;

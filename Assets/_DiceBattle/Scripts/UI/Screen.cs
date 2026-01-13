@@ -4,16 +4,22 @@ namespace DiceBattle
 {
     public class Screen : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        [SerializeField] private CanvasGroup _canvasGroup;
+
+        public void Show()
         {
-        
+            _canvasGroup.alpha = 0;
+            gameObject.SetActive(true);
+            LeanTween.alphaCanvas(_canvasGroup, 1f, .5f);
         }
 
-        // Update is called once per frame
-        void Update()
+        public void Hide()
         {
-        
+            _canvasGroup.alpha = 1;
+
+            LeanTween.alphaCanvas(_canvasGroup, 1f, .25f)
+                .setOnComplete(() => { gameObject.SetActive(false); });
+
         }
     }
 }

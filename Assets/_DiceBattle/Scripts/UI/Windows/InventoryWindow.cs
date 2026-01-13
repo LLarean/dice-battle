@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace DiceBattle.UI
 {
-    public class InventoryWindow : MonoBehaviour
+    public class InventoryWindow : Screen
     {
         [SerializeField] private Transform _substrate;
         [SerializeField] private Button _close;
