@@ -17,24 +17,24 @@ namespace DiceBattle.UI
         [SerializeField] private OptionsWindow _optionsWindow;
         [SerializeField] private InventoryWindow _inventoryWindow;
 
-        private GameObject _currentScreen;
+        private Screen _currentScreen;
 
         public void ShowScreen(ScreenType screenType)
         {
             if (_currentScreen != null)
             {
-                _currentScreen.gameObject.SetActive(false);
+                _currentScreen.Hide();
             }
 
-            GameObject nextScreen = GetUI(screenType);
-            nextScreen.SetActive(true);
+            Screen nextScreen = GetScreen(screenType);
+            nextScreen.Show();
             _currentScreen = nextScreen;
         }
 
         public void ShowWindow(ScreenType screenType)
         {
-            GameObject window = GetUI(screenType);
-            window.SetActive(true);
+            Screen window = GetScreen(screenType);
+            window.gameObject.SetActive(true);
         }
 
         public void Back()
@@ -49,17 +49,17 @@ namespace DiceBattle.UI
             }
         }
 
-        private GameObject GetUI(ScreenType screenType)
+        private Screen GetScreen(ScreenType screenType)
         {
             return screenType switch {
-                ScreenType.MainMenu => _mainMenuScreen.gameObject,
-                ScreenType.GameScreen => _gameScreen.gameObject,
-                ScreenType.GameOverScreen => _gameOverScreen.gameObject,
-                ScreenType.LootScreen => _lootScreen.gameObject,
-                ScreenType.DungeonsScreen => _dungeonsScreen.gameObject,
+                ScreenType.MainMenu => _mainMenuScreen,
+                ScreenType.GameScreen => _gameScreen,
+                ScreenType.GameOverScreen => _gameOverScreen,
+                ScreenType.LootScreen => _lootScreen,
+                ScreenType.DungeonsScreen => _dungeonsScreen,
 
-                ScreenType.OptionsWindow => _optionsWindow.gameObject,
-                ScreenType.InventoryWindow => _inventoryWindow.gameObject,
+                ScreenType.OptionsWindow => _optionsWindow,
+                ScreenType.InventoryWindow => _inventoryWindow,
                 _ => throw new ArgumentOutOfRangeException(nameof(screenType), screenType, null)
             };
         }

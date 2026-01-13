@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace DiceBattle.UI
 {
-    public class OptionsWindow : MonoBehaviour
+    public class OptionsWindow : Screen
     {
         [SerializeField] private Button _close;
         [SerializeField] private Slider _music;

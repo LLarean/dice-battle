@@ -9,8 +9,9 @@ using UnityEngine.UI;
 
 namespace DiceBattle.UI
 {
-    public class MainMenuScreen : MonoBehaviour
+    public class MainMenuScreen : Screen
     {
+        [Space]
         [SerializeField] private RectTransform _rootUI;
         [Space]
         [SerializeField] private TextMeshProUGUI _title;

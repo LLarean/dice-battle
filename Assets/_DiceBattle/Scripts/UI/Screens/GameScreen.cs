@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace DiceBattle.UI
 {
-    public class GameScreen : MonoBehaviour, IChangeHandler
+    public class GameScreen : Screen, IChangeHandler
     {
         [SerializeField] private GameConfig _config;
         [Space]
