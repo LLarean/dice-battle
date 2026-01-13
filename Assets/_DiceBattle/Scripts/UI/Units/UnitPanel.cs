@@ -37,11 +37,29 @@ namespace DiceBattle.UI
 
         public void UpdateCurrentHealth(int currentHealth)
         {
-            AnimateHealth(currentHealth);
+            // AnimateHealth(currentHealth);
             _health.value = currentHealth;
             _unitStats.ShowHealth($"{currentHealth}/{_health.maxValue}");
             // TODO LLarean Separate the logic of taking damage and healing so that you can animate
         }
+
+        public void TakeDamage(int damageAmount)
+        {
+            int currentDamage = Mathf.Max(0, damageAmount - _unitData.Armor);
+            _unitData.CurrentHealth = Mathf.Max(0, _unitData.CurrentHealth - currentDamage);
+
+            _health.value = _unitData.CurrentHealth;
+            _unitStats.ShowHealth($"{_unitData.CurrentHealth}/{_health.maxValue}");
+        }
+
+        public void TakeHeal(int healAmount)
+        {
+            _unitData.CurrentHealth = Mathf.Min(_unitData.MaxHealth, _unitData.CurrentHealth + healAmount);
+            _health.value = _unitData.CurrentHealth;
+            _unitStats.ShowHealth($"{_unitData.CurrentHealth}/{_health.maxValue}");
+        }
+
+        public void AnimationCurrentHealth(int currentHealth) => AnimateHealth(currentHealth);
 
         public void UpdateArmor(int defense)
         {

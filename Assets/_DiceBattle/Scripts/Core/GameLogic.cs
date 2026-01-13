@@ -129,7 +129,9 @@ namespace DiceBattle.Core
             int doubleDamageCount = _rewards.RewardTypes.Count(r => r == RewardType.DoubleDamage);
             int damageToEnemy = Mathf.Max(_diceResult.Damage, _diceResult.Damage * doubleDamageCount);
 
-            EnemyTakeDamage(damageToEnemy);
+            _gameScreen.EnemyTakeDamage(damageToEnemy);
+
+            // EnemyTakeDamage(damageToEnemy);
             _gameScreen.UpdateEnemyDisplay();
 
             // TODO You can add different sounds to attack different enemies
@@ -141,8 +143,10 @@ namespace DiceBattle.Core
         {
             int rewardRegenHealth = _rewards.RewardTypes.Count(r => r == RewardType.RegenHealth) * _config.Player.RegenHealth;
             int allRegenHealth = _diceResult.Heal + rewardRegenHealth;
-            _playerData.CurrentHealth = Mathf.Min(_playerData.MaxHealth, _playerData.CurrentHealth + allRegenHealth);
-            _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
+            // _playerData.CurrentHealth = Mathf.Min(_playerData.MaxHealth, _playerData.CurrentHealth + allRegenHealth);
+
+            _gameScreen.PlayerTakeHeal(allRegenHealth);
+            // _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerHeal));
         }
@@ -159,13 +163,14 @@ namespace DiceBattle.Core
 
         private void EnemyTurn()
         {
-            int enemyAttack = _enemyData.Damage;
-            int damageToPlayer = Mathf.Max(0, enemyAttack - _playerData.Armor);
+            // int enemyAttack = _enemyData.Damage;
+            // int damageToPlayer = Mathf.Max(0, enemyAttack - _playerData.Armor);
 
-            if (damageToPlayer > 0)
-            {
-                _playerData.CurrentHealth = Mathf.Max(0, _playerData.CurrentHealth - damageToPlayer);
-                _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
+            // if (damageToPlayer > 0)
+            // {
+                // _playerData.CurrentHealth = Mathf.Max(0, _playerData.CurrentHealth - damageToPlayer);
+                _gameScreen.PlayerTakeDamage(_enemyData.Damage);
+                // _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
 
                 SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
 
@@ -174,7 +179,7 @@ namespace DiceBattle.Core
                     OnPlayerDefeated();
                     return;
                 }
-            }
+            // }
 
             RemoveArmor();
         }
@@ -230,15 +235,17 @@ namespace DiceBattle.Core
             UpdateButtonStates();
         }
 
-        private int EnemyTakeDamage(int damage)
-        {
-            int actualDamage = Mathf.Max(0, damage - _enemyData.Armor);
-            _enemyData.CurrentHealth = Mathf.Max(0, _enemyData.CurrentHealth - actualDamage);
-
-            // TODO: SignalSystem.Raise - The enemy has taken damage (actualDamage)
-
-            return actualDamage;
-        }
+        // private int EnemyTakeDamage(int damage)
+        // {
+        //     _gameScreen.EnemyTakeDamage(damage);
+        //
+        //     int actualDamage = Mathf.Max(0, damage - _enemyData.Armor);
+        //     _enemyData.CurrentHealth = Mathf.Max(0, _enemyData.CurrentHealth - actualDamage);
+        //
+        //     // TODO: SignalSystem.Raise - The enemy has taken damage (actualDamage)
+        //
+        //     return actualDamage;
+        // }
 
         #endregion
     }
