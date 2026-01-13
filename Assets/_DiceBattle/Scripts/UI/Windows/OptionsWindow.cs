@@ -8,6 +8,7 @@ namespace DiceBattle.UI
 {
     public class OptionsWindow : Screen
     {
+        [Space]
         [SerializeField] private Button _close;
         [SerializeField] private Slider _music;
         [SerializeField] private Slider _sound;

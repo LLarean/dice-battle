@@ -34,7 +34,7 @@ namespace DiceBattle.UI
         public void ShowWindow(ScreenType screenType)
         {
             Screen window = GetScreen(screenType);
-            window.gameObject.SetActive(true);
+            window.Show();
         }
 
         public void Back()
