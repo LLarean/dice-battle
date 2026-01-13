@@ -45,6 +45,12 @@ namespace DiceBattle.UI
 
         public void UpdatePlayerHealth(int currentHealth) => _player.UpdateCurrentHealth(currentHealth);
 
+        public void PlayerTakeDamage(int damageAmount) => _player.TakeDamage(damageAmount);
+
+        public void EnemyTakeDamage(int damageAmount) => _enemy.TakeDamage(damageAmount);
+
+        public void PlayerTakeHeal(int healAmount) => _player.TakeHeal(healAmount);
+
         public void UpdatePlayerArmor(int armor) => _player.UpdateArmor(armor);
 
         public void ResetSelection() => _gameBoard.ClearAllSelection();

@@ -83,7 +83,7 @@ namespace DiceBattle.UI
 
         private void OnEnable()
         {
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Tavern));
+            // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Tavern));
             CreateLevelItems();
         }
 
