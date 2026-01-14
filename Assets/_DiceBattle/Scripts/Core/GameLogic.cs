@@ -21,7 +21,9 @@ namespace DiceBattle.Core
 
         private Rewards _rewards;
         private int _attemptsNumber;
+
         private int _playerHealthDelta;
+        private int _enemyHealthDelta;
 
         public GameLogic(GameConfig config, GameScreen gameScreen)
         {
@@ -35,6 +37,7 @@ namespace DiceBattle.Core
         {
             _attemptsNumber = 0;
             _playerHealthDelta = 0;
+            _enemyHealthDelta = 0;
 
             _enemyData = _spawner.SpawnEnemy();
             _playerData = _spawner.SpawnHero();
@@ -75,14 +78,16 @@ namespace DiceBattle.Core
             _rewards = GameProgress.GetReceivedRewards();
             _diceResult.Calculate(_gameScreen.Dices);
             _playerHealthDelta = _playerData.CurrentHealth;
+            _enemyHealthDelta = _enemyData.CurrentHealth;
 
             PlayerTurn();
 
-            _playerHealthDelta = _playerData.CurrentHealth - _playerHealthDelta;
-            AnimateHealth();
+            // _playerHealthDelta = _playerData.CurrentHealth - _playerHealthDelta;
+            // AnimatePlayerHealth();
 
             _attemptsNumber = 0;
-            _playerHealthDelta = 0;
+            // _playerHealthDelta = 0;
+            // _enemyHealthDelta = 0;
 
             _gameScreen.ResetSelection();
             _gameScreen.SetContextLabel("Бросить все"); // TODO Translation
@@ -90,16 +95,38 @@ namespace DiceBattle.Core
             UpdateButtonStates();
         }
 
-        private void AnimateHealth()
+        private void AnimatePlayerHealth()
         {
-            if (_playerHealthDelta > 0)
+            _playerHealthDelta = _playerData.CurrentHealth - _playerHealthDelta;
+
+            switch (_playerHealthDelta)
             {
-                _gameScreen.PlayerAnimateHeal();
+                case < 0:
+                    _gameScreen.PlayerAnimateDamage();
+                    break;
+                case > 0:
+                    _gameScreen.PlayerAnimateHeal();
+                    break;
             }
-            else
+
+            _playerHealthDelta = 0;
+        }
+
+        private void AnimateEnemyHealth()
+        {
+            _enemyHealthDelta = _enemyData.CurrentHealth - _enemyHealthDelta;
+
+            switch (_enemyHealthDelta)
             {
-                _gameScreen.PlayerAnimateDamage();
+                case < 0:
+                    _gameScreen.EnemyAnimateDamage();
+                    break;
+                case > 0:
+                    _gameScreen.EnemyAnimateHeal();
+                    break;
             }
+
+            _enemyHealthDelta = 0;
         }
 
         #region Updates
@@ -153,6 +180,8 @@ namespace DiceBattle.Core
             }
             else
             {
+                // _enemyHealthDelta = _enemyData.CurrentHealth - _playerHealthDelta;
+                AnimateEnemyHealth();
                 EnemyTurn();
             }
         }
@@ -215,6 +244,8 @@ namespace DiceBattle.Core
                 return;
             }
 
+
+            AnimatePlayerHealth();
             RemovePlayerArmor();
         }
 
