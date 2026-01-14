@@ -150,11 +150,7 @@ namespace DiceBattle.Core
         {
             int doubleDamageCount = _rewards.RewardTypes.Count(r => r == RewardType.DoubleDamage);
             int damageToEnemy = Mathf.Max(_diceResult.Damage, _diceResult.Damage * doubleDamageCount);
-
             _gameScreen.EnemyTakeDamage(damageToEnemy);
-
-            // EnemyTakeDamage(damageToEnemy);
-            _gameScreen.UpdateEnemyDisplay();
 
             // TODO You can add different sounds to attack different enemies
             // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
@@ -165,10 +161,7 @@ namespace DiceBattle.Core
         {
             int rewardRegenHealth = _rewards.RewardTypes.Count(r => r == RewardType.RegenHealth) * _config.Player.RegenHealth;
             int allRegenHealth = _diceResult.Heal + rewardRegenHealth;
-            // _playerData.CurrentHealth = Mathf.Min(_playerData.MaxHealth, _playerData.CurrentHealth + allRegenHealth);
-
             _gameScreen.PlayerTakeHeal(allRegenHealth);
-            // _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerHeal));
         }
