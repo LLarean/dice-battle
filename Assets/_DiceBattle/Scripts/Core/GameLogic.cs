@@ -43,7 +43,29 @@ namespace DiceBattle.Core
 
         public void ContextClick()
         {
-            HandleContextAction();
+            _attemptsNumber++;
+
+            if (_attemptsNumber == 1)
+            {
+                _gameScreen.RollDice();
+            }
+            else if (_attemptsNumber < _config.MaxAttempts)
+            {
+                if (_gameScreen.HaveSelectedDice)
+                {
+                    _gameScreen.RerollSelectedDice();
+                }
+                else
+                {
+                    EndTurn();
+                }
+            }
+            else
+            {
+                EndTurn();
+            }
+
+            UpdateButtonStates();
         }
 
         private void EndTurn()
@@ -51,8 +73,8 @@ namespace DiceBattle.Core
             _rewards = GameProgress.GetReceivedRewards();
             _diceResult.Calculate(_gameScreen.Dices);
 
-            ApplyArmor();
-            ApplyAttack();
+            ApplyPlayerArmor();
+            ApplyPlayerAttack();
             ApplyHealing();
 
             if (_enemyData.CurrentHealth <= 0)
@@ -110,21 +132,21 @@ namespace DiceBattle.Core
 
         #region Player actions
 
-        private void ApplyArmor()
+        private void ApplyPlayerArmor()
         {
             int bonusArmor = _rewards.RewardTypes.Count(r => r == RewardType.Armor) * _config.Player.GrowthArmor;
             _playerData.Armor = Mathf.Max(0, _diceResult.Armor + bonusArmor);
             _gameScreen.UpdatePlayerArmor(_playerData.Armor);
         }
 
-        private void RemoveArmor()
+        private void RemovePlayerArmor()
         {
             int bonusArmor = _rewards.RewardTypes.Count(r => r == RewardType.Armor) * _config.Player.GrowthArmor;
             _playerData.Armor = Mathf.Max(0, bonusArmor);
             _gameScreen.UpdatePlayerArmor(bonusArmor);
         }
 
-        private void ApplyAttack()
+        private void ApplyPlayerAttack()
         {
             int doubleDamageCount = _rewards.RewardTypes.Count(r => r == RewardType.DoubleDamage);
             int damageToEnemy = Mathf.Max(_diceResult.Damage, _diceResult.Damage * doubleDamageCount);
@@ -163,25 +185,17 @@ namespace DiceBattle.Core
 
         private void EnemyTurn()
         {
-            // int enemyAttack = _enemyData.Damage;
-            // int damageToPlayer = Mathf.Max(0, enemyAttack - _playerData.Armor);
+            _gameScreen.PlayerTakeDamage(_enemyData.Damage);
 
-            // if (damageToPlayer > 0)
-            // {
-                // _playerData.CurrentHealth = Mathf.Max(0, _playerData.CurrentHealth - damageToPlayer);
-                _gameScreen.PlayerTakeDamage(_enemyData.Damage);
-                // _gameScreen.UpdatePlayerHealth(_playerData.CurrentHealth);
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
 
-                SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
+            if (_playerData.CurrentHealth <= 0)
+            {
+                OnPlayerDefeated();
+                return;
+            }
 
-                if (_playerData.CurrentHealth <= 0)
-                {
-                    OnPlayerDefeated();
-                    return;
-                }
-            // }
-
-            RemoveArmor();
+            RemovePlayerArmor();
         }
 
         private void OnEnemyDefeated()
@@ -203,49 +217,6 @@ namespace DiceBattle.Core
 
             UpdateButtonStates();
         }
-
-        #endregion
-
-        #region Event Handlers
-
-        private void HandleContextAction()
-        {
-            _attemptsNumber++;
-
-            if (_attemptsNumber == 1)
-            {
-                _gameScreen.RollDice();
-            }
-            else if (_attemptsNumber < _config.MaxAttempts)
-            {
-                if (_gameScreen.HaveSelectedDice)
-                {
-                    _gameScreen.RerollSelectedDice();
-                }
-                else
-                {
-                    EndTurn();
-                }
-            }
-            else
-            {
-                EndTurn();
-            }
-
-            UpdateButtonStates();
-        }
-
-        // private int EnemyTakeDamage(int damage)
-        // {
-        //     _gameScreen.EnemyTakeDamage(damage);
-        //
-        //     int actualDamage = Mathf.Max(0, damage - _enemyData.Armor);
-        //     _enemyData.CurrentHealth = Mathf.Max(0, _enemyData.CurrentHealth - actualDamage);
-        //
-        //     // TODO: SignalSystem.Raise - The enemy has taken damage (actualDamage)
-        //
-        //     return actualDamage;
-        // }
 
         #endregion
     }

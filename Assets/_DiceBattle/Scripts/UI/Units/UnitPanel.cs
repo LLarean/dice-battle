@@ -47,7 +47,6 @@ namespace DiceBattle.UI
         {
             int currentDamage = Mathf.Max(0, damageAmount - _unitData.Armor);
             _unitData.CurrentHealth = Mathf.Max(0, _unitData.CurrentHealth - currentDamage);
-
             _health.value = _unitData.CurrentHealth;
             _unitStats.ShowHealth($"{_unitData.CurrentHealth}/{_health.maxValue}");
         }
