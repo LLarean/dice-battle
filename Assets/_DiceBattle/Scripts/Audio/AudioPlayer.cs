@@ -24,6 +24,7 @@ namespace DiceBattle.Audio
         {
             if (_soundConfig.TryGetAudioClip(soundType, out AudioClip audioClip))
             {
+                _sfxSource.pitch = Random.Range(0.9f, 1.1f);
                 _sfxSource.PlayOneShot(audioClip);
             }
         }

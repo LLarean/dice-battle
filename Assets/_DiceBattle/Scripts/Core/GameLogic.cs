@@ -75,7 +75,7 @@ namespace DiceBattle.Core
 
             ApplyPlayerArmor();
             ApplyPlayerAttack();
-            ApplyHealing();
+            ApplyPlayerHealing();
 
             if (_enemyData.CurrentHealth <= 0)
             {
@@ -157,7 +157,7 @@ namespace DiceBattle.Core
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyHit));
         }
 
-        private void ApplyHealing()
+        private void ApplyPlayerHealing()
         {
             int rewardRegenHealth = _rewards.RewardTypes.Count(r => r == RewardType.RegenHealth) * _config.Player.RegenHealth;
             int allRegenHealth = _diceResult.Heal + rewardRegenHealth;
@@ -180,6 +180,8 @@ namespace DiceBattle.Core
         {
             _gameScreen.PlayerTakeDamage(_enemyData.Damage);
 
+            // TODO You can add different sounds to attack different enemies
+            // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
 
             if (_playerData.CurrentHealth <= 0)
