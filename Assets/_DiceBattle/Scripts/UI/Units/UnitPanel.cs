@@ -49,7 +49,11 @@ namespace DiceBattle.UI
             _unitStats.ShowHealth($"{_unitData.CurrentHealth}/{_health.maxValue}");
         }
 
-        public void AnimationCurrentHealth(int currentHealth) => _healthAnimation.Animate(currentHealth);
+        // public void AnimationCurrentHealth(int currentHealth) => _healthAnimation.Animate(currentHealth);
+
+        public void AnimateHeal() => _healthAnimation.AnimateHeal();
+
+        public void AnimateDamage() => _healthAnimation.AnimateDamage();
 
         public void UpdateArmor(int defense)
         {
@@ -99,7 +103,7 @@ namespace DiceBattle.UI
 
         private void Awake()
         {
-            _healthAnimation = new HealthAnimation(_portrait, _health);
+            _healthAnimation = new HealthAnimation(_portrait);
         }
     }
 }

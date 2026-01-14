@@ -79,6 +79,7 @@ namespace DiceBattle.Core
             PlayerTurn();
 
             _playerHealthDelta = _playerData.CurrentHealth - _playerHealthDelta;
+            AnimateHealth();
 
             _attemptsNumber = 0;
             _playerHealthDelta = 0;
@@ -87,6 +88,18 @@ namespace DiceBattle.Core
             _gameScreen.SetContextLabel("Бросить все"); // TODO Translation
 
             UpdateButtonStates();
+        }
+
+        private void AnimateHealth()
+        {
+            if (_playerHealthDelta > 0)
+            {
+                _gameScreen.PlayerAnimateHeal();
+            }
+            else
+            {
+                _gameScreen.PlayerAnimateDamage();
+            }
         }
 
         #region Updates
