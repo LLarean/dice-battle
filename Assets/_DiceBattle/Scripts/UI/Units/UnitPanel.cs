@@ -12,7 +12,6 @@ namespace DiceBattle.UI
         [SerializeField] private Slider _health;
         [SerializeField] private UnitStats _unitStats;
 
-        private HealthAnimation _healthAnimation;
         private UnitData _unitData;
 
         public void SetUnitData(UnitData unitData)
@@ -49,11 +48,9 @@ namespace DiceBattle.UI
             _unitStats.ShowHealth($"{_unitData.CurrentHealth}/{_health.maxValue}");
         }
 
-        // public void AnimationCurrentHealth(int currentHealth) => _healthAnimation.Animate(currentHealth);
+        public void AnimateHeal() => HealthAnimation.AnimateHeal(_portrait);
 
-        public void AnimateHeal() => _healthAnimation.AnimateHeal();
-
-        public void AnimateDamage() => _healthAnimation.AnimateDamage();
+        public void AnimateDamage() => HealthAnimation.AnimateDamage(_portrait);
 
         public void UpdateArmor(int defense)
         {
@@ -76,7 +73,6 @@ namespace DiceBattle.UI
 
         private void UpdateCurrentHealth(int currentHealth)
         {
-            // AnimateHealth(currentHealth);
             _health.value = currentHealth;
             _unitStats.ShowHealth($"{currentHealth}/{_health.maxValue}");
             // TODO LLarean Separate the logic of taking damage and healing so that you can animate
@@ -99,11 +95,6 @@ namespace DiceBattle.UI
             _unitStats.HideHealth();
             _unitStats.HideAttack();
             _unitStats.HideDefense();
-        }
-
-        private void Awake()
-        {
-            _healthAnimation = new HealthAnimation(_portrait);
         }
     }
 }
