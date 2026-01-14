@@ -73,18 +73,7 @@ namespace DiceBattle.Core
             _rewards = GameProgress.GetReceivedRewards();
             _diceResult.Calculate(_gameScreen.Dices);
 
-            ApplyPlayerArmor();
-            ApplyPlayerAttack();
-            ApplyPlayerHealing();
-
-            if (_enemyData.CurrentHealth <= 0)
-            {
-                OnEnemyDefeated();
-            }
-            else
-            {
-                EnemyTurn();
-            }
+            PlayerTurn();
 
             _attemptsNumber = 0;
             _gameScreen.ResetSelection();
@@ -131,6 +120,22 @@ namespace DiceBattle.Core
         #endregion
 
         #region Player actions
+
+        private void PlayerTurn()
+        {
+            ApplyPlayerArmor();
+            ApplyPlayerAttack();
+            ApplyPlayerHealing();
+
+            if (_enemyData.CurrentHealth <= 0)
+            {
+                OnEnemyDefeated();
+            }
+            else
+            {
+                EnemyTurn();
+            }
+        }
 
         private void ApplyPlayerArmor()
         {
