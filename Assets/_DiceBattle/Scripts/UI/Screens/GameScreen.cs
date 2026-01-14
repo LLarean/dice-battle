@@ -43,8 +43,6 @@ namespace DiceBattle.UI
 
         public void SetContextLabel(string label) => _contextLabel.text = label;
 
-        public void UpdatePlayerHealth(int currentHealth) => _player.UpdateCurrentHealth(currentHealth);
-
         public void PlayerTakeDamage(int damageAmount) => _player.TakeDamage(damageAmount);
 
         public void EnemyTakeDamage(int damageAmount) => _enemy.TakeDamage(damageAmount);
