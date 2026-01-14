@@ -57,6 +57,10 @@ namespace DiceBattle.UI
 
         public void UpdateEnemyDisplay() => _enemy.UpdateDisplay();
 
+        public void PlayerAnimateHeal() => _player.AnimateHeal();
+
+        public void PlayerAnimateDamage() => _player.AnimateDamage();
+
         #region Event Handlers
 
         private void ContextClick() => _gameLogic.ContextClick();
