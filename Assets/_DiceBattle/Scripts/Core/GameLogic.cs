@@ -21,6 +21,7 @@ namespace DiceBattle.Core
 
         private Rewards _rewards;
         private int _attemptsNumber;
+        private int _playerHealthDelta;
 
         public GameLogic(GameConfig config, GameScreen gameScreen)
         {
@@ -33,6 +34,7 @@ namespace DiceBattle.Core
         public void InitializeGame()
         {
             _attemptsNumber = 0;
+            _playerHealthDelta = 0;
 
             _enemyData = _spawner.SpawnEnemy();
             _playerData = _spawner.SpawnHero();
@@ -72,10 +74,15 @@ namespace DiceBattle.Core
         {
             _rewards = GameProgress.GetReceivedRewards();
             _diceResult.Calculate(_gameScreen.Dices);
+            _playerHealthDelta = _playerData.CurrentHealth;
 
             PlayerTurn();
 
+            _playerHealthDelta = _playerData.CurrentHealth - _playerHealthDelta;
+
             _attemptsNumber = 0;
+            _playerHealthDelta = 0;
+
             _gameScreen.ResetSelection();
             _gameScreen.SetContextLabel("Бросить все"); // TODO Translation
 
