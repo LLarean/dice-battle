@@ -1,6 +1,7 @@
 ﻿using DiceBattle.Data;
 using DiceBattle.Global;
 using DiceBattle.UI;
+using UnityEngine;
 
 namespace DiceBattle.Core
 {

@@ -62,15 +62,15 @@ namespace DiceBattle
             rewards.RewardTypes = newRewards;
             GameProgress.AddRewardList(rewards);
 
-            // var allValues = (RewardType[])Enum.GetValues(typeof(RewardType));
-            //
-            // foreach (RewardItem rewardItem in _rewardItems)
-            // {
-            //     int randomIndex = _random.Next(0, allValues.Length);
-            //     var reward = (RewardType)randomIndex;
-            //
-            //     rewardItem.SetReward(reward);
-            // }
+            var allValues = (RewardType[])Enum.GetValues(typeof(RewardType));
+
+            foreach (RewardItem rewardItem in _rewardItems)
+            {
+                int randomIndex = _random.Next(0, allValues.Length);
+                var reward = (RewardType)randomIndex;
+
+                rewardItem.SetReward(reward);
+            }
         }
     }
 }

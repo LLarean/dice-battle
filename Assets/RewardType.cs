@@ -3,16 +3,16 @@
     public enum RewardType
     {
         DisableEmptyState,
-        DisableArmorState,
+        // DisableArmorState,
 
         AdditionalTry,
 
         FirstAdditionalDice,
-        SecondAdditionalDice,
+        // SecondAdditionalDice,
 
-        AdditionalDamage,
+        // AdditionalDamage,
         DoubleDamage,
-        MagicDamage,
+        // MagicDamage,
 
         RegenHealth,
         RestoreHealth,

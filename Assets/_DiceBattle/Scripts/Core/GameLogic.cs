@@ -255,11 +255,11 @@ namespace DiceBattle.Core
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.LootScreen));
 
             GameProgress.IncrementCurrentLevel();
+            GameProgress.IncrementLevels();
 
             UpdateHero();
             _enemyData = _spawner.SpawnEnemy();
 
-            GameProgress.IncrementLevels();
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Victory));
 
             // TODO Add bonus armor
