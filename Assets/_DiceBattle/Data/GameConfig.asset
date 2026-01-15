@@ -40,3 +40,4 @@ MonoBehaviour:
   AttemptsCount: 2
   AttemptsBonusCount: 1
   MaxAttempts: 3
+  IsInstaWin: 1

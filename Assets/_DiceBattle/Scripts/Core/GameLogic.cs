@@ -174,7 +174,7 @@ namespace DiceBattle.Core
             ApplyPlayerAttack();
             ApplyPlayerHealing();
 
-            if (_enemyData.CurrentHealth <= 0)
+            if (_enemyData.CurrentHealth <= 0 || _config.IsInstaWin)
             {
                 OnEnemyDefeated();
             }

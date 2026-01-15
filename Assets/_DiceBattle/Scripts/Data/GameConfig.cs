@@ -22,5 +22,12 @@ namespace DiceBattle.Data
         [Header("Maximum attempts")]
         [Tooltip("Maximum number of dice rolls")]
         public int MaxAttempts = 3;
+
+        [Header("Debug")]
+        #if UNITY_EDITOR
+        public bool IsInstaWin = false;
+        #else
+        public bool IsInstaWin = false;
+        #endif
     }
 }
