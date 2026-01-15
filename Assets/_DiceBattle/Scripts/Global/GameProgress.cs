@@ -48,7 +48,7 @@ namespace DiceBattle.Global
             Rewards rewards = GetReceivedRewards();
 
             int firstDice = rewards.RewardTypes.Where(rewardType => rewardType == RewardType.FirstAdditionalDice).Sum(rewardType => 1);
-            int secondDice = rewards.RewardTypes.Where(rewardType => rewardType == RewardType.SecondAdditionalDice).Sum(rewardType => 1);
+            // int secondDice = rewards.RewardTypes.Where(rewardType => rewardType == RewardType.SecondAdditionalDice).Sum(rewardType => 1);
 
             int diceCount = 3;
 
@@ -57,10 +57,10 @@ namespace DiceBattle.Global
                 diceCount++;
             }
 
-            if (secondDice == 1)
-            {
-                diceCount++;
-            }
+            // if (secondDice == 1)
+            // {
+            //     diceCount++;
+            // }
 
             return diceCount;
         }
