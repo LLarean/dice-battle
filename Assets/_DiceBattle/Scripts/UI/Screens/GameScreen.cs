@@ -49,13 +49,11 @@ namespace DiceBattle.UI
 
         public void PlayerTakeHeal(int healAmount) => _player.TakeHeal(healAmount);
 
-        public void EnemyTakeHeal(int healAmount) => _enemy.TakeHeal(healAmount);
-
         public void UpdatePlayerArmor(int armor) => _player.UpdateArmor(armor);
 
         public void ResetSelection() => _gameBoard.ClearAllSelection();
 
-        public void UpdateEnemyDisplay() => _enemy.UpdateDisplay();
+        #region Damage/Healing Animation
 
         public void PlayerAnimateHeal() => _player.AnimateHeal();
 
@@ -64,6 +62,8 @@ namespace DiceBattle.UI
         public void EnemyAnimateHeal() => _enemy.AnimateHeal();
 
         public void EnemyAnimateDamage() => _enemy.AnimateDamage();
+
+        #endregion
 
         #region Event Handlers
 
