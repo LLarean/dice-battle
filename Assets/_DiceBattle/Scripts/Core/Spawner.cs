@@ -18,7 +18,18 @@ namespace DiceBattle.Core
 
         public UnitData SpawnEnemy()
         {
-            UnitData enemyData = _config.Enemies[GameProgress.CompletedLevels];
+            UnitData source = _config.Enemies[GameProgress.CompletedLevels];
+
+            var enemyData = new UnitData
+            {
+                Title = source.Title,
+                Portrait = source.Portrait,
+                MaxHealth = source.MaxHealth,
+                CurrentHealth = source.MaxHealth,
+                Damage = source.Damage,
+                Armor = source.Armor,
+            };
+
             enemyData.Log();
             _gameScreen.SetEnemyData(enemyData);
             return enemyData;
