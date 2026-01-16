@@ -35,6 +35,25 @@ MonoBehaviour:
     GrowthDamage: 2
     StartArmor: 0
     GrowthArmor: 2
+  Enemies:
+  - Title: "\u041C\u0430\u043B\u044B\u0439 \u0441\u043B\u0430\u0439\u043C"
+    Portrait: {fileID: -735669648, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    MaxHealth: 4
+    CurrentHealth: 0
+    Damage: 2
+    Armor: 0
+  - Title: "\u0421\u043B\u0430\u0439\u043C"
+    Portrait: {fileID: 750657890, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    MaxHealth: 7
+    CurrentHealth: 0
+    Damage: 3
+    Armor: 0
+  - Title: "\u0411\u043E\u043B\u044C\u0448\u043E\u0439 \u0441\u043B\u0430\u0439\u043C"
+    Portrait: {fileID: 1682503996, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    MaxHealth: 10
+    CurrentHealth: 0
+    Damage: 4
+    Armor: 1
   DiceStartCount: 5
   DiceBonusCount: 1
   AttemptsCount: 2
