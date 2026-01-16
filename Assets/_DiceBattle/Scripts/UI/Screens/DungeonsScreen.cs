@@ -25,7 +25,7 @@ namespace DiceBattle.UI
         {
             ClearLevelItems();
 
-            for (int i = 0; i < _gameConfig.Enemy.Portraits.Length; i++)
+            for (int i = 0; i < _gameConfig.Enemies.Count; i++)
             {
                 LevelData levelData = GetLevelData(i);
                 LevelItem levelItem = Instantiate(_levelItem, _levelItemSpawn);
@@ -55,7 +55,7 @@ namespace DiceBattle.UI
 
             return new LevelData
             {
-                Portrait = _gameConfig.Enemy.Portraits[index],
+                Portrait = _gameConfig.Enemies[index].Portrait,
                 Title = $"Уровень {index + 1}", // TODO Translation into other languages
                 IsAvailable = isAvailable,
                 IsCompleted = isCompleted,

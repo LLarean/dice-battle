@@ -39,7 +39,7 @@ MonoBehaviour:
   - Title: "\u041C\u0430\u043B\u044B\u0439 \u0441\u043B\u0430\u0439\u043C"
     Portrait: {fileID: -735669648, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     MaxHealth: 4
-    CurrentHealth: 3
+    CurrentHealth: 4
     Damage: 2
     Armor: 0
   - Title: "\u0421\u043B\u0430\u0439\u043C"
@@ -54,6 +54,12 @@ MonoBehaviour:
     CurrentHealth: 10
     Damage: 4
     Armor: 1
+  - Title: "\u042D\u043B\u0435\u043C\u0435\u043D\u0442\u0430\u043B\u044C"
+    Portrait: {fileID: 1616578468, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    MaxHealth: 10
+    CurrentHealth: 10
+    Damage: 4
+    Armor: 2
   DiceStartCount: 5
   DiceBonusCount: 1
   AttemptsCount: 2
