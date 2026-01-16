@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using DiceBattle.UI;
 using UnityEngine;
 
 namespace DiceBattle.Data
@@ -12,6 +14,7 @@ namespace DiceBattle.Data
         [Header("UnitConfigs")]
         public UnitConfig Player;
         public UnitConfig Enemy;
+        public List<UnitData> Enemies = new();
 
         [Header("Dice")]
         public int DiceStartCount = 5;

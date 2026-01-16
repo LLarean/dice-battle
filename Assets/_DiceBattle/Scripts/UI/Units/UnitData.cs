@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace DiceBattle.UI
 {
+    [Serializable]
     public class UnitData
     {
         public string Title;
