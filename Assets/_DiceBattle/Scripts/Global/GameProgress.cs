@@ -14,7 +14,7 @@ namespace DiceBattle.Global
         {
             ResetCompletedLevels();
             ResetCurrentLevel();
-            ResetRewardsList();
+            ClearRandomRewards();
             ResetReceivedRewards();
         }
 
@@ -32,25 +32,11 @@ namespace DiceBattle.Global
 
         public static void ResetCurrentLevel() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.CurrentLevel);
 
-        public static void AddReceivedReward(RewardType rewardType)
-        {
-            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, "{}");
-            Rewards rewards = JsonUtility.FromJson<Rewards>(rewardsJson) ?? new Rewards();
-
-            rewards.RewardTypes ??= new List<RewardType>();
-            rewards.RewardTypes.Add(rewardType);
-
-            PlayerPrefs.SetString(PlayerPrefsKeys.ReceivedRewards, JsonUtility.ToJson(rewards));
-
-            rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, "{}");
-            Debug.Log("<color=yellow>ReceivedRewards:</color>" + rewardsJson);
-        }
-
         public static int GetDiceCount()
         {
-            Rewards rewards = GetReceivedRewards();
+            RewardsData rewardsData = GetReceivedRewards();
 
-            int firstDice = rewards.RewardTypes.Where(rewardType => rewardType == RewardType.FirstAdditionalDice).Sum(rewardType => 1);
+            int firstDice = rewardsData.RewardTypes.Where(rewardType => rewardType == RewardType.FirstAdditionalDice).Sum(rewardType => 1);
             // int secondDice = rewards.RewardTypes.Where(rewardType => rewardType == RewardType.SecondAdditionalDice).Sum(rewardType => 1);
 
             int diceCount = 3;
@@ -68,31 +54,43 @@ namespace DiceBattle.Global
             return diceCount;
         }
 
-        public static void AddRewardList(Rewards rewards)
-        {
-            PlayerPrefs.SetString(PlayerPrefsKeys.RewardsList, JsonUtility.ToJson(rewards));
-        }
 
-        public static Rewards GetRewardList()
-        {
-            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.RewardsList, "{}");
-            Rewards rewards = JsonUtility.FromJson<Rewards>(rewardsJson) ?? new Rewards();
 
-            rewards.RewardTypes ??= new List<RewardType>();
-            return rewards;
-        }
 
-        public static void ResetRewardsList() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.RewardsList);
 
-        public static Rewards GetReceivedRewards()
+        public static void AddReceivedReward(RewardType rewardType)
         {
             string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, "{}");
-            Rewards rewards = JsonUtility.FromJson<Rewards>(rewardsJson) ?? new Rewards();
+            RewardsData rewardsData = JsonUtility.FromJson<RewardsData>(rewardsJson) ?? new RewardsData();
 
-            rewards.RewardTypes ??= new List<RewardType>();
-            return rewards;
+            rewardsData.RewardTypes ??= new List<RewardType>();
+            rewardsData.RewardTypes.Add(rewardType);
+
+            PlayerPrefs.SetString(PlayerPrefsKeys.ReceivedRewards, JsonUtility.ToJson(rewardsData));
+
+            rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, "{}");
+            Debug.Log("<color=yellow>ReceivedRewards:</color>" + rewardsJson);
+        }
+
+        public static RewardsData GetReceivedRewards()
+        {
+            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, "{}");
+            RewardsData rewardsData = JsonUtility.FromJson<RewardsData>(rewardsJson) ?? new RewardsData();
+
+            rewardsData.RewardTypes ??= new List<RewardType>();
+            return rewardsData;
         }
 
         public static void ResetReceivedRewards() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.ReceivedRewards);
+
+        #region Random Rewards
+
+        public static void AddRandomRewards(RewardsData rewardsData) => RandomRewards.Save(rewardsData);
+
+        public static RewardsData GetRewardList() => RandomRewards.Load();
+
+        private static void ClearRandomRewards() => RandomRewards.Clear();
+
+        #endregion
     }
 }

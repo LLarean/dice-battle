@@ -19,7 +19,7 @@ namespace DiceBattle.Core
         private UnitData _playerData;
         private UnitData _enemyData;
 
-        private Rewards _rewards;
+        private RewardsData _rewardsData;
         private int _attemptsNumber;
 
         private int _playerHealthDelta;
@@ -75,7 +75,7 @@ namespace DiceBattle.Core
 
         private void EndTurn()
         {
-            _rewards = GameProgress.GetReceivedRewards();
+            _rewardsData = GameProgress.GetReceivedRewards();
             _diceResult.Calculate(_gameScreen.Dices);
             _playerHealthDelta = _playerData.CurrentHealth;
             _enemyHealthDelta = _enemyData.CurrentHealth;
@@ -188,21 +188,21 @@ namespace DiceBattle.Core
 
         private void ApplyPlayerArmor()
         {
-            int bonusArmor = _rewards.RewardTypes.Count(r => r == RewardType.Armor) * _config.Player.GrowthArmor;
+            int bonusArmor = _rewardsData.RewardTypes.Count(r => r == RewardType.Armor) * _config.Player.GrowthArmor;
             _playerData.Armor = Mathf.Max(0, _diceResult.Armor + bonusArmor);
             _gameScreen.UpdatePlayerArmor(_playerData.Armor);
         }
 
         private void RemovePlayerArmor()
         {
-            int bonusArmor = _rewards.RewardTypes.Count(r => r == RewardType.Armor) * _config.Player.GrowthArmor;
+            int bonusArmor = _rewardsData.RewardTypes.Count(r => r == RewardType.Armor) * _config.Player.GrowthArmor;
             _playerData.Armor = Mathf.Max(0, bonusArmor);
             _gameScreen.UpdatePlayerArmor(bonusArmor);
         }
 
         private void ApplyPlayerAttack()
         {
-            int doubleDamageCount = _rewards.RewardTypes.Count(r => r == RewardType.DoubleDamage);
+            int doubleDamageCount = _rewardsData.RewardTypes.Count(r => r == RewardType.DoubleDamage);
             int damageToEnemy = Mathf.Max(_diceResult.Damage, _diceResult.Damage * doubleDamageCount);
             _gameScreen.EnemyTakeDamage(damageToEnemy);
 
@@ -213,7 +213,7 @@ namespace DiceBattle.Core
 
         private void ApplyPlayerHealing()
         {
-            int rewardRegenHealth = _rewards.RewardTypes.Count(r => r == RewardType.RegenHealth) * _config.Player.RegenHealth;
+            int rewardRegenHealth = _rewardsData.RewardTypes.Count(r => r == RewardType.RegenHealth) * _config.Player.RegenHealth;
             int allRegenHealth = _diceResult.Heal + rewardRegenHealth;
             _gameScreen.PlayerTakeHeal(allRegenHealth);
 
