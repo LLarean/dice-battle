@@ -41,6 +41,10 @@ namespace DiceBattle.Global
             rewards.RewardTypes.Add(rewardType);
 
             PlayerPrefs.SetString(PlayerPrefsKeys.ReceivedRewards, JsonUtility.ToJson(rewards));
+
+            Debug.Log("---ReceivedReward---");
+            Debug.Log(PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, "{}"));
+            Debug.Log("---End---");
         }
 
         public static int GetDiceCount()
