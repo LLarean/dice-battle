@@ -14,8 +14,9 @@ namespace DiceBattle.Global
         {
             ResetCompletedLevels();
             ResetCurrentLevel();
+
+            ClearReceivedRewards();
             ClearRandomRewards();
-            ResetReceivedRewards();
         }
 
         public static void IncrementLevels()
@@ -54,42 +55,27 @@ namespace DiceBattle.Global
             return diceCount;
         }
 
+        #region Received Rewards
 
+        public static void AddReceivedReward(RewardType rewardType) => AcquiredRewardsStorage.Save(rewardType);
 
+        public static void LogReceivedReward() => AcquiredRewardsStorage.Log();
 
+        public static RewardsData GetReceivedRewards() => AcquiredRewardsStorage.Load();
 
-        public static void AddReceivedReward(RewardType rewardType)
-        {
-            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, "{}");
-            RewardsData rewardsData = JsonUtility.FromJson<RewardsData>(rewardsJson) ?? new RewardsData();
+        private static void ClearReceivedRewards() => AcquiredRewardsStorage.Clear();
 
-            rewardsData.RewardTypes ??= new List<RewardType>();
-            rewardsData.RewardTypes.Add(rewardType);
-
-            PlayerPrefs.SetString(PlayerPrefsKeys.ReceivedRewards, JsonUtility.ToJson(rewardsData));
-
-            rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, "{}");
-            Debug.Log("<color=yellow>ReceivedRewards:</color>" + rewardsJson);
-        }
-
-        public static RewardsData GetReceivedRewards()
-        {
-            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, "{}");
-            RewardsData rewardsData = JsonUtility.FromJson<RewardsData>(rewardsJson) ?? new RewardsData();
-
-            rewardsData.RewardTypes ??= new List<RewardType>();
-            return rewardsData;
-        }
-
-        public static void ResetReceivedRewards() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.ReceivedRewards);
+        #endregion
 
         #region Random Rewards
 
-        public static void AddRandomRewards(RewardsData rewardsData) => RandomRewards.Save(rewardsData);
+        public static void AddRandomRewards(RewardsData rewardsData) => AvailableRewardsPool.Save(rewardsData);
 
-        public static RewardsData GetRewardList() => RandomRewards.Load();
+        public static void LogRandomRewards() => AvailableRewardsPool.Log();
 
-        private static void ClearRandomRewards() => RandomRewards.Clear();
+        public static RewardsData GetRandomRewards() => AvailableRewardsPool.Load();
+
+        private static void ClearRandomRewards() => AvailableRewardsPool.Clear();
 
         #endregion
     }

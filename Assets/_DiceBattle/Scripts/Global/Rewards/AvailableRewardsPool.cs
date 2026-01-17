@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DiceBattle.Global
 {
-    public static class RandomRewards
+    public static class AvailableRewardsPool
     {
         private const string _playerPrefsKey = PlayerPrefsKeys.RewardsList;
 
@@ -41,6 +41,12 @@ namespace DiceBattle.Global
 
             data.RewardTypes ??= new List<RewardType>();
             return data;
+        }
+
+        public static void Log()
+        {
+            string randomRewardsJson = PlayerPrefs.GetString(_playerPrefsKey, "{}");
+            Debug.Log("<color=yellow>RandomRewards: </color>" + randomRewardsJson);
         }
 
         public static void Clear() => PlayerPrefs.DeleteKey(_playerPrefsKey);
