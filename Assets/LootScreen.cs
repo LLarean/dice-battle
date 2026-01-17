@@ -50,17 +50,17 @@ namespace DiceBattle
 
         private void RollReward()
         {
-            Rewards rewards = GameProgress.GetRewardList();
+            RewardsData rewardsData = GameProgress.GetRewardList();
 
-            if (rewards.RewardTypes.Count != 0)
+            if (rewardsData.RewardTypes.Count != 0)
             {
                 return;
             }
 
             var allRewardTypes = Enum.GetValues(typeof(RewardType)).Cast<RewardType>().ToList();
             var newRewards = allRewardTypes.OrderBy(x => _random.Next()).ToList();
-            rewards.RewardTypes = newRewards;
-            GameProgress.AddRewardList(rewards);
+            rewardsData.RewardTypes = newRewards;
+            GameProgress.AddRandomRewards(rewardsData);
 
             var allValues = (RewardType[])Enum.GetValues(typeof(RewardType));
 
