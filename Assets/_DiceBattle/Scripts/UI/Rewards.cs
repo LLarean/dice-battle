@@ -2,6 +2,7 @@
 
 namespace DiceBattle.UI
 {
+    [System.Serializable]
     public class Rewards
     {
         public List<RewardType> RewardTypes;
