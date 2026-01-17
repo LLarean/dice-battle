@@ -40,6 +40,7 @@ namespace DiceBattle
         private void HandleItemSelect(RewardType rewardType)
         {
             GameProgress.AddReceivedReward(rewardType);
+            GameProgress.LogReceivedReward();
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Reward));
@@ -50,7 +51,7 @@ namespace DiceBattle
 
         private void RollReward()
         {
-            RewardsData rewardsData = GameProgress.GetRewardList();
+            RewardsData rewardsData = GameProgress.GetRandomRewards();
 
             if (rewardsData.RewardTypes.Count != 0)
             {
@@ -61,6 +62,7 @@ namespace DiceBattle
             var newRewards = allRewardTypes.OrderBy(x => _random.Next()).ToList();
             rewardsData.RewardTypes = newRewards;
             GameProgress.AddRandomRewards(rewardsData);
+            GameProgress.LogRandomRewards();
 
             var allValues = (RewardType[])Enum.GetValues(typeof(RewardType));
 
