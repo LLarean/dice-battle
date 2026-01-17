@@ -13,9 +13,7 @@ namespace DiceBattle
         {
 #if UNITY_EDITOR
             string json = JsonUtility.ToJson(unitData);
-            Debug.Log("---UnitData---");
-            Debug.Log(json);
-            Debug.Log("---End---");
+            Debug.Log("<color=yellow>UnitData:</color> " + json);
 #endif
         }
 

@@ -1,5 +1,6 @@
 ﻿namespace DiceBattle
 {
+    [System.Serializable]
     public enum RewardType
     {
         DisableEmptyState,
