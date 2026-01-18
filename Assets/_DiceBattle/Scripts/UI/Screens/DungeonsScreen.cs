@@ -49,9 +49,9 @@ namespace DiceBattle.UI
 
         private LevelData GetLevelData(int index)
         {
-            int currentLevel = GameProgress.CurrentLevel;
-            bool isAvailable = index == currentLevel;
-            bool isCompleted = index < currentLevel;
+            int completedLevels = GameProgress.CompletedLevels;
+            bool isCompleted = index < completedLevels;
+            bool isAvailable = index == completedLevels;
 
             return new LevelData
             {
