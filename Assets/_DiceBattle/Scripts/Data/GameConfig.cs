@@ -13,7 +13,6 @@ namespace DiceBattle.Data
     {
         [Header("UnitConfigs")]
         public UnitConfig Player;
-        public UnitConfig Enemy;
         public List<UnitData> Enemies = new();
 
         [Header("Dice")]
