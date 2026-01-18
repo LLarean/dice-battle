@@ -46,7 +46,7 @@ namespace DiceBattle.Global
         public static void Log()
         {
             string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, "{}");
-            Debug.Log("<color=yellow>ReceivedRewards:</color>" + rewardsJson);
+            Debug.Log("<color=yellow>AcquiredRewardsStorage:</color>" + rewardsJson);
         }
 
         public static void Clear() => PlayerPrefs.DeleteKey(_playerPrefsKey);

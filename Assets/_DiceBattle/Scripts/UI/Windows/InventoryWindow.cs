@@ -48,9 +48,9 @@ namespace DiceBattle.UI
         private void EnableItems()
         {
             ToggleRewardItem(RewardType.DisableEmptyState);
-            ToggleRewardItem(RewardType.DoubleDamage);
+            ToggleRewardItem(RewardType.BaseDamage);
             ToggleRewardItem(RewardType.RegenHealth);
-            ToggleRewardItem(RewardType.Armor);
+            ToggleRewardItem(RewardType.BaseArmor);
         }
 
         private void ToggleRewardItem(RewardType rewardType)

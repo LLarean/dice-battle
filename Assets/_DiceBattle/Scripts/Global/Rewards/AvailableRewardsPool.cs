@@ -46,7 +46,7 @@ namespace DiceBattle.Global
         public static void Log()
         {
             string randomRewardsJson = PlayerPrefs.GetString(_playerPrefsKey, "{}");
-            Debug.Log("<color=yellow>RandomRewards: </color>" + randomRewardsJson);
+            Debug.Log("<color=yellow>AvailableRewardsPool: </color>" + randomRewardsJson);
         }
 
         public static void Clear() => PlayerPrefs.DeleteKey(_playerPrefsKey);

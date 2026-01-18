@@ -33,15 +33,15 @@ namespace DiceBattle.UI
                 RewardType.DisableEmptyState => "Отключить пустое состояние",
                 // RewardType.DisableArmorState => "Отключение стейт армора",
                 RewardType.AdditionalTry => "Добавить попытку",
-                RewardType.FirstAdditionalDice => "Дополнительный кубик 1",
+                RewardType.AdditionalDice => "Дополнительный кубик 1",
                 // RewardType.SecondAdditionalDice => "Дополнительный кубик 1",
                 // RewardType.AdditionalDamage => "Дополнительный урон",
-                RewardType.DoubleDamage => "Двойной урон",
+                RewardType.BaseDamage => "Двойной урон",
                 // RewardType.MagicDamage => "Магический урон",
                 RewardType.RegenHealth => "Регенерация здоровья",
                 RewardType.RestoreHealth => "Восстановить здоровье",
                 RewardType.DoubleHealth => "Двойное здоровье",
-                RewardType.Armor => "Армор",
+                RewardType.BaseArmor => "Армор",
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
