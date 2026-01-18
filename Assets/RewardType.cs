@@ -1,24 +1,24 @@
 ﻿namespace DiceBattle
 {
-    [System.Serializable]
     public enum RewardType
     {
+        // General
         DisableEmptyState,
-        // DisableArmorState,
-
         AdditionalTry,
+        AdditionalDice,
 
-        FirstAdditionalDice,
-        // SecondAdditionalDice,
-
-        // AdditionalDamage,
-        DoubleDamage,
-        // MagicDamage,
-
-        RegenHealth,
-        RestoreHealth,
+        // Character Upgrades
+        BaseDamage,
+        BaseArmor,
         DoubleHealth,
 
-        Armor,
+        // Dice Upgrades
+        UpgradeAttack,
+        UpgradeHealth,
+        UpgradeArmor,
+
+        // Restore Health
+        RegenHealth,
+        RestoreHealth,
     }
 }

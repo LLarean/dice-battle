@@ -37,7 +37,7 @@ namespace DiceBattle.Global
         {
             RewardsData rewardsData = GetReceivedRewards();
 
-            int firstDice = rewardsData.RewardTypes.Where(rewardType => rewardType == RewardType.FirstAdditionalDice).Sum(rewardType => 1);
+            int firstDice = rewardsData.RewardTypes.Where(rewardType => rewardType == RewardType.AdditionalDice).Sum(rewardType => 1);
             // int secondDice = rewards.RewardTypes.Where(rewardType => rewardType == RewardType.SecondAdditionalDice).Sum(rewardType => 1);
 
             int diceCount = 3;

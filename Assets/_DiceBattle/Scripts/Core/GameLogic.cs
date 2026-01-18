@@ -188,21 +188,21 @@ namespace DiceBattle.Core
 
         private void ApplyPlayerArmor()
         {
-            int bonusArmor = _rewardsData.RewardTypes.Count(r => r == RewardType.Armor) * _config.Player.GrowthArmor;
+            int bonusArmor = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseArmor) * _config.Player.GrowthArmor;
             _playerData.Armor = Mathf.Max(0, _diceResult.Armor + bonusArmor);
             _gameScreen.UpdatePlayerArmor(_playerData.Armor);
         }
 
         private void RemovePlayerArmor()
         {
-            int bonusArmor = _rewardsData.RewardTypes.Count(r => r == RewardType.Armor) * _config.Player.GrowthArmor;
+            int bonusArmor = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseArmor) * _config.Player.GrowthArmor;
             _playerData.Armor = Mathf.Max(0, bonusArmor);
             _gameScreen.UpdatePlayerArmor(bonusArmor);
         }
 
         private void ApplyPlayerAttack()
         {
-            int doubleDamageCount = _rewardsData.RewardTypes.Count(r => r == RewardType.DoubleDamage);
+            int doubleDamageCount = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseDamage);
             int damageToEnemy = Mathf.Max(_diceResult.Damage, _diceResult.Damage * doubleDamageCount);
             _gameScreen.EnemyTakeDamage(damageToEnemy);
 
