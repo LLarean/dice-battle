@@ -22,19 +22,6 @@ MonoBehaviour:
     GrowthDamage: 2
     StartArmor: 0
     GrowthArmor: 0
-  Enemy:
-    Portraits:
-    - {fileID: -735669648, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-    - {fileID: 750657890, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-    - {fileID: 1682503996, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-    - {fileID: 1616578468, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-    StartHealth: 5
-    RegenHealth: 0
-    GrowthHealth: 2
-    StartDamage: 2
-    GrowthDamage: 2
-    StartArmor: 0
-    GrowthArmor: 2
   Enemies:
   - Title: "\u041C\u0430\u043B\u044B\u0439 \u0441\u043B\u0430\u0439\u043C"
     Portrait: {fileID: -735669648, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
@@ -44,18 +31,54 @@ MonoBehaviour:
     Armor: 0
   - Title: "\u0421\u043B\u0430\u0439\u043C"
     Portrait: {fileID: 750657890, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-    MaxHealth: 7
-    CurrentHealth: 7
+    MaxHealth: 6
+    CurrentHealth: 6
     Damage: 3
     Armor: 0
   - Title: "\u0411\u043E\u043B\u044C\u0448\u043E\u0439 \u0441\u043B\u0430\u0439\u043C"
     Portrait: {fileID: 1682503996, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-    MaxHealth: 10
-    CurrentHealth: 10
+    MaxHealth: 9
+    CurrentHealth: 9
     Damage: 4
     Armor: 1
   - Title: "\u042D\u043B\u0435\u043C\u0435\u043D\u0442\u0430\u043B\u044C"
     Portrait: {fileID: 1616578468, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    MaxHealth: 11
+    CurrentHealth: 11
+    Damage: 5
+    Armor: 1
+  - Title: "\u0411\u043E\u043B\u044C\u0448\u043E\u0439 \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430\u043B\u044C"
+    Portrait: {fileID: -89511923, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    MaxHealth: 13
+    CurrentHealth: 13
+    Damage: 5
+    Armor: 1
+  - Title: "\u0421\u043A\u0435\u043B\u0435\u0442 \u043B\u0443\u0447\u043D\u0438\u043A"
+    Portrait: {fileID: -110279060, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    MaxHealth: 10
+    CurrentHealth: 10
+    Damage: 4
+    Armor: 2
+  - Title: "\u0421\u043A\u0435\u043B\u0435\u0442 \u0432\u043E\u0438\u043D"
+    Portrait: {fileID: -135622888, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    MaxHealth: 10
+    CurrentHealth: 10
+    Damage: 4
+    Armor: 2
+  - Title: "\u0411\u043E\u043B\u044C\u0448\u043E\u0439 \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430\u043B\u044C"
+    Portrait: {fileID: -89511923, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    MaxHealth: 10
+    CurrentHealth: 10
+    Damage: 4
+    Armor: 2
+  - Title: "\u042F\u0449\u0435\u0440 \u0432\u043E\u0438\u043D"
+    Portrait: {fileID: 328333050, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    MaxHealth: 10
+    CurrentHealth: 10
+    Damage: 4
+    Armor: 2
+  - Title: "\u0414\u0440\u0430\u043A\u043E\u043D"
+    Portrait: {fileID: 86372833, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     MaxHealth: 10
     CurrentHealth: 10
     Damage: 4

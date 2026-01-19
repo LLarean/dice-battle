@@ -9,7 +9,7 @@ namespace DiceBattle.UI
     {
         [Header("Screens")]
         [SerializeField] private MainMenuScreen _mainMenuScreen;
-        [SerializeField] private DungeonsScreen _dungeonsScreen;
+        [SerializeField] private TavernScreen _tavernScreen;
         [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
         [SerializeField] private LootScreen _lootScreen;
@@ -39,7 +39,7 @@ namespace DiceBattle.UI
 
         public void Back()
         {
-            if (_currentScreen.TryGetComponent(out DungeonsScreen dungeonsScreen))
+            if (_currentScreen.TryGetComponent(out TavernScreen dungeonsScreen))
             {
                 ShowScreen(ScreenType.MainMenu);
             }
@@ -56,7 +56,7 @@ namespace DiceBattle.UI
                 ScreenType.GameScreen => _gameScreen,
                 ScreenType.GameOverScreen => _gameOverScreen,
                 ScreenType.LootScreen => _lootScreen,
-                ScreenType.DungeonsScreen => _dungeonsScreen,
+                ScreenType.DungeonsScreen => _tavernScreen,
 
                 ScreenType.OptionsWindow => _optionsWindow,
                 ScreenType.InventoryWindow => _inventoryWindow,
@@ -67,7 +67,7 @@ namespace DiceBattle.UI
         private void Awake()
         {
             _mainMenuScreen.gameObject.SetActive(false);
-            _dungeonsScreen.gameObject.SetActive(false);
+            _tavernScreen.gameObject.SetActive(false);
             _gameOverScreen.gameObject.SetActive(false);
             _gameScreen.gameObject.SetActive(false);
             _lootScreen.gameObject.SetActive(false);
