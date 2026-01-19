@@ -18,6 +18,8 @@ namespace DiceBattle.UI
         [Space]
         [SerializeField] private Button _start;
         [SerializeField] private TextMeshProUGUI _startLabel;
+        [Space]
+        [SerializeField] private TextMeshProUGUI _message;
 
         private LevelData GetLevelData(int index)
         {
@@ -32,6 +34,22 @@ namespace DiceBattle.UI
                 IsAvailable = isAvailable,
                 IsCompleted = isCompleted,
             };
+        }
+
+        private void ShowMessage()
+        {
+            int completedLevels = GameProgress.CompletedLevels;
+
+            // TODO Separate it into a separate logic
+            // Add translation to other languages
+            if (completedLevels == 0)
+            {
+                _message.text = "Добро пожаловать в таверну!";
+            }
+            else
+            {
+                _message.text = "Как ваши приключения?";
+            }
         }
 
         #region Unity lifecycle
@@ -51,6 +69,7 @@ namespace DiceBattle.UI
         private void OnEnable()
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Tavern));
+            ShowMessage();
         }
 
         #endregion
