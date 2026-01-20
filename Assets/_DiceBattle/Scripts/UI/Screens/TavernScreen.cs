@@ -21,21 +21,6 @@ namespace DiceBattle.UI
         [Space]
         [SerializeField] private TextMeshProUGUI _message;
 
-        private LevelData GetLevelData(int index)
-        {
-            int completedLevels = GameProgress.CompletedLevels;
-            bool isCompleted = index < completedLevels;
-            bool isAvailable = index == completedLevels;
-
-            return new LevelData
-            {
-                Portrait = _gameConfig.Enemies[index].Portrait,
-                Title = $"Уровень {index + 1}", // TODO Translation into other languages
-                IsAvailable = isAvailable,
-                IsCompleted = isCompleted,
-            };
-        }
-
         private void ShowMessage()
         {
             int completedLevels = GameProgress.CompletedLevels;
@@ -51,6 +36,13 @@ namespace DiceBattle.UI
                 _message.text = "Как ваши приключения?";
             }
         }
+
+        private void SetLabel()
+        {
+            int completedLevels = GameProgress.CompletedLevels;
+            _startLabel.text = "Уровень " + (completedLevels + 1); // TODO Translation into other languages
+        }
+
 
         #region Unity lifecycle
 
@@ -70,6 +62,7 @@ namespace DiceBattle.UI
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Tavern));
             ShowMessage();
+            SetLabel();
         }
 
         #endregion
