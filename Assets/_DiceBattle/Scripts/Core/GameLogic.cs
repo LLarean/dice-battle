@@ -35,6 +35,8 @@ namespace DiceBattle.Core
 
         public void InitializeGame()
         {
+            LoadGame();
+
             _attemptsNumber = 0;
             _playerHealthDelta = 0;
             _enemyHealthDelta = 0;
@@ -81,13 +83,7 @@ namespace DiceBattle.Core
             _enemyHealthDelta = _enemyData.CurrentHealth;
 
             PlayerTurn();
-
-            // _playerHealthDelta = _playerData.CurrentHealth - _playerHealthDelta;
-            // AnimatePlayerHealth();
-
             _attemptsNumber = 0;
-            // _playerHealthDelta = 0;
-            // _enemyHealthDelta = 0;
 
             _gameScreen.ResetSelection();
             _gameScreen.SetContextLabel("Бросить все"); // TODO Translation
@@ -127,6 +123,16 @@ namespace DiceBattle.Core
             }
 
             _enemyHealthDelta = 0;
+        }
+
+        private void LoadGame()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void SaveGame()
+        {
+            throw new System.NotImplementedException();
         }
 
         #region Updates
@@ -247,6 +253,8 @@ namespace DiceBattle.Core
 
             AnimatePlayerHealth();
             RemovePlayerArmor();
+
+            SaveGame();
         }
 
         private void OnEnemyDefeated()
@@ -261,14 +269,11 @@ namespace DiceBattle.Core
             _enemyData = _spawner.SpawnEnemy();
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Victory));
-
-            // TODO Add bonus armor
-            _playerData.Armor = 0;
-            _gameScreen.UpdatePlayerArmor(0);
-
+            RemovePlayerArmor();
             UpdateButtonStates();
-        }
 
+            SaveGame();
+        }
         #endregion
     }
 }
