@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using DiceBattle.UI;
 using UnityEngine;
@@ -54,6 +53,16 @@ namespace DiceBattle.Global
 
             return diceCount;
         }
+
+        #region Game Data
+
+        public static void LoadGameModel() => GameData.Load();
+
+        public static void SaveGameModel() => GameData.Save(null);
+
+        public static void ClearGameModel() => GameData.Clear();
+
+        #endregion
 
         #region Received Rewards
 
