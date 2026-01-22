@@ -1,5 +1,11 @@
-﻿namespace DiceBattle
+﻿using DiceBattle.UI;
+
+namespace DiceBattle
 {
+    /// <summary>
+    /// This file must be updated when updating -
+    /// <seealso cref="RewardTypeExtensions"/>>
+    /// </summary>
     public enum RewardType
     {
         // General

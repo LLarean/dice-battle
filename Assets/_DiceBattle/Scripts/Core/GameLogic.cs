@@ -127,12 +127,12 @@ namespace DiceBattle.Core
 
         private void LoadGame()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Load game");
         }
 
         private void SaveGame()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Save game");
         }
 
         #region Updates
