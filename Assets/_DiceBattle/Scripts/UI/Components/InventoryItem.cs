@@ -13,8 +13,7 @@ namespace DiceBattle.UI
         public void Construct(RewardType rewardType)
         {
             _rewardType = rewardType;
-            // TODO Add title display and translation into different languages
-            _title.text = rewardType.ToString();
+            _title.text = rewardType.Title();
         }
     }
 }
