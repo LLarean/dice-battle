@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1359f8934979c41b630f43d37f9eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _title: {fileID: 6410725216116619695}
 --- !u!114 &2604613094201039162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,7 +102,7 @@ GameObject:
   - component: {fileID: 8246134887094225497}
   - component: {fileID: 6410725216116619695}
   m_Layer: 5
-  m_Name: Label_Text
+  m_Name: Title_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
