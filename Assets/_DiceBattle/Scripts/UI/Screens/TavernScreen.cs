@@ -1,5 +1,4 @@
 using DiceBattle.Audio;
-using DiceBattle.Core;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
@@ -19,23 +18,7 @@ namespace DiceBattle.UI
         [SerializeField] private Button _start;
         [SerializeField] private TextMeshProUGUI _startLabel;
         [Space]
-        [SerializeField] private TextMeshProUGUI _message;
-
-        private void ShowMessage()
-        {
-            int completedLevels = GameProgress.CompletedLevels;
-
-            // TODO Separate it into a separate logic
-            // Add translation to other languages
-            if (completedLevels == 0)
-            {
-                _message.text = "Добро пожаловать в таверну!";
-            }
-            else
-            {
-                _message.text = "Как ваши приключения?";
-            }
-        }
+        [SerializeField] private Innkeeper _innkeeper;
 
         private void SetLabel()
         {
@@ -61,7 +44,7 @@ namespace DiceBattle.UI
         private void OnEnable()
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Tavern));
-            ShowMessage();
+            _innkeeper.ShowMessage();
             SetLabel();
         }
 

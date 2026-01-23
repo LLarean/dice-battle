@@ -769,9 +769,10 @@ GameObject:
   m_Component:
   - component: {fileID: 182705707}
   - component: {fileID: 182705709}
+  - component: {fileID: 182705710}
   - component: {fileID: 182705708}
   m_Layer: 5
-  m_Name: DialogueBubble
+  m_Name: Innkeeper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -835,6 +836,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182705706}
   m_CullTransparentMesh: 1
+--- !u!114 &182705710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182705706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1176dc32cb84a2e9b328727799df291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _message: {fileID: 1381595744}
 --- !u!1001 &192876208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1954,7 +1968,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 27.950684}
-  m_SizeDelta: {x: 1080, y: 549.1207}
+  m_SizeDelta: {x: 780, y: 549.1207}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &461672292
 PrefabInstance:
@@ -4128,7 +4142,7 @@ MonoBehaviour:
   _inventory: {fileID: 1521362255}
   _start: {fileID: 2054401915}
   _startLabel: {fileID: 1072048042}
-  _message: {fileID: 1381595744}
+  _innkeeper: {fileID: 182705710}
 --- !u!225 &1017251809
 CanvasGroup:
   m_ObjectHideFlags: 0
