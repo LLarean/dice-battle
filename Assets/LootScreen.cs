@@ -9,7 +9,7 @@ using GameSignals;
 using UnityEngine;
 using Random = System.Random;
 
-namespace DiceBattle
+namespace DiceBattle.UI
 {
     public class LootScreen : Screen
     {

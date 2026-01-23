@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DiceBattle
+namespace DiceBattle.UI
 {
     public class CreditsWindow : Screen
     {
