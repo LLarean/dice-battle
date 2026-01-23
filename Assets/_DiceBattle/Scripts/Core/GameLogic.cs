@@ -21,6 +21,7 @@ namespace DiceBattle.Core
 
         private RewardsData _rewardsData;
         private int _attemptsNumber;
+        private int _maxAttempts;
 
         private int _playerHealthDelta;
         private int _enemyHealthDelta;
@@ -40,6 +41,7 @@ namespace DiceBattle.Core
             _attemptsNumber = 0;
             _playerHealthDelta = 0;
             _enemyHealthDelta = 0;
+            SetMaxAttempts();
 
             _enemyData = _spawner.SpawnEnemy();
             _playerData = _spawner.SpawnHero();
@@ -56,7 +58,7 @@ namespace DiceBattle.Core
             {
                 _gameScreen.RollDice();
             }
-            else if (_attemptsNumber < _config.MaxAttempts)
+            else if (_attemptsNumber < _maxAttempts)
             {
                 if (_gameScreen.HaveSelectedDice)
                 {
@@ -158,7 +160,7 @@ namespace DiceBattle.Core
             {
                 _gameScreen.DisableDiceInteractable();
             }
-            else if (_attemptsNumber >= _config.MaxAttempts - 1)
+            else if (_attemptsNumber >= _maxAttempts - 1)
             {
                 _gameScreen.DisableDiceInteractable();
                 _gameScreen.SetContextLabel("Закончить"); // TODO Translation
@@ -169,8 +171,22 @@ namespace DiceBattle.Core
                 _gameScreen.SetContextLabel("Закончить"); // TODO Translation
             }
 
-            int attemptsLeft = _config.MaxAttempts - 1 - _attemptsNumber;
-            _gameScreen.ShowAttemptsHint(attemptsLeft);
+            ShowAttempts();
+        }
+
+        private void ShowAttempts()
+        {
+            int attemptsLeft = _maxAttempts - 1 - _attemptsNumber;
+            // TODO Translate
+            string message = $"Осталось {attemptsLeft} попыток";
+            SignalSystem.Raise<IHintHandler>(handler => handler.Show(message));
+        }
+
+        private void SetMaxAttempts()
+        {
+            RewardsData receivedRewards = GameProgress.GetReceivedRewards();
+            int additionalTryCount = receivedRewards.RewardTypes.Count(reward => reward == RewardType.AdditionalTry);
+            _maxAttempts = _config.MaxAttempts + additionalTryCount;
         }
 
         #endregion

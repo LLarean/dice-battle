@@ -37,8 +37,6 @@ namespace DiceBattle.Core
             _diceHolder.SetSocketCount(count);
         }
 
-        public void ShowAttemptsHint(int attemptCount) => _diceShaker.ShowAttemptsHint(attemptCount);
-
         private void HandleRollComplete()
         {
             _diceHolder.RepositionDice();

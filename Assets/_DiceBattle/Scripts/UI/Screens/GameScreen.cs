@@ -53,8 +53,6 @@ namespace DiceBattle.UI
 
         public void ResetSelection() => _gameBoard.ClearAllSelection();
 
-        public void ShowAttemptsHint(int attemptCount) => _gameBoard.ShowAttemptsHint(attemptCount);
-
         #region Damage/Healing Animation
 
         public void PlayerAnimateHeal() => _player.AnimateHeal();

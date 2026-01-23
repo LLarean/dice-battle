@@ -11,14 +11,11 @@ namespace DiceBattle.Core
 {
     public class DiceShaker : MonoBehaviour
     {
-        [SerializeField] private Hint _hint;
         [SerializeField] private RectTransform _rollArea;
 
         private DiceAnimation _diceAnimation;
 
         public event Action OnRollCompleted;
-
-        public void ShowAttemptsHint(int attemptCount) => _hint.ShowAttempts(attemptCount);
 
         public void Roll(List<Dice> dices)
         {
