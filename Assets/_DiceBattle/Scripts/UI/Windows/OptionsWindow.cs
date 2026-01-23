@@ -51,7 +51,7 @@ namespace DiceBattle.UI
 
         private void HandleCreditsClick()
         {
-            Debug.Log("Credits");
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.CreditsWindow));
             gameObject.SetActive(false);
         }
 

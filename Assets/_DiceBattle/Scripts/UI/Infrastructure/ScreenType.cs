@@ -10,5 +10,6 @@
 
         OptionsWindow,
         InventoryWindow,
+        CreditsWindow,
     }
 }
