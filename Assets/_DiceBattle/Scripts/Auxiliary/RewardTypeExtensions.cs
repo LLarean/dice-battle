@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DiceBattle.UI
+namespace DiceBattle
 {
     public static class RewardTypeExtensions
     {
@@ -15,7 +15,7 @@ namespace DiceBattle.UI
                 RewardType.BaseDamage => "Добавить базовый урон",
                 RewardType.BaseArmor => "Добавить базовый армор",
                 RewardType.DoubleHealth => "Двойное здоровье",
-                
+
                 RewardType.UpgradeAttack => "Улучшение атаки",
                 RewardType.UpgradeHealth => "Улучшение здоровья",
                 RewardType.UpgradeArmor => "Улучшение армора",
