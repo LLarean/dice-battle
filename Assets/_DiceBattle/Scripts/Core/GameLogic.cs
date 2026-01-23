@@ -168,6 +168,9 @@ namespace DiceBattle.Core
                 _gameScreen.EnableDiceInteractable();
                 _gameScreen.SetContextLabel("Закончить"); // TODO Translation
             }
+
+            int attemptsLeft = _config.MaxAttempts - 1 - _attemptsNumber;
+            _gameScreen.ShowAttemptsHint(attemptsLeft);
         }
 
         #endregion
