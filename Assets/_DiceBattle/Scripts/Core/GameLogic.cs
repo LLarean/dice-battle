@@ -48,6 +48,7 @@ namespace DiceBattle.Core
 
             UpdateDiceCount();
             _gameScreen.DisableDiceInteractable();
+            SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
         }
 
         public void ContextClick()
