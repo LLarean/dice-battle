@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using DiceBattle.Global;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace DiceBattle.Auxiliary
@@ -18,7 +19,7 @@ namespace DiceBattle.Auxiliary
             }
         }
 
-        [ContextMenu("AddReward")]
+        [Button]
         private void AddReward()
         {
             GameProgress.AddReceivedReward(_rewardType);
