@@ -7,6 +7,7 @@ namespace DiceBattle.Auxiliary
     public class DebugOptions : MonoBehaviour
     {
         [SerializeField] private bool _needResetAll;
+        [SerializeField] private RewardType _rewardType;
 
         private void Start()
         {
@@ -15,6 +16,12 @@ namespace DiceBattle.Auxiliary
                 GameProgress.ResetAll();
                 GameSettings.ResetVolume();
             }
+        }
+
+        [ContextMenu("AddReward")]
+        private void AddReward()
+        {
+            GameProgress.AddReceivedReward(_rewardType);
         }
     }
 }
