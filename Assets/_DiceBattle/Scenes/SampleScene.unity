@@ -848,6 +848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _message: {fileID: 1381595744}
+  _config: {fileID: 11400000, guid: df54c4b9d3e2d694da2d8d39c35d28b6, type: 2}
 --- !u!1001 &192876208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5955,6 +5956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _needResetAll: 1
+  _rewardType: 0
 --- !u!4 &1327191625
 Transform:
   m_ObjectHideFlags: 0
@@ -6035,7 +6037,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c73f4cc12e4970a880d54b98f8cb87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hint: {fileID: 2117777944}
   _rollArea: {fileID: 1345067138}
 --- !u!1 &1346465878
 GameObject:
