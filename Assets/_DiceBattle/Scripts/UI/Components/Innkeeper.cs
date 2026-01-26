@@ -7,9 +7,10 @@ namespace DiceBattle.UI
     public class Innkeeper : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _message;
-    
+
         public void ShowMessage()
         {
+            AnimateIn();
             int completedLevels = GameProgress.CompletedLevels;
 
             // TODO Separate it into a separate logic
@@ -23,5 +24,11 @@ namespace DiceBattle.UI
                 _message.text = "Как ваши приключения?";
             }
         }
+
+        private void AnimateIn()
+        {
+            // TODO Add animation
+        }
+
     }
 }
