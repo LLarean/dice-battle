@@ -9,6 +9,8 @@ namespace DiceBattle.Core
         [SerializeField] private DiceShaker _diceShaker;
         [SerializeField] private DiceHolder _diceHolder;
         [Space]
+        [SerializeField] private Dice _dice;
+        [SerializeField] private Transform _diceSpawn;
         [SerializeField] private List<Dice> _dices;
 
         public event Action OnRollCompleted;
@@ -50,6 +52,7 @@ namespace DiceBattle.Core
             _diceShaker.OnRollCompleted += HandleRollComplete;
             _diceHolder.OnDiceToggled += HandleDiceToggle;
 
+            InstantiateDice();
             _diceHolder.Initialize(_dices);
         }
 
@@ -57,6 +60,30 @@ namespace DiceBattle.Core
         {
             _diceShaker.OnRollCompleted -= HandleRollComplete;
             _diceHolder.OnDiceToggled -= HandleDiceToggle;
+        }
+
+        private void InstantiateDice()
+        {
+            ClearDice();
+
+            // TODO Add dice count
+            int diceCount = 5;
+
+            for (int i = 0; i < diceCount; i++)
+            {
+                Dice dice = Instantiate(_dice, _diceSpawn);
+                _dices.Add(dice);
+            }
+        }
+
+        private void ClearDice()
+        {
+            foreach (Dice dice in _dices)
+            {
+                Destroy(dice.gameObject);
+            }
+
+            _dices.Clear();
         }
     }
 }
