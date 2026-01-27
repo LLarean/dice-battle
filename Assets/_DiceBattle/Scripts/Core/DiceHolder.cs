@@ -8,8 +8,10 @@ namespace DiceBattle.Core
     public class DiceHolder : MonoBehaviour
     {
         private readonly List<Dice> _occupied = new();
+        private readonly List<GameObject> _slots = new();
 
-        [SerializeField] private List<Transform> _slots = new(5);
+        [SerializeField] private GameObject _diceSlot;
+        [SerializeField] private Transform _slotSpawn;
 
         public event Action OnDiceToggled;
 
@@ -18,14 +20,9 @@ namespace DiceBattle.Core
 
         public void Initialize(List<Dice> dice)
         {
-            _occupied.Clear();
-
-            for (int i = 0; i < dice.Count; i++)
-            {
-                PlaceInSlot(dice[i], i);
-                dice[i].OnToggled += HandleDiceToggle;
-                _occupied.Add(dice[i]);
-            }
+            DestroySlots();
+            InstantiateSlots(dice.Count);
+            PlaceDiceToSlots(dice);
         }
 
         public void RepositionDice()
@@ -39,7 +36,6 @@ namespace DiceBattle.Core
 
                 if (_occupied[i].transform.parent != _slots[i].transform)
                 {
-                    // _occupied[i].Roll();
                     PlaceInSlot(_occupied[i], i);
                 }
             }
@@ -53,9 +49,50 @@ namespace DiceBattle.Core
             }
         }
 
+        private void DestroySlots()
+        {
+            foreach (GameObject slot in _slots)
+            {
+                Destroy(slot);
+            }
+
+            _slots.Clear();
+        }
+
+        private void InstantiateSlots(int diceCount)
+        {
+            for (int i = 0; i < diceCount; i++)
+            {
+                GameObject diceSlot = Instantiate(_diceSlot, _slotSpawn);
+                _slots.Add(diceSlot);
+            }
+        }
+
+        private void PlaceDiceToSlots(List<Dice> dice)
+        {
+            ClearOccupiedDice();
+
+            for (int i = 0; i < dice.Count; i++)
+            {
+                PlaceInSlot(dice[i], i);
+                dice[i].OnToggled += HandleDiceToggle;
+                _occupied.Add(dice[i]);
+            }
+        }
+
+        private void ClearOccupiedDice()
+        {
+            foreach (Dice dice in _occupied)
+            {
+                dice.OnToggled -= HandleDiceToggle;
+            }
+
+            _occupied.Clear();
+        }
+
         private void PlaceInSlot(Dice dice, int slotIndex)
         {
-            dice.transform.SetParent(_slots[slotIndex]);
+            dice.transform.SetParent(_slots[slotIndex].transform);
             dice.transform.localPosition = Vector3.zero;
         }
 
