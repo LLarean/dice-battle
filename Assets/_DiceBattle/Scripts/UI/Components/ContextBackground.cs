@@ -7,9 +7,9 @@ namespace DiceBattle.UI
     {
         [SerializeField] private Image _image;
 
-        public void Show()
+        public void SetSprite(Sprite sprite)
         {
-            //TODO The logic of displaying the background depends on the enemy
+            _image.sprite = sprite;
         }
     }
 }
