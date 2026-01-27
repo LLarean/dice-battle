@@ -8,6 +8,7 @@ namespace DiceBattle.UI
     {
         public string Title;
         public Sprite Portrait;
+        public Sprite Background;
 
         public int MaxHealth;
         public int CurrentHealth;

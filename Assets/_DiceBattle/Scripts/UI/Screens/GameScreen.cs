@@ -13,6 +13,7 @@ namespace DiceBattle.UI
     {
         [SerializeField] private GameConfig _config;
         [Space]
+        [SerializeField] private ContextBackground _contextBackground;
         [SerializeField] private UnitPanel _player;
         [SerializeField] private UnitPanel _enemy;
         [SerializeField] private GameBoard _gameBoard;
@@ -29,7 +30,11 @@ namespace DiceBattle.UI
 
         public void SetPlayerData(UnitData unitData) => _player.SetUnitData(unitData);
 
-        public void SetEnemyData(UnitData unitData) => _enemy.SetUnitData(unitData);
+        public void SetEnemyData(UnitData unitData)
+        {
+            _contextBackground.SetSprite(unitData.Background);
+            _enemy.SetUnitData(unitData);
+        }
 
         public void SetDiceCount(int count) => _gameBoard.SetDiceCount(count);
 
