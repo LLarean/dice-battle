@@ -1,17 +1,24 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using DiceBattle.Data;
+using DiceBattle.Global;
+using DiceBattle.UI;
 using UnityEngine;
 
 namespace DiceBattle.Core
 {
     public class GameBoard : MonoBehaviour
     {
+        private readonly List<Dice> _dices = new();
+
+        [SerializeField] private GameConfig _config;
+        [Space]
         [SerializeField] private DiceShaker _diceShaker;
         [SerializeField] private DiceHolder _diceHolder;
         [Space]
         [SerializeField] private Dice _dice;
         [SerializeField] private Transform _diceSpawn;
-        [SerializeField] private List<Dice> _dices;
 
         public event Action OnRollCompleted;
         public event Action OnDiceToggled;
@@ -47,13 +54,16 @@ namespace DiceBattle.Core
 
         private void HandleDiceToggle() => OnDiceToggled?.Invoke();
 
+        private void Awake()
+        {
+            InstantiateDice();
+            _diceHolder.Initialize(_dices);
+        }
+
         private void Start()
         {
             _diceShaker.OnRollCompleted += HandleRollComplete;
             _diceHolder.OnDiceToggled += HandleDiceToggle;
-
-            InstantiateDice();
-            _diceHolder.Initialize(_dices);
         }
 
         private void OnDestroy()
@@ -66,8 +76,9 @@ namespace DiceBattle.Core
         {
             ClearDice();
 
-            // TODO Add dice count
-            int diceCount = 5;
+            RewardsData receivedRewards = GameProgress.GetReceivedRewards();
+            int additionalDiceCount = receivedRewards.RewardTypes.Count(r => r == RewardType.AdditionalDice);
+            int diceCount = _config.DiceStartCount + additionalDiceCount;
 
             for (int i = 0; i < diceCount; i++)
             {
