@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DiceBattle.UI;
 using UnityEngine;
+using Random = System.Random;
 
 namespace DiceBattle.Global
 {
@@ -53,9 +56,13 @@ namespace DiceBattle.Global
 
         private static RewardsData CreateNewRewardsData()
         {
+            var random = new Random();
+            var rewardTypes = Enum.GetValues(typeof(RewardType)).Cast<RewardType>().ToList();
+            var randomRewards = rewardTypes.OrderBy(x => random.Next()).ToList();
+
             return new RewardsData
             {
-                RewardTypes = new List<RewardType>()
+                RewardTypes = randomRewards
             };
         }
     }
