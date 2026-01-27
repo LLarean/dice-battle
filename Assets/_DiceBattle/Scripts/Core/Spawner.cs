@@ -24,6 +24,7 @@ namespace DiceBattle.Core
             {
                 Title = source.Title,
                 Portrait = source.Portrait,
+                Background = source.Background,
                 MaxHealth = source.MaxHealth,
                 CurrentHealth = source.MaxHealth,
                 Damage = source.Damage,

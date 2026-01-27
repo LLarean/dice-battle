@@ -32,12 +32,21 @@ namespace DiceBattle.Animations
         {
             _dicesToRoll = dices;
 
+            DisableIcons();
             UpdateAreaBounds();
             GenerateNonOverlappingPositions(dices.Count);
 
             for (int i = 0; i < dices.Count; i++)
             {
                 AnimateDice(dices[i], _finalPositions[i], i);
+            }
+        }
+
+        private void DisableIcons()
+        {
+            foreach (Dice dice in _dicesToRoll)
+            {
+                dice.ResetToEmpty();
             }
         }
 
