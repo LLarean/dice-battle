@@ -56,11 +56,11 @@ namespace DiceBattle.UI
         {
             if (defense > 0)
             {
-                _unitStats.ShowDefense(defense.ToString());
+                _unitStats.ShowArmor(defense.ToString());
             }
             else
             {
-                _unitStats.HideDefense();
+                _unitStats.HideArmor();
             }
         }
 
@@ -94,7 +94,7 @@ namespace DiceBattle.UI
         {
             _unitStats.HideHealth();
             _unitStats.HideAttack();
-            _unitStats.HideDefense();
+            _unitStats.HideArmor();
         }
     }
 }
