@@ -39,42 +39,42 @@ MonoBehaviour:
     Armor: 0
   - Title: "\u0411\u043E\u043B\u044C\u0448\u043E\u0439 \u0441\u043B\u0430\u0439\u043C"
     Portrait: {fileID: 1682503996, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-    Background: {fileID: 21300000, guid: 7f5b74ca0989d5b4392d011875961b0f, type: 3}
+    Background: {fileID: 21300000, guid: 38e7f46f0ee18fe409c5180c9acf2716, type: 3}
     MaxHealth: 9
     CurrentHealth: 9
     Damage: 4
     Armor: 1
+  - Title: "\u0421\u043A\u0435\u043B\u0435\u0442 \u043B\u0443\u0447\u043D\u0438\u043A"
+    Portrait: {fileID: -110279060, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    Background: {fileID: 21300000, guid: 7f5b74ca0989d5b4392d011875961b0f, type: 3}
+    MaxHealth: 10
+    CurrentHealth: 10
+    Damage: 4
+    Armor: 0
+  - Title: "\u0421\u043A\u0435\u043B\u0435\u0442 \u0432\u043E\u0438\u043D"
+    Portrait: {fileID: -135622888, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    Background: {fileID: 21300000, guid: ca95bfa043921c04ebfe8d666590b369, type: 3}
+    MaxHealth: 10
+    CurrentHealth: 10
+    Damage: 4
+    Armor: 2
   - Title: "\u042D\u043B\u0435\u043C\u0435\u043D\u0442\u0430\u043B\u044C"
     Portrait: {fileID: 1616578468, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     Background: {fileID: 21300000, guid: daf1e281e1e6ded4194aaac9d6e64174, type: 3}
-    MaxHealth: 11
-    CurrentHealth: 11
+    MaxHealth: 6
+    CurrentHealth: 6
     Damage: 5
     Armor: 1
   - Title: "\u0411\u043E\u043B\u044C\u0448\u043E\u0439 \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430\u043B\u044C"
     Portrait: {fileID: -89511923, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-    Background: {fileID: 21300000, guid: ca95bfa043921c04ebfe8d666590b369, type: 3}
-    MaxHealth: 13
-    CurrentHealth: 13
+    Background: {fileID: 21300000, guid: d568177668b2b704596764cdf4a5f945, type: 3}
+    MaxHealth: 8
+    CurrentHealth: 8
     Damage: 5
     Armor: 1
-  - Title: "\u0421\u043A\u0435\u043B\u0435\u0442 \u043B\u0443\u0447\u043D\u0438\u043A"
-    Portrait: {fileID: -110279060, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+  - Title: "\u042F\u0449\u0435\u0440"
+    Portrait: {fileID: 441093746, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     Background: {fileID: 21300000, guid: 0ab4e8524e6395644a3f5b53339fa1bf, type: 3}
-    MaxHealth: 10
-    CurrentHealth: 10
-    Damage: 4
-    Armor: 2
-  - Title: "\u0421\u043A\u0435\u043B\u0435\u0442 \u0432\u043E\u0438\u043D"
-    Portrait: {fileID: -135622888, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-    Background: {fileID: 21300000, guid: 7a83ef18b50434549875480c7a2ce916, type: 3}
-    MaxHealth: 10
-    CurrentHealth: 10
-    Damage: 4
-    Armor: 2
-  - Title: "\u0411\u043E\u043B\u044C\u0448\u043E\u0439 \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430\u043B\u044C"
-    Portrait: {fileID: -89511923, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-    Background: {fileID: 21300000, guid: 5a65086367bcdff419cf8c4981e22ed1, type: 3}
     MaxHealth: 10
     CurrentHealth: 10
     Damage: 4
@@ -88,7 +88,7 @@ MonoBehaviour:
     Armor: 2
   - Title: "\u0414\u0440\u0430\u043A\u043E\u043D"
     Portrait: {fileID: 86372833, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-    Background: {fileID: 21300000, guid: ca95bfa043921c04ebfe8d666590b369, type: 3}
+    Background: {fileID: 21300000, guid: 5a65086367bcdff419cf8c4981e22ed1, type: 3}
     MaxHealth: 10
     CurrentHealth: 10
     Damage: 4
