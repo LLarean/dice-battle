@@ -1,25 +1,15 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using DiceBattle.Audio;
 using DiceBattle.Events;
 using DiceBattle.Global;
 using GameSignals;
 using UnityEngine;
-// using Random = System.Random;
 
 namespace DiceBattle.UI
 {
     public class LootScreen : Screen
     {
         [SerializeField] private List<RewardItem> _rewardItems;
-
-        // private Random _random;
-        //
-        // private void Awake()
-        // {
-        //     _random = new Random();
-        // }
 
         private void Start()
         {
@@ -39,13 +29,7 @@ namespace DiceBattle.UI
 
         private void OnEnable()
         {
-            RollReward();
             ShowRewards();
-        }
-
-        private void ShowRewards()
-        {
-            throw new NotImplementedException();
         }
 
         private void HandleItemSelect(RewardType rewardType)
@@ -60,7 +44,7 @@ namespace DiceBattle.UI
             gameObject.SetActive(false);
         }
 
-        private void RollReward()
+        private void ShowRewards()
         {
             RewardsData randomRewards = GameProgress.GetRandomRewards();
             GameProgress.AddRandomRewards(randomRewards);
@@ -68,24 +52,9 @@ namespace DiceBattle.UI
 
             int firstRewardCount = GameProgress.CompletedLevels;
             int secondRewardCount = GameProgress.CompletedLevels + 1;
-            // var allRewardTypes = Enum.GetValues(typeof(RewardType)).Cast<RewardType>().ToList();
 
-            // var newRewards = allRewardTypes.OrderBy(x => _random.Next()).ToList();
-
-            // randomRewards.RewardTypes = newRewards;
             _rewardItems[0].SetReward(randomRewards.RewardTypes[firstRewardCount]);
             _rewardItems[1].SetReward(randomRewards.RewardTypes[secondRewardCount]);
-
-            //
-            // var allValues = (RewardType[])Enum.GetValues(typeof(RewardType));
-            //
-            // foreach (RewardItem rewardItem in _rewardItems)
-            // {
-            //     int randomIndex = _random.Next(0, allValues.Length);
-            //     var reward = (RewardType)randomIndex;
-            //
-            //     rewardItem.SetReward(reward);
-            // }
         }
     }
 }
