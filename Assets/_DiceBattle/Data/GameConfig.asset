@@ -99,4 +99,4 @@ MonoBehaviour:
   AttemptsBonusCount: 1
   MaxAttempts: 3
   CanSaveBattle: 1
-  IsInstaWin: 1
+  IsInstaWin: 0
