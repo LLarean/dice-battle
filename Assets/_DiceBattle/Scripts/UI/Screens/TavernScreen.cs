@@ -1,5 +1,4 @@
 using DiceBattle.Audio;
-using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
 using GameSignals;
@@ -11,10 +10,8 @@ namespace DiceBattle.UI
 {
     public class TavernScreen : Screen
     {
-        [SerializeField] private GameConfig _gameConfig;
         [Space]
         [SerializeField] private Button _inventory;
-        [Space]
         [SerializeField] private Button _start;
         [SerializeField] private TextMeshProUGUI _startLabel;
         [Space]
@@ -25,7 +22,6 @@ namespace DiceBattle.UI
             int completedLevels = GameProgress.CompletedLevels;
             _startLabel.text = "Уровень " + (completedLevels + 1); // TODO Translation into other languages
         }
-
 
         #region Unity lifecycle
 
