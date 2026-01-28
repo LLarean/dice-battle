@@ -1,6 +1,9 @@
 using System;
+using System.Linq;
 using DiceBattle.Audio;
 using DiceBattle.Events;
+using DiceBattle.Global;
+using DiceBattle.UI;
 using GameSignals;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,7 +43,11 @@ namespace DiceBattle.Core
 
         public void Roll()
         {
-            int randomIndex = _random.Next(0, _faceSprites.Length);
+            RewardsData receivedRewards = GameProgress.GetReceivedRewards();
+            bool containsDisableEmptyState = receivedRewards.RewardTypes.Contains(RewardType.DisableEmptyState);
+            int firstIndex = containsDisableEmptyState ? 1 : 0;
+
+            int randomIndex = _random.Next(firstIndex, _faceSprites.Length);
             _diceType = (DiceType)randomIndex;
             _faceIcon.sprite = _faceSprites[(int)_diceType];
 
