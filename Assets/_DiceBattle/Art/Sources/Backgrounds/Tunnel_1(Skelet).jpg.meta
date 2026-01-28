@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 38e7f46f0ee18fe409c5180c9acf2716
+guid: 7f5b74ca0989d5b4392d011875961b0f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2853506052482535633
-    second: Ruins_4_0
+      213: 2405106822048407966
+    second: Tunnel_1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,11 +96,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ruins_4_0
+      name: Tunnel_1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1d016aed2a0b99720800000000000000
-      internalID: 2853506052482535633
+      spriteID: e91601f69e7a06120800000000000000
+      internalID: 2405106822048407966
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Ruins_4_0: 2853506052482535633
+      Tunnel_1_0: 2405106822048407966
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

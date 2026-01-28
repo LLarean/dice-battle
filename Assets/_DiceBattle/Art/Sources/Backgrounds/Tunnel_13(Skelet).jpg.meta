@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7f5b74ca0989d5b4392d011875961b0f
+guid: ca95bfa043921c04ebfe8d666590b369
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2405106822048407966
-    second: Tunnel_1_0
+      213: 7562222327602493024
+    second: Tunnel_13_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,11 +96,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tunnel_1_0
+      name: Tunnel_13_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e91601f69e7a06120800000000000000
-      internalID: 2405106822048407966
+      spriteID: 066364df32962f860800000000000000
+      internalID: 7562222327602493024
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Tunnel_1_0: 2405106822048407966
+      Tunnel_13_0: 7562222327602493024
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
