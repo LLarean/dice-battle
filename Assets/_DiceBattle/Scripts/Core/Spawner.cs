@@ -1,7 +1,7 @@
-﻿using DiceBattle.Data;
+﻿using System.Linq;
+using DiceBattle.Data;
 using DiceBattle.Global;
 using DiceBattle.UI;
-using UnityEngine;
 
 namespace DiceBattle.Core
 {
@@ -38,7 +38,7 @@ namespace DiceBattle.Core
 
         public UnitData SpawnHero()
         {
-            UnitData playerData = GetUnitData(_config.Player);
+            UnitData playerData = GetHeroUnitData(_config.Player);
             playerData.Title = "Герой (вы)"; // TODO Translation
             playerData.Portrait = _config.Player.Portraits[0];
 
@@ -47,11 +47,19 @@ namespace DiceBattle.Core
             return playerData;
         }
 
-        private UnitData GetUnitData(UnitConfig unitConfig)
+        private UnitData GetHeroUnitData(UnitConfig unitConfig)
         {
-            int maxHealth = unitConfig.StartHealth + unitConfig.GrowthHealth * GameProgress.CompletedLevels;
-            int damage = unitConfig.StartDamage + unitConfig.GrowthDamage * GameProgress.CompletedLevels;
-            int armor = unitConfig.StartArmor + unitConfig.GrowthArmor * GameProgress.CompletedLevels;
+            RewardsData rewardsData = GameProgress.GetReceivedRewards();
+
+            int doubleHealthCount = rewardsData.RewardTypes.Count(r => r == RewardType.DoubleHealth);
+            int additionalHealth = unitConfig.StartHealth * doubleHealthCount;
+            int maxHealth = unitConfig.StartHealth + additionalHealth;
+
+            int baseDamageCount = rewardsData.RewardTypes.Count(r => r == RewardType.BaseDamage);
+            int damage = unitConfig.StartDamage + baseDamageCount;
+
+            int baseArmorCount = rewardsData.RewardTypes.Count(r => r == RewardType.BaseArmor);
+            int armor = unitConfig.StartArmor + baseArmorCount;
 
             return new UnitData
             {
