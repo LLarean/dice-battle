@@ -52,18 +52,6 @@ namespace DiceBattle.UI
 
         public void AnimateDamage() => HealthAnimation.AnimateDamage(_portrait);
 
-        public void SetArmor(int defense)
-        {
-            if (defense > 0)
-            {
-                _stats.ShowArmor(defense.ToString());
-            }
-            else
-            {
-                _stats.HideArmor();
-            }
-        }
-
         private void SetMaxHealth(int healthAmount)
         {
             _health.maxValue = healthAmount;
@@ -84,6 +72,18 @@ namespace DiceBattle.UI
             else
             {
                 _stats.HideAttack();
+            }
+        }
+
+        private void SetArmor(int defense)
+        {
+            if (defense > 0)
+            {
+                _stats.ShowArmor(defense.ToString());
+            }
+            else
+            {
+                _stats.HideArmor();
             }
         }
 

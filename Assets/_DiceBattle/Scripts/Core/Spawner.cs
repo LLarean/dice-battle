@@ -61,22 +61,5 @@ namespace DiceBattle.Core
                 Armor = armor,
             };
         }
-
-        private UnitData GetUnitDataNew(UnitConfig unitConfig)
-        {
-            var temp = _config.Enemies[GameProgress.CompletedLevels];
-
-            int maxHealth = unitConfig.StartHealth + unitConfig.GrowthHealth * GameProgress.CompletedLevels;
-            int damage = unitConfig.StartDamage + unitConfig.GrowthDamage * GameProgress.CompletedLevels;
-            int armor = unitConfig.StartArmor + unitConfig.GrowthArmor * GameProgress.CompletedLevels;
-
-            return new UnitData
-            {
-                MaxHealth = maxHealth,
-                CurrentHealth = maxHealth,
-                Damage = damage,
-                Armor = armor,
-            };
-        }
     }
 }
