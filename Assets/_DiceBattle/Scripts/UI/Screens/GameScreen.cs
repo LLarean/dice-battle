@@ -30,6 +30,8 @@ namespace DiceBattle.UI
 
         public void SetPlayerData(UnitData unitData) => _player.SetUnitData(unitData);
 
+        public void UpdatePlayerStats() => _player.UpdateStats();
+
         public void SetEnemyData(UnitData unitData)
         {
             _contextBackground.SetSprite(unitData.Background);
@@ -54,7 +56,7 @@ namespace DiceBattle.UI
 
         public void PlayerTakeHeal(int healAmount) => _player.TakeHeal(healAmount);
 
-        public void UpdatePlayerArmor(int armor) => _player.UpdateArmor(armor);
+        public void UpdatePlayerArmor(int armor) => _player.SetArmor(armor);
 
         public void ResetSelection() => _gameBoard.ClearAllSelection();
 

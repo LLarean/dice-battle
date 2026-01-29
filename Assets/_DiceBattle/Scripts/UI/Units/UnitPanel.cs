@@ -10,91 +10,88 @@ namespace DiceBattle.UI
         [SerializeField] private TMP_Text _title;
         [SerializeField] private Image _portrait;
         [SerializeField] private Slider _health;
-        [SerializeField] private UnitStats _unitStats;
+        [SerializeField] private UnitStats _stats;
 
         private UnitData _unitData;
 
         public void SetUnitData(UnitData unitData)
         {
             _unitData = unitData;
-            HideAllStats();
-            UpdateDisplay();
-        }
-
-        public void UpdateDisplay()
-        {
             _title.text = _unitData.Title;
             _portrait.sprite = _unitData.Portrait;
 
-            SetMaxHealth(_unitData.MaxHealth);
-            UpdateCurrentHealth(_unitData.CurrentHealth);
+            UpdateStats();
+        }
 
-            UpdateAttack(_unitData.Damage);
-            UpdateArmor(_unitData.Armor);
+        public void UpdateStats()
+        {
+            HideAllStats();
+
+            SetMaxHealth(_unitData.MaxHealth);
+            SetCurrentHealth(_unitData.CurrentHealth);
+            SetAttack(_unitData.Damage);
+            SetArmor(_unitData.Armor);
         }
 
         public void TakeDamage(int damageAmount)
         {
-            int currentDamage = Mathf.Max(0, damageAmount - _unitData.Armor);
-            _unitData.CurrentHealth = Mathf.Max(0, _unitData.CurrentHealth - currentDamage);
+            int calculatedDamage = Mathf.Max(0, damageAmount - _unitData.Armor);
+            _unitData.CurrentHealth = Mathf.Max(0, _unitData.CurrentHealth - calculatedDamage);
             _health.value = _unitData.CurrentHealth;
-            _unitStats.ShowHealth($"{_unitData.CurrentHealth}/{_health.maxValue}");
+            _stats.ShowHealth($"{_unitData.CurrentHealth}/{_health.maxValue}");
         }
 
         public void TakeHeal(int healAmount)
         {
             _unitData.CurrentHealth = Mathf.Min(_unitData.MaxHealth, _unitData.CurrentHealth + healAmount);
             _health.value = _unitData.CurrentHealth;
-            _unitStats.ShowHealth($"{_unitData.CurrentHealth}/{_health.maxValue}");
+            _stats.ShowHealth($"{_unitData.CurrentHealth}/{_health.maxValue}");
         }
 
         public void AnimateHeal() => HealthAnimation.AnimateHeal(_portrait);
 
         public void AnimateDamage() => HealthAnimation.AnimateDamage(_portrait);
 
-        public void UpdateArmor(int defense)
+        public void SetArmor(int defense)
         {
             if (defense > 0)
             {
-                _unitStats.ShowArmor(defense.ToString());
+                _stats.ShowArmor(defense.ToString());
             }
             else
             {
-                _unitStats.HideArmor();
+                _stats.HideArmor();
             }
         }
 
-        private void SetMaxHealth(int maxHealth)
+        private void SetMaxHealth(int healthAmount)
         {
-            _health.maxValue = maxHealth;
-            _health.value = _health.maxValue;
-            _unitStats.ShowHealth($"{maxHealth}/{maxHealth}");
+            _health.maxValue = healthAmount;
         }
 
-        private void UpdateCurrentHealth(int currentHealth)
+        private void SetCurrentHealth(int healthAmount)
         {
-            _health.value = currentHealth;
-            _unitStats.ShowHealth($"{currentHealth}/{_health.maxValue}");
-            // TODO LLarean Separate the logic of taking damage and healing so that you can animate
+            _health.value = healthAmount;
+            _stats.ShowHealth($"{_health.value}/{_health.maxValue}");
         }
 
-        private void UpdateAttack(int attack)
+        private void SetAttack(int attackAmount)
         {
-            if (attack > 0)
+            if (attackAmount > 0)
             {
-                _unitStats.ShowAttack(attack.ToString());
+                _stats.ShowAttack(attackAmount.ToString());
             }
             else
             {
-                _unitStats.HideAttack();
+                _stats.HideAttack();
             }
         }
 
         private void HideAllStats()
         {
-            _unitStats.HideHealth();
-            _unitStats.HideAttack();
-            _unitStats.HideArmor();
+            _stats.HideHealth();
+            _stats.HideAttack();
+            _stats.HideArmor();
         }
     }
 }
