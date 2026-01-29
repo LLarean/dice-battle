@@ -146,6 +146,7 @@ namespace DiceBattle.Core
             _playerData.Log();
             _gameScreen.SetPlayerData(_playerData);
             UpdateDiceCount();
+            SetMaxAttempts();
         }
 
         private void UpdateDiceCount()
@@ -187,7 +188,9 @@ namespace DiceBattle.Core
         {
             RewardsData receivedRewards = GameProgress.GetReceivedRewards();
             int additionalTryCount = receivedRewards.RewardTypes.Count(reward => reward == RewardType.AdditionalTry);
+            Debug.Log("additionalTryCount = " + additionalTryCount);
             _maxAttempts = _config.MaxAttempts + additionalTryCount;
+            Debug.Log("_maxAttempts = " + _maxAttempts);
         }
 
         #endregion
