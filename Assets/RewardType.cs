@@ -1,6 +1,4 @@
-﻿using DiceBattle.UI;
-
-namespace DiceBattle
+﻿namespace DiceBattle
 {
     /// <summary>
     /// This file must be updated when updating -
