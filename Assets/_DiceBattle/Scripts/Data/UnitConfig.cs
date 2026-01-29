@@ -10,12 +10,12 @@ namespace DiceBattle.Data
         [Header("Health")]
         public int StartHealth = 20;
         public int RegenHealth = 2;
-        public int GrowthHealth = 2;
+        public int GrowthHealth = 1;
         [Header("Damage")]
         public int StartDamage = 0;
-        public int GrowthDamage = 2;
+        public int GrowthDamage = 1;
         [Header("Armor")]
         public int StartArmor = 0;
-        public int GrowthArmor = 2;
+        public int GrowthArmor = 1;
     }
 }

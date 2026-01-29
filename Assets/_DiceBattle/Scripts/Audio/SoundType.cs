@@ -11,6 +11,7 @@
 
         PlayerAttack,
         PlayerHeal,
+        PlayerArmor,
 
         SlimeAttack,
         EnemyHit,
