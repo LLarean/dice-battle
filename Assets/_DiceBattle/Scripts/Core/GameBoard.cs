@@ -46,6 +46,8 @@ namespace DiceBattle.Core
             _diceHolder.SetSocketCount(count);
         }
 
+        public void InitDice() => InstantiateDice();
+
         private void HandleRollComplete()
         {
             _diceHolder.RepositionDice();

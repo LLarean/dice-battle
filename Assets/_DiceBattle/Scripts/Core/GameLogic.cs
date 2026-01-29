@@ -130,12 +130,12 @@ namespace DiceBattle.Core
 
         private void LoadGame()
         {
-            Debug.Log("Load game");
+            // Debug.Log("Load game");
         }
 
         private void SaveGame()
         {
-            Debug.Log("Save game");
+            // Debug.Log("Save game");
         }
 
         #region Updates
@@ -144,7 +144,10 @@ namespace DiceBattle.Core
         {
             _playerData.Update(_config);
             _playerData.Log();
-            _gameScreen.SetPlayerData(_playerData);
+
+            // _gameScreen.SetPlayerData(_playerData);
+            _gameScreen.UpdatePlayerStats();
+
             UpdateDiceCount();
             SetMaxAttempts();
         }
@@ -188,9 +191,7 @@ namespace DiceBattle.Core
         {
             RewardsData receivedRewards = GameProgress.GetReceivedRewards();
             int additionalTryCount = receivedRewards.RewardTypes.Count(reward => reward == RewardType.AdditionalTry);
-            Debug.Log("additionalTryCount = " + additionalTryCount);
             _maxAttempts = _config.MaxAttempts + additionalTryCount;
-            Debug.Log("_maxAttempts = " + _maxAttempts);
         }
 
         #endregion
