@@ -192,7 +192,6 @@ namespace DiceBattle.Core
             ApplyPlayerArmor();
             ApplyPlayerAttack();
 
-            _gameScreen.UpdatePlayerStats();
 
             if (_enemyData.CurrentHealth <= 0 || _config.IsInstaWin)
             {
@@ -200,10 +199,10 @@ namespace DiceBattle.Core
             }
             else
             {
-                // _enemyHealthDelta = _enemyData.CurrentHealth - _playerHealthDelta;
-                AnimateEnemyHealth();
                 EnemyTurn();
             }
+
+            _gameScreen.UpdatePlayerStats();
         }
 
         private void ApplyPlayerHealing()
@@ -228,7 +227,6 @@ namespace DiceBattle.Core
         private void ApplyPlayerAttack()
         {
             int bonusDamageCount = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseDamage) * _config.Player.GrowthDamage;
-            // int damageToEnemy = Mathf.Max(_diceResult.Damage, _diceResult.Damage + bonusDamageCount);
             _playerData.Damage = Mathf.Max(_diceResult.Damage, _diceResult.Damage + bonusDamageCount);
             _gameScreen.EnemyTakeDamage(_playerData.Damage);
 
@@ -243,13 +241,13 @@ namespace DiceBattle.Core
         {
             int bonusArmor = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseArmor) * _config.Player.GrowthArmor;
             _playerData.Armor = Mathf.Max(0, bonusArmor);
-            // _gameScreen.UpdatePlayerArmor(bonusArmor);
-            _gameScreen.UpdatePlayerStats();
         }
 
-
-
-
+        private void RemovePlayerDamage()
+        {
+            int bonusDamageCount = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseDamage) * _config.Player.GrowthDamage;
+            _playerData.Damage = Mathf.Max(0, bonusDamageCount);
+        }
 
         private void OnPlayerDefeated()
         {
@@ -263,6 +261,8 @@ namespace DiceBattle.Core
 
         private void EnemyTurn()
         {
+            AnimateEnemyHealth();
+
             _gameScreen.PlayerTakeDamage(_enemyData.Damage);
 
             // TODO You can add different sounds to attack different enemies
@@ -278,6 +278,7 @@ namespace DiceBattle.Core
 
             AnimatePlayerHealth();
             RemovePlayerArmor();
+            RemovePlayerDamage();
         }
 
         private void OnEnemyDefeated()

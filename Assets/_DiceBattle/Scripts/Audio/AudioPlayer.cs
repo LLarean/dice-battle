@@ -24,8 +24,15 @@ namespace DiceBattle.Audio
         {
             if (_soundConfig.TryGetAudioClip(soundType, out AudioClip audioClip))
             {
-                _sfxSource.pitch = Random.Range(0.9f, 1.1f);
-                _sfxSource.PlayOneShot(audioClip);
+                if (audioClip == null)
+                {
+                    Debug.LogWarning($"Audio clip for sound type {soundType} is not set.");
+                }
+                else
+                {
+                    _sfxSource.pitch = Random.Range(0.9f, 1.1f);
+                    _sfxSource.PlayOneShot(audioClip);
+                }
             }
         }
 
