@@ -76,6 +76,21 @@ namespace DiceBattle.Core
             UpdateButtonStates();
         }
 
+        public void AllClick()
+        {
+            if (_attemptsNumber <= 0)
+            {
+                return;
+            }
+
+            if (_attemptsNumber >= _maxAttempts)
+            {
+                return;
+            }
+
+            _gameScreen.ToggleAllDice();
+        }
+
         private void EndTurn()
         {
             _rewardsData = GameProgress.GetReceivedRewards();
@@ -132,12 +147,12 @@ namespace DiceBattle.Core
         {
             _playerData.Update(_config);
             _playerData.Log();
-
+            UpdatePlayerStats();
             // _gameScreen.SetPlayerData(_playerData);
-            _gameScreen.UpdatePlayerStats();
+            // _gameScreen.UpdatePlayerStats();
 
-            UpdateDiceCount();
-            SetMaxAttempts();
+            // UpdateDiceCount();
+            // SetMaxAttempts();
         }
 
         private void UpdateDiceCount()
@@ -182,6 +197,21 @@ namespace DiceBattle.Core
             _maxAttempts = _config.MaxAttempts + additionalTryCount;
         }
 
+        private void UpdatePlayerStats()
+        {
+            // int regenHealth = _rewardsData.RewardTypes.Count(r => r == RewardType.RegenHealth) * _config.Player.GrowthHealth;
+            int bonusArmorCount = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseArmor) * _config.Player.GrowthArmor;
+            int bonusDamageCount = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseDamage) * _config.Player.GrowthDamage;
+
+            _playerData.Armor = Mathf.Max(0, bonusArmorCount);
+            _playerData.Damage = Mathf.Max(0, bonusDamageCount);
+
+            _gameScreen.UpdatePlayerStats();
+
+            UpdateDiceCount();
+            SetMaxAttempts();
+        }
+
         #endregion
 
         #region Player actions
@@ -192,7 +222,6 @@ namespace DiceBattle.Core
             ApplyPlayerArmor();
             ApplyPlayerAttack();
 
-
             if (_enemyData.CurrentHealth <= 0 || _config.IsInstaWin)
             {
                 OnEnemyDefeated();
@@ -202,7 +231,7 @@ namespace DiceBattle.Core
                 EnemyTurn();
             }
 
-            _gameScreen.UpdatePlayerStats();
+            UpdatePlayerStats();
         }
 
         private void ApplyPlayerHealing()
@@ -298,71 +327,4 @@ namespace DiceBattle.Core
         }
         #endregion
     }
-
-    // public class PlayerTurn
-    // {
-    //     private readonly UnitData _playerData;
-    //     private readonly UnitData _enemyData;
-    //
-    //     public PlayerTurn(UnitData playerData, UnitData enemyData)
-    //     {
-    //         _playerData = playerData;
-    //         _enemyData = enemyData;
-    //     }
-    //
-    //     private void Enter(RewardsData rewardsData, DiceResult diceResult)
-    //     {
-    //         ApplyPlayerArmor(rewardsData, diceResult);
-    //         ApplyPlayerAttack();
-    //         ApplyPlayerHealing();
-    //
-    //         if (_enemyData.CurrentHealth <= 0 || _config.IsInstaWin)
-    //         {
-    //             OnEnemyDefeated();
-    //         }
-    //         else
-    //         {
-    //             // _enemyHealthDelta = _enemyData.CurrentHealth - _playerHealthDelta;
-    //             AnimateEnemyHealth();
-    //             EnemyTurn();
-    //         }
-    //     }
-    //
-    //     private void ApplyPlayerArmor(RewardsData rewardsData, DiceResult diceResult)
-    //     {
-    //         // int bonusArmor = rewardsData.RewardTypes.Count(r => r == RewardType.BaseArmor);
-    //         _playerData.Armor = Mathf.Max(0, diceResult.Armor + _playerData.Armor);
-    //         // _gameScreen.UpdatePlayerArmor(_playerData.Armor);
-    //         _gameScreen.UpdatePlayerStats();
-    //     }
-    //
-    //     private void RemovePlayerArmor()
-    //     {
-    //         int bonusArmor = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseArmor) * _config.Player.GrowthArmor;
-    //         _playerData.Armor = Mathf.Max(0, bonusArmor);
-    //         // _gameScreen.UpdatePlayerArmor(bonusArmor);
-    //         _gameScreen.UpdatePlayerStats();
-    //     }
-    //
-    //     private void ApplyPlayerAttack()
-    //     {
-    //         // int doubleDamageCount = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseDamage);
-    //         int damageToEnemy = Mathf.Max(_diceResult.Damage, _diceResult.Damage + _playerData.Damage);
-    //         _gameScreen.EnemyTakeDamage(damageToEnemy);
-    //
-    //         // TODO You can add different sounds to attack different enemies
-    //         // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
-    //         SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyHit));
-    //     }
-    //
-    //     private void ApplyPlayerHealing()
-    //     {
-    //         int rewardRegenHealth = _rewardsData.RewardTypes.Count(r => r == RewardType.RegenHealth) * _config.Player.RegenHealth;
-    //         int allRegenHealth = _diceResult.Heal + rewardRegenHealth;
-    //         _gameScreen.PlayerTakeHeal(allRegenHealth);
-    //
-    //         SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerHeal));
-    //     }
-    // }
-
 }
