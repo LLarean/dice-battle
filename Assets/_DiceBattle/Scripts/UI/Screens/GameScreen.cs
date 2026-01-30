@@ -20,6 +20,7 @@ namespace DiceBattle.UI
         [Space]
         [SerializeField] private Button _context;
         [SerializeField] private TextMeshProUGUI _contextLabel;
+        [SerializeField] private Button _all;
 
         private GameLogic _gameLogic;
 
@@ -58,6 +59,8 @@ namespace DiceBattle.UI
 
         public void ResetSelection() => _gameBoard.ClearAllSelection();
 
+        public void ToggleAllDice() => _gameBoard.ToggleAll();
+
         #region Damage/Healing Animation
 
         public void PlayerAnimateHeal() => _player.AnimateHeal();
@@ -72,7 +75,9 @@ namespace DiceBattle.UI
 
         #region Event Handlers
 
-        private void ContextClick() => _gameLogic.ContextClick();
+        private void HandleContextClicked() => _gameLogic.ContextClick();
+
+        private void HandleAllClicked() => _gameLogic.AllClick();
 
         private void HandleDiceToggle()
         {
@@ -104,7 +109,8 @@ namespace DiceBattle.UI
 
         private void Start()
         {
-            _context.onClick.AddListener(ContextClick);
+            _context.onClick.AddListener(HandleContextClicked);
+            _all.onClick.AddListener(HandleAllClicked);
             _gameBoard.OnDiceToggled += HandleDiceToggle;
             _gameBoard.OnRollCompleted += HandleRollComplete;
 

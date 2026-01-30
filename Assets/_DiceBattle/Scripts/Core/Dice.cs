@@ -60,13 +60,19 @@ namespace DiceBattle.Core
             _image.color = Color.white;
         }
 
+        public void Toggle()
+        {
+            _selectionIcon.gameObject.SetActive(!_selectionIcon.gameObject.activeSelf);
+            _image.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
+        }
+
         public void EnableButton() => _button.interactable = true;
 
         public void DisableButton() => _button.interactable = false;
 
         private void Start()
         {
-            _button.onClick.AddListener(ToggleSelection);
+            _button.onClick.AddListener(HangleButtonClicked);
             _random = new Random();
 
             if (_isMenu == false)
@@ -80,14 +86,13 @@ namespace DiceBattle.Core
             _button.onClick.RemoveAllListeners();
         }
 
-        private void ToggleSelection()
+        private void HangleButtonClicked()
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceGrab));
 
             if (_isMenu == false)
             {
-                _selectionIcon.gameObject.SetActive(!_selectionIcon.gameObject.activeSelf);
-                _image.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
+                Toggle();
             }
             else
             {

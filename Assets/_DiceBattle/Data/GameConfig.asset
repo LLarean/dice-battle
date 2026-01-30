@@ -21,7 +21,7 @@ MonoBehaviour:
     StartDamage: 0
     GrowthDamage: 2
     StartArmor: 0
-    GrowthArmor: 0
+    GrowthArmor: 2
   Enemies:
   - Title: "\u041C\u0430\u043B\u044B\u0439 \u0441\u043B\u0430\u0439\u043C"
     Portrait: {fileID: -735669648, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
