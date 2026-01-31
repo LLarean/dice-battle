@@ -20,6 +20,22 @@ namespace DiceBattle.Audio
         [Header("---OPTIONS---")]
         [SerializeField] private bool _playMusicOnStart = true;
 
+        public void PlayMusic(SoundType soundType)
+        {
+            if (_soundConfig.TryGetAudioClip(soundType, out AudioClip audioClip))
+            {
+                if (audioClip == null)
+                {
+                    Debug.LogWarning($"Audio clip for sound type {soundType} is not set.");
+                }
+                else
+                {
+                    _musicSource.clip = audioClip;
+                    _musicSource.Play();
+                }
+            }
+        }
+
         public void PlaySound(SoundType soundType)
         {
             if (_soundConfig.TryGetAudioClip(soundType, out AudioClip audioClip))
