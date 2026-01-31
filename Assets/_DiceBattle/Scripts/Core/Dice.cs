@@ -5,6 +5,7 @@ using DiceBattle.Events;
 using DiceBattle.Global;
 using DiceBattle.UI;
 using GameSignals;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
@@ -20,6 +21,7 @@ namespace DiceBattle.Core
         [Space]
         [SerializeField] private Image _faceIcon;
         [SerializeField] private Image _selectionIcon;
+        [SerializeField] private TextMeshProUGUI _multiplier;
         [Header("Empty, Attack, Defense, Heal")]
         [SerializeField] private Sprite[] _faceSprites;
         [Space]
@@ -52,6 +54,7 @@ namespace DiceBattle.Core
             _faceIcon.sprite = _faceSprites[(int)_diceType];
 
             ClearSelection();
+            ShowMultiplier();
         }
 
         public void ClearSelection()
@@ -74,6 +77,7 @@ namespace DiceBattle.Core
         {
             _button.onClick.AddListener(HangleButtonClicked);
             _random = new Random();
+            _multiplier.gameObject.SetActive(false);
 
             if (_isMenu == false)
             {
@@ -101,5 +105,29 @@ namespace DiceBattle.Core
 
             OnToggled?.Invoke();
         }
+
+        private void ShowMultiplier()
+        {
+            int multiplier = 1;
+            RewardsData rewardsData = GameProgress.GetReceivedRewards();
+
+            if (_diceType == DiceType.Attack)
+            {
+                multiplier += rewardsData.RewardTypes.Count(r => r == RewardType.UpgradeAttack);
+            }
+            else if (_diceType == DiceType.Defense)
+            {
+                multiplier += rewardsData.RewardTypes.Count(r => r == RewardType.UpgradeArmor);
+
+            }
+            else if (_diceType == DiceType.Heal)
+            {
+                multiplier += rewardsData.RewardTypes.Count(r => r == RewardType.UpgradeHealth);
+            }
+
+            _multiplier.gameObject.SetActive(multiplier > 1);
+            _multiplier.text = "x" + multiplier;
+        }
+
     }
 }
