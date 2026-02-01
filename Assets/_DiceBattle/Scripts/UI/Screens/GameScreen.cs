@@ -27,7 +27,7 @@ namespace DiceBattle.UI
         public List<Dice> Dices => _gameBoard.Dices;
         public bool HaveSelectedDice => _gameBoard.HaveSelectedDice;
 
-        public void UpdateRewards() => _gameLogic.UpdateHero();
+        public void UpdateRewards() => _gameLogic.UpdateData();
 
         public void SetPlayerData(UnitData unitData) => _player.SetUnitData(unitData);
 
@@ -39,6 +39,20 @@ namespace DiceBattle.UI
             _enemy.SetUnitData(unitData);
         }
 
+        public void SetContextLabel(string label) => _contextLabel.text = label;
+
+        #region Damage/Healing Mediation
+
+        public void PlayerTakeDamage(int damageAmount) => _player.TakeDamage(damageAmount);
+
+        public void EnemyTakeDamage(int damageAmount) => _enemy.TakeDamage(damageAmount);
+
+        public void PlayerTakeHeal(int healAmount) => _player.TakeHeal(healAmount);
+
+        #endregion
+
+        #region Dice
+
         public void SetDiceCount(int count) => _gameBoard.SetDiceCount(count);
 
         public void EnableDiceInteractable() => _gameBoard.EnableDiceInteractable();
@@ -49,17 +63,11 @@ namespace DiceBattle.UI
 
         public void RerollSelectedDice() => _gameBoard.RerollSelectedDice();
 
-        public void SetContextLabel(string label) => _contextLabel.text = label;
-
-        public void PlayerTakeDamage(int damageAmount) => _player.TakeDamage(damageAmount);
-
-        public void EnemyTakeDamage(int damageAmount) => _enemy.TakeDamage(damageAmount);
-
-        public void PlayerTakeHeal(int healAmount) => _player.TakeHeal(healAmount);
-
         public void ResetSelection() => _gameBoard.ClearAllSelection();
 
         public void ToggleAllDice() => _gameBoard.ToggleAll();
+
+        #endregion
 
         #region Damage/Healing Animation
 
