@@ -35,11 +35,7 @@ namespace DiceBattle.Core
 
         public void InitializeGame()
         {
-            _attemptsNumber = 0;
-            _playerHealthDelta = 0;
-            _enemyHealthDelta = 0;
-
-            SetMaxAttempts();
+            ResetNumbers();
             UpdateDiceCount();
 
             _enemyData = _spawner.SpawnEnemy();
@@ -143,16 +139,21 @@ namespace DiceBattle.Core
 
         #region Updates
 
-        public void UpdateHero()
+        public void UpdateData()
         {
             _playerData.Update(_config);
             _playerData.Log();
-            UpdatePlayerStats();
-            // _gameScreen.SetPlayerData(_playerData);
-            // _gameScreen.UpdatePlayerStats();
 
-            // UpdateDiceCount();
+            // UpdateData();
+            UpdatePlayerStats();
+
+            // _attemptsNumber = 0;
+            // _playerHealthDelta = 0;
+            // _enemyHealthDelta = 0;
+
             // SetMaxAttempts();
+            ResetNumbers();
+            UpdateDiceCount();
         }
 
         private void UpdateDiceCount()
@@ -190,6 +191,15 @@ namespace DiceBattle.Core
             SignalSystem.Raise<IHintHandler>(handler => handler.Show(message));
         }
 
+        private void ResetNumbers()
+        {
+            _attemptsNumber = 0;
+            _playerHealthDelta = 0;
+            _enemyHealthDelta = 0;
+
+            SetMaxAttempts();
+        }
+
         private void SetMaxAttempts()
         {
             RewardsData receivedRewards = GameProgress.GetReceivedRewards();
@@ -209,6 +219,7 @@ namespace DiceBattle.Core
             _gameScreen.UpdatePlayerStats();
 
             UpdateDiceCount();
+            // ResetNumbers();
             SetMaxAttempts();
         }
 
@@ -318,7 +329,7 @@ namespace DiceBattle.Core
             GameProgress.IncrementCurrentLevel();
             GameProgress.IncrementLevels();
 
-            UpdateHero();
+            UpdateData();
             _enemyData = _spawner.SpawnEnemy();
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Victory));
@@ -326,5 +337,14 @@ namespace DiceBattle.Core
             UpdateButtonStates();
         }
         #endregion
+    }
+
+    public class MatchData
+    {
+        public int MaxAttempts;
+        public int AttemptsNumber;
+
+        public int _playerHealthDelta;
+        public int _enemyHealthDelta;
     }
 }

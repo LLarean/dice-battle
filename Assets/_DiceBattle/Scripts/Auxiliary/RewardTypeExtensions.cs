@@ -16,9 +16,9 @@ namespace DiceBattle
                 RewardType.BaseArmor => "Добавить базовый армор",
                 RewardType.DoubleHealth => "Двойное здоровье",
 
-                RewardType.UpgradeAttack => "Улучшение атаки кубика",
-                RewardType.UpgradeHealth => "Улучшение лечения кубика",
-                RewardType.UpgradeArmor => "Улучшение армора кубика",
+                RewardType.UpgradeAttack => "Золотой кубик атаки",
+                RewardType.UpgradeHealth => "Золотой кубик здоровья",
+                RewardType.UpgradeArmor => "Золотой кубик армора",
 
                 RewardType.RegenHealth => "Регенерация здоровья",
                 RewardType.RestoreHealth => "Восстановить здоровье",
