@@ -16,8 +16,10 @@ namespace DiceBattle.Core
         private readonly Spawner _spawner;
         private readonly DiceResult _diceResult = new();
 
-        private UnitData _playerData;
-        private UnitData _enemyData;
+        private readonly MatchData _matchData = new();
+
+        // private UnitData _playerData;
+        // private UnitData _enemyData;
 
         private RewardsData _rewardsData;
         private int _attemptsNumber;
@@ -38,8 +40,8 @@ namespace DiceBattle.Core
             ResetNumbers();
             UpdateDiceCount();
 
-            _enemyData = _spawner.SpawnEnemy();
-            _playerData = _spawner.SpawnHero();
+            _matchData.EnemyData = _spawner.SpawnEnemy();
+            _matchData.PlayerData = _spawner.SpawnHero();
 
             _gameScreen.DisableDiceInteractable();
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
@@ -91,8 +93,8 @@ namespace DiceBattle.Core
         {
             _rewardsData = GameProgress.GetReceivedRewards();
             _diceResult.Calculate(_gameScreen.Dices);
-            _playerHealthDelta = _playerData.CurrentHealth;
-            _enemyHealthDelta = _enemyData.CurrentHealth;
+            _playerHealthDelta = _matchData.PlayerData.CurrentHealth;
+            _enemyHealthDelta = _matchData.EnemyData.CurrentHealth;
 
             PlayerTurn();
             _attemptsNumber = 0;
@@ -105,7 +107,7 @@ namespace DiceBattle.Core
 
         private void AnimatePlayerHealth()
         {
-            _playerHealthDelta = _playerData.CurrentHealth - _playerHealthDelta;
+            _playerHealthDelta = _matchData.PlayerData.CurrentHealth - _playerHealthDelta;
 
             switch (_playerHealthDelta)
             {
@@ -122,7 +124,7 @@ namespace DiceBattle.Core
 
         private void AnimateEnemyHealth()
         {
-            _enemyHealthDelta = _enemyData.CurrentHealth - _enemyHealthDelta;
+            _enemyHealthDelta = _matchData.EnemyData.CurrentHealth - _enemyHealthDelta;
 
             switch (_enemyHealthDelta)
             {
@@ -141,8 +143,8 @@ namespace DiceBattle.Core
 
         public void UpdateData()
         {
-            _playerData.Update(_config);
-            _playerData.Log();
+            _matchData.PlayerData.Update(_config);
+            _matchData.PlayerData.Log();
 
             // UpdateData();
             UpdatePlayerStats();
@@ -213,8 +215,8 @@ namespace DiceBattle.Core
             int bonusArmorCount = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseArmor) * _config.Player.GrowthArmor;
             int bonusDamageCount = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseDamage) * _config.Player.GrowthDamage;
 
-            _playerData.Armor = Mathf.Max(0, bonusArmorCount);
-            _playerData.Damage = Mathf.Max(0, bonusDamageCount);
+            _matchData.PlayerData.Armor = Mathf.Max(0, bonusArmorCount);
+            _matchData.PlayerData.Damage = Mathf.Max(0, bonusDamageCount);
 
             _gameScreen.UpdatePlayerStats();
 
@@ -233,7 +235,7 @@ namespace DiceBattle.Core
             ApplyPlayerArmor();
             ApplyPlayerAttack();
 
-            if (_enemyData.CurrentHealth <= 0 || _config.IsInstaWin)
+            if (_matchData.EnemyData.CurrentHealth <= 0 || _config.IsInstaWin)
             {
                 OnEnemyDefeated();
             }
@@ -258,7 +260,7 @@ namespace DiceBattle.Core
         private void ApplyPlayerArmor()
         {
             int bonusArmorCount = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseArmor) * _config.Player.GrowthArmor;
-            _playerData.Armor = Mathf.Max(0, _diceResult.Armor + bonusArmorCount);
+            _matchData.PlayerData.Armor = Mathf.Max(0, _diceResult.Armor + bonusArmorCount);
 
             Debug.Log("Armor: Dice = " + _diceResult.Armor + ", Character = " + bonusArmorCount);
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerArmor));
@@ -267,8 +269,8 @@ namespace DiceBattle.Core
         private void ApplyPlayerAttack()
         {
             int bonusDamageCount = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseDamage) * _config.Player.GrowthDamage;
-            _playerData.Damage = Mathf.Max(_diceResult.Damage, _diceResult.Damage + bonusDamageCount);
-            _gameScreen.EnemyTakeDamage(_playerData.Damage);
+            _matchData.PlayerData.Damage = Mathf.Max(_diceResult.Damage, _diceResult.Damage + bonusDamageCount);
+            _gameScreen.EnemyTakeDamage(_matchData.PlayerData.Damage);
 
             Debug.Log("Damage: Dice = " + _diceResult.Damage + ", Character = " + bonusDamageCount);
 
@@ -280,13 +282,13 @@ namespace DiceBattle.Core
         private void RemovePlayerArmor()
         {
             int bonusArmor = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseArmor) * _config.Player.GrowthArmor;
-            _playerData.Armor = Mathf.Max(0, bonusArmor);
+            _matchData.PlayerData.Armor = Mathf.Max(0, bonusArmor);
         }
 
         private void RemovePlayerDamage()
         {
             int bonusDamageCount = _rewardsData.RewardTypes.Count(r => r == RewardType.BaseDamage) * _config.Player.GrowthDamage;
-            _playerData.Damage = Mathf.Max(0, bonusDamageCount);
+            _matchData.PlayerData.Damage = Mathf.Max(0, bonusDamageCount);
         }
 
         private void OnPlayerDefeated()
@@ -303,13 +305,13 @@ namespace DiceBattle.Core
         {
             AnimateEnemyHealth();
 
-            _gameScreen.PlayerTakeDamage(_enemyData.Damage);
+            _gameScreen.PlayerTakeDamage(_matchData.EnemyData.Damage);
 
             // TODO You can add different sounds to attack different enemies
             // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
 
-            if (_playerData.CurrentHealth <= 0)
+            if (_matchData.PlayerData.CurrentHealth <= 0)
             {
                 OnPlayerDefeated();
                 return;
@@ -330,7 +332,7 @@ namespace DiceBattle.Core
             GameProgress.IncrementLevels();
 
             UpdateData();
-            _enemyData = _spawner.SpawnEnemy();
+            _matchData.EnemyData = _spawner.SpawnEnemy();
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Victory));
             RemovePlayerArmor();
@@ -341,10 +343,15 @@ namespace DiceBattle.Core
 
     public class MatchData
     {
-        public int MaxAttempts;
-        public int AttemptsNumber;
+        public UnitData PlayerData;
+        public UnitData EnemyData;
 
-        public int _playerHealthDelta;
-        public int _enemyHealthDelta;
+        public RewardsData RewardsData;
+
+        public int MaxDiceRerolls;
+        public int RemainingDiceRerolls;
+
+        public int PlayerHealthChange;
+        public int EnemyHealthChange;
     }
 }
