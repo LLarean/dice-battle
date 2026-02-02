@@ -41,12 +41,12 @@ namespace DiceBattle.UI
 
         private void HandleMusicChange(float musicValue)
         {
-            SignalSystem.Raise<ISoundHandler>(handler => handler.SetMusicValue(musicValue));
+            SignalSystem.Raise<ISoundHandler>(handler => handler.SetMusicVolume(musicValue));
         }
 
         private void HandleSoundChange(float soundValue)
         {
-            SignalSystem.Raise<ISoundHandler>(handler => handler.SetSoundValue(soundValue));
+            SignalSystem.Raise<ISoundHandler>(handler => handler.SetSoundVolume(soundValue));
         }
 
         private void HandleCreditsClick()
