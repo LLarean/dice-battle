@@ -22,33 +22,37 @@ namespace DiceBattle.Audio
 
         public void PlayMusic(SoundType soundType)
         {
-            if (_soundConfig.TryGetAudioClip(soundType, out AudioClip audioClip))
+            if (_soundConfig.TryGetAudioClip(soundType, out AudioClip audioClip) == false)
             {
-                if (audioClip == null)
-                {
-                    Debug.LogWarning($"Audio clip for sound type {soundType} is not set.");
-                }
-                else
-                {
-                    _musicSource.clip = audioClip;
-                    _musicSource.Play();
-                }
+                return;
+            }
+
+            if (audioClip == null)
+            {
+                Debug.LogWarning($"Audio clip for sound type {soundType} is not set.");
+            }
+            else
+            {
+                _musicSource.clip = audioClip;
+                _musicSource.Play();
             }
         }
 
         public void PlaySound(SoundType soundType)
         {
-            if (_soundConfig.TryGetAudioClip(soundType, out AudioClip audioClip))
+            if (_soundConfig.TryGetAudioClip(soundType, out AudioClip audioClip) == false)
             {
-                if (audioClip == null)
-                {
-                    Debug.LogWarning($"Audio clip for sound type {soundType} is not set.");
-                }
-                else
-                {
-                    _sfxSource.pitch = Random.Range(0.9f, 1.1f);
-                    _sfxSource.PlayOneShot(audioClip);
-                }
+                return;
+            }
+
+            if (audioClip == null)
+            {
+                Debug.LogWarning($"Audio clip for sound type {soundType} is not set.");
+            }
+            else
+            {
+                _sfxSource.pitch = Random.Range(0.9f, 1.1f);
+                _sfxSource.PlayOneShot(audioClip);
             }
         }
 
@@ -69,13 +73,6 @@ namespace DiceBattle.Audio
         private void Start()
         {
             _musicSource.loop = true;
-
-            // if (_playMusicOnStart && _backgroundMusic != null)
-            // {
-                // _musicSource.clip = _backgroundMusic;
-                // _musicSource.Play();
-            // }
-
             _sfxSource.loop = false;
 
             _musicSource.volume = GameSettings.MusicVolume;
