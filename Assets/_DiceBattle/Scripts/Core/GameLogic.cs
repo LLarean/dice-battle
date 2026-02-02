@@ -18,15 +18,7 @@ namespace DiceBattle.Core
 
         private readonly MatchData _matchData = new();
 
-        // private UnitData _playerData;
-        // private UnitData _enemyData;
-
         private RewardsData _rewardsData;
-        // private int _attemptsNumber;
-        // private int _maxAttempts;
-
-        private int _playerHealthDelta;
-        private int _enemyHealthDelta;
 
         public GameLogic(GameConfig config, GameScreen gameScreen)
         {
@@ -93,8 +85,8 @@ namespace DiceBattle.Core
         {
             _rewardsData = GameProgress.GetReceivedRewards();
             _diceResult.Calculate(_gameScreen.Dices);
-            _playerHealthDelta = _matchData.PlayerData.CurrentHealth;
-            _enemyHealthDelta = _matchData.EnemyData.CurrentHealth;
+            _matchData.PlayerHealthChange = _matchData.PlayerData.CurrentHealth;
+            _matchData.EnemyHealthChange = _matchData.EnemyData.CurrentHealth;
 
             PlayerTurn();
             _matchData.RemainingDiceRerolls = 0;
@@ -107,9 +99,9 @@ namespace DiceBattle.Core
 
         private void AnimatePlayerHealth()
         {
-            _playerHealthDelta = _matchData.PlayerData.CurrentHealth - _playerHealthDelta;
+            _matchData.PlayerHealthChange = _matchData.PlayerData.CurrentHealth - _matchData.PlayerHealthChange;
 
-            switch (_playerHealthDelta)
+            switch (_matchData.PlayerHealthChange)
             {
                 case < 0:
                     _gameScreen.PlayerAnimateDamage();
@@ -119,14 +111,14 @@ namespace DiceBattle.Core
                     break;
             }
 
-            _playerHealthDelta = 0;
+            _matchData.PlayerHealthChange = 0;
         }
 
         private void AnimateEnemyHealth()
         {
-            _enemyHealthDelta = _matchData.EnemyData.CurrentHealth - _enemyHealthDelta;
+            _matchData.EnemyHealthChange = _matchData.EnemyData.CurrentHealth - _matchData.EnemyHealthChange;
 
-            switch (_enemyHealthDelta)
+            switch (_matchData.EnemyHealthChange)
             {
                 case < 0:
                     _gameScreen.EnemyAnimateDamage();
@@ -136,7 +128,7 @@ namespace DiceBattle.Core
                     break;
             }
 
-            _enemyHealthDelta = 0;
+            _matchData.EnemyHealthChange = 0;
         }
 
         #region Updates
@@ -146,14 +138,8 @@ namespace DiceBattle.Core
             _matchData.PlayerData.Update(_config);
             _matchData.PlayerData.Log();
 
-            // UpdateData();
             UpdatePlayerStats();
 
-            // _attemptsNumber = 0;
-            // _playerHealthDelta = 0;
-            // _enemyHealthDelta = 0;
-
-            // SetMaxAttempts();
             ResetNumbers();
             UpdateDiceCount();
         }
@@ -196,8 +182,8 @@ namespace DiceBattle.Core
         private void ResetNumbers()
         {
             _matchData.RemainingDiceRerolls = 0;
-            _playerHealthDelta = 0;
-            _enemyHealthDelta = 0;
+            _matchData.PlayerHealthChange = 0;
+            _matchData.EnemyHealthChange = 0;
 
             SetMaxAttempts();
         }
@@ -339,19 +325,5 @@ namespace DiceBattle.Core
             UpdateButtonStates();
         }
         #endregion
-    }
-
-    public class MatchData
-    {
-        public UnitData PlayerData;
-        public UnitData EnemyData;
-
-        public RewardsData RewardsData;
-
-        public int MaxDiceRerolls;
-        public int RemainingDiceRerolls;
-
-        public int PlayerHealthChange;
-        public int EnemyHealthChange;
     }
 }
