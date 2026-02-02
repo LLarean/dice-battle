@@ -22,8 +22,8 @@ namespace DiceBattle.Core
         // private UnitData _enemyData;
 
         private RewardsData _rewardsData;
-        private int _attemptsNumber;
-        private int _maxAttempts;
+        // private int _attemptsNumber;
+        // private int _maxAttempts;
 
         private int _playerHealthDelta;
         private int _enemyHealthDelta;
@@ -49,13 +49,13 @@ namespace DiceBattle.Core
 
         public void ContextClick()
         {
-            _attemptsNumber++;
+            _matchData.RemainingDiceRerolls++;
 
-            if (_attemptsNumber == 1)
+            if (_matchData.RemainingDiceRerolls == 1)
             {
                 _gameScreen.RollDice();
             }
-            else if (_attemptsNumber < _maxAttempts)
+            else if (_matchData.RemainingDiceRerolls < _matchData.MaxDiceRerolls)
             {
                 if (_gameScreen.HaveSelectedDice)
                 {
@@ -76,12 +76,12 @@ namespace DiceBattle.Core
 
         public void AllClick()
         {
-            if (_attemptsNumber <= 0)
+            if (_matchData.RemainingDiceRerolls <= 0)
             {
                 return;
             }
 
-            if (_attemptsNumber >= _maxAttempts)
+            if (_matchData.RemainingDiceRerolls >= _matchData.MaxDiceRerolls)
             {
                 return;
             }
@@ -97,7 +97,7 @@ namespace DiceBattle.Core
             _enemyHealthDelta = _matchData.EnemyData.CurrentHealth;
 
             PlayerTurn();
-            _attemptsNumber = 0;
+            _matchData.RemainingDiceRerolls = 0;
 
             _gameScreen.ResetSelection();
             _gameScreen.SetContextLabel("Бросить все"); // TODO Translation
@@ -167,11 +167,11 @@ namespace DiceBattle.Core
 
         private void UpdateButtonStates()
         {
-            if (_attemptsNumber == 0)
+            if (_matchData.RemainingDiceRerolls == 0)
             {
                 _gameScreen.DisableDiceInteractable();
             }
-            else if (_attemptsNumber >= _maxAttempts - 1)
+            else if (_matchData.RemainingDiceRerolls >= _matchData.MaxDiceRerolls - 1)
             {
                 _gameScreen.DisableDiceInteractable();
                 _gameScreen.SetContextLabel("Закончить"); // TODO Translation
@@ -187,7 +187,7 @@ namespace DiceBattle.Core
 
         private void ShowAttempts()
         {
-            int attemptsLeft = _maxAttempts - 1 - _attemptsNumber;
+            int attemptsLeft = _matchData.MaxDiceRerolls - 1 - _matchData.RemainingDiceRerolls;
             // TODO Translate
             string message = $"Осталось {attemptsLeft} попыток";
             SignalSystem.Raise<IHintHandler>(handler => handler.Show(message));
@@ -195,7 +195,7 @@ namespace DiceBattle.Core
 
         private void ResetNumbers()
         {
-            _attemptsNumber = 0;
+            _matchData.RemainingDiceRerolls = 0;
             _playerHealthDelta = 0;
             _enemyHealthDelta = 0;
 
@@ -206,7 +206,7 @@ namespace DiceBattle.Core
         {
             RewardsData receivedRewards = GameProgress.GetReceivedRewards();
             int additionalTryCount = receivedRewards.RewardTypes.Count(reward => reward == RewardType.AdditionalTry);
-            _maxAttempts = _config.MaxAttempts + additionalTryCount;
+            _matchData.MaxDiceRerolls = _config.MaxAttempts + additionalTryCount;
         }
 
         private void UpdatePlayerStats()
