@@ -7,7 +7,7 @@ namespace DiceBattle.Events
     {
         void PlayMusic(SoundType soundType);
         void PlaySound(SoundType soundType);
-        void SetMusicValue(float value);
-        void SetSoundValue(float value);
+        void SetMusicVolume(float value);
+        void SetSoundVolume(float value);
     }
 }

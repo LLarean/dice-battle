@@ -35,13 +35,13 @@ namespace DiceBattle.Audio
             _sfxSource.PlayOneShot(audioClip);
         }
 
-        public void SetMusicValue(float value)
+        public void SetMusicVolume(float value)
         {
             _musicSource.volume = value;
             GameSettings.SetMusicVolume(value);
         }
 
-        public void SetSoundValue(float value)
+        public void SetSoundVolume(float value)
         {
             _sfxSource.volume = value;
             GameSettings.SetSoundVolume(value);
