@@ -70,11 +70,11 @@ namespace DiceBattle.Audio
         {
             _musicSource.loop = true;
 
-            if (_playMusicOnStart && _backgroundMusic != null)
-            {
-                _musicSource.clip = _backgroundMusic;
-                _musicSource.Play();
-            }
+            // if (_playMusicOnStart && _backgroundMusic != null)
+            // {
+                // _musicSource.clip = _backgroundMusic;
+                // _musicSource.Play();
+            // }
 
             _sfxSource.loop = false;
 
