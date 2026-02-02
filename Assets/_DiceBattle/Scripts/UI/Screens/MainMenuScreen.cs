@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DiceBattle.Animations;
+using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Events;
 using GameSignals;
@@ -54,6 +55,7 @@ namespace DiceBattle.UI
             _diceAnimation.Animate(_dice);
 
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Menu));
         }
 
         private void HandleOptionsClick()

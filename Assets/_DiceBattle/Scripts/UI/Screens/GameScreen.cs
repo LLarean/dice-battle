@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Data;
 using DiceBattle.Events;
+using GameSignals;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -135,6 +137,7 @@ namespace DiceBattle.UI
         private void OnEnable()
         {
             _gameLogic.InitializeGame();
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Battle));
         }
 
         #endregion
