@@ -54,6 +54,12 @@ MonoBehaviour:
   - SoundType: 16
     AudioClips:
     - {fileID: 8300000, guid: 1ba74a0b0f8a4684996aa1bf7febd2dc, type: 3}
+  - SoundType: 16
+    AudioClips:
+    - {fileID: 8300000, guid: 368c5f9740645a84499a713e977920fd, type: 3}
   - SoundType: 17
+    AudioClips:
+    - {fileID: 8300000, guid: 64fef381ea358274f884a54b5d59973b, type: 3}
+  - SoundType: 18
     AudioClips:
     - {fileID: 8300000, guid: 1ba74a0b0f8a4684996aa1bf7febd2dc, type: 3}
