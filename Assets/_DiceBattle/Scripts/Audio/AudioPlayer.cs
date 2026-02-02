@@ -8,17 +8,10 @@ namespace DiceBattle.Audio
 {
     public class AudioPlayer : MonoBehaviour, ISoundHandler
     {
-        [Header("---AUDIO SOURCES---")]
+        [SerializeField] private SoundConfig _soundConfig;
+        [Space]
         [SerializeField] private AudioSource _musicSource;
         [SerializeField] private AudioSource _sfxSource;
-        [Space]
-        [SerializeField] private SoundConfig _soundConfig;
-
-        [Header("---MUSIC CLIPS---")]
-        [SerializeField] private AudioClip _backgroundMusic;
-
-        [Header("---OPTIONS---")]
-        [SerializeField] private bool _playMusicOnStart = true;
 
         public void PlayMusic(SoundType soundType)
         {
@@ -27,15 +20,8 @@ namespace DiceBattle.Audio
                 return;
             }
 
-            if (audioClip == null)
-            {
-                Debug.LogWarning($"Audio clip for sound type {soundType} is not set.");
-            }
-            else
-            {
-                _musicSource.clip = audioClip;
-                _musicSource.Play();
-            }
+            _musicSource.clip = audioClip;
+            _musicSource.Play();
         }
 
         public void PlaySound(SoundType soundType)
@@ -45,15 +31,8 @@ namespace DiceBattle.Audio
                 return;
             }
 
-            if (audioClip == null)
-            {
-                Debug.LogWarning($"Audio clip for sound type {soundType} is not set.");
-            }
-            else
-            {
-                _sfxSource.pitch = Random.Range(0.9f, 1.1f);
-                _sfxSource.PlayOneShot(audioClip);
-            }
+            _sfxSource.pitch = Random.Range(0.9f, 1.1f);
+            _sfxSource.PlayOneShot(audioClip);
         }
 
         public void SetMusicValue(float value)
