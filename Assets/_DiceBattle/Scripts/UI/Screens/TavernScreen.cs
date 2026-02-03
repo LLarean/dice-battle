@@ -11,8 +11,9 @@ namespace DiceBattle.UI
     public class TavernScreen : Screen
     {
         [Space]
-        [SerializeField] private Button _inventory;
+        [SerializeField] private Button _restart;
         [SerializeField] private Button _start;
+        [SerializeField] private Button _inventory;
         [SerializeField] private TextMeshProUGUI _startLabel;
         [Space]
         [SerializeField] private Innkeeper _innkeeper;
@@ -27,12 +28,14 @@ namespace DiceBattle.UI
 
         private void Start()
         {
+            _restart.onClick.AddListener(HandleRestartClick);
             _start.onClick.AddListener(HandleStartClick);
             _inventory.onClick.AddListener(HandleInventoryClick);
         }
 
         private void OnDestroy()
         {
+            _restart.onClick.RemoveAllListeners();
             _start.onClick.RemoveAllListeners();
             _inventory.onClick.RemoveAllListeners();
         }
@@ -48,14 +51,20 @@ namespace DiceBattle.UI
 
         #region Handlers
 
-        private void HandleInventoryClick()
+        private void HandleRestartClick()
         {
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.InventoryWindow));
+            GameProgress.ResetAll();
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
         }
 
         private void HandleStartClick()
         {
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
+        }
+
+        private void HandleInventoryClick()
+        {
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.InventoryWindow));
         }
 
         #endregion
