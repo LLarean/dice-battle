@@ -20,8 +20,19 @@ namespace DiceBattle.Audio
                 return;
             }
 
-            _musicSource.clip = audioClip;
-            _musicSource.Play();
+            if (_musicSource.isPlaying)
+            {
+                LeanTween.value(gameObject,
+                        _musicSource.volume,
+                        0f,
+                        0.15f)
+                    .setOnUpdate(v => _musicSource.volume = v)
+                    .setOnComplete(() => SwapTrack(audioClip));
+            }
+            else
+            {
+                SwapTrack(audioClip);
+            }
         }
 
         public void PlaySound(SoundType soundType)
@@ -59,5 +70,12 @@ namespace DiceBattle.Audio
         }
 
         private void OnDestroy() => SignalSystem.Unsubscribe(this);
+
+        private void SwapTrack(AudioClip audioClip)
+        {
+            _musicSource.clip = audioClip;
+            _musicSource.volume = 1f;
+            _musicSource.Play();
+        }
     }
 }
