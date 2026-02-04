@@ -25,7 +25,7 @@ namespace DiceBattle.Audio
                 LeanTween.value(gameObject,
                         _musicSource.volume,
                         0f,
-                        0.15f)
+                        0.5f)
                     .setOnUpdate(v => _musicSource.volume = v)
                     .setOnComplete(() => SwapTrack(audioClip));
             }
