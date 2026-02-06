@@ -20,8 +20,14 @@ namespace DiceBattle
                 RewardType.UpgradeHealth => "Золотой кубик здоровья",
                 RewardType.UpgradeArmor => "Золотой кубик армора",
 
-                RewardType.GoldDice => "Золотой кубик",
-                RewardType.SilverDice => "Серебрянный кубик",
+                RewardType.GoldDice => "Золотой кубик (x3)",
+                RewardType.SilverDice => "Серебрянный кубик (x2)",
+                // RewardType.SilverDice => "Куб дополнительной атаки",
+                // RewardType.SilverDice => "Куб дополнительной защиты",
+                // RewardType.SilverDice => "Куб дающий реген",
+                // RewardType.SilverDice => "Куб отключающий пустые состояние",
+                // RewardType.SilverDice => "Куб дающий дополнительную попытку",
+                // RewardType.SilverDice => "Куб дающий дополнительную попытку",
 
                 RewardType.RegenHealth => "Регенерация здоровья",
                 RewardType.RestoreHealth => "Восстановить здоровье",
