@@ -16,14 +16,11 @@ namespace DiceBattle.UI
         [SerializeField] private InventoryItem _item;
         [SerializeField] private Transform _itemsSpawn;
 
-        private void Awake()
-        {
-            GenerateItems();
-        }
-
         private void Start()
         {
             _close.onClick.AddListener(HandleCloseClick);
+            GenerateItems();
+            // ToggleItems();
         }
 
         private void OnDestroy() => _close.onClick.RemoveAllListeners();

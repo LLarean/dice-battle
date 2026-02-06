@@ -6,9 +6,12 @@
     /// </summary>
     public enum RewardType
     {
+        //Everything is on the dice. A cube can give additional armor,
+        //a cube can give an attack, and so on.
+
         // General
         DisableEmptyState,
-        AdditionalTry,
+        AdditionalTry, // need specific dice
         AdditionalDice,
 
         // Character Upgrades
@@ -20,6 +23,10 @@
         UpgradeAttack,
         UpgradeHealth,
         UpgradeArmor,
+
+        GoldDice, // x3
+        SilverDice, // x2
+        NonEmptyDice, // DisableEmptyState
 
         // Restore Health
         RegenHealth,
