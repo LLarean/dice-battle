@@ -24,8 +24,8 @@
         UpgradeHealth,
         UpgradeArmor,
 
-        GoldDice, // x3
-        SilverDice, // x2
+        GoldDice, // value x3
+        SilverDice, // value x2
         NonEmptyDice, // DisableEmptyState
 
         // Restore Health
