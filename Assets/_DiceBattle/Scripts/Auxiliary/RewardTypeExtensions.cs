@@ -20,6 +20,9 @@ namespace DiceBattle
                 RewardType.UpgradeHealth => "Золотой кубик здоровья",
                 RewardType.UpgradeArmor => "Золотой кубик армора",
 
+                RewardType.GoldDice => "Золотой кубик",
+                RewardType.SilverDice => "Серебрянный кубик",
+
                 RewardType.RegenHealth => "Регенерация здоровья",
                 RewardType.RestoreHealth => "Восстановить здоровье",
                 _ => throw new ArgumentOutOfRangeException()
