@@ -8,8 +8,8 @@ namespace DiceBattle.UI
 {
     public class InventoryWindow : Screen
     {
-        private readonly List<InventoryItem> _items = new();
         private readonly List<Dice> _dices = new();
+        private readonly List<InventoryItem> _items = new();
 
         [Space]
         [SerializeField] private Transform _substrate;
@@ -22,10 +22,10 @@ namespace DiceBattle.UI
         [SerializeField] private Transform _itemsSpawn;
 
 
-
         private void Start()
         {
             _close.onClick.AddListener(HandleCloseClick);
+            
             GenerateDice();
             GenerateItems();
             // ToggleItems();
@@ -36,28 +36,6 @@ namespace DiceBattle.UI
         private void OnEnable() => ToggleItems();
 
         private void HandleCloseClick() => gameObject.SetActive(false);
-
-        private void GenerateItems()
-        {
-            ClearItems();
-
-            foreach (RewardType rewardType in Enum.GetValues(typeof(RewardType)))
-            {
-                InventoryItem inventoryItem = Instantiate(_item, _itemsSpawn);
-                inventoryItem.Construct(rewardType);
-                _items.Add(inventoryItem);
-            }
-        }
-
-        private void ClearItems()
-        {
-            foreach (InventoryItem inventoryItem in _items)
-            {
-                Destroy(inventoryItem.gameObject);
-            }
-
-            _items.Clear();
-        }
 
         private void GenerateDice()
         {
@@ -79,6 +57,28 @@ namespace DiceBattle.UI
             }
 
             _dices.Clear();
+        }
+
+        private void GenerateItems()
+        {
+            ClearItems();
+
+            foreach (RewardType rewardType in Enum.GetValues(typeof(RewardType)))
+            {
+                InventoryItem inventoryItem = Instantiate(_item, _itemsSpawn);
+                inventoryItem.Construct(rewardType);
+                _items.Add(inventoryItem);
+            }
+        }
+
+        private void ClearItems()
+        {
+            foreach (InventoryItem inventoryItem in _items)
+            {
+                Destroy(inventoryItem.gameObject);
+            }
+
+            _items.Clear();
         }
 
         private void ToggleItems()
