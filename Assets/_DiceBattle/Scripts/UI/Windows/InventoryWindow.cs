@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DiceBattle.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,17 +9,24 @@ namespace DiceBattle.UI
     public class InventoryWindow : Screen
     {
         private readonly List<InventoryItem> _items = new();
+        private readonly List<Dice> _dices = new();
 
         [Space]
         [SerializeField] private Transform _substrate;
         [SerializeField] private Button _close;
         [Space]
+        [SerializeField] private Dice _dice;
+        [SerializeField] private Transform _diceSpawn;
+        [Space]
         [SerializeField] private InventoryItem _item;
         [SerializeField] private Transform _itemsSpawn;
+
+
 
         private void Start()
         {
             _close.onClick.AddListener(HandleCloseClick);
+            GenerateDice();
             GenerateItems();
             // ToggleItems();
         }
@@ -49,6 +57,28 @@ namespace DiceBattle.UI
             }
 
             _items.Clear();
+        }
+
+        private void GenerateDice()
+        {
+            ClearDice();
+
+            for (int i = 0; i < 6; i++)
+            {
+                Dice dice = Instantiate(_dice, _diceSpawn);
+                dice.DisableButton();
+                _dices.Add(dice);
+            }
+        }
+
+        private void ClearDice()
+        {
+            foreach (Dice dice in _dices)
+            {
+                Destroy(dice.gameObject);
+            }
+
+            _dices.Clear();
         }
 
         private void ToggleItems()
