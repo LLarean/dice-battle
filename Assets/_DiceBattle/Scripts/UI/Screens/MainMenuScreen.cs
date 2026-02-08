@@ -65,7 +65,7 @@ namespace DiceBattle.UI
 
         private void HandleStartClick()
         {
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.DungeonsScreen));
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TavernScreen));
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Show());
         }
     }

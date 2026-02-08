@@ -64,7 +64,7 @@ namespace DiceBattle.UI
 
         private void HandleInventoryClick()
         {
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.InventoryWindow));
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.InventoryWindow));
         }
 
         #endregion
