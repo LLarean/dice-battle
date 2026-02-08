@@ -10,12 +10,12 @@ namespace DiceBattle.UI
         [Header("Screens")]
         [SerializeField] private MainMenuScreen _mainMenuScreen;
         [SerializeField] private TavernScreen _tavernScreen;
+        [SerializeField] private InventoryWindow _inventoryWindow;
         [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
         [SerializeField] private LootScreen _lootScreen;
         [Header("Windows")]
         [SerializeField] private OptionsWindow _optionsWindow;
-        [SerializeField] private InventoryWindow _inventoryWindow;
         [SerializeField] private CreditsWindow _creditsWindow;
 
         private Screen _currentScreen;
