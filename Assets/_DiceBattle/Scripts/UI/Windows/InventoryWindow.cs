@@ -12,8 +12,8 @@ namespace DiceBattle.UI
         private readonly List<InventoryItem> _items = new();
 
         [Space]
-        [SerializeField] private Transform _substrate;
-        [SerializeField] private Button _close;
+        [SerializeField] private UnitPanel _unitPanel;
+        [SerializeField] private DiceHolder _diceHolder;
         [Space]
         [SerializeField] private Dice _dice;
         [SerializeField] private Transform _diceSpawn;
@@ -24,18 +24,21 @@ namespace DiceBattle.UI
 
         private void Start()
         {
-            _close.onClick.AddListener(HandleCloseClick);
-            
+            // _close.onClick.AddListener(HandleCloseClick);
+
             GenerateDice();
             GenerateItems();
+
+            _diceHolder.Initialize(_dices);
+            _diceHolder.RepositionDice();
             // ToggleItems();
         }
 
-        private void OnDestroy() => _close.onClick.RemoveAllListeners();
+        // private void OnDestroy() => _close.onClick.RemoveAllListeners();
 
         private void OnEnable() => ToggleItems();
 
-        private void HandleCloseClick() => gameObject.SetActive(false);
+        // private void HandleCloseClick() => gameObject.SetActive(false);
 
         private void GenerateDice()
         {
