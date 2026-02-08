@@ -6,7 +6,7 @@
         GameScreen,
         GameOverScreen,
         LootScreen,
-        DungeonsScreen,
+        TavernScreen,
 
         OptionsWindow,
         InventoryWindow,

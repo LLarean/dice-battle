@@ -46,7 +46,11 @@ namespace DiceBattle.UI
             }
             else if (_currentScreen.TryGetComponent(out GameScreen gameScreen))
             {
-                ShowScreen(ScreenType.DungeonsScreen);
+                ShowScreen(ScreenType.TavernScreen);
+            }
+            else if (_currentScreen.TryGetComponent(out InventoryWindow inventoryWindow))
+            {
+                ShowScreen(ScreenType.TavernScreen);
             }
         }
 
@@ -57,7 +61,7 @@ namespace DiceBattle.UI
                 ScreenType.GameScreen => _gameScreen,
                 ScreenType.GameOverScreen => _gameOverScreen,
                 ScreenType.LootScreen => _lootScreen,
-                ScreenType.DungeonsScreen => _tavernScreen,
+                ScreenType.TavernScreen => _tavernScreen,
 
                 ScreenType.OptionsWindow => _optionsWindow,
                 ScreenType.InventoryWindow => _inventoryWindow,
