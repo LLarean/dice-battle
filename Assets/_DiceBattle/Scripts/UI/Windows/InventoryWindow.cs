@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using DiceBattle.Core;
+using DiceBattle.Global;
 using UnityEngine;
-using UnityEngine.UI;
+using System.Linq;
 
 namespace DiceBattle.UI
 {
@@ -24,21 +25,15 @@ namespace DiceBattle.UI
 
         private void Start()
         {
-            // _close.onClick.AddListener(HandleCloseClick);
-
             GenerateDice();
             GenerateItems();
 
             _diceHolder.Initialize(_dices);
             _diceHolder.RepositionDice();
-            // ToggleItems();
+            ToggleItems();
         }
 
-        // private void OnDestroy() => _close.onClick.RemoveAllListeners();
-
         private void OnEnable() => ToggleItems();
-
-        // private void HandleCloseClick() => gameObject.SetActive(false);
 
         private void GenerateDice()
         {
@@ -86,20 +81,21 @@ namespace DiceBattle.UI
 
         private void ToggleItems()
         {
+            RewardsData receivedRewards = GameProgress.GetReceivedRewards();
+
             foreach (RewardType rewardType in Enum.GetValues(typeof(RewardType)))
             {
-                ToggleItem(rewardType);
+                ToggleItem(receivedRewards, rewardType);
             }
         }
 
-        private void ToggleItem(RewardType rewardType)
+        private void ToggleItem(RewardsData receivedRewards, RewardType rewardType)
         {
-            foreach (InventoryItem item in _items)
+            InventoryItem inventoryItem = _items.FirstOrDefault(item => item.RewardType == rewardType);
+
+            if(inventoryItem != null)
             {
-                if (item.RewardType == rewardType)
-                {
-                    item.gameObject.SetActive(PlayerPrefs.GetInt(nameof(rewardType), 0) == 1);
-                }
+                inventoryItem.gameObject.SetActive(receivedRewards.RewardTypes.Contains(rewardType));
             }
         }
     }

@@ -1448,7 +1448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &293979050
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4308,10 +4308,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You can choose the dice to avoid throwing them.
+  m_text: "5 \u0438\u0437 5"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e6e33cb490ad0f64d953f243b8da0b70, type: 2}
+  m_sharedMaterial: {fileID: 1414109234843699102, guid: e6e33cb490ad0f64d953f243b8da0b70, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8733,11 +8733,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2831007230021825426, guid: e19f5095f566920409360ab3b8016241, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 721.323
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 2831007230021825426, guid: e19f5095f566920409360ab3b8016241, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 75.9294
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2831007230021825426, guid: e19f5095f566920409360ab3b8016241, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8769,11 +8769,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2831007230021825426, guid: e19f5095f566920409360ab3b8016241, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 360.6615
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 2831007230021825426, guid: e19f5095f566920409360ab3b8016241, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -37.9647
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 2831007230021825426, guid: e19f5095f566920409360ab3b8016241, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8794,11 +8794,6 @@ PrefabInstance:
     - target: {fileID: 4499084715459131509, guid: e19f5095f566920409360ab3b8016241, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410725216116619695, guid: e19f5095f566920409360ab3b8016241, type: 3}
-      propertyPath: m_text
-      value: "\u041E\u0442\u043A\u043B\u044E\u0447\u0438\u0442\u044C \u043F\u0443\u0441\u0442\u043E\u0435
-        \u0441\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u0435"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9241,7 +9236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1948114942
 RectTransform:
   m_ObjectHideFlags: 0
