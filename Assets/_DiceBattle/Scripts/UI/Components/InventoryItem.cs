@@ -8,9 +8,11 @@ using UnityEngine.UI;
 
 namespace DiceBattle.UI
 {
+    [RequireComponent(typeof(Button))]
     public class InventoryItem : MonoBehaviour
     {
         [SerializeField] private Button _button;
+        [Space]
         [SerializeField] private Image _agreeMark;
         [SerializeField] private TextMeshProUGUI _title;
 
@@ -26,14 +28,14 @@ namespace DiceBattle.UI
             _title.text = rewardType.Title();
         }
 
-        public void SetAgreeMark(bool isAgree)
-        {
-            _agreeMark.gameObject.SetActive(isAgree);
-        }
-
         public void SetInteractable(bool interactable)
         {
             _button.interactable = interactable;
+        }
+
+        public void SetAgreeMark(bool isAgree)
+        {
+            _agreeMark.gameObject.SetActive(isAgree);
         }
 
         private void Start()
