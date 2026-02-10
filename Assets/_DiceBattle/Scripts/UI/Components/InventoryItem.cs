@@ -1,4 +1,7 @@
 using System;
+using DiceBattle.Audio;
+using DiceBattle.Events;
+using GameSignals;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +26,10 @@ namespace DiceBattle.UI
             _title.text = rewardType.Title();
         }
 
+        public void EnableMark() => _agreeMark.gameObject.SetActive(true);
+
+        public void DisableMark() => _agreeMark.gameObject.SetActive(false);
+
         private void Start() => _button.onClick.AddListener(HandleButtonClicked);
 
         private void OnDestroy() => _button.onClick.RemoveAllListeners();
@@ -31,6 +38,7 @@ namespace DiceBattle.UI
         {
             OnClicked?.Invoke(_rewardType);
             _agreeMark.gameObject.SetActive(!_agreeMark.gameObject.activeSelf);
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
         }
     }
 }

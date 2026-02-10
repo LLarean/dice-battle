@@ -8,26 +8,20 @@ namespace DiceBattle
         {
             // TODO Translation
             return rewardType switch {
-                RewardType.DisableEmptyState => "Отключить пустое состояние",
-                RewardType.AdditionalTry => "Дополнительная попытка",
+                RewardType.DisableEmptyState => "Отключает пустое состояние",
+                RewardType.AdditionalTry => "Дают вторую попытку",
                 RewardType.AdditionalDice => "Дополнительный кубик",
 
-                RewardType.BaseDamage => "Добавить базовый урон",
-                RewardType.BaseArmor => "Добавить базовый армор",
-                RewardType.DoubleHealth => "Двойное здоровье",
+                RewardType.BaseDamage => "Добавляет базовый урон персонажу",
+                RewardType.BaseArmor => "Добавляет базовый армор персонажу",
+                RewardType.DoubleHealth => "Удваивает здоровье персонажа",
 
-                RewardType.UpgradeAttack => "Золотой кубик атаки",
-                RewardType.UpgradeHealth => "Золотой кубик здоровья",
-                RewardType.UpgradeArmor => "Золотой кубик армора",
+                RewardType.UpgradeAttack => "Значение атаки х2",
+                RewardType.UpgradeHealth => "Значение лечения х2",
+                RewardType.UpgradeArmor => "Значение армора х2",
 
                 RewardType.GoldDice => "Золотой кубик (x3)",
                 RewardType.SilverDice => "Серебрянный кубик (x2)",
-                // RewardType.SilverDice => "Куб дополнительной атаки",
-                // RewardType.SilverDice => "Куб дополнительной защиты",
-                // RewardType.SilverDice => "Куб дающий реген",
-                // RewardType.SilverDice => "Куб отключающий пустые состояние",
-                // RewardType.SilverDice => "Куб дающий дополнительную попытку",
-                // RewardType.SilverDice => "Куб дающий дополнительную попытку",
 
                 RewardType.RegenHealth => "Регенерация здоровья",
                 RewardType.RestoreHealth => "Восстановить здоровье",

@@ -93,9 +93,18 @@ namespace DiceBattle.UI
         {
             InventoryItem inventoryItem = _items.FirstOrDefault(item => item.RewardType == rewardType);
 
-            if(inventoryItem != null)
+            if (inventoryItem == null)
             {
-                inventoryItem.gameObject.SetActive(receivedRewards.RewardTypes.Contains(rewardType));
+                return;
+            }
+
+            if (receivedRewards.RewardTypes.Contains(rewardType))
+            {
+                inventoryItem.EnableMark();
+            }
+            else
+            {
+                inventoryItem.DisableMark();
             }
         }
     }
