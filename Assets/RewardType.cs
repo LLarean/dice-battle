@@ -26,7 +26,6 @@
 
         GoldDice, // value x3
         SilverDice, // value x2
-        NonEmptyDice, // DisableEmptyState
 
         // Restore Health
         RegenHealth,
