@@ -64,7 +64,7 @@ namespace DiceBattle.UI
             foreach (RewardType rewardType in Enum.GetValues(typeof(RewardType)))
             {
                 InventoryItem inventoryItem = Instantiate(_item, _itemsSpawn);
-                inventoryItem.Construct(rewardType);
+                inventoryItem.Initialize(rewardType);
                 _items.Add(inventoryItem);
             }
         }
@@ -98,14 +98,7 @@ namespace DiceBattle.UI
                 return;
             }
 
-            if (receivedRewards.RewardTypes.Contains(rewardType))
-            {
-                inventoryItem.EnableMark();
-            }
-            else
-            {
-                inventoryItem.DisableMark();
-            }
+            inventoryItem.SetAgreeMark(receivedRewards.RewardTypes.Contains(rewardType));
         }
     }
 }

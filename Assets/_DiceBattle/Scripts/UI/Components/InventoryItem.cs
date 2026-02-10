@@ -20,24 +20,36 @@ namespace DiceBattle.UI
 
         public event Action<RewardType> OnClicked;
 
-        public void Construct(RewardType rewardType)
+        public void Initialize(RewardType rewardType)
         {
             _rewardType = rewardType;
             _title.text = rewardType.Title();
         }
 
-        public void EnableMark() => _agreeMark.gameObject.SetActive(true);
+        public void SetAgreeMark(bool isAgree)
+        {
+            _agreeMark.gameObject.SetActive(isAgree);
+        }
 
-        public void DisableMark() => _agreeMark.gameObject.SetActive(false);
+        public void SetInteractable(bool interactable)
+        {
+            _button.interactable = interactable;
+        }
 
-        private void Start() => _button.onClick.AddListener(HandleButtonClicked);
+        private void Start()
+        {
+            _button.onClick.AddListener(HandleButtonClicked);
+        }
 
-        private void OnDestroy() => _button.onClick.RemoveAllListeners();
+        private void OnDestroy()
+        {
+            _button.onClick.RemoveAllListeners();
+        }
 
         private void HandleButtonClicked()
         {
             OnClicked?.Invoke(_rewardType);
-            _agreeMark.gameObject.SetActive(!_agreeMark.gameObject.activeSelf);
+            SetAgreeMark(!_agreeMark.gameObject.activeSelf);
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
         }
     }
