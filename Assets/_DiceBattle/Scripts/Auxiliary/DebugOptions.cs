@@ -8,7 +8,7 @@ namespace DiceBattle.Auxiliary
     public class DebugOptions : MonoBehaviour
     {
         [SerializeField] private bool _needResetAll;
-        [SerializeField] private RewardType _rewardType;
+        [SerializeField] private DiceType _diceType;
 
         private void Start()
         {
@@ -22,7 +22,7 @@ namespace DiceBattle.Auxiliary
         [Button]
         private void AddReward()
         {
-            GameProgress.AddReceivedReward(_rewardType);
+            GameProgress.AddReceivedReward(_diceType);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace DiceBattle.Global
                 return;
             }
 
-            rewardsData.RewardTypes ??= new List<RewardType>();
+            rewardsData.DiceTypes ??= new List<DiceType>();
             string json = JsonUtility.ToJson(rewardsData);
             PlayerPrefs.SetString(_playerPrefsKey, json);
             PlayerPrefs.Save();
@@ -42,7 +42,7 @@ namespace DiceBattle.Global
                 return CreateNewRewardsData();
             }
 
-            data.RewardTypes ??= new List<RewardType>();
+            data.DiceTypes ??= new List<DiceType>();
             return data;
         }
 
@@ -57,12 +57,12 @@ namespace DiceBattle.Global
         private static RewardsData CreateNewRewardsData()
         {
             var random = new Random();
-            var rewardTypes = Enum.GetValues(typeof(RewardType)).Cast<RewardType>().ToList();
+            var rewardTypes = Enum.GetValues(typeof(DiceType)).Cast<DiceType>().ToList();
             var randomRewards = rewardTypes.OrderBy(x => random.Next()).ToList();
 
             return new RewardsData
             {
-                RewardTypes = randomRewards
+                DiceTypes = randomRewards
             };
         }
     }

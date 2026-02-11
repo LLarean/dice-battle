@@ -36,7 +36,7 @@ namespace DiceBattle.Global
         {
             RewardsData rewardsData = GetReceivedRewards();
 
-            int firstDice = rewardsData.RewardTypes.Where(rewardType => rewardType == RewardType.AdditionalDice).Sum(rewardType => 1);
+            int firstDice = rewardsData.DiceTypes.Where(rewardType => rewardType == DiceType.AdditionalDice).Sum(rewardType => 1);
             // int secondDice = rewards.RewardTypes.Where(rewardType => rewardType == RewardType.SecondAdditionalDice).Sum(rewardType => 1);
 
             int diceCount = 3;
@@ -66,7 +66,7 @@ namespace DiceBattle.Global
 
         #region Received Rewards
 
-        public static void AddReceivedReward(RewardType rewardType) => AcquiredRewardsStorage.Save(rewardType);
+        public static void AddReceivedReward(DiceType diceType) => AcquiredRewardsStorage.Save(diceType);
 
         public static void LogReceivedReward() => AcquiredRewardsStorage.Log();
 

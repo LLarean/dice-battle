@@ -4,10 +4,10 @@
     /// This file must be updated when updating -
     /// <seealso cref="RewardTypeExtensions"/>>
     /// </summary>
-    public enum RewardType
+    public enum DiceType
     {
-        //Everything is on the dice. A cube can give additional armor,
-        //a cube can give an attack, and so on.
+        //Everything is on the dice. A dice can give additional armor,
+        //a dice can give an attack, and so on.
 
         // General
         DisableEmptyState,

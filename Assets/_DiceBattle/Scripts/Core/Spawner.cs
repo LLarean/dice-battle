@@ -51,14 +51,14 @@ namespace DiceBattle.Core
         {
             RewardsData rewardsData = GameProgress.GetReceivedRewards();
 
-            int doubleHealthCount = rewardsData.RewardTypes.Count(r => r == RewardType.DoubleHealth);
+            int doubleHealthCount = rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.DoubleHealth);
             int additionalHealth = unitConfig.StartHealth * doubleHealthCount;
             int maxHealth = unitConfig.StartHealth + additionalHealth;
 
-            int baseDamageCount = rewardsData.RewardTypes.Count(r => r == RewardType.BaseDamage);
+            int baseDamageCount = rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseDamage);
             int damage = unitConfig.StartDamage + baseDamageCount;
 
-            int baseArmorCount = rewardsData.RewardTypes.Count(r => r == RewardType.BaseArmor);
+            int baseArmorCount = rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseArmor);
             int armor = unitConfig.StartArmor + baseArmorCount;
 
             return new UnitData
