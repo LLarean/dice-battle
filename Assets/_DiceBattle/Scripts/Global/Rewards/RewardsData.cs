@@ -5,6 +5,6 @@ namespace DiceBattle.UI
     [System.Serializable]
     public class RewardsData
     {
-        public List<RewardType> RewardTypes;
+        public List<DiceType> DiceTypes;
     }
 }

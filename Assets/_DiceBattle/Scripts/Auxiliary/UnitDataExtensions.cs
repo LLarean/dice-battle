@@ -19,14 +19,14 @@ namespace DiceBattle
 
         public static void Update(this UnitData unitData, GameConfig config)
         {
-            List<RewardType> rewardTypes = GameProgress.GetReceivedRewards().RewardTypes;
+            List<DiceType> rewardTypes = GameProgress.GetReceivedRewards().DiceTypes;
 
             unitData.Title = "Герой (upd)"; // TODO Translation
 
-            unitData.Armor = rewardTypes.Count(r => r == RewardType.BaseArmor) * config.Player.GrowthArmor;
-            unitData.Damage = rewardTypes.Count(r => r == RewardType.BaseDamage) * config.Player.GrowthDamage;
+            unitData.Armor = rewardTypes.Count(r => r == DiceType.BaseArmor) * config.Player.GrowthArmor;
+            unitData.Damage = rewardTypes.Count(r => r == DiceType.BaseDamage) * config.Player.GrowthDamage;
 
-            int doubleHealth = rewardTypes.Count(r => r == RewardType.DoubleHealth) * 2;
+            int doubleHealth = rewardTypes.Count(r => r == DiceType.DoubleHealth) * 2;
 
             if (doubleHealth > 0)
             {

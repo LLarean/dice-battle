@@ -10,20 +10,20 @@ namespace DiceBattle.UI
         [SerializeField] private Button _button;
         [SerializeField] private TextMeshProUGUI _title;
 
-        private RewardType _rewardType;
+        private DiceType _diceType;
 
-        public event Action<RewardType> OnClicked;
+        public event Action<DiceType> OnClicked;
 
-        public void SetReward(RewardType rewardType)
+        public void SetReward(DiceType diceType)
         {
-            _rewardType = rewardType;
-            _title.text = rewardType.Title();
+            _diceType = diceType;
+            _title.text = diceType.Title();
         }
 
         private void Start() => _button.onClick.AddListener(HandleClick);
 
         private void OnDestroy() => _button.onClick.RemoveAllListeners();
 
-        private void HandleClick() => OnClicked?.Invoke(_rewardType);
+        private void HandleClick() => OnClicked?.Invoke(_diceType);
     }
 }

@@ -61,7 +61,7 @@ namespace DiceBattle.UI
         {
             ClearItems();
 
-            foreach (RewardType rewardType in Enum.GetValues(typeof(RewardType)))
+            foreach (DiceType rewardType in Enum.GetValues(typeof(DiceType)))
             {
                 InventoryItem inventoryItem = Instantiate(_item, _itemsSpawn);
                 inventoryItem.Initialize(rewardType);
@@ -83,22 +83,22 @@ namespace DiceBattle.UI
         {
             RewardsData receivedRewards = GameProgress.GetReceivedRewards();
 
-            foreach (RewardType rewardType in Enum.GetValues(typeof(RewardType)))
+            foreach (DiceType rewardType in Enum.GetValues(typeof(DiceType)))
             {
                 ToggleItem(receivedRewards, rewardType);
             }
         }
 
-        private void ToggleItem(RewardsData receivedRewards, RewardType rewardType)
+        private void ToggleItem(RewardsData receivedRewards, DiceType diceType)
         {
-            InventoryItem inventoryItem = _items.FirstOrDefault(item => item.RewardType == rewardType);
+            InventoryItem inventoryItem = _items.FirstOrDefault(item => item.DiceType == diceType);
 
             if (inventoryItem == null)
             {
                 return;
             }
 
-            inventoryItem.SetAgreeMark(receivedRewards.RewardTypes.Contains(rewardType));
+            inventoryItem.SetAgreeMark(receivedRewards.DiceTypes.Contains(diceType));
         }
     }
 }

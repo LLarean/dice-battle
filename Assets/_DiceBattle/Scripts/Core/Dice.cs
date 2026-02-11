@@ -46,7 +46,7 @@ namespace DiceBattle.Core
         public void Roll()
         {
             RewardsData receivedRewards = GameProgress.GetReceivedRewards();
-            bool containsDisableEmptyState = receivedRewards.RewardTypes.Contains(RewardType.DisableEmptyState);
+            bool containsDisableEmptyState = receivedRewards.DiceTypes.Contains(DiceBattle.DiceType.DisableEmptyState);
             int firstIndex = containsDisableEmptyState ? 1 : 0;
 
             int randomIndex = _random.Next(firstIndex, _faceSprites.Length);
@@ -113,16 +113,16 @@ namespace DiceBattle.Core
 
             if (_diceType == DiceType.Attack)
             {
-                multiplier += rewardsData.RewardTypes.Count(r => r == RewardType.UpgradeAttack);
+                multiplier += rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeAttack);
             }
             else if (_diceType == DiceType.Defense)
             {
-                multiplier += rewardsData.RewardTypes.Count(r => r == RewardType.UpgradeArmor);
+                multiplier += rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeArmor);
 
             }
             else if (_diceType == DiceType.Heal)
             {
-                multiplier += rewardsData.RewardTypes.Count(r => r == RewardType.UpgradeHealth);
+                multiplier += rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeHealth);
             }
 
             _multiplier.gameObject.SetActive(multiplier > 1);

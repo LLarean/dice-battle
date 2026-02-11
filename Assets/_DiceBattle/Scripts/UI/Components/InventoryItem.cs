@@ -16,16 +16,16 @@ namespace DiceBattle.UI
         [SerializeField] private Image _agreeMark;
         [SerializeField] private TextMeshProUGUI _title;
 
-        private RewardType _rewardType;
+        private DiceType _diceType;
 
-        public RewardType RewardType => _rewardType;
+        public DiceType DiceType => _diceType;
 
-        public event Action<RewardType> OnClicked;
+        public event Action<DiceType> OnClicked;
 
-        public void Initialize(RewardType rewardType)
+        public void Initialize(DiceType diceType)
         {
-            _rewardType = rewardType;
-            _title.text = rewardType.Title();
+            _diceType = diceType;
+            _title.text = diceType.Title();
         }
 
         public void SetInteractable(bool interactable)
@@ -50,7 +50,7 @@ namespace DiceBattle.UI
 
         private void HandleButtonClicked()
         {
-            OnClicked?.Invoke(_rewardType);
+            OnClicked?.Invoke(_diceType);
             SetAgreeMark(!_agreeMark.gameObject.activeSelf);
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
         }
