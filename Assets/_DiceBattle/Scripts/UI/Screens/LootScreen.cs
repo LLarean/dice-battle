@@ -34,7 +34,7 @@ namespace DiceBattle.UI
 
         private void HandleItemSelect(DiceType diceType)
         {
-            GameProgress.AddReceivedReward(diceType);
+            GameProgress.SaveReceivedReward(diceType);
             GameProgress.LogReceivedReward();
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
@@ -46,8 +46,8 @@ namespace DiceBattle.UI
 
         private void ShowRewards()
         {
-            RewardsData randomRewards = GameProgress.GetRandomRewards();
-            GameProgress.AddRandomRewards(randomRewards);
+            RewardsData randomRewards = GameProgress.LoadRandomRewards();
+            GameProgress.SaveRandomRewards(randomRewards);
             GameProgress.LogRandomRewards();
 
             int firstRewardCount = GameProgress.CompletedLevels;

@@ -34,7 +34,7 @@ namespace DiceBattle.Global
 
         public static int GetDiceCount()
         {
-            RewardsData rewardsData = GetReceivedRewards();
+            RewardsData rewardsData = LoadReceivedRewards();
 
             int firstDice = rewardsData.DiceTypes.Where(rewardType => rewardType == DiceType.AdditionalDice).Sum(rewardType => 1);
             // int secondDice = rewards.RewardTypes.Where(rewardType => rewardType == RewardType.SecondAdditionalDice).Sum(rewardType => 1);
@@ -66,11 +66,11 @@ namespace DiceBattle.Global
 
         #region Received Rewards
 
-        public static void AddReceivedReward(DiceType diceType) => AcquiredRewardsStorage.Save(diceType);
+        public static RewardsData LoadReceivedRewards() => AcquiredRewardsStorage.Load();
+
+        public static void SaveReceivedReward(DiceType diceType) => AcquiredRewardsStorage.Save(diceType);
 
         public static void LogReceivedReward() => AcquiredRewardsStorage.Log();
-
-        public static RewardsData GetReceivedRewards() => AcquiredRewardsStorage.Load();
 
         private static void ClearReceivedRewards() => AcquiredRewardsStorage.Clear();
 
@@ -78,11 +78,11 @@ namespace DiceBattle.Global
 
         #region Random Rewards
 
-        public static void AddRandomRewards(RewardsData rewardsData) => AvailableRewardsPool.Save(rewardsData);
+        public static RewardsData LoadRandomRewards() => AvailableRewardsPool.Load();
+
+        public static void SaveRandomRewards(RewardsData rewardsData) => AvailableRewardsPool.Save(rewardsData);
 
         public static void LogRandomRewards() => AvailableRewardsPool.Log();
-
-        public static RewardsData GetRandomRewards() => AvailableRewardsPool.Load();
 
         private static void ClearRandomRewards() => AvailableRewardsPool.Clear();
 

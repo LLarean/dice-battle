@@ -22,7 +22,7 @@ namespace DiceBattle.Auxiliary
         [Button]
         private void AddReward()
         {
-            GameProgress.AddReceivedReward(_diceType);
+            GameProgress.SaveReceivedReward(_diceType);
         }
     }
 }

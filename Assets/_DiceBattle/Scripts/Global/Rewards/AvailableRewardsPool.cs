@@ -11,20 +11,6 @@ namespace DiceBattle.Global
     {
         private const string _playerPrefsKey = PlayerPrefsKeys.RewardsList;
 
-        public static void Save(RewardsData rewardsData)
-        {
-            if (rewardsData == null)
-            {
-                Debug.LogWarning("Attempted to save null rewards data");
-                return;
-            }
-
-            rewardsData.DiceTypes ??= new List<DiceType>();
-            string json = JsonUtility.ToJson(rewardsData);
-            PlayerPrefs.SetString(_playerPrefsKey, json);
-            PlayerPrefs.Save();
-        }
-
         public static RewardsData Load()
         {
             string json = PlayerPrefs.GetString(_playerPrefsKey, null);
@@ -44,6 +30,20 @@ namespace DiceBattle.Global
 
             data.DiceTypes ??= new List<DiceType>();
             return data;
+        }
+
+        public static void Save(RewardsData rewardsData)
+        {
+            if (rewardsData == null)
+            {
+                Debug.LogWarning("Attempted to save null rewards data");
+                return;
+            }
+
+            rewardsData.DiceTypes ??= new List<DiceType>();
+            string json = JsonUtility.ToJson(rewardsData);
+            PlayerPrefs.SetString(_playerPrefsKey, json);
+            PlayerPrefs.Save();
         }
 
         public static void Log()
