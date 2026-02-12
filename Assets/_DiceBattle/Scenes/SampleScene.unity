@@ -2785,7 +2785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainMenuScreen: {fileID: 1513456417}
   _tavernScreen: {fileID: 1017251808}
-  _inventoryWindow: {fileID: 1032611115}
+  _inventoryScreen: {fileID: 1032611115}
   _gameScreen: {fileID: 1004415171}
   _gameOverScreen: {fileID: 139924238}
   _lootScreen: {fileID: 30483745}
@@ -6906,7 +6906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _needResetAll: 1
-  _rewardType: 0
+  _diceType: 0
 --- !u!4 &1327191625
 Transform:
   m_ObjectHideFlags: 0

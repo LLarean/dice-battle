@@ -17,7 +17,7 @@ namespace DiceBattle.Global
 
             if (string.IsNullOrEmpty(json))
             {
-                return CreateNewRewardsData();
+                return GetRandomRewards();
             }
 
             RewardsData data = JsonUtility.FromJson<RewardsData>(json);
@@ -25,10 +25,10 @@ namespace DiceBattle.Global
             if (data == null)
             {
                 Debug.LogWarning("Failed to deserialize rewards data, creating new");
-                return CreateNewRewardsData();
+                return GetRandomRewards();
             }
 
-            data.DiceTypes ??= new List<DiceType>();
+            data.DiceTypes ??= GetRandomDice();
             return data;
         }
 
@@ -40,7 +40,7 @@ namespace DiceBattle.Global
                 return;
             }
 
-            rewardsData.DiceTypes ??= new List<DiceType>();
+            rewardsData.DiceTypes ??= GetRandomDice();
             string json = JsonUtility.ToJson(rewardsData);
             PlayerPrefs.SetString(_playerPrefsKey, json);
             PlayerPrefs.Save();
@@ -54,16 +54,19 @@ namespace DiceBattle.Global
 
         public static void Clear() => PlayerPrefs.DeleteKey(_playerPrefsKey);
 
-        private static RewardsData CreateNewRewardsData()
+        private static RewardsData GetRandomRewards()
+        {
+            return new RewardsData
+            {
+                DiceTypes = GetRandomDice()
+            };
+        }
+
+        private static List<DiceType> GetRandomDice()
         {
             var random = new Random();
             var rewardTypes = Enum.GetValues(typeof(DiceType)).Cast<DiceType>().ToList();
-            var randomRewards = rewardTypes.OrderBy(x => random.Next()).ToList();
-
-            return new RewardsData
-            {
-                DiceTypes = randomRewards
-            };
+            return rewardTypes.OrderBy(x => random.Next()).ToList();
         }
     }
 }

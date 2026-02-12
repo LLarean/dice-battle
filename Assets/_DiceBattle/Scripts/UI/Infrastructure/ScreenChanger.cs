@@ -10,7 +10,7 @@ namespace DiceBattle.UI
         [Header("Screens")]
         [SerializeField] private MainMenuScreen _mainMenuScreen;
         [SerializeField] private TavernScreen _tavernScreen;
-        [SerializeField] private InventoryWindow _inventoryWindow;
+        [SerializeField] private InventoryScreen _inventoryScreen;
         [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
         [SerializeField] private LootScreen _lootScreen;
@@ -48,7 +48,7 @@ namespace DiceBattle.UI
             {
                 ShowScreen(ScreenType.TavernScreen);
             }
-            else if (_currentScreen.TryGetComponent(out InventoryWindow inventoryWindow))
+            else if (_currentScreen.TryGetComponent(out InventoryScreen inventoryWindow))
             {
                 ShowScreen(ScreenType.TavernScreen);
             }
@@ -64,7 +64,7 @@ namespace DiceBattle.UI
                 ScreenType.TavernScreen => _tavernScreen,
 
                 ScreenType.OptionsWindow => _optionsWindow,
-                ScreenType.InventoryWindow => _inventoryWindow,
+                ScreenType.InventoryWindow => _inventoryScreen,
                 ScreenType.CreditsWindow => _creditsWindow,
                 _ => throw new ArgumentOutOfRangeException(nameof(screenType), screenType, null)
             };
@@ -79,7 +79,7 @@ namespace DiceBattle.UI
             _lootScreen.gameObject.SetActive(false);
 
             _optionsWindow.gameObject.SetActive(false);
-            _inventoryWindow.gameObject.SetActive(false);
+            _inventoryScreen.gameObject.SetActive(false);
             _creditsWindow.gameObject.SetActive(false);
 
             SignalSystem.Subscribe(this);
