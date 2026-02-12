@@ -28,30 +28,30 @@ namespace DiceBattle.Core
         [SerializeField] private bool _isMenu;
 
         private Random _random;
-        private DiceType _diceType = DiceType.Empty;
+        private DiceValue _diceValue = DiceValue.Empty;
 
         public event Action OnToggled;
 
-        public DiceType DiceType => _diceType;
+        public DiceValue DiceValue => _diceValue;
         public bool IsSelected => _selectionIcon.gameObject.activeSelf;
 
         public void ResetToEmpty()
         {
-            _diceType = DiceType.Empty;
-            _faceIcon.sprite = _faceSprites[(int)_diceType];
+            _diceValue = DiceValue.Empty;
+            _faceIcon.sprite = _faceSprites[(int)_diceValue];
 
             ClearSelection();
         }
 
         public void Roll()
         {
-            RewardsData receivedRewards = GameProgress.GetReceivedRewards();
+            RewardsData receivedRewards = GameProgress.LoadReceivedRewards();
             bool containsDisableEmptyState = receivedRewards.DiceTypes.Contains(DiceBattle.DiceType.DisableEmptyState);
             int firstIndex = containsDisableEmptyState ? 1 : 0;
 
             int randomIndex = _random.Next(firstIndex, _faceSprites.Length);
-            _diceType = (DiceType)randomIndex;
-            _faceIcon.sprite = _faceSprites[(int)_diceType];
+            _diceValue = (DiceValue)randomIndex;
+            _faceIcon.sprite = _faceSprites[(int)_diceValue];
 
             ClearSelection();
             ShowMultiplier();
@@ -109,18 +109,18 @@ namespace DiceBattle.Core
         private void ShowMultiplier()
         {
             int multiplier = 1;
-            RewardsData rewardsData = GameProgress.GetReceivedRewards();
+            RewardsData rewardsData = GameProgress.LoadReceivedRewards();
 
-            if (_diceType == DiceType.Attack)
+            if (_diceValue == DiceValue.Attack)
             {
                 multiplier += rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeAttack);
             }
-            else if (_diceType == DiceType.Defense)
+            else if (_diceValue == DiceValue.Defense)
             {
                 multiplier += rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeArmor);
 
             }
-            else if (_diceType == DiceType.Heal)
+            else if (_diceValue == DiceValue.Heal)
             {
                 multiplier += rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeHealth);
             }

@@ -81,7 +81,7 @@ namespace DiceBattle.UI
 
         private void ToggleItems()
         {
-            RewardsData receivedRewards = GameProgress.GetReceivedRewards();
+            RewardsData receivedRewards = GameProgress.LoadReceivedRewards();
 
             foreach (DiceType rewardType in Enum.GetValues(typeof(DiceType)))
             {

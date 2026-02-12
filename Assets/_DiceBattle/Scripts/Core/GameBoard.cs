@@ -80,7 +80,7 @@ namespace DiceBattle.Core
         {
             ClearDice();
 
-            RewardsData receivedRewards = GameProgress.GetReceivedRewards();
+            RewardsData receivedRewards = GameProgress.LoadReceivedRewards();
             int additionalDiceCount = receivedRewards.DiceTypes.Count(r => r == DiceBattle.DiceType.AdditionalDice);
             int diceCount = _config.DiceStartCount + additionalDiceCount;
 

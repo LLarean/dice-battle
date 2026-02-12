@@ -19,7 +19,7 @@ namespace DiceBattle
 
         public static void Update(this UnitData unitData, GameConfig config)
         {
-            List<DiceType> rewardTypes = GameProgress.GetReceivedRewards().DiceTypes;
+            List<DiceType> rewardTypes = GameProgress.LoadReceivedRewards().DiceTypes;
 
             unitData.Title = "Герой (upd)"; // TODO Translation
 

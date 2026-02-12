@@ -49,7 +49,7 @@ namespace DiceBattle.Core
 
         private UnitData GetHeroUnitData(UnitConfig unitConfig)
         {
-            RewardsData rewardsData = GameProgress.GetReceivedRewards();
+            RewardsData rewardsData = GameProgress.LoadReceivedRewards();
 
             int doubleHealthCount = rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.DoubleHealth);
             int additionalHealth = unitConfig.StartHealth * doubleHealthCount;

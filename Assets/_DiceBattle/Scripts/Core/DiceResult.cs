@@ -20,18 +20,18 @@ namespace DiceBattle.Core
 
             foreach (Dice dice in dices)
             {
-                switch (dice.DiceType)
+                switch (dice.DiceValue)
                 {
-                    case DiceType.Attack:
+                    case DiceValue.Attack:
                         // if (dice.gameObject.activeSelf)
                         // {
                             _damage++;
                         // }
                         break;
-                    case DiceType.Defense:
+                    case DiceValue.Defense:
                         _armor++;
                         break;
-                    case DiceType.Heal:
+                    case DiceValue.Heal:
                         _heal++;
                         break;
                 }

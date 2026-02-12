@@ -1,28 +1,34 @@
-namespace DiceBattle.Core
+﻿namespace DiceBattle
 {
     /// <summary>
-    /// Represents the different types of dice used in the game.
+    /// This file must be updated when updating -
+    /// <seealso cref="RewardTypeExtensions"/>>
     /// </summary>
     public enum DiceType
     {
-        /// <summary>
-        /// Represents an empty dice type in the game.
-        /// </summary>
-        Empty = 0,
+        //Everything is on the dice. A dice can give additional armor,
+        //a dice can give an attack, and so on.
 
-        /// <summary>
-        /// Represents a dice type used to perform offensive actions in the game.
-        /// </summary>
-        Attack = 1,
+        // General
+        DisableEmptyState,
+        AdditionalTry, // need specific dice
+        AdditionalDice,
 
-        /// <summary>
-        /// Represents a dice type focused on defensive actions, such as reducing damage or enhancing protection in the game.
-        /// </summary>
-        Defense = 2,
+        // Character Upgrades
+        BaseDamage,
+        BaseArmor,
+        DoubleHealth,
 
-        /// <summary>
-        /// Represents a dice type used to restore health points in the game.
-        /// </summary>
-        Heal = 3,
+        // Dice Upgrades
+        UpgradeAttack,
+        UpgradeHealth,
+        UpgradeArmor,
+
+        GoldDice, // value x3
+        SilverDice, // value x2
+
+        // Restore Health
+        RegenHealth,
+        RestoreHealth,
     }
 }

@@ -8,21 +8,6 @@ namespace DiceBattle.Global
     {
         private const string _playerPrefsKey = PlayerPrefsKeys.ReceivedRewards;
 
-        public static void Save(DiceType diceType)
-        {
-            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, null);
-
-            RewardsData rewardsData = string.IsNullOrEmpty(rewardsJson)
-                ? CreateNewRewardsData()
-                : JsonUtility.FromJson<RewardsData>(rewardsJson);
-
-            rewardsData ??= CreateNewRewardsData();
-            rewardsData.DiceTypes.Add(diceType);
-
-            PlayerPrefs.SetString(_playerPrefsKey, JsonUtility.ToJson(rewardsData));
-            PlayerPrefs.Save();
-        }
-
         public static RewardsData Load()
         {
             string json = PlayerPrefs.GetString(_playerPrefsKey, null);
@@ -41,6 +26,21 @@ namespace DiceBattle.Global
             }
 
             return data;
+        }
+
+        public static void Save(DiceType diceType)
+        {
+            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, null);
+
+            RewardsData rewardsData = string.IsNullOrEmpty(rewardsJson)
+                ? CreateNewRewardsData()
+                : JsonUtility.FromJson<RewardsData>(rewardsJson);
+
+            rewardsData ??= CreateNewRewardsData();
+            rewardsData.DiceTypes.Add(diceType);
+
+            PlayerPrefs.SetString(_playerPrefsKey, JsonUtility.ToJson(rewardsData));
+            PlayerPrefs.Save();
         }
 
         public static void Log()
