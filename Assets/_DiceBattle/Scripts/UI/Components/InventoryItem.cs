@@ -15,6 +15,7 @@ namespace DiceBattle.UI
         [Space]
         [SerializeField] private Image _agreeMark;
         [SerializeField] private TextMeshProUGUI _title;
+        [SerializeField] private TextMeshProUGUI _description;
 
         private DiceType _diceType;
 
@@ -26,6 +27,7 @@ namespace DiceBattle.UI
         {
             _diceType = diceType;
             _title.text = diceType.Title();
+            _description.text = diceType.Title();
         }
 
         public void SetInteractable(bool interactable)
@@ -35,7 +37,7 @@ namespace DiceBattle.UI
 
         public void SetAgreeMark(bool isAgree)
         {
-            _agreeMark.gameObject.SetActive(isAgree);
+            // _agreeMark.gameObject.SetActive(isAgree);
         }
 
         private void Start()

@@ -8,6 +8,31 @@ namespace DiceBattle
         {
             // TODO Translation
             return diceType switch {
+                DiceType.DisableEmptyState => "Совершенный кубик",
+                DiceType.AdditionalTry => "Кубик попытки",
+                DiceType.AdditionalDice => "Дв",
+
+                DiceType.BaseDamage => "Кубик-меч",
+                DiceType.BaseArmor => "Кубик-щит",
+                DiceType.DoubleHealth => "Кубик-подорожник",
+
+                DiceType.UpgradeAttack => "Острый кубик",
+                DiceType.UpgradeHealth => "Полезный кубик",
+                DiceType.UpgradeArmor => "Прочный кубик",
+
+                DiceType.GoldDice => "Золотой кубик (x3)",
+                DiceType.SilverDice => "Серебрянный кубик (x2)",
+
+                DiceType.RegenHealth => "Регенерация здоровья",
+                DiceType.RestoreHealth => "Восстановить здоровье",
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+
+        public static string Description(this DiceType diceType)
+        {
+            // TODO Translation
+            return diceType switch {
                 DiceType.DisableEmptyState => "Отключает пустое состояние",
                 DiceType.AdditionalTry => "Дают вторую попытку",
                 DiceType.AdditionalDice => "Дополнительный кубик",

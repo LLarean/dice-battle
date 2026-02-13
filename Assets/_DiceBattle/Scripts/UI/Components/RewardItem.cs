@@ -17,7 +17,7 @@ namespace DiceBattle.UI
         public void SetReward(DiceType diceType)
         {
             _diceType = diceType;
-            _title.text = diceType.Title();
+            _title.text = diceType.Description();
         }
 
         private void Start() => _button.onClick.AddListener(HandleClick);
