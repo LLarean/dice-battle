@@ -12,11 +12,14 @@ namespace DiceBattle.UI
         private readonly List<Dice> _dices = new();
         private readonly List<InventoryItem> _items = new();
 
-        [Space] [SerializeField] private UnitPanel _unitPanel;
+        [Space]
+        [SerializeField] private UnitPanel _unitPanel;
         [SerializeField] private DiceHolder _diceHolder;
-        [Space] [SerializeField] private Dice _dice;
+        [Space]
+        [SerializeField] private Dice _dice;
         [SerializeField] private Transform _diceSpawn;
-        [Space] [SerializeField] private InventoryItem _item;
+        [Space]
+        [SerializeField] private InventoryItem _item;
         [SerializeField] private Transform _itemsSpawn;
 
 
@@ -24,8 +27,8 @@ namespace DiceBattle.UI
         {
             GenerateItems();
             ToggleItems();
-
-            // GenerateDice();
+            GenerateDice();
+            SetUnitData();
 
             _diceHolder.Initialize(_dices);
             _diceHolder.RepositionDice();
@@ -76,6 +79,22 @@ namespace DiceBattle.UI
             }
 
             _dices.Clear();
+        }
+
+        private void SetUnitData()
+        {
+            var unitData = new UnitData
+            {
+                Title = "Heroes (you)",
+                // Portrait = null,
+                // Background = null,
+                MaxHealth = 20,
+                CurrentHealth = 20,
+                Damage = 1,
+                Armor = 1
+            };
+
+            _unitPanel.SetUnitData(unitData);
         }
 
         private void ToggleItems()
