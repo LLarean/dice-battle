@@ -4,6 +4,7 @@ using DiceBattle.Core;
 using DiceBattle.Global;
 using UnityEngine;
 using System.Linq;
+using DiceBattle.Data;
 
 namespace DiceBattle.UI
 {
@@ -12,6 +13,8 @@ namespace DiceBattle.UI
         private readonly List<Dice> _dices = new();
         private readonly List<InventoryItem> _items = new();
 
+        [Space]
+        [SerializeField] private GameConfig _gameConfig;
         [Space]
         [SerializeField] private UnitPanel _unitPanel;
         [SerializeField] private DiceHolder _diceHolder;
@@ -86,12 +89,11 @@ namespace DiceBattle.UI
             var unitData = new UnitData
             {
                 Title = "Heroes (you)",
-                // Portrait = null,
-                // Background = null,
-                MaxHealth = 20,
-                CurrentHealth = 20,
-                Damage = 1,
-                Armor = 1
+                Portrait = _gameConfig.Player.Portraits[0],
+                MaxHealth = _gameConfig.Player.StartHealth,
+                CurrentHealth = _gameConfig.Player.StartHealth,
+                Damage = _gameConfig.Player.StartDamage,
+                Armor = _gameConfig.Player.StartArmor
             };
 
             _unitPanel.SetUnitData(unitData);
