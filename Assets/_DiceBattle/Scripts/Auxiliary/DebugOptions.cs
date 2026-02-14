@@ -27,6 +27,14 @@ namespace DiceBattle.Auxiliary
         }
 
         [Button]
+        private void AddEquippedReward()
+        {
+            RewardsData equippedRewards = GameProgress.LoadEquippedRewards();
+            equippedRewards.DiceTypes.Add(_diceType);
+            GameProgress.SaveEquippedRewards(equippedRewards);
+        }
+
+        [Button]
         private void AddAllRewards()
         {
             RewardsData randomRewards = GameProgress.LoadRandomRewards();
@@ -35,6 +43,13 @@ namespace DiceBattle.Auxiliary
             {
                 GameProgress.SaveReceivedReward(randomReward);
             }
+        }
+
+        [Button]
+        private void EquipAllRewards()
+        {
+            RewardsData randomRewards = GameProgress.LoadRandomRewards();
+            GameProgress.SaveEquippedRewards(randomRewards);
         }
     }
 }
