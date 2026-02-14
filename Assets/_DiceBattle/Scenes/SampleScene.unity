@@ -4233,6 +4233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 1032611116}
+  _gameConfig: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
   _unitPanel: {fileID: 1197358313}
   _diceHolder: {fileID: 1058791445}
   _dice: {fileID: 2983668718188166613, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
