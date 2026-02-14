@@ -30,6 +30,7 @@ namespace DiceBattle.UI
         {
             GenerateItems();
             ToggleItems();
+            MarkItems();
             GenerateDice();
             SetUnitData();
 
@@ -66,7 +67,7 @@ namespace DiceBattle.UI
         {
             ClearDice();
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Dice dice = Instantiate(_dice, _diceSpawn);
                 dice.DisableButton();
@@ -100,6 +101,17 @@ namespace DiceBattle.UI
         }
 
         private void ToggleItems()
+        {
+            RewardsData receivedRewards = GameProgress.LoadReceivedRewards();
+
+            foreach (InventoryItem item in _items)
+            {
+                bool isReceived = receivedRewards.DiceTypes.Contains(item.DiceType);
+                item.gameObject.SetActive(isReceived);
+            }
+        }
+
+        private void MarkItems()
         {
             RewardsData receivedRewards = GameProgress.LoadReceivedRewards();
 
