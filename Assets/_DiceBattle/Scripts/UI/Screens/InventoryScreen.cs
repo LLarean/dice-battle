@@ -113,12 +113,12 @@ namespace DiceBattle.UI
 
         private void MarkItems()
         {
-            RewardsData receivedRewards = GameProgress.LoadReceivedRewards();
+            RewardsData equippedRewards = GameProgress.LoadEquippedRewards();
 
             foreach (InventoryItem item in _items)
             {
-                bool isReceived = receivedRewards.DiceTypes.Contains(item.DiceType);
-                item.gameObject.SetActive(isReceived);
+                bool isReceived = equippedRewards.DiceTypes.Contains(item.DiceType);
+                item.SetAgreeMark(isReceived);
             }
         }
     }
