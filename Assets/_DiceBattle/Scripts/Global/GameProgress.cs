@@ -15,6 +15,7 @@ namespace DiceBattle.Global
             ResetCurrentLevel();
 
             ClearReceivedRewards();
+            ClearEquippedRewards();
             ClearRandomRewards();
         }
 
@@ -73,6 +74,18 @@ namespace DiceBattle.Global
         public static void LogReceivedReward() => AcquiredRewardsStorage.Log();
 
         private static void ClearReceivedRewards() => AcquiredRewardsStorage.Clear();
+
+        #endregion
+
+        #region Equipped Rewards
+
+        public static RewardsData LoadEquippedRewards() => RewardsLoader.Load(PlayerPrefsKeys.EquippedRewards);
+
+        public static void SaveEquippedRewards(RewardsData rewardsData) => RewardsLoader.Save(PlayerPrefsKeys.EquippedRewards, rewardsData);
+
+        public static void LogEquippedRewards() => RewardsLoader.Log(PlayerPrefsKeys.EquippedRewards);
+
+        private static void ClearEquippedRewards() => RewardsLoader.Clear(PlayerPrefsKeys.EquippedRewards);
 
         #endregion
 
