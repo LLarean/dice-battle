@@ -15,7 +15,9 @@ namespace DiceBattle
         {
             Application.targetFrameRate = 60;
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
+
             SetDefaultInventory();
+            SetEquippedItems();
         }
 
         private void SetDefaultInventory()
@@ -29,6 +31,20 @@ namespace DiceBattle
 
             GameData.SaveInventory(inventory);
             GameData.LogInventory();
+        }
+
+        private void SetEquippedItems()
+        {
+            DiceList equippedItems = GameData.GetEquippedItems();
+
+            if (equippedItems.DiceTypes.Count == 0)
+            {
+                DiceList inventory = GameData.GetInventory();
+                equippedItems.DiceTypes.AddRange(inventory.DiceTypes);
+
+                GameData.SaveEquippedRewards(equippedItems);
+                GameData.LogEquippedRewards();
+            }
         }
     }
 }

@@ -8,6 +8,8 @@ namespace DiceBattle
         {
             // TODO Translation
             return diceType switch {
+                DiceType.Default => "Обычный кубик",
+
                 DiceType.DisableEmptyState => "Совершенный кубик",
                 DiceType.AdditionalTry => "Кубик попытки",
                 DiceType.AdditionalDice => "Дв",
@@ -33,6 +35,8 @@ namespace DiceBattle
         {
             // TODO Translation
             return diceType switch {
+                DiceType.Default => "Свойств не имеет",
+
                 DiceType.DisableEmptyState => "Отключает пустое состояние",
                 DiceType.AdditionalTry => "Дают вторую попытку",
                 DiceType.AdditionalDice => "Дополнительный кубик",
