@@ -11,7 +11,7 @@ namespace DiceBattle.Global
     {
         private const string _playerPrefsKey = PlayerPrefsKeys.RewardsList;
 
-        public static RewardsData Load()
+        public static DiceList Load()
         {
             string json = PlayerPrefs.GetString(_playerPrefsKey, null);
 
@@ -20,7 +20,7 @@ namespace DiceBattle.Global
                 return GetRandomRewards();
             }
 
-            RewardsData data = JsonUtility.FromJson<RewardsData>(json);
+            DiceList data = JsonUtility.FromJson<DiceList>(json);
 
             if (data == null)
             {
@@ -32,16 +32,16 @@ namespace DiceBattle.Global
             return data;
         }
 
-        public static void Save(RewardsData rewardsData)
+        public static void Save(DiceList diceList)
         {
-            if (rewardsData == null)
+            if (diceList == null)
             {
                 Debug.LogWarning("Attempted to save null rewards data");
                 return;
             }
 
-            rewardsData.DiceTypes ??= GetRandomDice();
-            string json = JsonUtility.ToJson(rewardsData);
+            diceList.DiceTypes ??= GetRandomDice();
+            string json = JsonUtility.ToJson(diceList);
             PlayerPrefs.SetString(_playerPrefsKey, json);
             PlayerPrefs.Save();
         }
@@ -54,9 +54,9 @@ namespace DiceBattle.Global
 
         public static void Clear() => PlayerPrefs.DeleteKey(_playerPrefsKey);
 
-        private static RewardsData GetRandomRewards()
+        private static DiceList GetRandomRewards()
         {
-            return new RewardsData
+            return new DiceList
             {
                 DiceTypes = GetRandomDice()
             };

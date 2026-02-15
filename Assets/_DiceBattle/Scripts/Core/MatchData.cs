@@ -7,7 +7,7 @@ namespace DiceBattle.Core
         public UnitData PlayerData;
         public UnitData EnemyData;
 
-        public RewardsData RewardsData;
+        public DiceList DiceList;
 
         public int MaxDiceRerolls;
         public int RemainingDiceRerolls;

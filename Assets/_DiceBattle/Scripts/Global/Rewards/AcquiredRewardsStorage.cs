@@ -8,7 +8,7 @@ namespace DiceBattle.Global
     {
         private const string _playerPrefsKey = PlayerPrefsKeys.ReceivedRewards;
 
-        public static RewardsData Load()
+        public static DiceList Load()
         {
             string json = PlayerPrefs.GetString(_playerPrefsKey, null);
 
@@ -17,7 +17,7 @@ namespace DiceBattle.Global
                 return CreateNewRewardsData();
             }
 
-            RewardsData data = JsonUtility.FromJson<RewardsData>(json);
+            DiceList data = JsonUtility.FromJson<DiceList>(json);
 
             if (data == null)
             {
@@ -32,14 +32,14 @@ namespace DiceBattle.Global
         {
             string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, null);
 
-            RewardsData rewardsData = string.IsNullOrEmpty(rewardsJson)
+            DiceList diceList = string.IsNullOrEmpty(rewardsJson)
                 ? CreateNewRewardsData()
-                : JsonUtility.FromJson<RewardsData>(rewardsJson);
+                : JsonUtility.FromJson<DiceList>(rewardsJson);
 
-            rewardsData ??= CreateNewRewardsData();
-            rewardsData.DiceTypes.Add(diceType);
+            diceList ??= CreateNewRewardsData();
+            diceList.DiceTypes.Add(diceType);
 
-            PlayerPrefs.SetString(_playerPrefsKey, JsonUtility.ToJson(rewardsData));
+            PlayerPrefs.SetString(_playerPrefsKey, JsonUtility.ToJson(diceList));
             PlayerPrefs.Save();
         }
 
@@ -51,9 +51,9 @@ namespace DiceBattle.Global
 
         public static void Clear() => PlayerPrefs.DeleteKey(_playerPrefsKey);
 
-        private static RewardsData CreateNewRewardsData()
+        private static DiceList CreateNewRewardsData()
         {
-            return new RewardsData
+            return new DiceList
             {
                 DiceTypes = new List<DiceType>()
             };

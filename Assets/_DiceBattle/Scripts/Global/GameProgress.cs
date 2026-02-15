@@ -35,9 +35,9 @@ namespace DiceBattle.Global
 
         public static int GetDiceCount()
         {
-            RewardsData rewardsData = LoadReceivedRewards();
+            DiceList diceList = LoadReceivedRewards();
 
-            int firstDice = rewardsData.DiceTypes.Where(rewardType => rewardType == DiceType.AdditionalDice).Sum(rewardType => 1);
+            int firstDice = diceList.DiceTypes.Where(rewardType => rewardType == DiceType.AdditionalDice).Sum(rewardType => 1);
             // int secondDice = rewards.RewardTypes.Where(rewardType => rewardType == RewardType.SecondAdditionalDice).Sum(rewardType => 1);
 
             int diceCount = 3;
@@ -67,7 +67,7 @@ namespace DiceBattle.Global
 
         #region Received Rewards
 
-        public static RewardsData LoadReceivedRewards() => AcquiredRewardsStorage.Load();
+        public static DiceList LoadReceivedRewards() => AcquiredRewardsStorage.Load();
 
         public static void SaveReceivedReward(DiceType diceType) => AcquiredRewardsStorage.Save(diceType);
 
@@ -79,21 +79,21 @@ namespace DiceBattle.Global
 
         #region Equipped Rewards
 
-        public static RewardsData LoadEquippedRewards() => RewardsLoader.Load(PlayerPrefsKeys.EquippedRewards);
+        public static DiceList LoadEquippedRewards() => DiceListLoader.Load(PlayerPrefsKeys.EquippedRewards);
 
-        public static void SaveEquippedRewards(RewardsData rewardsData) => RewardsLoader.Save(PlayerPrefsKeys.EquippedRewards, rewardsData);
+        public static void SaveEquippedRewards(DiceList diceList) => DiceListLoader.Save(PlayerPrefsKeys.EquippedRewards, diceList);
 
-        public static void LogEquippedRewards() => RewardsLoader.Log(PlayerPrefsKeys.EquippedRewards);
+        public static void LogEquippedRewards() => DiceListLoader.Log(PlayerPrefsKeys.EquippedRewards);
 
-        private static void ClearEquippedRewards() => RewardsLoader.Clear(PlayerPrefsKeys.EquippedRewards);
+        private static void ClearEquippedRewards() => DiceListLoader.Clear(PlayerPrefsKeys.EquippedRewards);
 
         #endregion
 
         #region Random Rewards
 
-        public static RewardsData LoadRandomRewards() => AvailableRewardsPool.Load();
+        public static DiceList LoadRandomRewards() => AvailableRewardsPool.Load();
 
-        public static void SaveRandomRewards(RewardsData rewardsData) => AvailableRewardsPool.Save(rewardsData);
+        public static void SaveRandomRewards(DiceList diceList) => AvailableRewardsPool.Save(diceList);
 
         public static void LogRandomRewards() => AvailableRewardsPool.Log();
 

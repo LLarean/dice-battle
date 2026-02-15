@@ -3,7 +3,7 @@
 namespace DiceBattle.UI
 {
     [System.Serializable]
-    public class RewardsData
+    public class DiceList
     {
         public List<DiceType> DiceTypes = new();
     }
