@@ -9,6 +9,8 @@
         //Everything is on the dice. A dice can give additional armor,
         //a dice can give an attack, and so on.
 
+        Default,
+
         // General
         DisableEmptyState,
         AdditionalTry, // need specific dice

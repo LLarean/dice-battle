@@ -46,7 +46,7 @@ namespace DiceBattle.Core
         public void Roll()
         {
             RewardsData receivedRewards = GameProgress.LoadReceivedRewards();
-            bool containsDisableEmptyState = receivedRewards.DiceTypes.Contains(DiceBattle.DiceType.DisableEmptyState);
+            bool containsDisableEmptyState = receivedRewards.DiceTypes.Contains(DiceType.DisableEmptyState);
             int firstIndex = containsDisableEmptyState ? 1 : 0;
 
             int randomIndex = _random.Next(firstIndex, _faceSprites.Length);
