@@ -20,7 +20,7 @@ namespace DiceBattle.UI
 
         private void SetLabel()
         {
-            int completedLevels = GameProgress.CompletedLevels;
+            int completedLevels = GameData.CompletedLevels;
             _startLabel.text = "Уровень " + (completedLevels + 1); // TODO Translation into other languages
         }
 
@@ -53,7 +53,7 @@ namespace DiceBattle.UI
 
         private void HandleRestartClick()
         {
-            GameProgress.ResetAll();
+            GameData.ResetAll();
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
         }
 

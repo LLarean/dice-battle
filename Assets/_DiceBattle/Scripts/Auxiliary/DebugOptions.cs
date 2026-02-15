@@ -15,7 +15,7 @@ namespace DiceBattle.Auxiliary
         {
             if (_needResetAll)
             {
-                GameProgress.ResetAll();
+                GameData.ResetAll();
                 GameSettings.ResetVolume();
             }
         }
@@ -23,33 +23,33 @@ namespace DiceBattle.Auxiliary
         [Button]
         private void AddReward()
         {
-            GameProgress.SaveReceivedReward(_diceType);
+            GameData.SaveReceivedReward(_diceType);
         }
 
         [Button]
         private void AddEquippedReward()
         {
-            DiceList equippedRewards = GameProgress.LoadEquippedRewards();
+            DiceList equippedRewards = GameData.LoadEquippedRewards();
             equippedRewards.DiceTypes.Add(_diceType);
-            GameProgress.SaveEquippedRewards(equippedRewards);
+            GameData.SaveEquippedRewards(equippedRewards);
         }
 
         [Button]
         private void AddAllRewards()
         {
-            DiceList randomRewards = GameProgress.LoadRandomRewards();
+            DiceList randomRewards = GameData.LoadRandomRewards();
 
             foreach (DiceType randomReward in randomRewards.DiceTypes)
             {
-                GameProgress.SaveReceivedReward(randomReward);
+                GameData.SaveReceivedReward(randomReward);
             }
         }
 
         [Button]
         private void EquipAllRewards()
         {
-            DiceList randomRewards = GameProgress.LoadRandomRewards();
-            GameProgress.SaveEquippedRewards(randomRewards);
+            DiceList randomRewards = GameData.LoadRandomRewards();
+            GameData.SaveEquippedRewards(randomRewards);
         }
     }
 }

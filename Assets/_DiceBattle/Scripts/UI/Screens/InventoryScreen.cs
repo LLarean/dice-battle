@@ -43,7 +43,7 @@ namespace DiceBattle.UI
         private void GenerateItems()
         {
             ClearItems();
-            DiceList randomRewards = GameProgress.LoadRandomRewards();
+            DiceList randomRewards = GameData.LoadRandomRewards();
 
             foreach (DiceType randomReward in randomRewards.DiceTypes)
             {
@@ -102,7 +102,7 @@ namespace DiceBattle.UI
 
         private void ToggleReceivedStatus()
         {
-            DiceList receivedRewards = GameProgress.LoadReceivedRewards();
+            DiceList receivedRewards = GameData.LoadReceivedRewards();
 
             foreach (InventoryItem item in _items)
             {
@@ -113,7 +113,7 @@ namespace DiceBattle.UI
 
         private void ToggleEquippedMark()
         {
-            DiceList equippedRewards = GameProgress.LoadEquippedRewards();
+            DiceList equippedRewards = GameData.LoadEquippedRewards();
 
             foreach (InventoryItem item in _items)
             {
