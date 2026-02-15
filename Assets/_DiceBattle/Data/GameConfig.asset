@@ -93,6 +93,8 @@ MonoBehaviour:
     CurrentHealth: 15
     Damage: 5
     Armor: 3
+  DefaultInventory:
+    DiceTypes: 0000000000000000000000000000000000000000
   DiceStartCount: 5
   DiceBonusCount: 1
   AttemptsCount: 2

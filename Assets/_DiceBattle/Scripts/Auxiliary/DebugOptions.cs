@@ -21,9 +21,11 @@ namespace DiceBattle.Auxiliary
         }
 
         [Button]
-        private void AddReward()
+        private void AddDiceToInventory()
         {
-            GameData.SaveReceivedReward(_diceType);
+            DiceList inventory = GameData.GetInventory();
+            inventory.DiceTypes.Add(_diceType);
+            GameData.SaveInventory(inventory);
         }
 
         [Button]
@@ -37,12 +39,16 @@ namespace DiceBattle.Auxiliary
         [Button]
         private void AddAllRewards()
         {
+            DiceList inventory = GameData.GetInventory();
             DiceList randomRewards = GameData.LoadRandomRewards();
 
             foreach (DiceType randomReward in randomRewards.DiceTypes)
             {
-                GameData.SaveReceivedReward(randomReward);
+                inventory.DiceTypes.Add(randomReward);
+                // GameData.SaveInventory(randomReward);
             }
+
+            GameData.SaveInventory(inventory);
         }
 
         [Button]

@@ -34,8 +34,10 @@ namespace DiceBattle.UI
 
         private void HandleItemSelect(DiceType diceType)
         {
-            GameData.SaveReceivedReward(diceType);
-            GameData.LogReceivedReward();
+            DiceList inventoryItems = GameData.GetInventory();
+            inventoryItems.DiceTypes.Add(diceType);
+            GameData.SaveInventory(inventoryItems);
+            GameData.LogInventory();
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Reward));

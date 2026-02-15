@@ -49,7 +49,7 @@ namespace DiceBattle.Core
 
         private UnitData GetHeroUnitData(UnitConfig unitConfig)
         {
-            DiceList diceList = GameData.LoadReceivedRewards();
+            DiceList diceList = GameData.GetInventory();
 
             int doubleHealthCount = diceList.DiceTypes.Count(r => r == DiceBattle.DiceType.DoubleHealth);
             int additionalHealth = unitConfig.StartHealth * doubleHealthCount;

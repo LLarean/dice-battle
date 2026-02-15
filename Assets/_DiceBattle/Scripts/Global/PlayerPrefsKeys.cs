@@ -8,7 +8,8 @@
         public const string GameData = "GameData";
         public const string CompletedLevels = "CompletedLevels";
         public const string CurrentLevel = "CurrentLevel";
-        public const string ReceivedRewards = "RewardsReceived";
+
+        public const string PlayerInventory = "RPlayerInventory";
         public const string RewardsList = "RewardsList";
         public const string EquippedRewards = "EquippedRewards";
 

@@ -6,7 +6,7 @@ namespace DiceBattle.Global
 {
     public static class AcquiredRewardsStorage
     {
-        private const string _playerPrefsKey = PlayerPrefsKeys.ReceivedRewards;
+        private const string _playerPrefsKey = PlayerPrefsKeys.PlayerInventory;
 
         public static DiceList Load()
         {
@@ -30,7 +30,7 @@ namespace DiceBattle.Global
 
         public static void Save(DiceType diceType)
         {
-            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, null);
+            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.PlayerInventory, null);
 
             DiceList diceList = string.IsNullOrEmpty(rewardsJson)
                 ? CreateNewRewardsData()
@@ -45,7 +45,7 @@ namespace DiceBattle.Global
 
         public static void Log()
         {
-            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.ReceivedRewards, "{}");
+            string rewardsJson = PlayerPrefs.GetString(PlayerPrefsKeys.PlayerInventory, "{}");
             Debug.Log("<color=yellow>AcquiredRewardsStorage:</color>" + rewardsJson);
         }
 

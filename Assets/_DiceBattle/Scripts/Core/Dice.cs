@@ -45,7 +45,7 @@ namespace DiceBattle.Core
 
         public void Roll()
         {
-            DiceList receivedRewards = GameData.LoadReceivedRewards();
+            DiceList receivedRewards = GameData.GetInventory();
             bool containsDisableEmptyState = receivedRewards.DiceTypes.Contains(DiceType.DisableEmptyState);
             int firstIndex = containsDisableEmptyState ? 1 : 0;
 
@@ -109,7 +109,7 @@ namespace DiceBattle.Core
         private void ShowMultiplier()
         {
             int multiplier = 1;
-            DiceList diceList = GameData.LoadReceivedRewards();
+            DiceList diceList = GameData.GetInventory();
 
             if (_diceValue == DiceValue.Attack)
             {

@@ -102,7 +102,7 @@ namespace DiceBattle.UI
 
         private void ToggleReceivedStatus()
         {
-            DiceList receivedRewards = GameData.LoadReceivedRewards();
+            DiceList receivedRewards = GameData.GetInventory();
 
             foreach (InventoryItem item in _items)
             {
