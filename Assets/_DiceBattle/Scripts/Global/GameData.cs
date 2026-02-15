@@ -67,9 +67,9 @@ namespace DiceBattle.Global
 
         #endregion
 
-        #region Equipped Rewards
+        #region Equipped Items
 
-        public static DiceList LoadEquippedRewards() => DiceListLoader.Load(PlayerPrefsKeys.EquippedRewards);
+        public static DiceList GetEquippedItems() => DiceListLoader.Load(PlayerPrefsKeys.EquippedRewards);
 
         public static void SaveEquippedRewards(DiceList diceList) => DiceListLoader.Save(PlayerPrefsKeys.EquippedRewards, diceList);
 

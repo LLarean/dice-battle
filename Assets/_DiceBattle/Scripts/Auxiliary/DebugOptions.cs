@@ -31,7 +31,7 @@ namespace DiceBattle.Auxiliary
         [Button]
         private void AddEquippedReward()
         {
-            DiceList equippedRewards = GameData.LoadEquippedRewards();
+            DiceList equippedRewards = GameData.GetEquippedItems();
             equippedRewards.DiceTypes.Add(_diceType);
             GameData.SaveEquippedRewards(equippedRewards);
         }

@@ -43,9 +43,9 @@ namespace DiceBattle.UI
         private void GenerateItems()
         {
             ClearItems();
-            DiceList randomRewards = GameData.LoadRandomRewards();
+            DiceList inventory = GameData.GetInventory();
 
-            foreach (DiceType randomReward in randomRewards.DiceTypes)
+            foreach (DiceType randomReward in inventory.DiceTypes)
             {
                 InventoryItem inventoryItem = Instantiate(_item, _itemsSpawn);
                 inventoryItem.Initialize(randomReward);
@@ -113,7 +113,7 @@ namespace DiceBattle.UI
 
         private void ToggleEquippedMark()
         {
-            DiceList equippedRewards = GameData.LoadEquippedRewards();
+            DiceList equippedRewards = GameData.GetEquippedItems();
 
             foreach (InventoryItem item in _items)
             {
