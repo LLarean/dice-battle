@@ -29,8 +29,8 @@ namespace DiceBattle.UI
         private void Start()
         {
             GenerateItems();
-            ToggleItems();
-            MarkItems();
+            ToggleReceivedStatus();
+            ToggleEquippedMark();
             GenerateDice();
             SetUnitData();
 
@@ -38,7 +38,7 @@ namespace DiceBattle.UI
             _diceHolder.RepositionDice();
         }
 
-        private void OnEnable() => ToggleItems();
+        private void OnEnable() => ToggleReceivedStatus();
 
         private void GenerateItems()
         {
@@ -100,7 +100,7 @@ namespace DiceBattle.UI
             _unitPanel.SetUnitData(unitData);
         }
 
-        private void ToggleItems()
+        private void ToggleReceivedStatus()
         {
             RewardsData receivedRewards = GameProgress.LoadReceivedRewards();
 
@@ -111,7 +111,7 @@ namespace DiceBattle.UI
             }
         }
 
-        private void MarkItems()
+        private void ToggleEquippedMark()
         {
             RewardsData equippedRewards = GameProgress.LoadEquippedRewards();
 

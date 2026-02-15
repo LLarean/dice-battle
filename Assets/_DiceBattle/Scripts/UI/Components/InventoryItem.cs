@@ -1,5 +1,6 @@
 using System;
 using DiceBattle.Audio;
+using DiceBattle.Core;
 using DiceBattle.Events;
 using GameSignals;
 using TMPro;
@@ -13,6 +14,7 @@ namespace DiceBattle.UI
     {
         [SerializeField] private Button _button;
         [Space]
+        [SerializeField] private Dice _dice;
         [SerializeField] private Image _agreeMark;
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private TextMeshProUGUI _description;
@@ -21,13 +23,15 @@ namespace DiceBattle.UI
 
         public DiceType DiceType => _diceType;
 
-        public event Action<DiceType> OnClicked;
+        public event Action<DiceType> OnDiceToggled;
 
         public void Initialize(DiceType diceType)
         {
             _diceType = diceType;
             _title.text = diceType.Title();
             _description.text = diceType.Title();
+
+            _dice.OnToggled += HandleDiceToggled;
         }
 
         public void SetInteractable(bool interactable)
@@ -52,9 +56,14 @@ namespace DiceBattle.UI
 
         private void HandleButtonClicked()
         {
-            OnClicked?.Invoke(_diceType);
+            OnDiceToggled?.Invoke(_diceType);
             SetAgreeMark(!_agreeMark.gameObject.activeSelf);
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
+        }
+
+        private void HandleDiceToggled()
+        {
+            OnDiceToggled?.Invoke(_diceType);
         }
     }
 }
