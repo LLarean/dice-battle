@@ -81,7 +81,7 @@ namespace DiceBattle.Core
 
         private void EndTurn()
         {
-            _matchData.DiceList = GameProgress.LoadReceivedRewards();
+            _matchData.DiceList = GameData.LoadReceivedRewards();
             _diceResult.Calculate(_gameScreen.Dices);
             _matchData.PlayerHealthChange = _matchData.PlayerData.CurrentHealth;
             _matchData.EnemyHealthChange = _matchData.EnemyData.CurrentHealth;
@@ -188,7 +188,7 @@ namespace DiceBattle.Core
 
         private void SetMaxAttempts()
         {
-            DiceList receivedRewards = GameProgress.LoadReceivedRewards();
+            DiceList receivedRewards = GameData.LoadReceivedRewards();
             int additionalTryCount = receivedRewards.DiceTypes.Count(reward => reward == DiceBattle.DiceType.AdditionalTry);
             _matchData.MaxDiceRerolls = _config.MaxAttempts + additionalTryCount;
         }
@@ -311,8 +311,8 @@ namespace DiceBattle.Core
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyDefeated));
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.LootScreen));
 
-            GameProgress.IncrementCurrentLevel();
-            GameProgress.IncrementLevels();
+            GameData.IncrementCurrentLevel();
+            GameData.IncrementLevels();
 
             UpdateData();
             _matchData.EnemyData = _spawner.SpawnEnemy();

@@ -18,7 +18,7 @@ namespace DiceBattle.Core
 
         public UnitData SpawnEnemy()
         {
-            UnitData source = _config.Enemies[GameProgress.CompletedLevels];
+            UnitData source = _config.Enemies[GameData.CompletedLevels];
 
             var enemyData = new UnitData
             {
@@ -49,7 +49,7 @@ namespace DiceBattle.Core
 
         private UnitData GetHeroUnitData(UnitConfig unitConfig)
         {
-            DiceList diceList = GameProgress.LoadReceivedRewards();
+            DiceList diceList = GameData.LoadReceivedRewards();
 
             int doubleHealthCount = diceList.DiceTypes.Count(r => r == DiceBattle.DiceType.DoubleHealth);
             int additionalHealth = unitConfig.StartHealth * doubleHealthCount;
