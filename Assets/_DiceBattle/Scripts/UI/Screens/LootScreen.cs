@@ -46,7 +46,7 @@ namespace DiceBattle.UI
 
         private void ShowRewards()
         {
-            RewardsData randomRewards = GameProgress.LoadRandomRewards();
+            DiceList randomRewards = GameProgress.LoadRandomRewards();
             GameProgress.SaveRandomRewards(randomRewards);
             GameProgress.LogRandomRewards();
 

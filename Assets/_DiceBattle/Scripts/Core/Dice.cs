@@ -45,7 +45,7 @@ namespace DiceBattle.Core
 
         public void Roll()
         {
-            RewardsData receivedRewards = GameProgress.LoadReceivedRewards();
+            DiceList receivedRewards = GameProgress.LoadReceivedRewards();
             bool containsDisableEmptyState = receivedRewards.DiceTypes.Contains(DiceType.DisableEmptyState);
             int firstIndex = containsDisableEmptyState ? 1 : 0;
 
@@ -109,20 +109,20 @@ namespace DiceBattle.Core
         private void ShowMultiplier()
         {
             int multiplier = 1;
-            RewardsData rewardsData = GameProgress.LoadReceivedRewards();
+            DiceList diceList = GameProgress.LoadReceivedRewards();
 
             if (_diceValue == DiceValue.Attack)
             {
-                multiplier += rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeAttack);
+                multiplier += diceList.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeAttack);
             }
             else if (_diceValue == DiceValue.Defense)
             {
-                multiplier += rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeArmor);
+                multiplier += diceList.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeArmor);
 
             }
             else if (_diceValue == DiceValue.Heal)
             {
-                multiplier += rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeHealth);
+                multiplier += diceList.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeHealth);
             }
 
             _multiplier.gameObject.SetActive(multiplier > 1);

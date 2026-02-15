@@ -7,7 +7,7 @@ namespace DiceBattle.Global
         public UnitData PlayerData;
         public UnitData EnemyData;
 
-        public RewardsData RewardsData;
+        public DiceList DiceList;
         public int AttemptsNumber;
     }
 }

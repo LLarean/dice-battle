@@ -49,16 +49,16 @@ namespace DiceBattle.Core
 
         private UnitData GetHeroUnitData(UnitConfig unitConfig)
         {
-            RewardsData rewardsData = GameProgress.LoadReceivedRewards();
+            DiceList diceList = GameProgress.LoadReceivedRewards();
 
-            int doubleHealthCount = rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.DoubleHealth);
+            int doubleHealthCount = diceList.DiceTypes.Count(r => r == DiceBattle.DiceType.DoubleHealth);
             int additionalHealth = unitConfig.StartHealth * doubleHealthCount;
             int maxHealth = unitConfig.StartHealth + additionalHealth;
 
-            int baseDamageCount = rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseDamage);
+            int baseDamageCount = diceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseDamage);
             int damage = unitConfig.StartDamage + baseDamageCount;
 
-            int baseArmorCount = rewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseArmor);
+            int baseArmorCount = diceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseArmor);
             int armor = unitConfig.StartArmor + baseArmorCount;
 
             return new UnitData

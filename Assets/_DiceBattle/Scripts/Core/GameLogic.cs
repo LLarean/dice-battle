@@ -81,7 +81,7 @@ namespace DiceBattle.Core
 
         private void EndTurn()
         {
-            _matchData.RewardsData = GameProgress.LoadReceivedRewards();
+            _matchData.DiceList = GameProgress.LoadReceivedRewards();
             _diceResult.Calculate(_gameScreen.Dices);
             _matchData.PlayerHealthChange = _matchData.PlayerData.CurrentHealth;
             _matchData.EnemyHealthChange = _matchData.EnemyData.CurrentHealth;
@@ -188,7 +188,7 @@ namespace DiceBattle.Core
 
         private void SetMaxAttempts()
         {
-            RewardsData receivedRewards = GameProgress.LoadReceivedRewards();
+            DiceList receivedRewards = GameProgress.LoadReceivedRewards();
             int additionalTryCount = receivedRewards.DiceTypes.Count(reward => reward == DiceBattle.DiceType.AdditionalTry);
             _matchData.MaxDiceRerolls = _config.MaxAttempts + additionalTryCount;
         }
@@ -196,8 +196,8 @@ namespace DiceBattle.Core
         private void UpdatePlayerStats()
         {
             // int regenHealth = _rewardsData.RewardTypes.Count(r => r == RewardType.RegenHealth) * _config.Player.GrowthHealth;
-            int bonusArmorCount = _matchData.RewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseArmor) * _config.Player.GrowthArmor;
-            int bonusDamageCount = _matchData.RewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseDamage) * _config.Player.GrowthDamage;
+            int bonusArmorCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseArmor) * _config.Player.GrowthArmor;
+            int bonusDamageCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseDamage) * _config.Player.GrowthDamage;
 
             _matchData.PlayerData.Armor = Mathf.Max(0, bonusArmorCount);
             _matchData.PlayerData.Damage = Mathf.Max(0, bonusDamageCount);
@@ -232,7 +232,7 @@ namespace DiceBattle.Core
 
         private void ApplyPlayerHealing()
         {
-            int regenHealth = _matchData.RewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.RegenHealth) * _config.Player.GrowthHealth;
+            int regenHealth = _matchData.DiceList.DiceTypes.Count(r => r == DiceBattle.DiceType.RegenHealth) * _config.Player.GrowthHealth;
             int allRegenHealth = _diceResult.Heal + regenHealth;
             _gameScreen.PlayerTakeHeal(allRegenHealth);
 
@@ -242,7 +242,7 @@ namespace DiceBattle.Core
 
         private void ApplyPlayerArmor()
         {
-            int bonusArmorCount = _matchData.RewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseArmor) * _config.Player.GrowthArmor;
+            int bonusArmorCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseArmor) * _config.Player.GrowthArmor;
             _matchData.PlayerData.Armor = Mathf.Max(0, _diceResult.Armor + bonusArmorCount);
 
             Debug.Log("Armor: Dice = " + _diceResult.Armor + ", Character = " + bonusArmorCount);
@@ -251,7 +251,7 @@ namespace DiceBattle.Core
 
         private void ApplyPlayerAttack()
         {
-            int bonusDamageCount = _matchData.RewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseDamage) * _config.Player.GrowthDamage;
+            int bonusDamageCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseDamage) * _config.Player.GrowthDamage;
             _matchData.PlayerData.Damage = Mathf.Max(_diceResult.Damage, _diceResult.Damage + bonusDamageCount);
             _gameScreen.EnemyTakeDamage(_matchData.PlayerData.Damage);
 
@@ -264,13 +264,13 @@ namespace DiceBattle.Core
 
         private void RemovePlayerArmor()
         {
-            int bonusArmor = _matchData.RewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseArmor) * _config.Player.GrowthArmor;
+            int bonusArmor = _matchData.DiceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseArmor) * _config.Player.GrowthArmor;
             _matchData.PlayerData.Armor = Mathf.Max(0, bonusArmor);
         }
 
         private void RemovePlayerDamage()
         {
-            int bonusDamageCount = _matchData.RewardsData.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseDamage) * _config.Player.GrowthDamage;
+            int bonusDamageCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseDamage) * _config.Player.GrowthDamage;
             _matchData.PlayerData.Damage = Mathf.Max(0, bonusDamageCount);
         }
 
