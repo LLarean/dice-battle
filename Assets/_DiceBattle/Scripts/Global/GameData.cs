@@ -14,7 +14,7 @@ namespace DiceBattle.Global
             ResetCompletedLevels();
             ResetCurrentLevel();
 
-            ClearReceivedRewards();
+            ClearInventory();
             ClearEquippedRewards();
             ClearRandomRewards();
         }
@@ -35,7 +35,7 @@ namespace DiceBattle.Global
 
         public static int GetDiceCount()
         {
-            DiceList diceList = LoadReceivedRewards();
+            DiceList diceList = GetInventory();
 
             int firstDice = diceList.DiceTypes.Where(rewardType => rewardType == DiceType.AdditionalDice).Sum(rewardType => 1);
             // int secondDice = rewards.RewardTypes.Where(rewardType => rewardType == RewardType.SecondAdditionalDice).Sum(rewardType => 1);
@@ -55,18 +55,15 @@ namespace DiceBattle.Global
             return diceCount;
         }
 
+        #region Player's Inventory
 
-        // Player's Inventory
+        public static DiceList GetInventory() => DiceListLoader.Load(PlayerPrefsKeys.PlayerInventory);
 
-        #region Received Rewards
+        public static void SaveInventory(DiceList diceList) => DiceListLoader.Save(PlayerPrefsKeys.PlayerInventory, diceList);
 
-        public static DiceList LoadReceivedRewards() => AcquiredRewardsStorage.Load();
+        public static void LogInventory() => DiceListLoader.Log(PlayerPrefsKeys.PlayerInventory);
 
-        public static void SaveReceivedReward(DiceType diceType) => AcquiredRewardsStorage.Save(diceType);
-
-        public static void LogReceivedReward() => AcquiredRewardsStorage.Log();
-
-        private static void ClearReceivedRewards() => AcquiredRewardsStorage.Clear();
+        private static void ClearInventory() => DiceListLoader.Clear(PlayerPrefsKeys.PlayerInventory);
 
         #endregion
 
