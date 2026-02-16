@@ -5,6 +5,7 @@ using DiceBattle.Global;
 using UnityEngine;
 using System.Linq;
 using DiceBattle.Data;
+using TMPro;
 
 namespace DiceBattle.UI
 {
@@ -22,6 +23,7 @@ namespace DiceBattle.UI
         [SerializeField] private Dice _dice;
         [SerializeField] private Transform _diceSpawn;
         [Space]
+        [SerializeField] private TextMeshProUGUI _itemsPlaceholder;
         [SerializeField] private InventoryItem _item;
         [SerializeField] private Transform _itemsSpawn;
 
@@ -51,6 +53,8 @@ namespace DiceBattle.UI
                 inventoryItem.Initialize(randomReward);
                 _items.Add(inventoryItem);
             }
+
+            _itemsPlaceholder.gameObject.SetActive(_items.Count == 0);
         }
 
         private void ClearItems()
