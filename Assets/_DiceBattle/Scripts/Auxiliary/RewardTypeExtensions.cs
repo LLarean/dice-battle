@@ -16,7 +16,7 @@ namespace DiceBattle
 
                 DiceType.BaseDamage => "Кубик-меч",
                 DiceType.BaseArmor => "Кубик-щит",
-                DiceType.DoubleHealth => "Кубик-подорожник",
+                DiceType.BaseHealth => "Кубик-подорожник",
 
                 DiceType.UpgradeAttack => "Острый кубик",
                 DiceType.UpgradeHealth => "Полезный кубик",
@@ -43,7 +43,7 @@ namespace DiceBattle
 
                 DiceType.BaseDamage => "Добавляет базовый урон персонажу",
                 DiceType.BaseArmor => "Добавляет базовый армор персонажу",
-                DiceType.DoubleHealth => "Удваивает здоровье персонажа",
+                DiceType.BaseHealth => "Удваивает здоровье персонажа",
 
                 DiceType.UpgradeAttack => "Значение атаки х2",
                 DiceType.UpgradeHealth => "Значение лечения х2",

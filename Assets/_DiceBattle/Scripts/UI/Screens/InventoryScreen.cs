@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using DiceBattle.Core;
 using DiceBattle.Global;
 using UnityEngine;
-using System.Linq;
 using DiceBattle.Data;
 using TMPro;
 
@@ -30,12 +29,6 @@ namespace DiceBattle.UI
         private void Start()
         {
             RefreshInventoryDisplay();
-            GenerateDice();
-            SetUnitData();
-
-            _itemsPlaceholder.gameObject.SetActive(_items.Count == 0);
-            _diceHolder.Initialize(_dices);
-            _diceHolder.RepositionDice();
         }
 
         private void OnEnable()
@@ -47,6 +40,13 @@ namespace DiceBattle.UI
         {
             GenerateItems();
             ToggleItems();
+            _itemsPlaceholder.gameObject.SetActive(_items.Count == 0);
+
+            GenerateDice();
+            _diceHolder.Initialize(_dices);
+            _diceHolder.RepositionDice();
+
+            SetUnitData();
         }
 
         private void GenerateItems()
@@ -78,8 +78,8 @@ namespace DiceBattle.UI
 
             foreach (InventoryItem item in _items)
             {
-                bool isReceived = equippedRewards.DiceTypes.Contains(item.DiceType);
-                item.SetAgreeMark(isReceived);
+                bool isEquipped = equippedRewards.DiceTypes.Contains(item.DiceType);
+                item.SetEquippedStatus(isEquipped);
             }
         }
 
@@ -111,13 +111,43 @@ namespace DiceBattle.UI
             {
                 Title = "Heroes (you)",
                 Portrait = _gameConfig.Player.Portraits[0],
-                MaxHealth = _gameConfig.Player.StartHealth,
-                CurrentHealth = _gameConfig.Player.StartHealth,
-                Damage = _gameConfig.Player.StartDamage,
-                Armor = _gameConfig.Player.StartArmor
+                MaxHealth = GetHealth(),
+                CurrentHealth = GetHealth(),
+                Damage = GetDamage(),
+                Armor = GetArmor(),
             };
 
             _unitPanel.SetUnitData(unitData);
+        }
+
+        private int GetHealth()
+        {
+            DiceList equippedRewards = GameData.GetEquippedItems();
+
+            int health = _gameConfig.Player.StartHealth;
+            int doubleHealthCount = equippedRewards.DiceTypes.Count(r => r == DiceType.BaseHealth);
+
+            return health + doubleHealthCount;
+        }
+
+        private int GetDamage()
+        {
+            DiceList equippedRewards = GameData.GetEquippedItems();
+
+            int damage = _gameConfig.Player.StartDamage;
+            int baseDamageCount = equippedRewards.DiceTypes.Count(r => r == DiceType.BaseDamage);
+
+            return damage + baseDamageCount;
+        }
+
+        private int GetArmor()
+        {
+            DiceList equippedRewards = GameData.GetEquippedItems();
+
+            int armor = _gameConfig.Player.StartArmor;
+            int baseArmorCount = equippedRewards.DiceTypes.Count(r => r == DiceType.BaseArmor);
+
+            return armor + baseArmorCount;
         }
     }
 }
