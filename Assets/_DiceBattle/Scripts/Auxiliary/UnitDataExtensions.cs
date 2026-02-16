@@ -26,7 +26,7 @@ namespace DiceBattle
             unitData.Armor = rewardTypes.Count(r => r == DiceType.BaseArmor) * config.Player.GrowthArmor;
             unitData.Damage = rewardTypes.Count(r => r == DiceType.BaseDamage) * config.Player.GrowthDamage;
 
-            int doubleHealth = rewardTypes.Count(r => r == DiceType.DoubleHealth) * 2;
+            int doubleHealth = rewardTypes.Count(r => r == DiceType.BaseHealth) * 2;
 
             if (doubleHealth > 0)
             {

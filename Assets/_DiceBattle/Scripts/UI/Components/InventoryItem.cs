@@ -34,14 +34,9 @@ namespace DiceBattle.UI
             _dice.OnToggled += HandleDiceToggled;
         }
 
-        public void SetInteractable(bool interactable)
+        public void SetEquippedStatus(bool isEquipped)
         {
-            _button.interactable = interactable;
-        }
-
-        public void SetAgreeMark(bool isAgree)
-        {
-            // _agreeMark.gameObject.SetActive(isAgree);
+            _agreeMark.gameObject.SetActive(isEquipped);
         }
 
         private void Start()
@@ -57,7 +52,7 @@ namespace DiceBattle.UI
         private void HandleButtonClicked()
         {
             OnDiceToggled?.Invoke(_diceType);
-            SetAgreeMark(!_agreeMark.gameObject.activeSelf);
+            SetEquippedStatus(!_agreeMark.gameObject.activeSelf);
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
         }
 

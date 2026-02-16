@@ -51,7 +51,7 @@ namespace DiceBattle.Core
         {
             DiceList diceList = GameData.GetInventory();
 
-            int doubleHealthCount = diceList.DiceTypes.Count(r => r == DiceBattle.DiceType.DoubleHealth);
+            int doubleHealthCount = diceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseHealth);
             int additionalHealth = unitConfig.StartHealth * doubleHealthCount;
             int maxHealth = unitConfig.StartHealth + additionalHealth;
 

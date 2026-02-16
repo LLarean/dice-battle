@@ -19,7 +19,7 @@
         // Character Upgrades
         BaseDamage,
         BaseArmor,
-        DoubleHealth,
+        BaseHealth,
 
         // Dice Upgrades
         UpgradeAttack,
