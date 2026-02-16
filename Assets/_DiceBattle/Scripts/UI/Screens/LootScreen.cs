@@ -36,7 +36,7 @@ namespace DiceBattle.UI
         {
             DiceList inventoryItems = GameData.GetInventory();
             inventoryItems.DiceTypes.Add(diceType);
-            GameData.SaveInventory(inventoryItems);
+            GameData.UpdateInventory(inventoryItems);
             GameData.LogInventory();
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));

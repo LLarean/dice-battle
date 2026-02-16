@@ -59,7 +59,7 @@ namespace DiceBattle.Global
 
         public static DiceList GetInventory() => DiceListLoader.Load(PlayerPrefsKeys.PlayerInventory);
 
-        public static void SaveInventory(DiceList diceList) => DiceListLoader.Save(PlayerPrefsKeys.PlayerInventory, diceList);
+        public static void UpdateInventory(DiceList diceList) => DiceListLoader.Save(PlayerPrefsKeys.PlayerInventory, diceList);
 
         public static void LogInventory() => DiceListLoader.Log(PlayerPrefsKeys.PlayerInventory);
 
