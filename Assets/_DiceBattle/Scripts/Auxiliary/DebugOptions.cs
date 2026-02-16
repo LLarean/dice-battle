@@ -25,7 +25,7 @@ namespace DiceBattle.Auxiliary
         {
             DiceList inventory = GameData.GetInventory();
             inventory.DiceTypes.Add(_diceType);
-            GameData.SaveInventory(inventory);
+            GameData.UpdateInventory(inventory);
         }
 
         [Button]
@@ -48,7 +48,7 @@ namespace DiceBattle.Auxiliary
                 // GameData.SaveInventory(randomReward);
             }
 
-            GameData.SaveInventory(inventory);
+            GameData.UpdateInventory(inventory);
         }
 
         [Button]

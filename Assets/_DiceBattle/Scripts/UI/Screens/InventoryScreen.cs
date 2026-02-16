@@ -27,34 +27,39 @@ namespace DiceBattle.UI
         [SerializeField] private InventoryItem _item;
         [SerializeField] private Transform _itemsSpawn;
 
-
         private void Start()
         {
-            GenerateItems();
-            ToggleReceivedStatus();
-            ToggleEquippedMark();
+            RefreshInventoryDisplay();
             GenerateDice();
             SetUnitData();
 
+            _itemsPlaceholder.gameObject.SetActive(_items.Count == 0);
             _diceHolder.Initialize(_dices);
             _diceHolder.RepositionDice();
         }
 
-        private void OnEnable() => ToggleReceivedStatus();
+        private void OnEnable()
+        {
+            RefreshInventoryDisplay();
+        }
+
+        private void RefreshInventoryDisplay()
+        {
+            GenerateItems();
+            ToggleItems();
+        }
 
         private void GenerateItems()
         {
             ClearItems();
-            DiceList inventory = GameData.GetInventory();
+            DiceList playerInventory = GameData.GetInventory();
 
-            foreach (DiceType randomReward in inventory.DiceTypes)
+            foreach (DiceType diceType in playerInventory.DiceTypes)
             {
                 InventoryItem inventoryItem = Instantiate(_item, _itemsSpawn);
-                inventoryItem.Initialize(randomReward);
+                inventoryItem.Initialize(diceType);
                 _items.Add(inventoryItem);
             }
-
-            _itemsPlaceholder.gameObject.SetActive(_items.Count == 0);
         }
 
         private void ClearItems()
@@ -65,6 +70,17 @@ namespace DiceBattle.UI
             }
 
             _items.Clear();
+        }
+
+        private void ToggleItems()
+        {
+            DiceList equippedRewards = GameData.GetEquippedItems();
+
+            foreach (InventoryItem item in _items)
+            {
+                bool isReceived = equippedRewards.DiceTypes.Contains(item.DiceType);
+                item.SetAgreeMark(isReceived);
+            }
         }
 
         private void GenerateDice()
@@ -102,28 +118,6 @@ namespace DiceBattle.UI
             };
 
             _unitPanel.SetUnitData(unitData);
-        }
-
-        private void ToggleReceivedStatus()
-        {
-            DiceList receivedRewards = GameData.GetInventory();
-
-            foreach (InventoryItem item in _items)
-            {
-                bool isReceived = receivedRewards.DiceTypes.Contains(item.DiceType);
-                item.gameObject.SetActive(isReceived);
-            }
-        }
-
-        private void ToggleEquippedMark()
-        {
-            DiceList equippedRewards = GameData.GetEquippedItems();
-
-            foreach (InventoryItem item in _items)
-            {
-                bool isReceived = equippedRewards.DiceTypes.Contains(item.DiceType);
-                item.SetAgreeMark(isReceived);
-            }
         }
     }
 }

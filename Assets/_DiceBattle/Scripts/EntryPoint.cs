@@ -29,7 +29,7 @@ namespace DiceBattle
                 inventory.DiceTypes.AddRange(_gameConfig.DefaultInventory.DiceTypes);
             }
 
-            GameData.SaveInventory(inventory);
+            GameData.UpdateInventory(inventory);
             GameData.LogInventory();
         }
 
