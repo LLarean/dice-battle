@@ -8,6 +8,8 @@ namespace DiceBattle.Auxiliary
 {
     public class DebugOptions : MonoBehaviour
     {
+        [SerializeField] private DefaultInventory _defaultInventory;
+        [Space]
         [SerializeField] private bool _needResetAll;
         [SerializeField] private DiceType _diceType;
 
@@ -17,6 +19,9 @@ namespace DiceBattle.Auxiliary
             {
                 GameData.ResetAll();
                 GameSettings.ResetVolume();
+
+                _defaultInventory.SetDefaultInventory();
+                _defaultInventory.SetEquippedItems();
             }
         }
 
