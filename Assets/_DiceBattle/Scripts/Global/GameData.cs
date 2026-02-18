@@ -61,9 +61,13 @@ namespace DiceBattle.Global
 
         public static void UpdateInventory(DiceList diceList) => DiceListLoader.Save(PlayerPrefsKeys.PlayerInventory, diceList);
 
-        public static void LogInventory() => DiceListLoader.Log(PlayerPrefsKeys.PlayerInventory);
+        public static void LogInventory() => DiceListLoader.Log("Inventory", PlayerPrefsKeys.PlayerInventory);
 
-        private static void ClearInventory() => DiceListLoader.Clear(PlayerPrefsKeys.PlayerInventory);
+        private static void ClearInventory()
+        {
+            Debug.Log("ClearInventory");
+            DiceListLoader.Clear(PlayerPrefsKeys.PlayerInventory);
+        }
 
         #endregion
 
@@ -73,7 +77,7 @@ namespace DiceBattle.Global
 
         public static void SaveEquippedRewards(DiceList diceList) => DiceListLoader.Save(PlayerPrefsKeys.EquippedRewards, diceList);
 
-        public static void LogEquippedRewards() => DiceListLoader.Log(PlayerPrefsKeys.EquippedRewards);
+        public static void LogEquippedRewards() => DiceListLoader.Log("Equipped", PlayerPrefsKeys.EquippedRewards);
 
         private static void ClearEquippedRewards() => DiceListLoader.Clear(PlayerPrefsKeys.EquippedRewards);
 

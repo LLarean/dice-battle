@@ -41,10 +41,10 @@ namespace DiceBattle.Global
             PlayerPrefs.Save();
         }
 
-        public static void Log(string playerPrefsKey)
+        public static void Log(string title, string playerPrefsKey)
         {
             string diceListJson = PlayerPrefs.GetString(playerPrefsKey, "{}");
-            Debug.Log("<color=yellow>DiceList: </color>" + diceListJson);
+            Debug.Log("<color=yellow>" + title + ": </color>" + diceListJson);
         }
 
         public static void Clear(string playerPrefsKey) => PlayerPrefs.DeleteKey(playerPrefsKey);
