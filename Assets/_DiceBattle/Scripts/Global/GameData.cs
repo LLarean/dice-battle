@@ -75,6 +75,8 @@ namespace DiceBattle.Global
 
         public static DiceList GetEquippedItems() => DiceListLoader.Load(PlayerPrefsKeys.EquippedRewards);
 
+        public static int GetItemsCount(DiceType diceType) => GetEquippedItems().DiceTypes.Count(r => r == diceType);
+
         public static void SaveEquippedRewards(DiceList diceList) => DiceListLoader.Save(PlayerPrefsKeys.EquippedRewards, diceList);
 
         public static void LogEquippedRewards() => DiceListLoader.Log("Equipped", PlayerPrefsKeys.EquippedRewards);
