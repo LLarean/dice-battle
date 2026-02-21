@@ -122,32 +122,23 @@ namespace DiceBattle.UI
 
         private int GetHealth()
         {
-            DiceList equippedRewards = GameData.GetEquippedItems();
-
             int health = _gameConfig.Player.StartHealth;
-            int doubleHealthCount = equippedRewards.DiceTypes.Count(r => r == DiceType.BaseHealth);
-
-            return health + doubleHealthCount;
+            int healthItemsCount = GameData.GetItemsCount(DiceType.BaseHealth);
+            return health + healthItemsCount;
         }
 
         private int GetDamage()
         {
-            DiceList equippedRewards = GameData.GetEquippedItems();
-
             int damage = _gameConfig.Player.StartDamage;
-            int baseDamageCount = equippedRewards.DiceTypes.Count(r => r == DiceType.BaseDamage);
-
-            return damage + baseDamageCount;
+            int damageItemsCount = GameData.GetItemsCount(DiceType.BaseDamage);
+            return damage + damageItemsCount;
         }
 
         private int GetArmor()
         {
-            DiceList equippedRewards = GameData.GetEquippedItems();
-
             int armor = _gameConfig.Player.StartArmor;
-            int baseArmorCount = equippedRewards.DiceTypes.Count(r => r == DiceType.BaseArmor);
-
-            return armor + baseArmorCount;
+            int armorItemsCount = GameData.GetItemsCount(DiceType.BaseArmor);
+            return armor + armorItemsCount;
         }
     }
 }
