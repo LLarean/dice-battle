@@ -11,6 +11,7 @@ namespace DiceBattle.Auxiliary
         [SerializeField] private DefaultInventory _defaultInventory;
         [Space]
         [SerializeField] private bool _needResetAll;
+        [SerializeField] private bool _needAddAllItemsToInventory;
         [SerializeField] private DiceType _diceType;
 
         private void Start()
@@ -22,6 +23,11 @@ namespace DiceBattle.Auxiliary
 
                 _defaultInventory.SetDefaultInventory();
                 _defaultInventory.SetEquippedItems();
+            }
+
+            if (_needAddAllItemsToInventory)
+            {
+                AddAllRewards();
             }
         }
 
