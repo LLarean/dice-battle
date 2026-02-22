@@ -36,6 +36,8 @@ namespace DiceBattle.UI
             RefreshInventoryDisplay();
         }
 
+        // NOTE: Consider using object pooling here to reduce GC allocations
+        // if this object is created/destroyed frequently
         private void RefreshInventoryDisplay()
         {
             GenerateItems();
@@ -58,6 +60,7 @@ namespace DiceBattle.UI
             {
                 InventoryItem inventoryItem = Instantiate(_item, _itemsSpawn);
                 inventoryItem.Initialize(diceType);
+                inventoryItem.OnDiceToggled += ItemClicked;
                 _items.Add(inventoryItem);
             }
         }
@@ -140,5 +143,12 @@ namespace DiceBattle.UI
             int armorItemsCount = GameData.GetItemsCount(DiceType.BaseArmor);
             return armor + armorItemsCount;
         }
+
+        private void ItemClicked(DiceType obj)
+        {
+
+            throw new System.NotImplementedException();
+        }
+
     }
 }
