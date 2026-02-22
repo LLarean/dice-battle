@@ -81,6 +81,7 @@ namespace DiceBattle.UI
 
             foreach (InventoryItem item in _items)
             {
+                // Takes the same die
                 bool isEquipped = equippedRewards.DiceTypes.Contains(item.DiceType);
                 item.SetEquippedStatus(isEquipped);
             }

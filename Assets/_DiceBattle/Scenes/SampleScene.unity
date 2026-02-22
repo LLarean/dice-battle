@@ -5238,7 +5238,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_Spacing: 10
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
@@ -7092,6 +7092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultInventory: {fileID: 43135460}
   _needResetAll: 1
+  _needAddAllItemsToInventory: 1
   _diceType: 0
 --- !u!4 &1327191625
 Transform:
