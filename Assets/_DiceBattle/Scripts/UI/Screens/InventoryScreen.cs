@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using DiceBattle.Core;
 using DiceBattle.Global;
 using UnityEngine;
@@ -79,6 +78,11 @@ namespace DiceBattle.UI
         {
             DiceList equippedRewards = GameData.GetEquippedItems();
 
+            for (int i = 0; i < _items.Count; i++)
+            {
+
+            }
+
             foreach (InventoryItem item in _items)
             {
                 // Takes the same die
@@ -147,7 +151,6 @@ namespace DiceBattle.UI
 
         private void ItemClicked(DiceType obj)
         {
-
             throw new System.NotImplementedException();
         }
 
