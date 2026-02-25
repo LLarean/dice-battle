@@ -20,8 +20,10 @@ namespace DiceBattle.UI
         [SerializeField] private TextMeshProUGUI _description;
 
         private DiceType _diceType;
+        private bool _isFirstEquip = true;
 
         public DiceType DiceType => _diceType;
+        public bool IsFirstEquip => _isFirstEquip;
 
         public event Action<DiceType> OnDiceToggled;
 
@@ -34,10 +36,11 @@ namespace DiceBattle.UI
             _dice.OnToggled += HandleDiceToggled;
         }
 
-        public void SetEquippedStatus(bool isEquipped)
+        public void SetEquippedStatus(bool isEquipped, bool isFirstEquip = false)
         {
             _dice.Toggle();
             _agreeMark.gameObject.SetActive(isEquipped);
+            _isFirstEquip = isFirstEquip;
         }
 
         private void Start()
