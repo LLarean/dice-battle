@@ -78,16 +78,14 @@ namespace DiceBattle.UI
         {
             DiceList equippedRewards = GameData.GetEquippedItems();
 
-            for (int i = 0; i < _items.Count; i++)
-            {
-
-            }
-
             foreach (InventoryItem item in _items)
             {
-                // Takes the same die
                 bool isEquipped = equippedRewards.DiceTypes.Contains(item.DiceType);
-                item.SetEquippedStatus(isEquipped);
+
+                if (item.IsFirstEquip)
+                {
+                    item.SetEquippedStatus(isEquipped);
+                }
             }
         }
 
