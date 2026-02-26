@@ -1,24 +1,37 @@
-﻿using System.Linq;
-using DiceBattle.Global;
+﻿using System.Collections.Generic;
 
 namespace DiceBattle.UI
 {
-    public class Inventory
+    public record Inventory
     {
-        public DiceList GetEquippedItems() => DiceListLoader.Load(PlayerPrefsKeys.EquippedRewards);
+        public List<Item> GetEquippedItems()
+        {
+            return new Items("EquippedItems").Value();
+        }
 
-        public int GetItemsCount(DiceType diceType) => GetEquippedItems().DiceTypes.Count(r => r == diceType);
+        public List<Item> GetUnequippedItems()
+        {
+            return new Items("UnequippedItems").Value();
+        }
 
-        public void SaveEquippedRewards(DiceList diceList) => DiceListLoader.Save(PlayerPrefsKeys.EquippedRewards, diceList);
+        public void EquipItem(Item item)
+        {
+            List<Item> equippedItems = GetEquippedItems();
+            List<Item> unequippedItems = GetUnequippedItems();
+            unequippedItems.Remove(item);
+            equippedItems.Add(item);
+        }
 
-        public static void LogEquippedRewards() => DiceListLoader.Log("Equipped", PlayerPrefsKeys.EquippedRewards);
+        public void AddEquippedItem(Item item)
+        {
+            List<Item> equippedItems = GetEquippedItems();
+            equippedItems.Add(item);
+        }
 
-        private static void ClearEquippedRewards() => DiceListLoader.Clear(PlayerPrefsKeys.EquippedRewards);
-    }
-
-    public class Item
-    {
-        public string ID;
-        public DiceType Type;
+        public void AddUnequippedItem(Item item)
+        {
+            List<Item> unequippedItems = GetUnequippedItems();
+            unequippedItems.Add(item);
+        }
     }
 }
