@@ -37,7 +37,7 @@ namespace DiceBattle.UI
             unequippedItems.Add(item);
         }
 
-        public void ClearItems()
+        public void Clear()
         {
             new Items(_equippedItemsKey).Reset();
             new Items(_unequippedItemsKey).Reset();
