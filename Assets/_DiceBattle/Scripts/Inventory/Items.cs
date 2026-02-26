@@ -25,5 +25,10 @@ namespace DiceBattle.UI
 
             return equippedItems ?? new List<Item>();
         }
+
+        public void Reset()
+        {
+            PlayerPrefs.DeleteKey(_playerPrefsKey);
+        }
     }
 }
