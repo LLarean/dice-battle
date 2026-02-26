@@ -4,34 +4,43 @@ namespace DiceBattle.UI
 {
     public record Inventory
     {
-        public List<Item> GetEquippedItems()
+        private const string _equippedItemsKey = "EquippedItems";
+        private const string _unequippedItemsKey = "UnequippedItems";
+
+        public List<Item> EquippedItems()
         {
-            return new Items("EquippedItems").Value();
+            return new Items(_equippedItemsKey).Value();
         }
 
-        public List<Item> GetUnequippedItems()
+        public List<Item> UnequippedItems()
         {
-            return new Items("UnequippedItems").Value();
+            return new Items(_unequippedItemsKey).Value();
         }
 
         public void EquipItem(Item item)
         {
-            List<Item> equippedItems = GetEquippedItems();
-            List<Item> unequippedItems = GetUnequippedItems();
+            List<Item> equippedItems = EquippedItems();
+            List<Item> unequippedItems = UnequippedItems();
             unequippedItems.Remove(item);
             equippedItems.Add(item);
         }
 
         public void AddEquippedItem(Item item)
         {
-            List<Item> equippedItems = GetEquippedItems();
+            List<Item> equippedItems = EquippedItems();
             equippedItems.Add(item);
         }
 
         public void AddUnequippedItem(Item item)
         {
-            List<Item> unequippedItems = GetUnequippedItems();
+            List<Item> unequippedItems = UnequippedItems();
             unequippedItems.Add(item);
+        }
+
+        public void ClearItems()
+        {
+            new Items(_equippedItemsKey).Reset();
+            new Items(_unequippedItemsKey).Reset();
         }
     }
 }
