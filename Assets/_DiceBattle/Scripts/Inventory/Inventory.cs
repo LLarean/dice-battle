@@ -27,6 +27,7 @@ namespace DiceBattle.UI
 
         public void AddEquippedItem(Item item)
         {
+            // Check id???
             List<Item> equippedItems = EquippedItems();
             equippedItems.Add(item);
         }
