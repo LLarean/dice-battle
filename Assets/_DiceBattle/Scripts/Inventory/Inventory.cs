@@ -32,6 +32,18 @@ namespace DiceBattle.UI
             equippedItems.Add(item);
         }
 
+        public bool CanEquipItem(Item item)
+        {
+            List<Item> equippedItems = EquippedItems();
+            return equippedItems.Contains(item);
+        }
+
+        public bool CanAddUnequippedItem(Item item)
+        {
+            List<Item> unquippedItems = UnequippedItems();
+            return unquippedItems.Contains(item);
+        }
+
         public void AddUnequippedItem(Item item)
         {
             List<Item> unequippedItems = UnequippedItems();
