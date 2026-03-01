@@ -1,4 +1,3 @@
-using System;
 using DiceBattle.Events;
 using DiceBattle.UI;
 using GameSignals;
@@ -16,7 +15,6 @@ namespace DiceBattle
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
 
             _defaultInventory.SetDefaultInventory();
-            _defaultInventory.SetEquippedItems();
         }
     }
 }

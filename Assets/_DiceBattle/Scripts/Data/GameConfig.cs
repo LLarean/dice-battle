@@ -16,7 +16,7 @@ namespace DiceBattle.Data
         public List<UnitData> Enemies = new();
 
         [Header("Dice")]
-        public DiceList DefaultInventory = new();
+        public List<Item> DefaultInventory = new();
         public int DiceStartCount = 5;
         public int DiceBonusCount = 1;
         public int AttemptsCount = 2;

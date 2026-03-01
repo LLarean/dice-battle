@@ -1,4 +1,5 @@
-﻿using DiceBattle.Data;
+﻿using System.Collections.Generic;
+using DiceBattle.Data;
 using DiceBattle.Global;
 using DiceBattle.UI;
 using UnityEngine;
@@ -11,29 +12,15 @@ namespace DiceBattle
 
         public void SetDefaultInventory()
         {
-            DiceList inventory = GameData.GetInventory();
+            List<Item> allItems = Inventory.AllItems();
 
-            if (inventory.DiceTypes.Count == 0)
+            if (allItems.Count != 0)
             {
-                inventory.DiceTypes.AddRange(_gameConfig.DefaultInventory.DiceTypes);
-                GameData.UpdateInventory(inventory);
+                return;
             }
 
-            GameData.LogInventory();
-        }
-
-        public void SetEquippedItems()
-        {
-            DiceList equippedItems = GameData.GetEquippedItems();
-
-            if (equippedItems.DiceTypes.Count == 0)
-            {
-                DiceList inventory = GameData.GetInventory();
-                equippedItems.DiceTypes.AddRange(inventory.DiceTypes);
-
-                GameData.SaveEquippedRewards(equippedItems);
-                GameData.LogEquippedRewards();
-            }
+            allItems.AddRange(_gameConfig.DefaultInventory);
+            Inventory.AddItems(allItems);
         }
     }
 }

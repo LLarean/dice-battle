@@ -28,6 +28,13 @@ namespace DiceBattle.UI
             ItemsStorage.Save(PlayerPrefsKeys.AllItems, allItems);
         }
 
+        public static void AddItems(List<Item> items)
+        {
+            List<Item> allItems = ItemsStorage.Load(PlayerPrefsKeys.AllItems);
+            allItems.AddRange(items);
+            ItemsStorage.Save(PlayerPrefsKeys.AllItems, allItems);
+        }
+
         public static void EquipItem(Item item)
         {
             List<Item> allItems = AllItems();

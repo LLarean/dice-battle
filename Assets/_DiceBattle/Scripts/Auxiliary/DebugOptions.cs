@@ -24,9 +24,9 @@ namespace DiceBattle.Auxiliary
                 GameData.ResetAll();
                 GameSettings.ResetVolume();
 
-                _defaultInventory.SetDefaultInventory();
-                _defaultInventory.SetEquippedItems();
+                // _defaultInventory.SetEquippedItems();
                 Inventory.Clear();
+                _defaultInventory.SetDefaultInventory();
             }
 
             if (_needAddAllItemsToInventory)
