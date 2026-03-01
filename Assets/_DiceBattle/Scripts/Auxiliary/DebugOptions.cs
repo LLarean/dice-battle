@@ -25,7 +25,7 @@ namespace DiceBattle.Auxiliary
 
                 _defaultInventory.SetDefaultInventory();
                 _defaultInventory.SetEquippedItems();
-                new Inventory().Clear();
+                Inventory.Clear();
             }
 
             if (_needAddAllItemsToInventory)
@@ -38,14 +38,14 @@ namespace DiceBattle.Auxiliary
         private void AddItem()
         {
             _item.IsEquipped = false;
-            new Inventory().AddItem(_item);
+            Inventory.AddItemToUnequipped(_item);
         }
 
         [Button]
         private void AddAndEquipItem()
         {
             _item.IsEquipped = true;
-            new Inventory().EquipItem(_item);
+            Inventory.EquipItem(_item);
         }
 
         [Button]
