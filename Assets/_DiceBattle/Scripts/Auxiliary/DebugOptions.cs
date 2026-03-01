@@ -35,15 +35,17 @@ namespace DiceBattle.Auxiliary
         }
 
         [Button]
-        private void AddEquippedItem()
+        private void AddItem()
         {
-            new Inventory().AddEquippedItem(_item);
+            _item.IsEquipped = false;
+            new Inventory().AddItem(_item);
         }
 
         [Button]
-        private void AddUnequippedItem()
+        private void AddAndEquipItem()
         {
-            new Inventory().AddUnequippedItem(_item);
+            _item.IsEquipped = true;
+            new Inventory().EquipItem(_item);
         }
 
         [Button]
