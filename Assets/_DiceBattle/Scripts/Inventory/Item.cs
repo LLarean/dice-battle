@@ -4,5 +4,6 @@
     {
         public string ID;
         public DiceType Type;
+        public bool IsEquipped;
     }
 }
