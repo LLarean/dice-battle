@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System;
 using DiceBattle.Global;
 using DiceBattle.UI;
 using NaughtyAttributes;
@@ -46,6 +47,21 @@ namespace DiceBattle.Auxiliary
         {
             _item.IsEquipped = true;
             Inventory.EquipItem(_item);
+        }
+
+        [Button]
+        private void AddAllItems()
+        {
+            foreach (DiceType diceType in Enum.GetValues(typeof(DiceType)))
+            {
+                var item = new Item
+                {
+                    Type = diceType,
+                    IsEquipped = false
+                };
+
+                Inventory.AddItemToUnequipped(_item);
+            }
         }
 
         [Button]
