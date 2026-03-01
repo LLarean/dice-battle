@@ -36,7 +36,7 @@ namespace DiceBattle.UI
 
         public void SetEquippedStatus(bool isEquipped)
         {
-            _dice.Toggle();
+            _dice.SetSelection(isEquipped);
             _agreeMark.gameObject.SetActive(isEquipped);
         }
 

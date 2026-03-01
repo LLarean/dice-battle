@@ -69,6 +69,12 @@ namespace DiceBattle.Core
             _image.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
         }
 
+        public void SetSelection(bool isSelected)
+        {
+            _selectionIcon.gameObject.SetActive(isSelected);
+            _image.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
+        }
+
         public void EnableButton() => _button.interactable = true;
 
         public void DisableButton() => _button.interactable = false;
