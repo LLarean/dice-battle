@@ -9,10 +9,9 @@
         public const string CompletedLevels = "CompletedLevels";
         public const string CurrentLevel = "CurrentLevel";
 
+        public const string AllItems = "AllItems";
         public const string PlayerInventory = "RPlayerInventory";
         public const string RewardsList = "RewardsList";
         public const string EquippedRewards = "EquippedRewards";
-
-
     }
 }
