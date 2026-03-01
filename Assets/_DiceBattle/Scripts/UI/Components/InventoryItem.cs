@@ -19,28 +19,25 @@ namespace DiceBattle.UI
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private TextMeshProUGUI _description;
 
-        private DiceType _diceType;
-        private bool _isFirstEquip = true;
-
-        public DiceType DiceType => _diceType;
-        public bool IsFirstEquip => _isFirstEquip;
+        private Item _data;
 
         public event Action<DiceType> OnDiceToggled;
 
-        public void Initialize(DiceType diceType)
+        public Item Data => _data;
+
+        public void Initialize(Item item)
         {
-            _diceType = diceType;
-            _title.text = diceType.Title();
-            _description.text = diceType.Title();
+            _data = item;
+            _title.text = item.Type.Title();
+            _description.text = item.Type.Description();
 
             _dice.OnToggled += HandleDiceToggled;
         }
 
-        public void SetEquippedStatus(bool isEquipped, bool isFirstEquip = false)
+        public void SetEquippedStatus(bool isEquipped)
         {
             _dice.Toggle();
             _agreeMark.gameObject.SetActive(isEquipped);
-            _isFirstEquip = isFirstEquip;
         }
 
         private void Start()
@@ -55,14 +52,14 @@ namespace DiceBattle.UI
 
         private void HandleButtonClicked()
         {
-            OnDiceToggled?.Invoke(_diceType);
+            OnDiceToggled?.Invoke(_data.Type);
             SetEquippedStatus(!_agreeMark.gameObject.activeSelf);
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
         }
 
         private void HandleDiceToggled()
         {
-            OnDiceToggled?.Invoke(_diceType);
+            OnDiceToggled?.Invoke(_data.Type);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace DiceBattle.UI
     public class InventoryScreen : Screen
     {
         private readonly List<Dice> _dices = new();
-        private readonly List<InventoryItem> _items = new();
+        private readonly List<InventoryItem> _inventoryItems = new();
 
         [Space]
         [SerializeField] private GameConfig _gameConfig;
@@ -41,7 +41,7 @@ namespace DiceBattle.UI
         {
             GenerateItems();
             ToggleItems();
-            _itemsPlaceholder.gameObject.SetActive(_items.Count == 0);
+            _itemsPlaceholder.gameObject.SetActive(_inventoryItems.Count == 0);
 
             GenerateDice();
             _diceHolder.Initialize(_dices);
@@ -53,39 +53,35 @@ namespace DiceBattle.UI
         private void GenerateItems()
         {
             ClearItems();
-            DiceList playerInventory = GameData.GetInventory();
+            List<Item> allItems = Inventory.AllItems();
 
-            foreach (DiceType diceType in playerInventory.DiceTypes)
+            foreach (Item item in allItems)
             {
                 InventoryItem inventoryItem = Instantiate(_item, _itemsSpawn);
-                inventoryItem.Initialize(diceType);
+                inventoryItem.Initialize(item);
                 inventoryItem.OnDiceToggled += ItemClicked;
-                _items.Add(inventoryItem);
+                _inventoryItems.Add(inventoryItem);
             }
         }
 
         private void ClearItems()
         {
-            foreach (InventoryItem inventoryItem in _items)
+            foreach (InventoryItem inventoryItem in _inventoryItems)
             {
                 Destroy(inventoryItem.gameObject);
             }
 
-            _items.Clear();
+            _inventoryItems.Clear();
         }
 
         private void ToggleItems()
         {
-            DiceList equippedRewards = GameData.GetEquippedItems();
+            List<Item> equippedItems = Inventory.EquippedItems();
 
-            foreach (InventoryItem item in _items)
+            foreach (InventoryItem item in _inventoryItems)
             {
-                bool isEquipped = equippedRewards.DiceTypes.Contains(item.DiceType);
-
-                if (item.IsFirstEquip)
-                {
-                    item.SetEquippedStatus(isEquipped);
-                }
+                bool isEquipped = equippedItems.Contains(item.Data);
+                item.SetEquippedStatus(isEquipped);
             }
         }
 
