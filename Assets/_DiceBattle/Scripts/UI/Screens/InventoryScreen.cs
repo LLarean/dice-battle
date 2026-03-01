@@ -76,12 +76,9 @@ namespace DiceBattle.UI
 
         private void ToggleItems()
         {
-            List<Item> equippedItems = Inventory.EquippedItems();
-
             foreach (InventoryItem item in _inventoryItems)
             {
-                bool isEquipped = equippedItems.Contains(item.Data);
-                item.SetEquippedStatus(isEquipped);
+                item.SetEquippedStatus(item.Data.IsEquipped);
             }
         }
 
