@@ -86,7 +86,9 @@ namespace DiceBattle.UI
         {
             ClearDice();
 
-            for (int i = 0; i < 5; i++)
+            List<Item> equippedItems = Inventory.EquippedItems();
+
+            for (int i = 0; i < equippedItems.Count; i++)
             {
                 Dice dice = Instantiate(_dice, _diceSpawn);
                 dice.DisableButton();
