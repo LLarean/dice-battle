@@ -19,6 +19,7 @@ namespace DiceBattle.UI
         [SerializeField] private DiceHolder _diceHolder;
         [Space]
         [SerializeField] private Dice _dice;
+        [SerializeField] private Transform _socket;
         [SerializeField] private Transform _diceSpawn;
         [Space]
         [SerializeField] private TextMeshProUGUI _itemsPlaceholder;
@@ -43,6 +44,7 @@ namespace DiceBattle.UI
             ToggleItems();
             _itemsPlaceholder.gameObject.SetActive(_inventoryItems.Count == 0);
 
+            GenerateSockets();
             GenerateDice();
             _diceHolder.Initialize(_dices);
             _diceHolder.RepositionDice();
@@ -105,6 +107,10 @@ namespace DiceBattle.UI
 
             _dices.Clear();
         }
+
+private void GenerateSockets()
+{
+}
 
         private void SetUnitData()
         {
