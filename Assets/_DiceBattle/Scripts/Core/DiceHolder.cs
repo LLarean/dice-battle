@@ -49,6 +49,20 @@ namespace DiceBattle.Core
             }
         }
 
+        public void AddSocket()
+        {
+            for (int i = _slots.Count - 1; i < _slots.Count + 1; i++)
+            {
+                GameObject diceSlot = Instantiate(_diceSlot, _slotSpawn);
+                _slots.Add(diceSlot);
+            }
+        }
+
+        public void RemoveSocket()
+        {
+            _slots.RemoveAt(_slots.Count - 1);
+        }
+
         private void DestroySlots()
         {
             foreach (GameObject slot in _slots)
