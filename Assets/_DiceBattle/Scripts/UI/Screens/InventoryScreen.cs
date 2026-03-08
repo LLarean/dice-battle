@@ -44,7 +44,6 @@ namespace DiceBattle.UI
             ToggleItems();
             _itemsPlaceholder.gameObject.SetActive(_inventoryItems.Count == 0);
 
-            GenerateSockets();
             GenerateDice();
             _diceHolder.Initialize(_dices);
             _diceHolder.RepositionDice();
@@ -108,10 +107,6 @@ namespace DiceBattle.UI
             _dices.Clear();
         }
 
-private void GenerateSockets()
-{
-}
-
         private void SetUnitData()
         {
             var unitData = new UnitData
@@ -150,8 +145,14 @@ private void GenerateSockets()
 
         private void ItemClicked(DiceType obj)
         {
-            throw new System.NotImplementedException();
+            // if (haveEmptySocket)
+            // {
+            //     if (DiceType == DiceType.AdditionalDice)
+            //     {
+            //         _diceHolder.AddSocket();
+            //     }
+            //     EquipItem();
+            // }
         }
-
     }
 }
