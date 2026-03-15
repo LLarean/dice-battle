@@ -42,12 +42,8 @@ namespace DiceBattle.UI
         {
             GenerateItems();
             ToggleItems();
-            _itemsPlaceholder.gameObject.SetActive(_inventoryItems.Count == 0);
-
             GenerateDice();
-            _diceHolder.Initialize(_dices);
-            _diceHolder.RepositionDice();
-
+            GenerateEquippedDice();
             SetUnitData();
         }
 
@@ -63,6 +59,8 @@ namespace DiceBattle.UI
                 inventoryItem.OnDiceToggled += ItemClicked;
                 _inventoryItems.Add(inventoryItem);
             }
+
+            _itemsPlaceholder.gameObject.SetActive(_inventoryItems.Count == 0);
         }
 
         private void ClearItems()
@@ -105,6 +103,18 @@ namespace DiceBattle.UI
             }
 
             _dices.Clear();
+        }
+
+        private void GenerateEquippedDice()
+        {
+            _diceHolder.Initialize(6);
+
+            for (int i = 0; i < _dices.Count; i++)
+            {
+                _diceHolder.PlaceInSlot(_dices[i], i);
+            }
+
+            // _diceHolder.RepositionDice();
         }
 
         private void SetUnitData()
