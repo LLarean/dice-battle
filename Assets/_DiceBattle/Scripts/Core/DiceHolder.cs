@@ -18,6 +18,12 @@ namespace DiceBattle.Core
         public List<Dice> Occupied => _occupied;
         public List<Dice> Selected => _occupied.Where(dice => dice.IsSelected).ToList();
 
+        public void Initialize(int diceCount)
+        {
+            DestroySlots();
+            InstantiateSlots(diceCount);
+        }
+
         public void Initialize(List<Dice> dice)
         {
             DestroySlots();
@@ -104,7 +110,7 @@ namespace DiceBattle.Core
             _occupied.Clear();
         }
 
-        private void PlaceInSlot(Dice dice, int slotIndex)
+        public void PlaceInSlot(Dice dice, int slotIndex)
         {
             dice.transform.SetParent(_slots[slotIndex].transform);
             dice.transform.localPosition = Vector3.zero;

@@ -4283,6 +4283,7 @@ MonoBehaviour:
   _unitPanel: {fileID: 1197358313}
   _diceHolder: {fileID: 1058791445}
   _dice: {fileID: 2983668718188166613, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
+  _socket: {fileID: 0}
   _diceSpawn: {fileID: 1724702703}
   _itemsPlaceholder: {fileID: 1079566078}
   _item: {fileID: 7599840731399943832, guid: e19f5095f566920409360ab3b8016241, type: 3}
@@ -7094,6 +7095,10 @@ MonoBehaviour:
   _needResetAll: 1
   _needAddAllItemsToInventory: 1
   _diceType: 0
+  _item:
+    ID: 
+    Type: 0
+    IsEquipped: 0
 --- !u!4 &1327191625
 Transform:
   m_ObjectHideFlags: 0
