@@ -6,7 +6,8 @@ namespace DiceBattle.UI
     [Serializable]
     public class UnitData
     {
-        public string Title;
+        public string Name;
+
         public Sprite Portrait;
         public Sprite Background;
 
