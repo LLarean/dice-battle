@@ -121,7 +121,7 @@ namespace DiceBattle.UI
         {
             var unitData = new UnitData
             {
-                Title = "Герой (вы)",
+                Name = "Герой (вы)",
                 Portrait = _gameConfig.Player.Portraits[0],
                 MaxHealth = GetHealth(),
                 CurrentHealth = GetHealth(),

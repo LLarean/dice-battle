@@ -17,7 +17,7 @@ namespace DiceBattle.UI
         public void SetUnitData(UnitData unitData)
         {
             _unitData = unitData;
-            _title.text = _unitData.Title;
+            _title.text = _unitData.Name;
             _portrait.sprite = _unitData.Portrait;
 
             UpdateStats();

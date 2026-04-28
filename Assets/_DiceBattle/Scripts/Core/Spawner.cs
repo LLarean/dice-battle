@@ -22,7 +22,7 @@ namespace DiceBattle.Core
 
             var enemyData = new UnitData
             {
-                Title = source.Title,
+                Name = source.Name,
                 Portrait = source.Portrait,
                 Background = source.Background,
                 MaxHealth = source.MaxHealth,
@@ -39,7 +39,7 @@ namespace DiceBattle.Core
         public UnitData SpawnHero()
         {
             UnitData playerData = GetHeroUnitData(_config.Player);
-            playerData.Title = "Герой (вы)"; // TODO Translation
+            playerData.Name = "Герой (вы)"; // TODO Translation
             playerData.Portrait = _config.Player.Portraits[0];
 
             playerData.Log();

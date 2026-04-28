@@ -21,7 +21,7 @@ namespace DiceBattle
         {
             List<DiceType> rewardTypes = GameData.GetInventory().DiceTypes;
 
-            unitData.Title = "Герой (upd)"; // TODO Translation
+            unitData.Name = "Герой (upd)"; // TODO Translation
 
             unitData.Armor = rewardTypes.Count(r => r == DiceType.BaseArmor) * config.Player.GrowthArmor;
             unitData.Damage = rewardTypes.Count(r => r == DiceType.BaseDamage) * config.Player.GrowthDamage;
