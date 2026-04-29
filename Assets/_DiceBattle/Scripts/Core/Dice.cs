@@ -114,6 +114,11 @@ namespace DiceBattle.Core
 
         private void ShowMultiplier()
         {
+            if (_isMenu)
+            {
+                return;
+            }
+
             int multiplier = 1;
             DiceList diceList = GameData.GetInventory();
 
