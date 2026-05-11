@@ -16,22 +16,19 @@ namespace DiceBattle.UI
         [SerializeField] private RectTransform _rootUI;
         [Space]
         [SerializeField] private TextMeshProUGUI _title;
-        [SerializeField] private List<Dice> _dice;
-        [Space]
         [SerializeField] private Button _options;
         [SerializeField] private Button _start;
         [Space]
+        [SerializeField] private List<Dice> _dice;
         [SerializeField] private RectTransform _rollAnimationArea;
         [SerializeField] private RectTransform _bottomButtons;
 
         private GameObjectAnimations _gameObjectAnimations;
-        private DiceAnimation _diceAnimation;
 
         private void Awake()
         {
             _gameObjectAnimations = new GameObjectAnimations(_rootUI);
             _gameObjectAnimations.SetParams(.2f, .5f, LeanTweenType.easeOutBack);
-            _diceAnimation = new DiceAnimation(_rollAnimationArea);
         }
 
         private void Start()
@@ -52,7 +49,7 @@ namespace DiceBattle.UI
         {
             _gameObjectAnimations.SlideIn(_title.rectTransform);
             _gameObjectAnimations.SlideIn(_bottomButtons, -1);
-            _diceAnimation.Animate(_dice);
+            DiceAnimation.Animate(_dice, _rollAnimationArea);
 
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Menu));

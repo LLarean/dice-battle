@@ -13,8 +13,6 @@ namespace DiceBattle.Core
     {
         [SerializeField] private RectTransform _rollArea;
 
-        private DiceAnimation _diceAnimation;
-
         public event Action OnRollCompleted;
 
         public void Roll(List<Dice> dices)
@@ -25,7 +23,7 @@ namespace DiceBattle.Core
                 dice.transform.localPosition = Vector3.zero;
             }
 
-            _diceAnimation.Animate(dices);
+            DiceAnimation.Animate(dices, _rollArea);
             PlaySound(dices);
         }
 
@@ -37,10 +35,8 @@ namespace DiceBattle.Core
 
         private void HandleRollComplete() => OnRollCompleted?.Invoke();
 
-        private void Awake() => _diceAnimation = new DiceAnimation(_rollArea);
+        private void Start() => DiceAnimation.OnDiceRollComplete += HandleRollComplete;
 
-        private void Start() => _diceAnimation.OnDiceRollComplete += HandleRollComplete;
-
-        private void OnDestroy() => _diceAnimation.OnDiceRollComplete -= HandleRollComplete;
+        private void OnDestroy() => DiceAnimation.OnDiceRollComplete -= HandleRollComplete;
     }
 }

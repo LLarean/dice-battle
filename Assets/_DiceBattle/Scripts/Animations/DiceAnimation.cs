@@ -6,30 +6,25 @@ using Random = UnityEngine.Random;
 
 namespace DiceBattle.Animations
 {
-    public class DiceAnimation
+    public static class DiceAnimation
     {
-        private readonly RectTransform _safeArea;
-        private readonly List<Vector2> _finalPositions = new();
+        private static RectTransform _safeArea;
+        private static readonly List<Vector2> _finalPositions = new();
 
-        private Vector2 _rollAreaMin;
-        private Vector2 _rollAreaMax;
+        private static Vector2 _rollAreaMin;
+        private static Vector2 _rollAreaMax;
 
         private const float _throwDuration = 0.8f;
         private const float _throwHeight = 3f;
         private const float _diceSize = 0.5f;
 
-        private List<Dice> _dicesToRoll;
+        private static List<Dice> _dicesToRoll;
 
-        public event Action OnDiceRollComplete;
+        public static event Action OnDiceRollComplete;
 
-        public DiceAnimation(RectTransform safeArea)
+        public static void Animate(List<Dice> dices, RectTransform safeArea)
         {
             _safeArea = safeArea;
-            // LeanTween.init(1000);
-        }
-
-        public void Animate(List<Dice> dices)
-        {
             _dicesToRoll = dices;
 
             DisableIcons();
@@ -42,7 +37,7 @@ namespace DiceBattle.Animations
             }
         }
 
-        private void DisableIcons()
+        private static void DisableIcons()
         {
             foreach (Dice dice in _dicesToRoll)
             {
@@ -50,7 +45,7 @@ namespace DiceBattle.Animations
             }
         }
 
-        private void UpdateAreaBounds()
+        private static void UpdateAreaBounds()
         {
             var corners = new Vector3[4];
             _safeArea.GetWorldCorners(corners);
@@ -62,7 +57,7 @@ namespace DiceBattle.Animations
             _rollAreaMax -= new Vector2(margin, margin);
         }
 
-        private void GenerateNonOverlappingPositions(int diceCount)
+        private static void GenerateNonOverlappingPositions(int diceCount)
         {
             _finalPositions.Clear();
             int maxAttempts = 100;
@@ -98,7 +93,7 @@ namespace DiceBattle.Animations
             }
         }
 
-        private void AnimateDice(Dice dice, Vector2 targetPos, int index)
+        private static void AnimateDice(Dice dice, Vector2 targetPos, int index)
         {
             Vector3 startPos = dice.transform.position;
             Vector3 endPos = new Vector3(targetPos.x, targetPos.y, dice.transform.position.z);
@@ -157,7 +152,7 @@ namespace DiceBattle.Animations
                 .setLoopPingPong(1);
         }
 
-        private void DiceRollComplete(int index)
+        private static void DiceRollComplete(int index)
         {
             _dicesToRoll[index].Roll();
 
