@@ -119,23 +119,16 @@ namespace DiceBattle.Core
                 return;
             }
 
-            int multiplier = 1;
             DiceList diceList = GameData.GetInventory();
 
-            if (_diceValue == DiceValue.Attack)
+            int diceCount = _diceValue switch
             {
-                multiplier += diceList.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeAttack);
-            }
-            else if (_diceValue == DiceValue.Defense)
-            {
-                multiplier += diceList.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeArmor);
+                DiceValue.Attack => diceList.DiceTypes.Count(r => r == DiceType.UpgradeAttack),
+                DiceValue.Defense => diceList.DiceTypes.Count(r => r == DiceType.UpgradeArmor),
+                DiceValue.Heal => diceList.DiceTypes.Count(r => r == DiceType.UpgradeHealth)
+            };
 
-            }
-            else if (_diceValue == DiceValue.Heal)
-            {
-                multiplier += diceList.DiceTypes.Count(r => r == DiceBattle.DiceType.UpgradeHealth);
-            }
-
+            int multiplier = 1 + diceCount;
             _multiplier.gameObject.SetActive(multiplier > 1);
             _multiplier.text = "x" + multiplier;
         }
