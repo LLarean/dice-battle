@@ -1,6 +1,5 @@
 using DiceBattle.Animations;
 using DiceBattle.Events;
-using DiceBattle.UI;
 using GameSignals;
 using UnityEngine;
 using UnityEngine.UI;
