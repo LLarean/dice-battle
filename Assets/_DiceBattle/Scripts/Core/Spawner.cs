@@ -68,8 +68,8 @@ namespace DiceBattle.Core
             int baseArmorCount = diceList.DiceTypes.Count(r => r == DiceType.BaseArmor);
             int armor = unitConfig.StartArmor + baseArmorCount;
 
-            // Debug.Log("diceList.DiceTypes.Count(r => r == DiceType.BaseDamage) = " + diceList.DiceTypes.Count(r => r == DiceType.BaseDamage));
-            // Debug.Log("diceList.DiceTypes.Count(r => r == DiceType.BaseArmor) = " + diceList.DiceTypes.Count(r => r == DiceType.BaseArmor));
+            Debug.Log("diceList.DiceTypes.Count(r => r == DiceType.BaseDamage) = " + diceList.DiceTypes.Count(r => r == DiceType.BaseDamage));
+            Debug.Log("diceList.DiceTypes.Count(r => r == DiceType.BaseArmor) = " + diceList.DiceTypes.Count(r => r == DiceType.BaseArmor));
 
             return new UnitData
             {
