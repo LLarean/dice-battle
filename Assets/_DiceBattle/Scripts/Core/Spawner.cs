@@ -48,6 +48,7 @@ namespace DiceBattle.Core
             return playerData;
         }
 
+        // TODO Refactor this
         private UnitData GetHeroUnitData(UnitConfig unitConfig)
         {
             DiceList diceList = GameData.GetInventory();
@@ -62,11 +63,15 @@ namespace DiceBattle.Core
             // Debug.Log("maxHealth = " + maxHealth);
             // Debug.Log("unitConfig.StartHealth = " + unitConfig.StartHealth);
 
+
+
             int baseDamageCount = diceList.DiceTypes.Count(r => r == DiceType.BaseDamage);
-            int damage = unitConfig.StartDamage + baseDamageCount;
+            int damage = baseDamageCount > 1 ? unitConfig.StartDamage + baseDamageCount -1 : unitConfig.StartDamage;
+            // int damage = unitConfig.StartDamage + baseDamageCount;
 
             int baseArmorCount = diceList.DiceTypes.Count(r => r == DiceType.BaseArmor);
-            int armor = unitConfig.StartArmor + baseArmorCount;
+            int armor = baseArmorCount > 1 ? unitConfig.StartArmor + baseArmorCount -1 : unitConfig.StartArmor;
+            // int armor = unitConfig.StartArmor + baseArmorCount;
 
             Debug.Log("diceList.DiceTypes.Count(r => r == DiceType.BaseDamage) = " + diceList.DiceTypes.Count(r => r == DiceType.BaseDamage));
             Debug.Log("diceList.DiceTypes.Count(r => r == DiceType.BaseArmor) = " + diceList.DiceTypes.Count(r => r == DiceType.BaseArmor));
