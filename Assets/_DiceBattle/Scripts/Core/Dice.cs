@@ -128,7 +128,8 @@ namespace DiceBattle.Core
                 DiceValue.Heal => diceList.DiceTypes.Count(r => r == DiceType.UpgradeHealth)
             };
 
-            int multiplier = 1 + diceCount;
+            int multiplier = diceCount > 1 ? 1 + diceCount - 1 : 1;
+            // int multiplier = 1 + diceCount;
             _multiplier.gameObject.SetActive(multiplier > 1);
             _multiplier.text = "x" + multiplier;
         }
