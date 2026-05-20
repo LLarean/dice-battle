@@ -54,7 +54,7 @@ namespace DiceBattle.Core
             DiceList diceList = GameData.GetInventory();
 
             int doubleHealthCount = diceList.DiceTypes.Count(r => r == DiceType.BaseHealth);
-            int additionalHealth = unitConfig.StartHealth * doubleHealthCount;
+            // int additionalHealth = unitConfig.StartHealth * doubleHealthCount;
             int maxHealth = unitConfig.StartHealth * doubleHealthCount;
             // int maxHealth = unitConfig.StartHealth + additionalHealth;
 
@@ -73,8 +73,8 @@ namespace DiceBattle.Core
             int armor = baseArmorCount > 1 ? unitConfig.StartArmor + baseArmorCount -1 : unitConfig.StartArmor;
             // int armor = unitConfig.StartArmor + baseArmorCount;
 
-            Debug.Log("diceList.DiceTypes.Count(r => r == DiceType.BaseDamage) = " + diceList.DiceTypes.Count(r => r == DiceType.BaseDamage));
-            Debug.Log("diceList.DiceTypes.Count(r => r == DiceType.BaseArmor) = " + diceList.DiceTypes.Count(r => r == DiceType.BaseArmor));
+            // Debug.Log("diceList.DiceTypes.Count(r => r == DiceType.BaseDamage) = " + diceList.DiceTypes.Count(r => r == DiceType.BaseDamage));
+            // Debug.Log("diceList.DiceTypes.Count(r => r == DiceType.BaseArmor) = " + diceList.DiceTypes.Count(r => r == DiceType.BaseArmor));
 
             return new UnitData
             {
