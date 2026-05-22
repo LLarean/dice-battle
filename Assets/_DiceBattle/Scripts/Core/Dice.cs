@@ -125,11 +125,11 @@ namespace DiceBattle.Core
             {
                 DiceValue.Attack => diceList.DiceTypes.Count(r => r == DiceType.UpgradeAttack),
                 DiceValue.Defense => diceList.DiceTypes.Count(r => r == DiceType.UpgradeArmor),
-                DiceValue.Heal => diceList.DiceTypes.Count(r => r == DiceType.UpgradeHealth)
+                DiceValue.Heal => diceList.DiceTypes.Count(r => r == DiceType.UpgradeHealth),
+                _ => 0,
             };
 
-            int multiplier = diceCount > 1 ? 1 + diceCount - 1 : 1;
-            // int multiplier = 1 + diceCount;
+            int multiplier = 1 + diceCount;
             _multiplier.gameObject.SetActive(multiplier > 1);
             _multiplier.text = "x" + multiplier;
         }
