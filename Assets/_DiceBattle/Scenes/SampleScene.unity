@@ -6817,7 +6817,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultInventory: {fileID: 43135460}
   _needResetAll: 1
-  _needAddAllItemsToInventory: 1
+  _needAddAllItemsToInventory: 0
   _diceType: 0
   _item:
     ID: 
