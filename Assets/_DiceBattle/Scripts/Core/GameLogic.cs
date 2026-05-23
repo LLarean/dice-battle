@@ -309,7 +309,16 @@ namespace DiceBattle.Core
         private void OnEnemyDefeated()
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyDefeated));
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.LootScreen));
+
+            // TODO Create a logic of victory
+            // if (isLastEnemy)
+            // {
+            //     SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.WindScreen));
+            // }
+            // else
+            // {
+                SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.LootScreen));
+            // }
 
             GameData.IncrementCurrentLevel();
             GameData.IncrementLevels();
