@@ -11,6 +11,10 @@ namespace DiceBattle.Core
         private readonly GameConfig _config;
         private readonly GameScreen _gameScreen;
 
+        private bool _isLastEnemy;
+
+        public bool IsLastEnemy => _isLastEnemy;
+
         public Spawner(GameConfig config, GameScreen gameScreen)
         {
             _config = config;
@@ -30,7 +34,10 @@ namespace DiceBattle.Core
                 CurrentHealth = source.MaxHealth,
                 Damage = source.Damage,
                 Armor = source.Armor,
+
             };
+
+            _isLastEnemy = _config.Enemies.Count >= GameData.CompletedLevels;
 
             enemyData.Log();
             _gameScreen.SetEnemyData(enemyData);

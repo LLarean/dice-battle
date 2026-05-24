@@ -310,15 +310,14 @@ namespace DiceBattle.Core
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyDefeated));
 
-            // TODO Create a logic of victory
-            // if (isLastEnemy)
-            // {
-            //     SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.WindScreen));
-            // }
-            // else
-            // {
+            if (_matchData.IsLastEnemy)
+            {
+                SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.GameOverScreen));
+            }
+            else
+            {
                 SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.LootScreen));
-            // }
+            }
 
             GameData.IncrementCurrentLevel();
             GameData.IncrementLevels();
