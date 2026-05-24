@@ -14,5 +14,7 @@ namespace DiceBattle.Core
 
         public int PlayerHealthChange;
         public int EnemyHealthChange;
+
+        public bool IsLastEnemy;
     }
 }
