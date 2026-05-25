@@ -19,6 +19,11 @@ namespace DiceBattle.UI
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            if (_button.interactable == false)
+            {
+                return;
+            }
+
             LeanTween.cancel(gameObject);
             LeanTween.scale(gameObject, _originalScale * _pressScale, _duration)
                 .setEase(LeanTweenType.easeOutQuad);
@@ -26,6 +31,11 @@ namespace DiceBattle.UI
 
         public void OnPointerUp(PointerEventData eventData)
         {
+            if (_button.interactable == false)
+            {
+                return;
+            }
+
             LeanTween.cancel(gameObject);
             LeanTween.scale(gameObject, _originalScale, _duration)
                 .setEase(LeanTweenType.easeOutQuad);
@@ -35,7 +45,15 @@ namespace DiceBattle.UI
 
         private void Start() => _button.onClick.AddListener(HandleClick);
 
-        private void HandleClick() => SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(_soundType));
+        private void HandleClick()
+        {
+            if (_button.interactable == false)
+            {
+                return;
+            }
+
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(_soundType));
+        }
 
         private void OnDestroy()
         {
