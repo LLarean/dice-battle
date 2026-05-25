@@ -28,6 +28,7 @@ namespace DiceBattle.UI
 
         public List<Dice> Dices => _gameBoard.Dices;
         public bool HaveSelectedDice => _gameBoard.HaveSelectedDice;
+        public bool HaveUnselectedDice => _gameBoard.HaveUnselectedDice;
 
         public void UpdateRewards() => _gameLogic.UpdateData();
 
@@ -68,6 +69,8 @@ namespace DiceBattle.UI
         public void ResetSelection() => _gameBoard.ClearAllSelection();
 
         public void ToggleAllDice() => _gameBoard.ToggleAll();
+
+        public void SetSelectionStatus(bool isSelected) => _gameBoard.SetSelectionStatus(isSelected);
 
         #endregion
 

@@ -25,6 +25,7 @@ namespace DiceBattle.Core
 
         public List<Dice> Dices => _dices;
         public bool HaveSelectedDice => _diceHolder.Selected.Count > 0;
+        public bool HaveUnselectedDice => _diceHolder.Selected.Count < _dices.Count - 1;
 
         public void RollDice() => _diceShaker.Roll(_diceHolder.Occupied);
 
@@ -37,6 +38,8 @@ namespace DiceBattle.Core
         public void ClearAllSelection() => _dices.ForEach(dice => dice.ClearSelection());
 
         public void ToggleAll() => _dices.ForEach(dice => dice.Toggle());
+
+        public void SetSelectionStatus(bool isSelected) => _dices.ForEach(dice => dice.SetSelection(isSelected));
 
         public void SetDiceCount(int count)
         {

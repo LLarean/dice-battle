@@ -76,7 +76,16 @@ namespace DiceBattle.Core
                 return;
             }
 
-            _gameScreen.ToggleAllDice();
+            if (_gameScreen.HaveUnselectedDice)
+            {
+                _gameScreen.SetSelectionStatus(true);
+            }
+            else
+            {
+                _gameScreen.SetSelectionStatus(false);
+            }
+
+            // _gameScreen.ToggleAllDice();
         }
 
         private void EndTurn()
