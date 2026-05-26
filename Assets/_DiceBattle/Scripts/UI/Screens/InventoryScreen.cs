@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using DiceBattle.Core;
 using DiceBattle.Global;
 using UnityEngine;
@@ -41,16 +43,32 @@ namespace DiceBattle.UI
         private void RefreshInventoryDisplay()
         {
             GenerateItems();
-            ToggleItems();
-            GenerateDice();
-            GenerateEquippedDice();
-            SetUnitData();
+            // ToggleItems();
+            // GenerateDice();
+            // GenerateEquippedDice();
+            // SetUnitData();
         }
 
         private void GenerateItems()
         {
             ClearItems();
+            // var rewardTypes = Enum.GetValues(typeof(DiceType)).Cast<DiceType>().ToList();
             List<Item> allItems = Inventory.AllItems();
+
+            // for (int i = 0; i < rewardTypes.Count; i++)
+            // {
+            //     var item = new Item
+            //     {
+            //         ID = i.ToString(),
+            //         Type = rewardTypes[i],
+            //         IsEquipped = false, // TODO add logic allItems.Contains
+            //     };
+            //
+            //     InventoryItem inventoryItem = Instantiate(_item, _itemsSpawn);
+            //     inventoryItem.Initialize(item);
+            //     inventoryItem.OnDiceToggled += ItemClicked;
+            //     _inventoryItems.Add(inventoryItem);
+            // }
 
             foreach (Item item in allItems)
             {
