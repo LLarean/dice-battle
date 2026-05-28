@@ -1,6 +1,7 @@
 using DiceBattle.Events;
 using DiceBattle.Global;
 using GameSignals;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,8 @@ namespace DiceBattle.UI
         [Space]
         [SerializeField] private Button _credits;
         [SerializeField] private Button _close;
+        [Space]
+        [SerializeField] private TMP_Text _version;
 
         private void Start()
         {
@@ -22,6 +25,8 @@ namespace DiceBattle.UI
 
             _credits.onClick.AddListener(HandleCreditsClick);
             _close.onClick.AddListener(HandleCloseClick);
+
+            _version.text = Application.version;
         }
 
         private void OnDestroy()
