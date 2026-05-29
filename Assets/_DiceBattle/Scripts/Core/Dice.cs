@@ -61,23 +61,34 @@ namespace DiceBattle.Core
         {
             _selectionIcon.gameObject.SetActive(false);
             _image.color = Color.white;
+            _multiplier.color = Color.white;
         }
 
         public void Toggle()
         {
             _selectionIcon.gameObject.SetActive(!_selectionIcon.gameObject.activeSelf);
             _image.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
+            _multiplier.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
         }
 
         public void SetSelection(bool isSelected)
         {
             _selectionIcon.gameObject.SetActive(isSelected);
             _image.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
+            _multiplier.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
         }
 
-        public void EnableButton() => _button.interactable = true;
+        public void EnableButton()
+        {
+            _button.interactable = true;
+            _multiplier.color = Color.white;
+        }
 
-        public void DisableButton() => _button.interactable = false;
+        public void DisableButton()
+        {
+            _button.interactable = false;
+            _multiplier.color = Color.gray;
+        }
 
         private void Start()
         {

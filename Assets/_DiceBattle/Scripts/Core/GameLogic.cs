@@ -241,7 +241,7 @@ namespace DiceBattle.Core
 
         private void ApplyPlayerHealing()
         {
-            int regenHealth = _matchData.DiceList.DiceTypes.Count(r => r == DiceBattle.DiceType.RegenHealth) * _config.Player.GrowthHealth;
+            int regenHealth = _matchData.DiceList.DiceTypes.Count(r => r == DiceType.RegenHealth) * _config.Player.GrowthHealth;
             int allRegenHealth = _diceResult.Heal + regenHealth;
             _gameScreen.PlayerTakeHeal(allRegenHealth);
 
@@ -251,7 +251,7 @@ namespace DiceBattle.Core
 
         private void ApplyPlayerArmor()
         {
-            int bonusArmorCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseArmor) * _config.Player.GrowthArmor;
+            int bonusArmorCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceType.BaseArmor) * _config.Player.GrowthArmor;
             _matchData.PlayerData.Armor = Mathf.Max(0, _diceResult.Armor + bonusArmorCount);
 
             Debug.Log("Armor: Dice = " + _diceResult.Armor + ", Character = " + bonusArmorCount);
@@ -260,7 +260,7 @@ namespace DiceBattle.Core
 
         private void ApplyPlayerAttack()
         {
-            int bonusDamageCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseDamage) * _config.Player.GrowthDamage;
+            int bonusDamageCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceType.BaseDamage) * _config.Player.GrowthDamage;
             _matchData.PlayerData.Damage = Mathf.Max(_diceResult.Damage, _diceResult.Damage + bonusDamageCount);
             _gameScreen.EnemyTakeDamage(_matchData.PlayerData.Damage);
 
