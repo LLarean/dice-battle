@@ -265,6 +265,11 @@ namespace DiceBattle.Core
             _gameScreen.EnemyTakeDamage(_matchData.PlayerData.Damage);
 
             Debug.Log("Damage: Dice = " + _diceResult.Damage + ", Character = " + bonusDamageCount);
+            // Debug.Log("_diceResult.Damage = " + _diceResult.Damage);
+            // Debug.Log("_matchData.DiceList.DiceTypes.Count(r => r == DiceType.BaseDamage) = " + _matchData.DiceList.DiceTypes.Count(r => r == DiceType.BaseDamage));
+            // Debug.Log("_config.Player.GrowthDamage = " + _config.Player.GrowthDamage);
+            // Debug.Log("bonusDamageCount = " + bonusDamageCount);
+            // Debug.Log("_matchData.PlayerData.Damage = " + _matchData.PlayerData.Damage);
 
             // TODO You can add different sounds to attack different enemies
             // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
