@@ -90,7 +90,11 @@ namespace DiceBattle.UI
 
         private void HandleContextClicked() => _gameLogic.ContextClick();
 
-        private void HandleAllClicked() => _gameLogic.AllClick();
+        private void HandleAllClicked()
+        {
+            _gameLogic.AllClick();
+            HandleDiceToggle();
+        }
 
         private void HandleDiceToggle()
         {
