@@ -4,12 +4,14 @@ using DiceBattle.Events;
 using DiceBattle.Global;
 using GameSignals;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DiceBattle.UI
 {
     public class LootScreen : Screen
     {
         [SerializeField] private List<RewardItem> _rewardItems;
+        [SerializeField] private Button _reroll;
 
         private void Start()
         {
@@ -17,6 +19,8 @@ namespace DiceBattle.UI
             {
                 rewardItem.OnClicked += HandleItemSelect;
             }
+
+            _reroll.onClick.AddListener(RerollRewards);
         }
 
         private void OnDestroy()
@@ -25,6 +29,8 @@ namespace DiceBattle.UI
             {
                 rewardItem.OnClicked -= HandleItemSelect;
             }
+
+            _reroll.onClick.RemoveAllListeners();
         }
 
         private void OnEnable()
@@ -58,5 +64,7 @@ namespace DiceBattle.UI
             _rewardItems[0].SetReward(randomRewards.DiceTypes[firstRewardCount]);
             _rewardItems[1].SetReward(randomRewards.DiceTypes[secondRewardCount]);
         }
+
+        private void RerollRewards() => ShowRewards();
     }
 }
