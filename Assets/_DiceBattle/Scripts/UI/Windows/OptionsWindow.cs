@@ -14,6 +14,7 @@ namespace DiceBattle.UI
         [SerializeField] private Slider _sound;
         [Space]
         [SerializeField] private Button _credits;
+        [SerializeField] private Button _language;
         [SerializeField] private Button _close;
         [Space]
         [SerializeField] private TMP_Text _version;
@@ -24,6 +25,7 @@ namespace DiceBattle.UI
             _sound.onValueChanged.AddListener(HandleSoundChange);
 
             _credits.onClick.AddListener(HandleCreditsClick);
+            _language.onClick.AddListener(HandleLanguageClick);
             _close.onClick.AddListener(HandleCloseClick);
 
             _version.text = Application.version;
@@ -58,6 +60,11 @@ namespace DiceBattle.UI
         {
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.CreditsWindow));
             gameObject.SetActive(false);
+        }
+
+        private void HandleLanguageClick()
+        {
+            Debug.Log("Language change");
         }
 
         private void HandleCloseClick() => gameObject.SetActive(false);
