@@ -198,15 +198,15 @@ namespace DiceBattle.Core
         private void SetMaxAttempts()
         {
             DiceList receivedRewards = GameData.GetInventory();
-            int additionalTryCount = receivedRewards.DiceTypes.Count(reward => reward == DiceBattle.DiceType.AdditionalTry);
+            int additionalTryCount = receivedRewards.DiceTypes.Count(reward => reward == DiceType.AdditionalTry);
             _matchData.MaxDiceRerolls = _config.MaxAttempts + additionalTryCount;
         }
 
         private void UpdatePlayerStats()
         {
             // int regenHealth = _rewardsData.RewardTypes.Count(r => r == RewardType.RegenHealth) * _config.Player.GrowthHealth;
-            int bonusArmorCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseArmor) * _config.Player.GrowthArmor;
-            int bonusDamageCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseDamage) * _config.Player.GrowthDamage;
+            int bonusArmorCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceType.BaseArmor) * _config.Player.GrowthArmor;
+            int bonusDamageCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceType.BaseDamage) * _config.Player.GrowthDamage;
 
             _matchData.PlayerData.Armor = Mathf.Max(0, bonusArmorCount);
             _matchData.PlayerData.Damage = Mathf.Max(0, bonusDamageCount);
