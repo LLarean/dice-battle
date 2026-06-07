@@ -11943,51 +11943,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8034931700675799938, guid: 51784f6e22d965642a031591edc191a9, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 7587949318417113689}
-    - targetCorrespondingSourceObject: {fileID: 8034931700675799938, guid: 51784f6e22d965642a031591edc191a9, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 7587949318417113685}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51784f6e22d965642a031591edc191a9, type: 3}
---- !u!1 &7587949318417113684 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8034931700675799938, guid: 51784f6e22d965642a031591edc191a9, type: 3}
-  m_PrefabInstance: {fileID: 7587949318417113683}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7587949318417113685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7587949318417113684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1c554283fc988a47ab37a1223ea185c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxOffset: {x: 40, y: 25}
-  _smooth: 6
-  _invert: 1
---- !u!114 &7587949318417113689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7587949318417113684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d39d0235b0332104db63521004d69c08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startScale: 1
-  _targetScale: 1.2
-  _duration: 2
-  _ease: 6
-  _playOnEnable: 1
 --- !u!1001 &7892729199863843160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12110,12 +12067,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7892729199863843161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1c554283fc988a47ab37a1223ea185c, type: 3}
+  m_Script: {fileID: 11500000, guid: ab9aa827ac23f9449adfd5a496f2dafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _maxOffset: {x: 40, y: 25}
   _smooth: 6
   _invert: 1
+  _gyroTiltRange: 20
 --- !u!1001 &8672433032861392988
 PrefabInstance:
   m_ObjectHideFlags: 0
