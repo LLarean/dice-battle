@@ -19,6 +19,7 @@ namespace DiceBattle.UI
         [SerializeField] private UnitPanel _player;
         [SerializeField] private UnitPanel _enemy;
         [SerializeField] private GameBoard _gameBoard;
+        [SerializeField] private ShakeDetector _shakeDetector;
         [Space]
         [SerializeField] private Button _context;
         [SerializeField] private TextMeshProUGUI _contextLabel;
@@ -130,6 +131,7 @@ namespace DiceBattle.UI
             _all.onClick.AddListener(HandleAllClicked);
             _gameBoard.OnDiceToggled += HandleDiceToggle;
             _gameBoard.OnRollCompleted += HandleRollComplete;
+            _shakeDetector.OnShake += HandleContextClicked;
 
             SetContextLabel("Бросить все"); // TODO Translation
         }
@@ -139,6 +141,7 @@ namespace DiceBattle.UI
             _context.onClick.RemoveAllListeners();
             _gameBoard.OnDiceToggled -= HandleDiceToggle;
             _gameBoard.OnRollCompleted -= HandleRollComplete;
+            _shakeDetector.OnShake -= HandleContextClicked;
         }
 
         private void OnEnable()

@@ -3877,6 +3877,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1004415170}
   - component: {fileID: 1004415171}
+  - component: {fileID: 1004415173}
   - component: {fileID: 1004415172}
   m_Layer: 5
   m_Name: GameScreen
@@ -3925,6 +3926,7 @@ MonoBehaviour:
   _player: {fileID: 1023513239}
   _enemy: {fileID: 2121550418}
   _gameBoard: {fileID: 1634146617}
+  _shakeDetector: {fileID: 1004415173}
   _context: {fileID: 2074005226}
   _contextLabel: {fileID: 2074005225}
   _all: {fileID: 608128206}
@@ -3940,6 +3942,20 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1004415173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004415169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36b6820b2795ecd4ca541c7f9e6769f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _threshold: 2.5
+  _cooldown: 1.5
 --- !u!1 &1006147705
 GameObject:
   m_ObjectHideFlags: 0
