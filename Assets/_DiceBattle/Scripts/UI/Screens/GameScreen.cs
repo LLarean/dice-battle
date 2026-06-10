@@ -21,6 +21,7 @@ namespace DiceBattle.UI
         [SerializeField] private GameBoard _gameBoard;
         [SerializeField] private ShakeDetector _shakeDetector;
         [Space]
+        [SerializeField] private Button _help;
         [SerializeField] private Button _context;
         [SerializeField] private TextMeshProUGUI _contextLabel;
         [SerializeField] private Button _all;
@@ -89,6 +90,11 @@ namespace DiceBattle.UI
 
         #region Event Handlers
 
+        private void HandleHelpClicked()
+        {
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.HelpWindow));
+        }
+
         private void HandleContextClicked() => _gameLogic.ContextClick();
 
         private void HandleAllClicked()
@@ -127,6 +133,7 @@ namespace DiceBattle.UI
 
         private void Start()
         {
+            _help.onClick.AddListener(HandleHelpClicked);
             _context.onClick.AddListener(HandleContextClicked);
             _all.onClick.AddListener(HandleAllClicked);
             _gameBoard.OnDiceToggled += HandleDiceToggle;
@@ -138,6 +145,7 @@ namespace DiceBattle.UI
 
         private void OnDestroy()
         {
+            _help.onClick.RemoveAllListeners();
             _context.onClick.RemoveAllListeners();
             _gameBoard.OnDiceToggled -= HandleDiceToggle;
             _gameBoard.OnRollCompleted -= HandleRollComplete;
