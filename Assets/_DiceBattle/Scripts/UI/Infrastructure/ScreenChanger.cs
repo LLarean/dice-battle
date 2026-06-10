@@ -17,6 +17,7 @@ namespace DiceBattle.UI
         [Header("Windows")]
         [SerializeField] private OptionsWindow _optionsWindow;
         [SerializeField] private CreditsWindow _creditsWindow;
+        [SerializeField] private HelpWindow _helpWindow;
 
         private Screen _currentScreen;
 
@@ -66,6 +67,7 @@ namespace DiceBattle.UI
                 ScreenType.OptionsWindow => _optionsWindow,
                 ScreenType.InventoryWindow => _inventoryScreen,
                 ScreenType.CreditsWindow => _creditsWindow,
+                ScreenType.HelpWindow => _helpWindow,
                 _ => throw new ArgumentOutOfRangeException(nameof(screenType), screenType, null)
             };
         }
@@ -81,6 +83,7 @@ namespace DiceBattle.UI
             _optionsWindow.gameObject.SetActive(false);
             _inventoryScreen.gameObject.SetActive(false);
             _creditsWindow.gameObject.SetActive(false);
+            _helpWindow.gameObject.SetActive(false);
 
             SignalSystem.Subscribe(this);
         }

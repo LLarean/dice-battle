@@ -11,5 +11,6 @@
         OptionsWindow,
         InventoryWindow,
         CreditsWindow,
+        HelpWindow,
     }
 }
