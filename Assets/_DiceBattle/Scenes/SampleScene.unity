@@ -4773,6 +4773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 1017251809}
+  _gameConfig: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
   _restart: {fileID: 1414931163}
   _start: {fileID: 2054401915}
   _inventory: {fileID: 1521362255}
@@ -4863,14 +4864,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 1032611116}
   _gameConfig: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
-  _unitPanel: {fileID: 1197358313}
-  _diceHolder: {fileID: 1058791445}
-  _dice: {fileID: 2983668718188166613, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
-  _socket: {fileID: 1166325666}
-  _diceSpawn: {fileID: 1724702703}
   _itemsPlaceholder: {fileID: 1079566078}
   _item: {fileID: 7599840731399943832, guid: e19f5095f566920409360ab3b8016241, type: 3}
-  _itemsSpawn: {fileID: 1146200810}
+  _deckSpawn: {fileID: 1058791443}
+  _availableSpawn: {fileID: 1146200810}
 --- !u!225 &1032611116
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -6587,17 +6584,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3587136657202855127, guid: fbf5337ef3173194793bdb6a728539bf, type: 3}
   m_PrefabInstance: {fileID: 1197358311}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1197358313 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9176265533338216426, guid: fbf5337ef3173194793bdb6a728539bf, type: 3}
-  m_PrefabInstance: {fileID: 1197358311}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 207900a18e41cae4e9419ef25bdadba6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1202949231
 GameObject:
   m_ObjectHideFlags: 0

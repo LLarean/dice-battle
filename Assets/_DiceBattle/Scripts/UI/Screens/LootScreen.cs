@@ -40,16 +40,13 @@ namespace DiceBattle.UI
 
         private void HandleItemSelect(DiceType diceType)
         {
-            DiceList inventoryItems = GameData.GetInventory();
-            inventoryItems.DiceTypes.Add(diceType);
-            GameData.UpdateInventory(inventoryItems);
-            GameData.LogInventory();
+            Inventory.AddItemToUnequipped(new Item { Type = diceType, IsEquipped = false });
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Reward));
-            SignalSystem.Raise<IChangeHandler>(handler => handler.UpdateRewards());
 
             gameObject.SetActive(false);
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TavernScreen));
         }
 
         private void ShowRewards()

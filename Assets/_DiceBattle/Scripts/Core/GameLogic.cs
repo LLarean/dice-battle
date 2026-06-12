@@ -90,8 +90,8 @@ namespace DiceBattle.Core
 
         private void EndTurn()
         {
-            _matchData.DiceList = GameData.GetInventory();
-            _diceResult.Calculate(_gameScreen.Dices);
+            _matchData.DiceList = GameData.GetEquippedAsDiceList();
+            _diceResult.Calculate(_gameScreen.Dices, _matchData.DiceList);
             _matchData.PlayerHealthChange = _matchData.PlayerData.CurrentHealth;
             _matchData.EnemyHealthChange = _matchData.EnemyData.CurrentHealth;
 
@@ -198,7 +198,7 @@ namespace DiceBattle.Core
 
         private void SetMaxAttempts()
         {
-            DiceList receivedRewards = GameData.GetInventory();
+            DiceList receivedRewards = GameData.GetEquippedAsDiceList();
             int additionalTryCount = receivedRewards.DiceTypes.Count(reward => reward == DiceType.AdditionalTry);
             _matchData.MaxDiceRerolls = _config.MaxAttempts + additionalTryCount;
         }

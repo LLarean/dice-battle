@@ -1,186 +1,99 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using DiceBattle.Core;
-using DiceBattle.Global;
-using UnityEngine;
+using DiceBattle.Audio;
 using DiceBattle.Data;
+using DiceBattle.Events;
+using DiceBattle.Global;
+using GameSignals;
 using TMPro;
+using UnityEngine;
 
 namespace DiceBattle.UI
 {
     public class InventoryScreen : Screen
     {
-        private readonly List<Dice> _dices = new();
         private readonly List<InventoryItem> _inventoryItems = new();
 
-        [Space]
         [SerializeField] private GameConfig _gameConfig;
         [Space]
-        [SerializeField] private UnitPanel _unitPanel;
-        [SerializeField] private DiceHolder _diceHolder;
-        [Space]
-        [SerializeField] private Dice _dice;
-        [SerializeField] private Transform _socket;
-        [SerializeField] private Transform _diceSpawn;
-        [Space]
         [SerializeField] private TextMeshProUGUI _itemsPlaceholder;
+        [Space]
         [SerializeField] private InventoryItem _item;
-        [SerializeField] private Transform _itemsSpawn;
+        [SerializeField] private Transform _deckSpawn;
+        [SerializeField] private Transform _availableSpawn;
 
-        private void Start()
+        private int DeckCapacity
         {
-            RefreshInventoryDisplay();
+            get
+            {
+                int extra = Inventory.EquippedItems().Count(i => i.Type == DiceType.AdditionalDice);
+                return _gameConfig.DiceStartCount + extra;
+            }
         }
 
-        private void OnEnable()
-        {
-            RefreshInventoryDisplay();
-        }
+        private void OnEnable() => Refresh();
 
-        // NOTE: Consider using object pooling here to reduce GC allocations
-        // if this object is created/destroyed frequently
-        private void RefreshInventoryDisplay()
-        {
-            GenerateItems();
-            // ToggleItems();
-            // GenerateDice();
-            // GenerateEquippedDice();
-            // SetUnitData();
-        }
-
-        private void GenerateItems()
+        private void Refresh()
         {
             ClearItems();
-            // var rewardTypes = Enum.GetValues(typeof(DiceType)).Cast<DiceType>().ToList();
+
             List<Item> allItems = Inventory.AllItems();
+            List<Item> equipped = allItems.Where(i => i.IsEquipped).ToList();
+            List<Item> available = allItems.Where(i => !i.IsEquipped).ToList();
 
-            // for (int i = 0; i < rewardTypes.Count; i++)
-            // {
-            //     var item = new Item
-            //     {
-            //         ID = i.ToString(),
-            //         Type = rewardTypes[i],
-            //         IsEquipped = false, // TODO add logic allItems.Contains
-            //     };
-            //
-            //     InventoryItem inventoryItem = Instantiate(_item, _itemsSpawn);
-            //     inventoryItem.Initialize(item);
-            //     inventoryItem.OnDiceToggled += ItemClicked;
-            //     _inventoryItems.Add(inventoryItem);
-            // }
+            foreach (Item item in equipped)
+                CreateItem(item, _deckSpawn);
 
-            foreach (Item item in allItems)
-            {
-                InventoryItem inventoryItem = Instantiate(_item, _itemsSpawn);
-                inventoryItem.Initialize(item);
-                inventoryItem.OnDiceToggled += ItemClicked;
-                _inventoryItems.Add(inventoryItem);
-            }
+            foreach (Item item in available)
+                CreateItem(item, _availableSpawn);
 
-            _itemsPlaceholder.gameObject.SetActive(_inventoryItems.Count == 0);
+            if (_itemsPlaceholder != null)
+                _itemsPlaceholder.gameObject.SetActive(available.Count == 0);
+        }
+
+        private void CreateItem(Item item, Transform parent)
+        {
+            InventoryItem inventoryItem = Instantiate(_item, parent);
+            inventoryItem.Initialize(item);
+            inventoryItem.SetEquippedStatus(item.IsEquipped);
+            inventoryItem.OnDiceToggled += _ => HandleItemClicked(item);
+            _inventoryItems.Add(inventoryItem);
         }
 
         private void ClearItems()
         {
             foreach (InventoryItem inventoryItem in _inventoryItems)
-            {
                 Destroy(inventoryItem.gameObject);
-            }
 
             _inventoryItems.Clear();
         }
 
-        private void ToggleItems()
+        private void HandleItemClicked(Item item)
         {
-            foreach (InventoryItem item in _inventoryItems)
+            if (item.IsEquipped)
             {
-                item.SetEquippedStatus(item.Data.IsEquipped);
+                Inventory.UnequipItem(item);
             }
-        }
-
-        private void GenerateDice()
-        {
-            ClearDice();
-
-            List<Item> equippedItems = Inventory.EquippedItems();
-
-            for (int i = 0; i < equippedItems.Count; i++)
+            else
             {
-                Dice dice = Instantiate(_dice, _diceSpawn);
-                dice.DisableButton();
-                _dices.Add(dice);
-            }
-        }
+                List<Item> equipped = Inventory.EquippedItems();
 
-        private void ClearDice()
-        {
-            foreach (Dice dice in _dices)
-            {
-                Destroy(dice.gameObject);
+                if (item.Type == DiceType.AdditionalDice)
+                {
+                    Inventory.EquipItem(item);
+                }
+                else if (equipped.Count < DeckCapacity)
+                {
+                    Inventory.EquipItem(item);
+                }
+                else
+                {
+                    return;
+                }
             }
 
-            _dices.Clear();
-        }
-
-        private void GenerateEquippedDice()
-        {
-            _diceHolder.Initialize(6);
-
-            for (int i = 0; i < _dices.Count; i++)
-            {
-                _diceHolder.PlaceInSlot(_dices[i], i);
-            }
-
-            // _diceHolder.RepositionDice();
-        }
-
-        private void SetUnitData()
-        {
-            var unitData = new UnitData
-            {
-                Name = "Герой (вы)",
-                Portrait = _gameConfig.Player.Portraits[0],
-                MaxHealth = GetHealth(),
-                CurrentHealth = GetHealth(),
-                Damage = GetDamage(),
-                Armor = GetArmor(),
-            };
-
-            _unitPanel.SetUnitData(unitData);
-        }
-
-        private int GetHealth()
-        {
-            int health = _gameConfig.Player.StartHealth;
-            int healthItemsCount = GameData.GetItemsCount(DiceType.BaseHealth);
-            return health + healthItemsCount;
-        }
-
-        private int GetDamage()
-        {
-            int damage = _gameConfig.Player.StartDamage;
-            int damageItemsCount = GameData.GetItemsCount(DiceType.BaseDamage);
-            return damage + damageItemsCount;
-        }
-
-        private int GetArmor()
-        {
-            int armor = _gameConfig.Player.StartArmor;
-            int armorItemsCount = GameData.GetItemsCount(DiceType.BaseArmor);
-            return armor + armorItemsCount;
-        }
-
-        private void ItemClicked(DiceType obj)
-        {
-            // if (haveEmptySocket)
-            // {
-            //     if (DiceType == DiceType.AdditionalDice)
-            //     {
-            //         _diceHolder.AddSocket();
-            //     }
-            //     EquipItem();
-            // }
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
+            Refresh();
         }
     }
 }
