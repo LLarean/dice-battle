@@ -25,7 +25,7 @@ namespace DiceBattle.Core
 
         public List<Dice> Dices => _dices;
         public bool HaveSelectedDice => _diceHolder.Selected.Count > 0;
-        public bool HaveUnselectedDice => _diceHolder.Selected.Count < _dices.Count - 1;
+        public bool HaveUnselectedDice => _diceHolder.Selected.Count < _dices.Count;
 
         public void RollDice() => _diceShaker.Roll(_diceHolder.Occupied);
 
