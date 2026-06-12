@@ -6,6 +6,15 @@ namespace DiceBattle.Global
 {
     public static class GameData
     {
+        public static DiceList GetEquippedAsDiceList()
+        {
+            var list = new DiceList();
+            foreach (Item item in Inventory.EquippedItems())
+                list.DiceTypes.Add(item.Type);
+            return list;
+        }
+
+
         public static int CompletedLevels => PlayerPrefs.GetInt(PlayerPrefsKeys.CompletedLevels, 0);
         public static int CurrentLevel => PlayerPrefs.GetInt(PlayerPrefsKeys.CurrentLevel, 0);
 
@@ -14,6 +23,7 @@ namespace DiceBattle.Global
             ResetCompletedLevels();
             ResetCurrentLevel();
 
+            Inventory.Clear();
             ClearInventory();
             ClearEquippedRewards();
             ClearRandomRewards();

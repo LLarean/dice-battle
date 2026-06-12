@@ -30,8 +30,6 @@ namespace DiceBattle.UI
             _data = item;
             _title.text = item.Type.Title();
             _description.text = item.Type.Description();
-
-            _dice.OnToggled += HandleDiceToggled;
         }
 
         public void SetEquippedStatus(bool isEquipped)
@@ -51,13 +49,6 @@ namespace DiceBattle.UI
         }
 
         private void HandleButtonClicked()
-        {
-            OnDiceToggled?.Invoke(_data.Type);
-            SetEquippedStatus(!_agreeMark.gameObject.activeSelf);
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
-        }
-
-        private void HandleDiceToggled()
         {
             OnDiceToggled?.Invoke(_data.Type);
         }

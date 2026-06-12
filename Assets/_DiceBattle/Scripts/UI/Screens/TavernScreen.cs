@@ -1,4 +1,6 @@
+using DiceBattle;
 using DiceBattle.Audio;
+using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
 using GameSignals;
@@ -10,6 +12,7 @@ namespace DiceBattle.UI
 {
     public class TavernScreen : Screen
     {
+        [SerializeField] private GameConfig _gameConfig;
         [Space]
         [SerializeField] private Button _restart;
         [SerializeField] private Button _start;
@@ -54,6 +57,7 @@ namespace DiceBattle.UI
         private void HandleRestartClick()
         {
             GameData.ResetAll();
+            DefaultInventory.InitializeDefault(_gameConfig.DiceStartCount);
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
         }
 

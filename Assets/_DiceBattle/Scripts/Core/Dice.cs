@@ -45,7 +45,7 @@ namespace DiceBattle.Core
 
         public void Roll()
         {
-            DiceList receivedRewards = GameData.GetInventory();
+            DiceList receivedRewards = GameData.GetEquippedAsDiceList();
             bool containsDisableEmptyState = receivedRewards.DiceTypes.Contains(DiceType.DisableEmptyState);
             int firstIndex = containsDisableEmptyState ? 1 : 0;
 
@@ -130,7 +130,7 @@ namespace DiceBattle.Core
                 return;
             }
 
-            DiceList diceList = GameData.GetInventory();
+            DiceList diceList = GameData.GetEquippedAsDiceList();
 
             int diceCount = _diceValue switch
             {

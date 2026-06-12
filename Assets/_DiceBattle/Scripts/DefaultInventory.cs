@@ -12,15 +12,25 @@ namespace DiceBattle
 
         public void SetDefaultInventory()
         {
-            List<Item> allItems = Inventory.AllItems();
-
-            if (allItems.Count != 0)
-            {
+            if (Inventory.AllItems().Count != 0)
                 return;
-            }
 
-            allItems.AddRange(_gameConfig.DefaultInventory);
-            Inventory.AddItems(allItems);
+            InitializeDefault(_gameConfig.DiceStartCount);
+        }
+
+        public static void InitializeDefault(int diceCount)
+        {
+            var items = new List<Item>();
+            for (int i = 0; i < diceCount; i++)
+            {
+                items.Add(new Item
+                {
+                    ID = i.ToString(),
+                    Type = DiceType.Default,
+                    IsEquipped = true,
+                });
+            }
+            Inventory.AddItems(items);
         }
     }
 }
