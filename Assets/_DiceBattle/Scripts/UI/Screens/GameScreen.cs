@@ -147,6 +147,7 @@ namespace DiceBattle.UI
         {
             _help.onClick.RemoveAllListeners();
             _context.onClick.RemoveAllListeners();
+            _all.onClick.RemoveAllListeners();
             _gameBoard.OnDiceToggled -= HandleDiceToggle;
             _gameBoard.OnRollCompleted -= HandleRollComplete;
             _shakeDetector.OnShake -= HandleContextClicked;

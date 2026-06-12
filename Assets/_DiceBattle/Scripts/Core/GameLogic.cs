@@ -101,6 +101,7 @@ namespace DiceBattle.Core
             _gameScreen.ResetSelection();
             _gameScreen.SetContextLabel("Бросить все"); // TODO Translation
 
+            SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
             UpdateButtonStates();
         }
 
@@ -227,6 +228,8 @@ namespace DiceBattle.Core
             ApplyPlayerArmor();
             ApplyPlayerAttack();
 
+            AnimateEnemyHealth();
+
             if (_matchData.EnemyData.CurrentHealth <= 0 || _config.IsInstaWin)
             {
                 OnEnemyDefeated();
@@ -261,7 +264,7 @@ namespace DiceBattle.Core
         private void ApplyPlayerAttack()
         {
             int bonusDamageCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceType.BaseDamage) * _config.Player.GrowthDamage;
-            _matchData.PlayerData.Damage = Mathf.Max(_diceResult.Damage, _diceResult.Damage + bonusDamageCount);
+            _matchData.PlayerData.Damage = Mathf.Max(0, _diceResult.Damage + bonusDamageCount);
             _gameScreen.EnemyTakeDamage(_matchData.PlayerData.Damage);
 
             Debug.Log("Damage: Dice = " + _diceResult.Damage + ", Character = " + bonusDamageCount);
@@ -300,8 +303,6 @@ namespace DiceBattle.Core
 
         private void EnemyTurn()
         {
-            AnimateEnemyHealth();
-
             _gameScreen.PlayerTakeDamage(_matchData.EnemyData.Damage);
 
             // TODO You can add different sounds to attack different enemies
@@ -324,7 +325,10 @@ namespace DiceBattle.Core
         {
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyDefeated));
 
-            if (_matchData.IsLastEnemy)
+            bool isLastEnemy = GameData.CompletedLevels >= _config.Enemies.Count - 1;
+            _matchData.IsLastEnemy = isLastEnemy;
+
+            if (isLastEnemy)
             {
                 SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.GameOverScreen));
             }
@@ -333,7 +337,6 @@ namespace DiceBattle.Core
                 SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.LootScreen));
             }
 
-            GameData.IncrementCurrentLevel();
             GameData.IncrementLevels();
 
             UpdateData();
