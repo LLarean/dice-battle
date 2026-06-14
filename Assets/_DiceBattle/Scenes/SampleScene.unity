@@ -4763,8 +4763,8 @@ MonoBehaviour:
   _gameConfig: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
   _itemsPlaceholder: {fileID: 1079566078}
   _item: {fileID: 7599840731399943832, guid: e19f5095f566920409360ab3b8016241, type: 3}
-  _deckSpawn: {fileID: 1058791443}
   _availableSpawn: {fileID: 1146200810}
+  _deckHolder: {fileID: 1058791445}
 --- !u!225 &1032611116
 CanvasGroup:
   m_ObjectHideFlags: 0

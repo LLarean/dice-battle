@@ -9,14 +9,18 @@ namespace DiceBattle.Core
     {
         private readonly List<Dice> _occupied = new();
         private readonly List<GameObject> _slots = new();
+        private readonly Dictionary<Dice, Action> _slotHandlers = new();
 
         [SerializeField] private GameObject _diceSlot;
         [SerializeField] private Transform _slotSpawn;
 
         public event Action OnDiceToggled;
+        public event Action<Dice> OnSlotDiceClicked;
 
         public List<Dice> Occupied => _occupied;
         public List<Dice> Selected => _occupied.Where(dice => dice.IsSelected).ToList();
+
+        public int FreeSlotCount => _slots.Count(slot => slot.transform.childCount == 0);
 
         public void Initialize(int diceCount)
         {
@@ -77,6 +81,7 @@ namespace DiceBattle.Core
             }
 
             _slots.Clear();
+            _slotHandlers.Clear();
         }
 
         private void InstantiateSlots(int diceCount)
@@ -114,6 +119,31 @@ namespace DiceBattle.Core
         {
             dice.transform.SetParent(_slots[slotIndex].transform);
             dice.transform.localPosition = Vector3.zero;
+        }
+
+        public bool TryEquip(Dice dice)
+        {
+            int freeSlot = _slots.FindIndex(slot => slot.transform.childCount == 0);
+            if (freeSlot < 0)
+            {
+                return false;
+            }
+
+            PlaceInSlot(dice, freeSlot);
+
+            Action handler = () => OnSlotDiceClicked?.Invoke(dice);
+            _slotHandlers[dice] = handler;
+            dice.OnToggled += handler;
+            return true;
+        }
+
+        public void Unequip(Dice dice)
+        {
+            if (_slotHandlers.TryGetValue(dice, out Action handler))
+            {
+                dice.OnToggled -= handler;
+                _slotHandlers.Remove(dice);
+            }
         }
 
         private void HandleDiceToggle() => OnDiceToggled?.Invoke();

@@ -115,10 +115,6 @@ namespace DiceBattle.Core
             {
                 Toggle();
             }
-            else
-            {
-                Roll();
-            }
 
             OnToggled?.Invoke();
         }
