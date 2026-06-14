@@ -20,10 +20,13 @@ namespace DiceBattle.UI
         [SerializeField] private TextMeshProUGUI _description;
 
         private Item _data;
+        private Transform _diceSlot;
+        private bool _diceExtracted;
 
         public event Action<DiceType> OnDiceToggled;
 
         public Item Data => _data;
+        public Dice Dice => _dice;
 
         public void Initialize(Item item)
         {
@@ -38,18 +41,50 @@ namespace DiceBattle.UI
             _agreeMark.gameObject.SetActive(isEquipped);
         }
 
+        public Dice ExtractDice()
+        {
+            _diceExtracted = true;
+            _agreeMark.gameObject.SetActive(true);
+            return _dice;
+        }
+
+        public void ReturnDice()
+        {
+            _diceExtracted = false;
+            _dice.transform.SetParent(_diceSlot);
+            _dice.transform.localPosition = Vector3.zero;
+            _agreeMark.gameObject.SetActive(false);
+        }
+
+        private void Awake()
+        {
+            _diceSlot = _dice.transform.parent;
+        }
+
         private void Start()
         {
             _button.onClick.AddListener(HandleButtonClicked);
+            _dice.OnToggled += HandleDiceClicked;
         }
 
         private void OnDestroy()
         {
             _button.onClick.RemoveAllListeners();
+            _dice.OnToggled -= HandleDiceClicked;
         }
 
         private void HandleButtonClicked()
         {
+            OnDiceToggled?.Invoke(_data.Type);
+        }
+
+        private void HandleDiceClicked()
+        {
+            if (_diceExtracted)
+            {
+                return;
+            }
+
             OnDiceToggled?.Invoke(_data.Type);
         }
     }

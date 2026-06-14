@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using DiceBattle.Audio;
+using DiceBattle.Core;
 using DiceBattle.Data;
 using DiceBattle.Events;
-using DiceBattle.Global;
 using GameSignals;
-using TMPro;
 using UnityEngine;
 
 namespace DiceBattle.UI
@@ -13,14 +12,13 @@ namespace DiceBattle.UI
     public class InventoryScreen : Screen
     {
         private readonly List<InventoryItem> _inventoryItems = new();
+        private readonly Dictionary<Dice, InventoryItem> _itemByDice = new();
 
         [SerializeField] private GameConfig _gameConfig;
         [Space]
-        [SerializeField] private TextMeshProUGUI _itemsPlaceholder;
-        [Space]
         [SerializeField] private InventoryItem _item;
-        [SerializeField] private Transform _deckSpawn;
         [SerializeField] private Transform _availableSpawn;
+        [SerializeField] private DiceHolder _deckHolder;
 
         private int DeckCapacity
         {
@@ -31,69 +29,117 @@ namespace DiceBattle.UI
             }
         }
 
-        private void OnEnable() => Refresh();
+        private void OnEnable()
+        {
+            _deckHolder.OnSlotDiceClicked += HandleSlotDiceClicked;
+            Refresh();
+        }
+
+        private void OnDisable() => _deckHolder.OnSlotDiceClicked -= HandleSlotDiceClicked;
 
         private void Refresh()
         {
             ClearItems();
+            _deckHolder.Initialize(DeckCapacity);
 
             List<Item> allItems = Inventory.AllItems();
-            List<Item> equipped = allItems.Where(i => i.IsEquipped).ToList();
-            List<Item> available = allItems.Where(i => !i.IsEquipped).ToList();
 
-            foreach (Item item in equipped)
-                CreateItem(item, _deckSpawn);
+            foreach (Item item in allItems)
+            {
+                CreateItem(item);
+            }
 
-            foreach (Item item in available)
-                CreateItem(item, _availableSpawn);
-
-            if (_itemsPlaceholder != null)
-                _itemsPlaceholder.gameObject.SetActive(available.Count == 0);
+            foreach (InventoryItem inventoryItem in _inventoryItems.Where(i => i.Data.IsEquipped))
+            {
+                MoveDiceToHolder(inventoryItem);
+            }
         }
 
-        private void CreateItem(Item item, Transform parent)
+        private void CreateItem(Item item)
         {
-            InventoryItem inventoryItem = Instantiate(_item, parent);
+            InventoryItem inventoryItem = Instantiate(_item, _availableSpawn);
             inventoryItem.Initialize(item);
             inventoryItem.SetEquippedStatus(item.IsEquipped);
-            inventoryItem.OnDiceToggled += _ => HandleItemClicked(item);
+            inventoryItem.OnDiceToggled += _ => HandleCardClicked(inventoryItem);
             _inventoryItems.Add(inventoryItem);
         }
 
         private void ClearItems()
         {
             foreach (InventoryItem inventoryItem in _inventoryItems)
+            {
                 Destroy(inventoryItem.gameObject);
+            }
 
             _inventoryItems.Clear();
+            _itemByDice.Clear();
         }
 
-        private void HandleItemClicked(Item item)
+        private void HandleCardClicked(InventoryItem inventoryItem)
         {
+            Item item = inventoryItem.Data;
+
             if (item.IsEquipped)
             {
-                Inventory.UnequipItem(item);
+                return;
+            }
+
+            if (item.Type != DiceType.AdditionalDice && _deckHolder.FreeSlotCount == 0)
+            {
+                return;
+            }
+
+            Inventory.EquipItem(item);
+            item.IsEquipped = true;
+
+            PlayClick();
+
+            if (item.Type == DiceType.AdditionalDice)
+            {
+                Refresh();
+                return;
+            }
+
+            MoveDiceToHolder(inventoryItem);
+        }
+
+        private void HandleSlotDiceClicked(Dice dice)
+        {
+            if (_itemByDice.TryGetValue(dice, out InventoryItem inventoryItem) == false)
+            {
+                return;
+            }
+
+            Item item = inventoryItem.Data;
+            Inventory.UnequipItem(item);
+            item.IsEquipped = false;
+
+            _deckHolder.Unequip(dice);
+            _itemByDice.Remove(dice);
+            inventoryItem.ReturnDice();
+
+            PlayClick();
+
+            if (item.Type == DiceType.AdditionalDice)
+            {
+                Refresh();
+            }
+        }
+
+        private void MoveDiceToHolder(InventoryItem inventoryItem)
+        {
+            Dice dice = inventoryItem.ExtractDice();
+
+            if (_deckHolder.TryEquip(dice))
+            {
+                _itemByDice[dice] = inventoryItem;
             }
             else
             {
-                List<Item> equipped = Inventory.EquippedItems();
-
-                if (item.Type == DiceType.AdditionalDice)
-                {
-                    Inventory.EquipItem(item);
-                }
-                else if (equipped.Count < DeckCapacity)
-                {
-                    Inventory.EquipItem(item);
-                }
-                else
-                {
-                    return;
-                }
+                inventoryItem.ReturnDice();
             }
-
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
-            Refresh();
         }
+
+        private void PlayClick() => SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
     }
 }
