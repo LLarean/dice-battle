@@ -33,9 +33,9 @@ RectTransform:
   - {fileID: 5957876563834184048}
   m_Father: {fileID: 2831007230021825426}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -54.2, y: 0}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2548973786291669582
@@ -573,6 +573,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1496847743911213757}
     m_Modifications:
+    - target: {fileID: 2983668718188166613, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
+      propertyPath: _isMenu
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4086913022189076485, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
       propertyPath: m_Name
       value: Dice
@@ -656,10 +660,6 @@ PrefabInstance:
     - target: {fileID: 9196362948934881452, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2983668718188166613, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
-      propertyPath: _isMenu
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
