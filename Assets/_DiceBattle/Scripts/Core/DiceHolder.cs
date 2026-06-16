@@ -137,6 +137,23 @@ namespace DiceBattle.Core
             return true;
         }
 
+        public Dice TryEquipCopy(Dice source)
+        {
+            int freeSlot = _slots.FindIndex(slot => slot.transform.childCount == 0);
+            if (freeSlot < 0)
+            {
+                return null;
+            }
+
+            Dice copy = Instantiate(source, _slots[freeSlot].transform);
+            copy.transform.localPosition = Vector3.zero;
+
+            Action handler = () => OnSlotDiceClicked?.Invoke(copy);
+            _slotHandlers[copy] = handler;
+            copy.OnToggled += handler;
+            return copy;
+        }
+
         public void Unequip(Dice dice)
         {
             if (_slotHandlers.TryGetValue(dice, out Action handler))
@@ -144,6 +161,12 @@ namespace DiceBattle.Core
                 dice.OnToggled -= handler;
                 _slotHandlers.Remove(dice);
             }
+        }
+
+        public void RemoveCopy(Dice copy)
+        {
+            Unequip(copy);
+            Destroy(copy.gameObject);
         }
 
         private void HandleDiceToggle() => OnDiceToggled?.Invoke();
