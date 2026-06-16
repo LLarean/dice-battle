@@ -51,7 +51,7 @@ namespace DiceBattle.UI
 
             foreach (InventoryItem inventoryItem in _inventoryItems.Where(i => i.Data.IsEquipped))
             {
-                MoveDiceToHolder(inventoryItem);
+                AddDiceCopyToHolder(inventoryItem);
             }
         }
 
@@ -91,6 +91,7 @@ namespace DiceBattle.UI
 
             Inventory.EquipItem(item);
             item.IsEquipped = true;
+            inventoryItem.SetEquippedStatus(true);
 
             PlayClick();
 
@@ -100,7 +101,7 @@ namespace DiceBattle.UI
                 return;
             }
 
-            MoveDiceToHolder(inventoryItem);
+            AddDiceCopyToHolder(inventoryItem);
         }
 
         private void HandleSlotDiceClicked(Dice dice)
@@ -113,10 +114,10 @@ namespace DiceBattle.UI
             Item item = inventoryItem.Data;
             Inventory.UnequipItem(item);
             item.IsEquipped = false;
+            inventoryItem.SetEquippedStatus(false);
 
-            _deckHolder.Unequip(dice);
+            _deckHolder.RemoveCopy(dice);
             _itemByDice.Remove(dice);
-            inventoryItem.ReturnDice();
 
             PlayClick();
 
@@ -126,17 +127,19 @@ namespace DiceBattle.UI
             }
         }
 
-        private void MoveDiceToHolder(InventoryItem inventoryItem)
+        private void AddDiceCopyToHolder(InventoryItem inventoryItem)
         {
-            Dice dice = inventoryItem.ExtractDice();
+            Dice copy = _deckHolder.TryEquipCopy(inventoryItem.Dice);
 
-            if (_deckHolder.TryEquip(dice))
+            if (copy != null)
             {
-                _itemByDice[dice] = inventoryItem;
+                _itemByDice[copy] = inventoryItem;
             }
             else
             {
-                inventoryItem.ReturnDice();
+                Inventory.UnequipItem(inventoryItem.Data);
+                inventoryItem.Data.IsEquipped = false;
+                inventoryItem.SetEquippedStatus(false);
             }
         }
 

@@ -20,8 +20,6 @@ namespace DiceBattle.UI
         [SerializeField] private TextMeshProUGUI _description;
 
         private Item _data;
-        private Transform _diceSlot;
-        private bool _diceExtracted;
 
         public event Action<DiceType> OnDiceToggled;
 
@@ -37,28 +35,7 @@ namespace DiceBattle.UI
 
         public void SetEquippedStatus(bool isEquipped)
         {
-            _dice.SetSelection(isEquipped);
             _agreeMark.gameObject.SetActive(isEquipped);
-        }
-
-        public Dice ExtractDice()
-        {
-            _diceExtracted = true;
-            _agreeMark.gameObject.SetActive(true);
-            return _dice;
-        }
-
-        public void ReturnDice()
-        {
-            _diceExtracted = false;
-            _dice.transform.SetParent(_diceSlot);
-            _dice.transform.localPosition = Vector3.zero;
-            _agreeMark.gameObject.SetActive(false);
-        }
-
-        private void Awake()
-        {
-            _diceSlot = _dice.transform.parent;
         }
 
         private void Start()
@@ -80,11 +57,6 @@ namespace DiceBattle.UI
 
         private void HandleDiceClicked()
         {
-            if (_diceExtracted)
-            {
-                return;
-            }
-
             OnDiceToggled?.Invoke(_data.Type);
         }
     }
