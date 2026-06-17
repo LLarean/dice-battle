@@ -20,7 +20,10 @@ namespace DiceBattle.Core
         public List<Dice> Occupied => _occupied;
         public List<Dice> Selected => _occupied.Where(dice => dice.IsSelected).ToList();
 
-        public int FreeSlotCount => _slots.Count(slot => slot.transform.childCount == 0);
+        public int FreeSlotCount => _slots.Count(IsSlotFree);
+
+        private static bool IsSlotFree(GameObject slot) =>
+            slot.GetComponentInChildren<Dice>() == null;
 
         public void Initialize(int diceCount)
         {
@@ -123,7 +126,7 @@ namespace DiceBattle.Core
 
         public bool TryEquip(Dice dice)
         {
-            int freeSlot = _slots.FindIndex(slot => slot.transform.childCount == 0);
+            int freeSlot = _slots.FindIndex(IsSlotFree);
             if (freeSlot < 0)
             {
                 return false;
@@ -139,7 +142,7 @@ namespace DiceBattle.Core
 
         public Dice TryEquipCopy(Dice source)
         {
-            int freeSlot = _slots.FindIndex(slot => slot.transform.childCount == 0);
+            int freeSlot = _slots.FindIndex(IsSlotFree);
             if (freeSlot < 0)
             {
                 return null;

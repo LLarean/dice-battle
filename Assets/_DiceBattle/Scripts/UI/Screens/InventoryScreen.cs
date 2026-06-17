@@ -43,11 +43,9 @@ namespace DiceBattle.UI
             _deckHolder.Initialize(DeckCapacity);
 
             List<Item> allItems = Inventory.AllItems();
-            Debug.Log($"[Inventory] Refresh: DeckCapacity={DeckCapacity}, FreeSlots={_deckHolder.FreeSlotCount}, allItems={allItems.Count}, equipped={allItems.Count(i => i.IsEquipped)}");
 
             foreach (Item item in allItems)
             {
-                Debug.Log($"[Inventory] item ID={item.ID}, Type={item.Type}, IsEquipped={item.IsEquipped}");
                 CreateItem(item);
             }
 
@@ -80,10 +78,15 @@ namespace DiceBattle.UI
         private void HandleCardClicked(InventoryItem inventoryItem)
         {
             Item item = inventoryItem.Data;
-            Debug.Log($"[Inventory] HandleCardClicked: Type={item.Type}, IsEquipped={item.IsEquipped}, FreeSlots={_deckHolder.FreeSlotCount}");
 
             if (item.IsEquipped)
             {
+                Dice equippedCopy = _itemByDice.FirstOrDefault(pair => pair.Value == inventoryItem).Key;
+                if (equippedCopy != null)
+                {
+                    Unequip(inventoryItem, equippedCopy);
+                }
+
                 return;
             }
 
@@ -114,13 +117,18 @@ namespace DiceBattle.UI
                 return;
             }
 
+            Unequip(inventoryItem, dice);
+        }
+
+        private void Unequip(InventoryItem inventoryItem, Dice copy)
+        {
             Item item = inventoryItem.Data;
             Inventory.UnequipItem(item);
             item.IsEquipped = false;
             inventoryItem.SetEquippedStatus(false);
 
-            _deckHolder.RemoveCopy(dice);
-            _itemByDice.Remove(dice);
+            _deckHolder.RemoveCopy(copy);
+            _itemByDice.Remove(copy);
 
             PlayClick();
 
@@ -133,7 +141,6 @@ namespace DiceBattle.UI
         private void AddDiceCopyToHolder(InventoryItem inventoryItem)
         {
             Dice copy = _deckHolder.TryEquipCopy(inventoryItem.Dice);
-            Debug.Log($"[Inventory] AddDiceCopyToHolder: source={inventoryItem.Dice}, copy={(copy == null ? "NULL" : copy.name)}");
 
             if (copy != null)
             {
