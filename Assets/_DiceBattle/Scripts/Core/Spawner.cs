@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using DiceBattle.Data;
+﻿using DiceBattle.Data;
 using DiceBattle.Global;
 using DiceBattle.UI;
-using UnityEngine;
 
 namespace DiceBattle.Core
 {
@@ -40,36 +38,13 @@ namespace DiceBattle.Core
 
         public UnitData SpawnHero()
         {
-            UnitData playerData = GetHeroUnitData(_config.Player);
+            UnitData playerData = HeroFactory.Build(_config.Player);
             playerData.Name = "Герой (вы)"; // TODO Translation
             playerData.Portrait = _config.Player.Portraits[0];
 
             playerData.Log();
             _gameScreen.SetPlayerData(playerData);
             return playerData;
-        }
-
-        private UnitData GetHeroUnitData(UnitConfig unitConfig)
-        {
-            DiceList diceList = GameData.GetEquippedAsDiceList();
-
-            int doubleHealthCount = diceList.DiceTypes.Count(r => r == DiceType.BaseHealth);
-            int additionalHealth = unitConfig.StartHealth * doubleHealthCount;
-            int maxHealth = unitConfig.StartHealth + additionalHealth;
-
-            int baseDamageCount = diceList.DiceTypes.Count(r => r == DiceType.BaseDamage);
-            int damage = unitConfig.StartDamage + baseDamageCount;
-
-            int baseArmorCount = diceList.DiceTypes.Count(r => r == DiceType.BaseArmor);
-            int armor = unitConfig.StartArmor + baseArmorCount;
-
-            return new UnitData
-            {
-                MaxHealth = maxHealth,
-                CurrentHealth = maxHealth,
-                Damage = damage,
-                Armor = armor,
-            };
         }
     }
 }
