@@ -5,6 +5,7 @@ using DiceBattle.Core;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using GameSignals;
+using TMPro;
 using UnityEngine;
 
 namespace DiceBattle.UI
@@ -15,6 +16,9 @@ namespace DiceBattle.UI
         private readonly Dictionary<Dice, InventoryItem> _itemByDice = new();
 
         [SerializeField] private GameConfig _gameConfig;
+        [Space]
+        [SerializeField] private UnitPanel _player;
+        [SerializeField] private TMP_Text _diceCount;
         [Space]
         [SerializeField] private InventoryItem _item;
         [SerializeField] private Transform _availableSpawn;
@@ -53,6 +57,20 @@ namespace DiceBattle.UI
             {
                 AddDiceCopyToHolder(inventoryItem);
             }
+
+            UpdatePlayerPanel();
+        }
+
+        private void UpdatePlayerPanel()
+        {
+            UnitData playerData = HeroFactory.Build(_gameConfig.Player);
+            playerData.Name = "Герой (вы)"; // TODO Translation
+            playerData.Portrait = _gameConfig.Player.Portraits[0];
+
+            _player.SetUnitData(playerData);
+
+            int used = DeckCapacity - _deckHolder.FreeSlotCount;
+            _diceCount.text = $"{used} из {DeckCapacity}"; // TODO Translation
         }
 
         private void CreateItem(Item item)
@@ -108,6 +126,7 @@ namespace DiceBattle.UI
             }
 
             AddDiceCopyToHolder(inventoryItem);
+            UpdatePlayerPanel();
         }
 
         private void HandleSlotDiceClicked(Dice dice)
@@ -135,7 +154,10 @@ namespace DiceBattle.UI
             if (item.Type == DiceType.AdditionalDice)
             {
                 Refresh();
+                return;
             }
+
+            UpdatePlayerPanel();
         }
 
         private void AddDiceCopyToHolder(InventoryItem inventoryItem)

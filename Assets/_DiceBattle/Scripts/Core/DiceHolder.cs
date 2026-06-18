@@ -169,6 +169,7 @@ namespace DiceBattle.Core
         public void RemoveCopy(Dice copy)
         {
             Unequip(copy);
+            copy.transform.SetParent(null);
             Destroy(copy.gameObject);
         }
 
