@@ -12,7 +12,7 @@ namespace DiceBattle
 
                 DiceType.DisableEmptyState => "Совершенный кубик",
                 DiceType.AdditionalTry => "Кубик попытки",
-                DiceType.AdditionalDice => "Дв",
+                DiceType.AdditionalDice => "Доподнительный",
 
                 DiceType.BaseDamage => "Кубик-меч",
                 DiceType.BaseArmor => "Кубик-щит",
@@ -39,18 +39,18 @@ namespace DiceBattle
 
                 DiceType.DisableEmptyState => "Отключает пустое состояние",
                 DiceType.AdditionalTry => "Дают вторую попытку",
-                DiceType.AdditionalDice => "Дополнительный кубик",
+                DiceType.AdditionalDice => "Даёт дополнительный слот",
 
                 DiceType.BaseDamage => "Добавляет базовый урон персонажу",
-                DiceType.BaseArmor => "Добавляет базовый армор персонажу",
-                DiceType.BaseHealth => "Удваивает здоровье персонажа",
+                DiceType.BaseArmor => "Добавляет базовую броню персонажу",
+                DiceType.BaseHealth => "Добавляет базовое здоровье персонажа",
 
                 DiceType.UpgradeAttack => "Значение атаки х2",
                 DiceType.UpgradeHealth => "Значение лечения х2",
                 DiceType.UpgradeArmor => "Значение армора х2",
 
-                DiceType.GoldDice => "Золотой кубик (x3)",
-                DiceType.SilverDice => "Серебрянный кубик (x2)",
+                DiceType.GoldDice => "Значение кубиков x3",
+                DiceType.SilverDice => "Значение кубиков x2",
 
                 DiceType.RegenHealth => "Регенерация здоровья",
                 DiceType.RestoreHealth => "Восстановить здоровье",
