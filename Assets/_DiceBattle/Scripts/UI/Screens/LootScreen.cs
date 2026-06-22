@@ -10,14 +10,16 @@ namespace DiceBattle.UI
 {
     public class LootScreen : Screen
     {
-        [SerializeField] private List<RewardItem> _rewardItems;
+        [SerializeField] private List<InventoryItem> _rewardItems;
         [SerializeField] private Button _reroll;
+
+        private readonly List<DiceType> _currentRewards = new();
 
         private void Start()
         {
-            foreach (RewardItem rewardItem in _rewardItems)
+            foreach (InventoryItem rewardItem in _rewardItems)
             {
-                rewardItem.OnClicked += HandleItemSelect;
+                rewardItem.OnDiceToggled += HandleItemSelect;
             }
 
             _reroll.onClick.AddListener(RerollRewards);
@@ -25,9 +27,9 @@ namespace DiceBattle.UI
 
         private void OnDestroy()
         {
-            foreach (RewardItem rewardItem in _rewardItems)
+            foreach (InventoryItem rewardItem in _rewardItems)
             {
-                rewardItem.OnClicked -= HandleItemSelect;
+                rewardItem.OnDiceToggled -= HandleItemSelect;
             }
 
             _reroll.onClick.RemoveAllListeners();
@@ -58,8 +60,15 @@ namespace DiceBattle.UI
             int firstRewardCount = GameData.CompletedLevels;
             int secondRewardCount = GameData.CompletedLevels + 1;
 
-            _rewardItems[0].SetReward(randomRewards.DiceTypes[firstRewardCount]);
-            _rewardItems[1].SetReward(randomRewards.DiceTypes[secondRewardCount]);
+            _currentRewards.Clear();
+            _currentRewards.Add(randomRewards.DiceTypes[firstRewardCount]);
+            _currentRewards.Add(randomRewards.DiceTypes[secondRewardCount]);
+
+            for (int i = 0; i < _rewardItems.Count; i++)
+            {
+                _rewardItems[i].Initialize(new Item { Type = _currentRewards[i], IsEquipped = false });
+                _rewardItems[i].SetEquippedStatus(false);
+            }
         }
 
         private void RerollRewards() => ShowRewards();
