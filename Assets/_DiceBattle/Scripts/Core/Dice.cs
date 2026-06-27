@@ -43,6 +43,12 @@ namespace DiceBattle.Core
             ClearSelection();
         }
 
+        public void ShowRandomFace()
+        {
+            int randomIndex = UnityEngine.Random.Range(1, _faceSprites.Length);
+            _faceIcon.sprite = _faceSprites[randomIndex];
+        }
+
         public void Roll()
         {
             DiceList receivedRewards = GameData.GetEquippedAsDiceList();
