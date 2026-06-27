@@ -128,6 +128,8 @@ namespace DiceBattle.Animations
                     dice.transform.position = pos;
                 });
 
+            AnimateFaceCycling(dice, delay);
+
             // Rotation on all axes for roll effect
             float randomRotX = Random.Range(2, 5) * 360f;
             float randomRotY = Random.Range(2, 5) * 360f;
@@ -150,6 +152,25 @@ namespace DiceBattle.Animations
                 .setDelay(delay + _throwDuration * 0.7f)
                 .setEase(LeanTweenType.easeOutQuad)
                 .setLoopPingPong(1);
+        }
+
+        private static void AnimateFaceCycling(Dice dice, float delay)
+        {
+            const float faceChangeInterval = 0.07f;
+            int steps = Mathf.CeilToInt(_throwDuration / faceChangeInterval);
+            float lastStep = -1f;
+
+            LeanTween.value(dice.gameObject, 0f, steps, _throwDuration)
+                .setDelay(delay)
+                .setOnUpdate((float val) =>
+                {
+                    float step = Mathf.Floor(val);
+                    if (step != lastStep)
+                    {
+                        lastStep = step;
+                        dice.ShowRandomFace();
+                    }
+                });
         }
 
         private static void DiceRollComplete(int index)
