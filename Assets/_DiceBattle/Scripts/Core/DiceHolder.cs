@@ -14,6 +14,10 @@ namespace DiceBattle.Core
         [SerializeField] private GameObject _diceSlot;
         [SerializeField] private Transform _slotSpawn;
 
+        private const float _flyDuration = 0.35f;
+        private const float _flyStagger = 0.08f;
+        private const float _preFlyDelay = 0.15f;
+
         public event Action OnDiceToggled;
         public event Action<Dice> OnSlotDiceClicked;
 
@@ -52,6 +56,53 @@ namespace DiceBattle.Core
                     PlaceInSlot(_occupied[i], i);
                 }
             }
+        }
+
+        public void AnimateDiceToSlots(Action onComplete)
+        {
+            var flyingIndices = new List<int>();
+
+            for (int i = 0; i < _occupied.Count; i++)
+            {
+                if (_occupied[i].gameObject.activeSelf == false)
+                {
+                    continue;
+                }
+
+                if (_occupied[i].transform.parent != _slots[i].transform)
+                {
+                    flyingIndices.Add(i);
+                }
+            }
+
+            if (flyingIndices.Count == 0)
+            {
+                onComplete?.Invoke();
+                return;
+            }
+
+            for (int order = 0; order < flyingIndices.Count; order++)
+            {
+                int slotIndex = flyingIndices[order];
+                bool isLast = order == flyingIndices.Count - 1;
+                float delay = _preFlyDelay + order * _flyStagger;
+
+                FlyToSlot(_occupied[slotIndex], slotIndex, delay, isLast ? onComplete : null);
+            }
+        }
+
+        private void FlyToSlot(Dice dice, int slotIndex, float delay, Action onComplete)
+        {
+            Vector3 targetPosition = _slots[slotIndex].transform.position;
+
+            LeanTween.move(dice.gameObject, targetPosition, _flyDuration)
+                .setDelay(delay)
+                .setEase(LeanTweenType.easeInOutQuad)
+                .setOnComplete(() =>
+                {
+                    PlaceInSlot(dice, slotIndex);
+                    onComplete?.Invoke();
+                });
         }
 
         public void SetSocketCount(int count)
