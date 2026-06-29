@@ -55,8 +55,7 @@ namespace DiceBattle.Core
 
         private void HandleRollComplete()
         {
-            _diceHolder.RepositionDice();
-            OnRollCompleted?.Invoke();
+            _diceHolder.AnimateDiceToSlots(() => OnRollCompleted?.Invoke());
         }
 
         private void HandleDiceToggle() => OnDiceToggled?.Invoke();
