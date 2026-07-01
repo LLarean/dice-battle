@@ -38,6 +38,11 @@ namespace DiceBattle.UI
 
         public void UpdatePlayerStats() => _player.UpdateStats();
 
+        public void SetPlayerDicePreview(int armorBonus, int damageBonus, int healBonus) =>
+            _player.SetDicePreview(armorBonus, damageBonus, healBonus);
+
+        public void ClearPlayerDicePreview() => _player.ClearDicePreview();
+
         public void SetEnemyData(UnitData unitData)
         {
             _contextBackground.SetSprite(unitData.Background);
@@ -122,6 +127,8 @@ namespace DiceBattle.UI
 
         private void HandleRollComplete()
         {
+            _gameLogic.UpdateDicePreview();
+
             //TODO Add lock/unlock action buttons
         }
 

@@ -34,7 +34,23 @@ namespace DiceBattle.Core
             _matchData.PlayerData = _spawner.SpawnHero();
 
             _gameScreen.DisableDiceInteractable();
+            _gameScreen.ClearPlayerDicePreview();
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
+        }
+
+        public void UpdateDicePreview()
+        {
+            DiceList equippedItems = GameData.GetEquippedAsDiceList();
+            _diceResult.Calculate(_gameScreen.Dices, equippedItems);
+
+            int regenHealth = equippedItems.DiceTypes.Count(r => r == DiceType.RegenHealth) * _config.Player.GrowthHealth;
+            int bonusArmorCount = equippedItems.DiceTypes.Count(r => r == DiceType.BaseArmor) * _config.Player.GrowthArmor;
+            int bonusDamageCount = equippedItems.DiceTypes.Count(r => r == DiceType.BaseDamage) * _config.Player.GrowthDamage;
+
+            _gameScreen.SetPlayerDicePreview(
+                Mathf.Max(0, _diceResult.Armor + bonusArmorCount),
+                Mathf.Max(0, _diceResult.Damage + bonusDamageCount),
+                _diceResult.Heal + regenHealth);
         }
 
         public void ContextClick()
@@ -95,6 +111,7 @@ namespace DiceBattle.Core
             _matchData.PlayerHealthChange = _matchData.PlayerData.CurrentHealth;
             _matchData.EnemyHealthChange = _matchData.EnemyData.CurrentHealth;
 
+            _gameScreen.ClearPlayerDicePreview();
             PlayerTurn();
             _matchData.RemainingDiceRerolls = 0;
 
