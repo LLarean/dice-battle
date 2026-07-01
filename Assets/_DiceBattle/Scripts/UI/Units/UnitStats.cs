@@ -8,23 +8,23 @@ namespace DiceBattle.UI
         [SerializeField] private StatItem _attack;
         [SerializeField] private StatItem _armor;
 
-        public void ShowHealth(string value)
+        public void ShowHealth(string value, int bonus = 0)
         {
-            _health.SetValue(value);
+            _health.SetValue(value, bonus);
             _health.gameObject.SetActive(true);
             ResetGameObject();
         }
 
-        public void ShowAttack(string value)
+        public void ShowAttack(string value, int bonus = 0)
         {
-            _attack.SetValue(value);
+            _attack.SetValue(value, bonus);
             _attack.gameObject.SetActive(true);
             ResetGameObject();
         }
 
-        public void ShowArmor(string value)
+        public void ShowArmor(string value, int bonus = 0)
         {
-            _armor.SetValue(value);
+            _armor.SetValue(value, bonus);
             _armor.gameObject.SetActive(true);
             ResetGameObject();
         }
