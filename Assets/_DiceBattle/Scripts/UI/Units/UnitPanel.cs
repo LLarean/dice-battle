@@ -28,8 +28,6 @@ namespace DiceBattle.UI
 
         public void UpdateStats()
         {
-            HideAllStats();
-
             SetMaxHealth(_unitData.MaxHealth);
             SetCurrentHealth(_unitData.CurrentHealth);
             SetAttack(_unitData.Damage);
@@ -79,38 +77,11 @@ namespace DiceBattle.UI
 
             int previewHealth = Mathf.Min(_unitData.MaxHealth, healthAmount + _healBonus);
             int healthBonus = previewHealth - healthAmount;
-            _stats.ShowHealth($"{healthAmount}/{_health.maxValue}", healthBonus);
+            _stats.SetHealth($"{healthAmount}/{_health.maxValue}", healthBonus);
         }
 
-        private void SetAttack(int attackAmount)
-        {
-            if (attackAmount > 0 || _damageBonus > 0)
-            {
-                _stats.ShowAttack(attackAmount.ToString(), _damageBonus);
-            }
-            else
-            {
-                _stats.HideAttack();
-            }
-        }
+        private void SetAttack(int attackAmount) => _stats.SetAttack(attackAmount.ToString(), _damageBonus);
 
-        private void SetArmor(int defense)
-        {
-            if (defense > 0 || _armorBonus > 0)
-            {
-                _stats.ShowArmor(defense.ToString(), _armorBonus);
-            }
-            else
-            {
-                _stats.HideArmor();
-            }
-        }
-
-        private void HideAllStats()
-        {
-            _stats.HideHealth();
-            _stats.HideAttack();
-            _stats.HideArmor();
-        }
+        private void SetArmor(int defense) => _stats.SetArmor(defense.ToString(), _armorBonus);
     }
 }
