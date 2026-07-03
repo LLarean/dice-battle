@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DiceBattle.Events;
+using DiceBattle.Global;
+using DiceBattle.UI;
+using GameSignals;
 using UnityEngine;
 
 namespace DiceBattle.Core
@@ -101,8 +105,22 @@ namespace DiceBattle.Core
                 .setOnComplete(() =>
                 {
                     PlaceInSlot(dice, slotIndex);
+                    RaiseDiceLanded(dice);
                     onComplete?.Invoke();
                 });
+        }
+
+        private void RaiseDiceLanded(Dice dice)
+        {
+            if (dice.DiceValue == DiceValue.Empty)
+            {
+                return;
+            }
+
+            DiceList equippedItems = GameData.GetEquippedAsDiceList();
+            int amount = DiceResult.CalculateSingle(dice.DiceValue, equippedItems);
+
+            SignalSystem.Raise<IDiceResultHandler>(handler => handler.OnDiceLanded(this, dice, amount));
         }
 
         public void SetSocketCount(int count)
