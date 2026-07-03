@@ -20,29 +20,38 @@ namespace DiceBattle.Core
             _armor = 0;
             _heal = 0;
 
-            int silverCount = equippedItems.DiceTypes.Count(t => t == DiceType.SilverDice);
-            int goldCount = equippedItems.DiceTypes.Count(t => t == DiceType.GoldDice);
-            int globalMultiplier = 1 + silverCount + goldCount * 2;
-
-            int upgradeAttack = equippedItems.DiceTypes.Count(t => t == DiceType.UpgradeAttack);
-            int upgradeArmor = equippedItems.DiceTypes.Count(t => t == DiceType.UpgradeArmor);
-            int upgradeHealth = equippedItems.DiceTypes.Count(t => t == DiceType.UpgradeHealth);
-
             foreach (Dice dice in dices)
             {
                 switch (dice.DiceValue)
                 {
                     case DiceValue.Attack:
-                        _damage += (1 + upgradeAttack) * globalMultiplier;
+                        _damage += CalculateSingle(DiceValue.Attack, equippedItems);
                         break;
                     case DiceValue.Defense:
-                        _armor += (1 + upgradeArmor) * globalMultiplier;
+                        _armor += CalculateSingle(DiceValue.Defense, equippedItems);
                         break;
                     case DiceValue.Heal:
-                        _heal += (1 + upgradeHealth) * globalMultiplier;
+                        _heal += CalculateSingle(DiceValue.Heal, equippedItems);
                         break;
                 }
             }
+        }
+
+        public static int CalculateSingle(DiceValue diceValue, DiceList equippedItems)
+        {
+            int silverCount = equippedItems.DiceTypes.Count(t => t == DiceType.SilverDice);
+            int goldCount = equippedItems.DiceTypes.Count(t => t == DiceType.GoldDice);
+            int globalMultiplier = 1 + silverCount + goldCount * 2;
+
+            int upgradeCount = diceValue switch
+            {
+                DiceValue.Attack => equippedItems.DiceTypes.Count(t => t == DiceType.UpgradeAttack),
+                DiceValue.Defense => equippedItems.DiceTypes.Count(t => t == DiceType.UpgradeArmor),
+                DiceValue.Heal => equippedItems.DiceTypes.Count(t => t == DiceType.UpgradeHealth),
+                _ => 0,
+            };
+
+            return (1 + upgradeCount) * globalMultiplier;
         }
     }
 }

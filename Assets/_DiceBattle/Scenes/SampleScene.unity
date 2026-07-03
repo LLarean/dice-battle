@@ -12657,6 +12657,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9176265533338216426, guid: fbf5337ef3173194793bdb6a728539bf, type: 3}
+      propertyPath: _diceHolder
+      value: 
+      objectReference: {fileID: 1607898075}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
