@@ -35,6 +35,11 @@ namespace DiceBattle.Core
         public DiceValue DiceValue => _diceValue;
         public bool IsSelected => _selectionIcon.gameObject.activeSelf;
 
+        public void SetFixedFace(DiceIconCategory category)
+        {
+            _faceIcon.sprite = _faceSprites[(int)category];
+        }
+
         public void ResetToEmpty()
         {
             _diceValue = DiceValue.Empty;
