@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player:
     Portraits:
-    - {fileID: 4723107735738678597, guid: cad7b6b54e3a5ee4ca7575b000421af4, type: 3}
+    - {fileID: 1893152718, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     StartHealth: 20
     RegenHealth: 1
     GrowthHealth: 1

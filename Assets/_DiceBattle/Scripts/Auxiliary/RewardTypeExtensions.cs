@@ -2,8 +2,34 @@
 
 namespace DiceBattle
 {
+    public enum DiceIconCategory
+    {
+        Empty,
+        Sword,
+        Shield,
+        Heart,
+    }
+
     public static class RewardTypeExtensions
     {
+        public static DiceIconCategory GetIconCategory(this DiceType diceType)
+        {
+            return diceType switch {
+                DiceType.BaseDamage => DiceIconCategory.Sword,
+                DiceType.UpgradeAttack => DiceIconCategory.Sword,
+
+                DiceType.BaseArmor => DiceIconCategory.Shield,
+                DiceType.UpgradeArmor => DiceIconCategory.Shield,
+
+                DiceType.BaseHealth => DiceIconCategory.Heart,
+                DiceType.UpgradeHealth => DiceIconCategory.Heart,
+                DiceType.RegenHealth => DiceIconCategory.Heart,
+                DiceType.RestoreHealth => DiceIconCategory.Heart,
+
+                _ => DiceIconCategory.Empty,
+            };
+        }
+
         public static string Title(this DiceType diceType)
         {
             // TODO Translation

@@ -31,6 +31,7 @@ namespace DiceBattle.UI
             _data = item;
             _title.text = item.Type.Title();
             _description.text = item.Type.Description();
+            _dice.SetFixedFace(item.Type.GetIconCategory());
         }
 
         public void SetEquippedStatus(bool isEquipped)
