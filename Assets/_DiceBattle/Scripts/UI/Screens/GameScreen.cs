@@ -38,6 +38,8 @@ namespace DiceBattle.UI
 
         public void UpdatePlayerStats() => _player.UpdateStats();
 
+        public void SetPlayerEquipmentBonus(int? armorBonus, int? damageBonus) => _player.SetEquipmentBonus(armorBonus, damageBonus);
+
         public void SetPlayerDicePreview(int armorBonus, int damageBonus, int healBonus) =>
             _player.SetDicePreview(armorBonus, damageBonus, healBonus);
 

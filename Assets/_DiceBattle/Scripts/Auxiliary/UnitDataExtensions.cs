@@ -24,8 +24,8 @@ namespace DiceBattle
 
             unitData.Name = "Герой (upd)"; // TODO Translation
 
-            unitData.Armor = rewardTypes.Count(r => r == DiceType.BaseArmor) * playerConfig.GrowthArmor;
-            unitData.Damage = rewardTypes.Count(r => r == DiceType.BaseDamage) * playerConfig.GrowthDamage;
+            unitData.Armor = playerConfig.StartArmor + rewardTypes.Count(r => r == DiceType.BaseArmor) * playerConfig.GrowthArmor;
+            unitData.Damage = playerConfig.StartDamage + rewardTypes.Count(r => r == DiceType.BaseDamage) * playerConfig.GrowthDamage;
 
             int doubleHealth = rewardTypes.Count(r => r == DiceType.BaseHealth) * 2;
 
