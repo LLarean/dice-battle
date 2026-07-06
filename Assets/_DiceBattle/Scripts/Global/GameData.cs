@@ -1,4 +1,5 @@
 using System.Linq;
+using DiceBattle.Data;
 using DiceBattle.UI;
 using UnityEngine;
 
@@ -6,6 +7,12 @@ namespace DiceBattle.Global
 {
     public static class GameData
     {
+        public static CharacterClass SelectedCharacterClass
+        {
+            get => (CharacterClass)PlayerPrefs.GetInt(PlayerPrefsKeys.SelectedCharacterClass, 0);
+            set => PlayerPrefs.SetInt(PlayerPrefsKeys.SelectedCharacterClass, (int)value);
+        }
+
         public static DiceList GetEquippedAsDiceList()
         {
             var list = new DiceList();
@@ -27,7 +34,10 @@ namespace DiceBattle.Global
             ClearInventory();
             ClearEquippedRewards();
             ClearRandomRewards();
+            ResetSelectedCharacterClass();
         }
+
+        public static void ResetSelectedCharacterClass() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.SelectedCharacterClass);
 
         public static void IncrementLevels()
         {

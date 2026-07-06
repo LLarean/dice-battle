@@ -12,13 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d7c85972362f14b978d77f1fa270b9, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  Player:
-    Portraits:
+  PlayerClasses:
+  - Portraits:
     - {fileID: 1893152718, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    StartHealth: 15
+    RegenHealth: 1
+    GrowthHealth: 1
+    StartDamage: 1
+    GrowthDamage: 2
+    StartArmor: 2
+    GrowthArmor: 2
+  - Portraits:
+    - {fileID: -955355205, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     StartHealth: 20
     RegenHealth: 1
     GrowthHealth: 1
-    StartDamage: 0
+    StartDamage: 2
+    GrowthDamage: 2
+    StartArmor: 0
+    GrowthArmor: 2
+  - Portraits:
+    - {fileID: 213636260, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
+    StartHealth: 13
+    RegenHealth: 1
+    GrowthHealth: 1
+    StartDamage: 3
     GrowthDamage: 2
     StartArmor: 0
     GrowthArmor: 2
