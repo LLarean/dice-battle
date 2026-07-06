@@ -67,6 +67,8 @@ namespace DiceBattle.UI
 
         public void SetDiceCount(int count) => _gameBoard.SetDiceCount(count);
 
+        public void ResetDice() => _gameBoard.ResetDice();
+
         public void EnableDiceInteractable() => _gameBoard.EnableDiceInteractable();
 
         public void DisableDiceInteractable() => _gameBoard.DisableDiceInteractable();

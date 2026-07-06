@@ -31,6 +31,7 @@ namespace DiceBattle.Core
         {
             ResetNumbers();
             UpdateDiceCount();
+            _gameScreen.ResetDice();
 
             _matchData.EnemyData = _spawner.SpawnEnemy();
             _matchData.PlayerData = _spawner.SpawnHero();
