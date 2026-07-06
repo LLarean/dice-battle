@@ -48,8 +48,8 @@ namespace DiceBattle
                 DiceType.UpgradeHealth => "Лечебный кубик",
                 DiceType.UpgradeArmor => "Прочный кубик",
 
-                DiceType.SilverDice => "Серебрянный кубик (x2)",
-                DiceType.GoldDice => "Золотой кубик (x3)",
+                DiceType.SilverDice => "Серебряный кубик (+x1)",
+                DiceType.GoldDice => "Золотой кубик (+x2)",
 
                 DiceType.RegenHealth => "Регенерация здоровья",
                 DiceType.RestoreHealth => "Восстановить здоровье",
@@ -75,8 +75,8 @@ namespace DiceBattle
                 DiceType.UpgradeHealth => "Значение лечения х2",
                 DiceType.UpgradeArmor => "Значение брони х2",
 
-                DiceType.SilverDice => "Значение кубиков x2",
-                DiceType.GoldDice => "Значение кубиков x3",
+                DiceType.SilverDice => "Увеличивает общий множитель значений кубиков на 1",
+                DiceType.GoldDice => "Увеличивает общий множитель значений кубиков на 2",
 
                 DiceType.RegenHealth => "Регенерация здоровья",
                 DiceType.RestoreHealth => "Восстановить здоровье",

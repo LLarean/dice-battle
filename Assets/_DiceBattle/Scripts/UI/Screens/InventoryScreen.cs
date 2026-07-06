@@ -88,8 +88,8 @@ namespace DiceBattle.UI
             _player.SetUnitData(playerData);
 
             List<Item> equippedItems = Inventory.EquippedItems();
-            int armorBonus = equippedItems.Count(i => i.Type == DiceType.BaseArmor);
-            int damageBonus = equippedItems.Count(i => i.Type == DiceType.BaseDamage);
+            int armorBonus = equippedItems.Count(i => i.Type == DiceType.BaseArmor) * playerConfig.GrowthArmor;
+            int damageBonus = equippedItems.Count(i => i.Type == DiceType.BaseDamage) * playerConfig.GrowthDamage;
             _player.SetEquipmentBonus(armorBonus, damageBonus);
 
             int used = DeckCapacity - _deckHolder.FreeSlotCount;

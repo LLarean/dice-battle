@@ -16,10 +16,10 @@ namespace DiceBattle.Core
             int maxHealth = unitConfig.StartHealth + additionalHealth;
 
             int baseDamageCount = diceList.DiceTypes.Count(r => r == DiceType.BaseDamage);
-            int damage = unitConfig.StartDamage + baseDamageCount;
+            int damage = unitConfig.StartDamage + baseDamageCount * unitConfig.GrowthDamage;
 
             int baseArmorCount = diceList.DiceTypes.Count(r => r == DiceType.BaseArmor);
-            int armor = unitConfig.StartArmor + baseArmorCount;
+            int armor = unitConfig.StartArmor + baseArmorCount * unitConfig.GrowthArmor;
 
             return new UnitData
             {
