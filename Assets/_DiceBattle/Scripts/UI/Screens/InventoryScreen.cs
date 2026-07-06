@@ -1,12 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Data;
 using DiceBattle.Events;
+using DiceBattle.Global;
 using GameSignals;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DiceBattle.UI
 {
@@ -18,6 +21,8 @@ namespace DiceBattle.UI
         [SerializeField] private GameConfig _gameConfig;
         [Space]
         [SerializeField] private UnitPanel _player;
+        [SerializeField] private Button _previousCharacter;
+        [SerializeField] private Button _nextCharacter;
         [SerializeField] private TMP_Text _diceCount;
         [Space]
         [SerializeField] private InventoryItem _item;
@@ -31,6 +36,18 @@ namespace DiceBattle.UI
                 int extra = Inventory.EquippedItems().Count(i => i.Type == DiceType.AdditionalDice);
                 return _gameConfig.DiceStartCount + extra;
             }
+        }
+
+        private void Start()
+        {
+            _previousCharacter.onClick.AddListener(PreviousCharacter);
+            _nextCharacter.onClick.AddListener(NextCharacter);
+        }
+
+        private void OnDestroy()
+        {
+            _previousCharacter.onClick.RemoveAllListeners();
+            _nextCharacter.onClick.RemoveAllListeners();
         }
 
         private void OnEnable()
@@ -63,9 +80,10 @@ namespace DiceBattle.UI
 
         private void UpdatePlayerPanel()
         {
-            UnitData playerData = HeroFactory.Build(_gameConfig.Player);
+            UnitConfig playerConfig = _gameConfig.GetPlayerConfig(GameData.SelectedCharacterClass);
+            UnitData playerData = HeroFactory.Build(playerConfig);
             playerData.Name = "Герой (вы)"; // TODO Translation
-            playerData.Portrait = _gameConfig.Player.Portraits[0];
+            playerData.Portrait = playerConfig.Portraits[0];
 
             _player.SetUnitData(playerData);
 
@@ -174,6 +192,20 @@ namespace DiceBattle.UI
                 inventoryItem.Data.IsEquipped = false;
                 inventoryItem.SetEquippedStatus(false);
             }
+        }
+
+        private void PreviousCharacter() => ChangeCharacterClass(-1);
+
+        private void NextCharacter() => ChangeCharacterClass(1);
+
+        private void ChangeCharacterClass(int direction)
+        {
+            int classCount = _gameConfig.PlayerClasses.Length;
+            int nextIndex = (((int)GameData.SelectedCharacterClass + direction) % classCount + classCount) % classCount;
+            GameData.SelectedCharacterClass = (CharacterClass)nextIndex;
+
+            PlayClick();
+            Refresh();
         }
 
         private void PlayClick() => SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));

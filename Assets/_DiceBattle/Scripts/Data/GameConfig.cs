@@ -12,8 +12,10 @@ namespace DiceBattle.Data
     public class GameConfig : ScriptableObject
     {
         [Header("UnitConfigs")]
-        public UnitConfig Player;
+        public UnitConfig[] PlayerClasses = new UnitConfig[3];
         public List<UnitData> Enemies = new();
+
+        public UnitConfig GetPlayerConfig(CharacterClass characterClass) => PlayerClasses[(int)characterClass];
 
         [Header("Dice")]
         public List<Item> DefaultInventory = new();

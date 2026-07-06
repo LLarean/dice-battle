@@ -38,9 +38,10 @@ namespace DiceBattle.Core
 
         public UnitData SpawnHero()
         {
-            UnitData playerData = HeroFactory.Build(_config.Player);
+            UnitConfig playerConfig = _config.GetPlayerConfig(GameData.SelectedCharacterClass);
+            UnitData playerData = HeroFactory.Build(playerConfig);
             playerData.Name = "Герой (вы)"; // TODO Translation
-            playerData.Portrait = _config.Player.Portraits[0];
+            playerData.Portrait = playerConfig.Portraits[0];
 
             playerData.Log();
             _gameScreen.SetPlayerData(playerData);
