@@ -1,4 +1,5 @@
-﻿using DiceBattle.Data;
+﻿using System.Linq;
+using DiceBattle.Data;
 using DiceBattle.Global;
 using DiceBattle.UI;
 
@@ -45,6 +46,12 @@ namespace DiceBattle.Core
 
             playerData.Log();
             _gameScreen.SetPlayerData(playerData);
+
+            DiceList diceList = GameData.GetEquippedAsDiceList();
+            int armorBonus = diceList.DiceTypes.Count(r => r == DiceType.BaseArmor);
+            int damageBonus = diceList.DiceTypes.Count(r => r == DiceType.BaseDamage);
+            _gameScreen.SetPlayerEquipmentBonus(armorBonus, damageBonus);
+
             return playerData;
         }
     }

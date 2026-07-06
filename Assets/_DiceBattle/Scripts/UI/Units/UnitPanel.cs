@@ -26,12 +26,16 @@ namespace DiceBattle.UI
         private int _armorBonus;
         private int _damageBonus;
         private int _healBonus;
+        private int _equipmentArmorBonus;
+        private int _equipmentDamageBonus;
 
         public void SetUnitData(UnitData unitData)
         {
             _unitData = unitData;
             _title.text = _unitData.Name;
             _portrait.sprite = _unitData.Portrait;
+            _equipmentArmorBonus = 0;
+            _equipmentDamageBonus = 0;
 
             UpdateStats();
         }
@@ -42,6 +46,21 @@ namespace DiceBattle.UI
             SetCurrentHealth(_unitData.CurrentHealth);
             SetAttack(_unitData.Damage);
             SetArmor(_unitData.Armor);
+        }
+
+        public void SetEquipmentBonus(int? armorBonus, int? damageBonus)
+        {
+            if (armorBonus.HasValue)
+            {
+                _equipmentArmorBonus = armorBonus.Value;
+                SetArmor(_unitData.Armor);
+            }
+
+            if (damageBonus.HasValue)
+            {
+                _equipmentDamageBonus = damageBonus.Value;
+                SetAttack(_unitData.Damage);
+            }
         }
 
         public void SetDicePreview(int armorBonus, int damageBonus, int healBonus)
@@ -134,9 +153,11 @@ namespace DiceBattle.UI
             _stats.SetHealth($"{healthAmount}/{_health.maxValue}", healthBonus);
         }
 
-        private void SetAttack(int attackAmount) => _stats.SetAttack(attackAmount.ToString(), _damageBonus);
+        private void SetAttack(int attackAmount) =>
+            _stats.SetAttack((attackAmount - _equipmentDamageBonus).ToString(), _equipmentDamageBonus + _damageBonus);
 
-        private void SetArmor(int defense) => _stats.SetArmor(defense.ToString(), _armorBonus);
+        private void SetArmor(int defense) =>
+            _stats.SetArmor((defense - _equipmentArmorBonus).ToString(), _equipmentArmorBonus + _armorBonus);
 
         private void Awake() => SignalSystem.Subscribe(this);
 
