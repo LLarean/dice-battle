@@ -37,6 +37,8 @@ namespace DiceBattle.Core
 
         public void ClearAllSelection() => _dices.ForEach(dice => dice.ClearSelection());
 
+        public void ResetDice() => _dices.ForEach(dice => dice.ResetToEmpty());
+
         public void ToggleAll() => _dices.ForEach(dice => dice.Toggle());
 
         public void SetSelectionStatus(bool isSelected) => _dices.ForEach(dice => dice.SetSelection(isSelected));
