@@ -20,9 +20,6 @@ namespace DiceBattle.Data
         [Header("Dice")]
         public List<Item> DefaultInventory = new();
         public int DiceStartCount = 5;
-        public int DiceBonusCount = 1;
-        public int AttemptsCount = 2;
-        public int AttemptsBonusCount = 1;
 
         [Header("Maximum attempts")]
         [Tooltip("Maximum number of dice rolls")]

@@ -31,7 +31,7 @@ namespace DiceBattle.Auxiliary
 
             if (_needAddAllItemsToInventory)
             {
-                AddAllRewards();
+                AddAllItems();
             }
         }
 
@@ -60,46 +60,31 @@ namespace DiceBattle.Auxiliary
                     IsEquipped = false
                 };
 
-                Inventory.AddItemToUnequipped(_item);
+                Inventory.AddItemToUnequipped(item);
             }
         }
 
         [Button]
         private void AddDiceToInventory()
         {
-            DiceList inventory = GameData.GetInventory();
-            inventory.DiceTypes.Add(_diceType);
-            GameData.UpdateInventory(inventory);
+            Inventory.AddItemToUnequipped(new Item { Type = _diceType, IsEquipped = false });
         }
 
         [Button]
         private void AddEquippedReward()
         {
-            DiceList equippedRewards = GameData.GetEquippedItems();
-            equippedRewards.DiceTypes.Add(_diceType);
-            GameData.SaveEquippedRewards(equippedRewards);
+            var item = new Item { Type = _diceType, IsEquipped = true };
+            Inventory.AddItemToUnequipped(item);
+            Inventory.EquipItem(item);
         }
 
         [Button]
-        private void AddAllRewards()
+        private void EquipAllItems()
         {
-            DiceList inventory = GameData.GetInventory();
-            DiceList randomRewards = GameData.LoadRandomRewards();
-
-            foreach (DiceType randomReward in randomRewards.DiceTypes)
+            foreach (Item item in Inventory.UnequippedItems())
             {
-                inventory.DiceTypes.Add(randomReward);
-                // GameData.SaveInventory(randomReward);
+                Inventory.EquipItem(item);
             }
-
-            GameData.UpdateInventory(inventory);
-        }
-
-        [Button]
-        private void EquipAllRewards()
-        {
-            DiceList randomRewards = GameData.LoadRandomRewards();
-            GameData.SaveEquippedRewards(randomRewards);
         }
     }
 }

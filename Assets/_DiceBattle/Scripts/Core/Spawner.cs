@@ -48,8 +48,8 @@ namespace DiceBattle.Core
             _gameScreen.SetPlayerData(playerData);
 
             DiceList diceList = GameData.GetEquippedAsDiceList();
-            int armorBonus = diceList.DiceTypes.Count(r => r == DiceType.BaseArmor);
-            int damageBonus = diceList.DiceTypes.Count(r => r == DiceType.BaseDamage);
+            int armorBonus = diceList.DiceTypes.Count(r => r == DiceType.BaseArmor) * playerConfig.GrowthArmor;
+            int damageBonus = diceList.DiceTypes.Count(r => r == DiceType.BaseDamage) * playerConfig.GrowthDamage;
             _gameScreen.SetPlayerEquipmentBonus(armorBonus, damageBonus);
 
             return playerData;

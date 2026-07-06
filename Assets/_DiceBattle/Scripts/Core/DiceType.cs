@@ -26,8 +26,8 @@
         UpgradeHealth,
         UpgradeArmor,
 
-        GoldDice, // value x3
-        SilverDice, // value x2
+        GoldDice, // adds +2 to the shared value multiplier
+        SilverDice, // adds +1 to the shared value multiplier
 
         // Restore Health
         RegenHealth,

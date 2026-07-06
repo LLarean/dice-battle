@@ -27,13 +27,12 @@ namespace DiceBattle
             unitData.Armor = playerConfig.StartArmor + rewardTypes.Count(r => r == DiceType.BaseArmor) * playerConfig.GrowthArmor;
             unitData.Damage = playerConfig.StartDamage + rewardTypes.Count(r => r == DiceType.BaseDamage) * playerConfig.GrowthDamage;
 
-            int doubleHealth = rewardTypes.Count(r => r == DiceType.BaseHealth) * 2;
+            int doubleHealthCount = rewardTypes.Count(r => r == DiceType.BaseHealth);
+            int newMaxHealth = playerConfig.StartHealth + playerConfig.StartHealth * doubleHealthCount;
+            int maxHealthGain = newMaxHealth - unitData.MaxHealth;
 
-            if (doubleHealth > 0)
-            {
-                unitData.MaxHealth *= doubleHealth;
-                unitData.CurrentHealth *= doubleHealth;
-            }
+            unitData.MaxHealth = newMaxHealth;
+            unitData.CurrentHealth = Mathf.Clamp(unitData.CurrentHealth + maxHealthGain, 0, newMaxHealth);
         }
     }
 }
