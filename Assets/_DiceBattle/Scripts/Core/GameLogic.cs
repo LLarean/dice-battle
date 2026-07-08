@@ -360,7 +360,8 @@ namespace DiceBattle.Core
             GameData.IncrementLevels();
 
             UpdateData();
-            _matchData.EnemyData = _spawner.SpawnEnemy();
+            // Спавн следующего врага отключён: после победы враг остаётся повержен (0 здоровья) до возврата в таверну.
+            // _matchData.EnemyData = _spawner.SpawnEnemy();
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Victory));
             RemovePlayerArmor();
