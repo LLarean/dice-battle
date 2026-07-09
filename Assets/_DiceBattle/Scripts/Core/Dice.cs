@@ -138,18 +138,21 @@ namespace DiceBattle.Core
             }
 
             DiceList diceList = GameData.GetEquippedAsDiceList();
+            int multiplier = DiceResult.CalculateSingle(_diceValue, diceList);
 
-            int diceCount = _diceValue switch
-            {
-                DiceValue.Attack => diceList.DiceTypes.Count(r => r == DiceType.UpgradeAttack),
-                DiceValue.Defense => diceList.DiceTypes.Count(r => r == DiceType.UpgradeArmor),
-                DiceValue.Heal => diceList.DiceTypes.Count(r => r == DiceType.UpgradeHealth),
-                _ => 0,
-            };
-
-            int multiplier = 1 + diceCount;
             _multiplier.gameObject.SetActive(multiplier > 1);
-            _multiplier.text = "x" + multiplier;
+            _multiplier.text = GetEffectLabel(_diceValue) + "x" + multiplier;
+        }
+
+        private static string GetEffectLabel(DiceValue diceValue)
+        {
+            return diceValue switch
+            {
+                DiceValue.Attack => "УР ",
+                DiceValue.Defense => "ЗЩ ",
+                DiceValue.Heal => "ХП ",
+                _ => string.Empty,
+            };
         }
 
     }
