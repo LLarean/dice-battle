@@ -31,6 +31,8 @@
 
         // Restore Health
         RegenHealth,
-        RestoreHealth,
+        LastStandDice, // survives one lethal hit with 1 HP, once per match
+
+        LifestealDice, // heals for a share of damage dealt
     }
 }
