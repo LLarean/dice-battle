@@ -35,6 +35,7 @@ namespace DiceBattle.Core
 
             _matchData.EnemyData = _spawner.SpawnEnemy();
             _matchData.PlayerData = _spawner.SpawnHero();
+            _matchData.LastStandUsed = false;
 
             _gameScreen.DisableDiceInteractable();
             _gameScreen.ClearPlayerDicePreview();
@@ -292,9 +293,24 @@ namespace DiceBattle.Core
 
             Debug.Log("Damage: Dice = " + _diceResult.Damage + ", Character = " + bonusDamageCount);
 
+            ApplyLifesteal();
+
             // TODO You can add different sounds to attack different enemies
             // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyHit));
+        }
+
+        private void ApplyLifesteal()
+        {
+            int lifestealCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceType.LifestealDice);
+
+            if (lifestealCount == 0)
+            {
+                return;
+            }
+
+            int lifestealHeal = _matchData.PlayerData.Damage / 4 * lifestealCount;
+            _gameScreen.PlayerTakeHeal(lifestealHeal);
         }
 
         private void RemovePlayerArmor()
@@ -329,7 +345,7 @@ namespace DiceBattle.Core
             // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
 
-            if (_matchData.PlayerData.CurrentHealth <= 0)
+            if (_matchData.PlayerData.CurrentHealth <= 0 && TryTriggerLastStand() == false)
             {
                 OnPlayerDefeated();
                 return;
@@ -339,6 +355,26 @@ namespace DiceBattle.Core
             AnimatePlayerHealth();
             RemovePlayerArmor();
             RemovePlayerDamage();
+        }
+
+        private bool TryTriggerLastStand()
+        {
+            if (_matchData.LastStandUsed)
+            {
+                return false;
+            }
+
+            bool hasLastStandDice = _matchData.DiceList.DiceTypes.Contains(DiceType.LastStandDice);
+
+            if (hasLastStandDice == false)
+            {
+                return false;
+            }
+
+            _matchData.LastStandUsed = true;
+            _gameScreen.PlayerTakeHeal(1);
+
+            return true;
         }
 
         private void OnEnemyDefeated()

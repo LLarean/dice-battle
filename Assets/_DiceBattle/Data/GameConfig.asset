@@ -29,7 +29,7 @@ MonoBehaviour:
     GrowthHealth: 1
     StartDamage: 2
     GrowthDamage: 2
-    StartArmor: 0
+    StartArmor: 1
     GrowthArmor: 2
   - Portraits:
     - {fileID: 213636260, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
@@ -128,9 +128,6 @@ MonoBehaviour:
     Type: 0
     IsEquipped: 1
   DiceStartCount: 5
-  DiceBonusCount: 1
-  AttemptsCount: 2
-  AttemptsBonusCount: 1
   MaxAttempts: 3
   CanSaveBattle: 1
   IsInstaWin: 0

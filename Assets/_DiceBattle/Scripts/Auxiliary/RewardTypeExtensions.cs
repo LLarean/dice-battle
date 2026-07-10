@@ -24,7 +24,8 @@ namespace DiceBattle
                 DiceType.BaseHealth => DiceIconCategory.Heart,
                 DiceType.UpgradeHealth => DiceIconCategory.Heart,
                 DiceType.RegenHealth => DiceIconCategory.Heart,
-                DiceType.RestoreHealth => DiceIconCategory.Heart,
+                DiceType.LastStandDice => DiceIconCategory.Heart,
+                DiceType.LifestealDice => DiceIconCategory.Heart,
 
                 _ => DiceIconCategory.Empty,
             };
@@ -52,7 +53,8 @@ namespace DiceBattle
                 DiceType.GoldDice => "Золотой кубик (+x2)",
 
                 DiceType.RegenHealth => "Регенерация здоровья",
-                DiceType.RestoreHealth => "Восстановить здоровье",
+                DiceType.LastStandDice => "Последний шанс",
+                DiceType.LifestealDice => "Кубик вампиризма",
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -79,7 +81,8 @@ namespace DiceBattle
                 DiceType.GoldDice => "Увеличивает общий множитель значений кубиков на 2",
 
                 DiceType.RegenHealth => "Регенерация здоровья",
-                DiceType.RestoreHealth => "Восстановить здоровье",
+                DiceType.LastStandDice => "Один раз за бой не даёт погибнуть от смертельного удара, оставляя 1 HP",
+                DiceType.LifestealDice => "Восстанавливает часть нанесённого урона здоровьем",
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
