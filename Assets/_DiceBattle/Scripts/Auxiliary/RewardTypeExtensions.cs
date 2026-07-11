@@ -1,4 +1,5 @@
 ﻿using System;
+using DiceBattle.Core;
 
 namespace DiceBattle
 {
@@ -28,6 +29,16 @@ namespace DiceBattle
                 DiceType.LifestealDice => DiceIconCategory.Heart,
 
                 _ => DiceIconCategory.Empty,
+            };
+        }
+
+        public static DiceValue? GetEffectDiceValue(this DiceType diceType)
+        {
+            return diceType switch {
+                DiceType.UpgradeAttack => DiceValue.Attack,
+                DiceType.UpgradeArmor => DiceValue.Defense,
+                DiceType.UpgradeHealth => DiceValue.Heal,
+                _ => null,
             };
         }
 

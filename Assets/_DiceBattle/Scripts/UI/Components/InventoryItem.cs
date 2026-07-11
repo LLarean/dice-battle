@@ -32,11 +32,23 @@ namespace DiceBattle.UI
             _title.text = item.Type.Title();
             _description.text = item.Type.Description();
             _dice.SetFixedFace(item.Type.GetIconCategory());
+
+            RefreshMultiplier();
         }
 
         public void SetEquippedStatus(bool isEquipped)
         {
             _agreeMark.gameObject.SetActive(isEquipped);
+        }
+
+        public void RefreshMultiplier()
+        {
+            DiceValue? effectValue = _data.Type.GetEffectDiceValue();
+
+            if (effectValue.HasValue)
+            {
+                _dice.ShowFixedMultiplier(effectValue.Value);
+            }
         }
 
         private void Start()

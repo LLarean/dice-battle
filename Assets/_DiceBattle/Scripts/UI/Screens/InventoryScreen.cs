@@ -150,6 +150,7 @@ namespace DiceBattle.UI
 
             AddDiceCopyToHolder(inventoryItem);
             UpdatePlayerPanel();
+            RefreshMultipliers();
         }
 
         private void HandleSlotDiceClicked(Dice dice)
@@ -181,6 +182,15 @@ namespace DiceBattle.UI
             }
 
             UpdatePlayerPanel();
+            RefreshMultipliers();
+        }
+
+        private void RefreshMultipliers()
+        {
+            foreach (InventoryItem inventoryItem in _inventoryItems)
+            {
+                inventoryItem.RefreshMultiplier();
+            }
         }
 
         private void AddDiceCopyToHolder(InventoryItem inventoryItem)
