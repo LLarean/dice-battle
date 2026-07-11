@@ -54,6 +54,15 @@ namespace DiceBattle.Core
             _faceIcon.sprite = _faceSprites[randomIndex];
         }
 
+        public void ShowFixedMultiplier(DiceValue diceValue)
+        {
+            DiceList diceList = GameData.GetEquippedAsDiceList();
+            int multiplier = DiceResult.CalculateSingle(diceValue, diceList);
+
+            _multiplier.gameObject.SetActive(multiplier > 1);
+            _multiplier.text = GetEffectLabel(diceValue) + "x" + multiplier;
+        }
+
         public void Roll()
         {
             DiceList receivedRewards = GameData.GetEquippedAsDiceList();
@@ -105,10 +114,10 @@ namespace DiceBattle.Core
         {
             _button.onClick.AddListener(HangleButtonClicked);
             _random = new Random();
-            _multiplier.gameObject.SetActive(false);
 
             if (_isMenu == false)
             {
+                _multiplier.gameObject.SetActive(false);
                 ResetToEmpty();
             }
         }
@@ -137,11 +146,7 @@ namespace DiceBattle.Core
                 return;
             }
 
-            DiceList diceList = GameData.GetEquippedAsDiceList();
-            int multiplier = DiceResult.CalculateSingle(_diceValue, diceList);
-
-            _multiplier.gameObject.SetActive(multiplier > 1);
-            _multiplier.text = GetEffectLabel(_diceValue) + "x" + multiplier;
+            ShowFixedMultiplier(_diceValue);
         }
 
         private static string GetEffectLabel(DiceValue diceValue)
