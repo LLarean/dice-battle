@@ -175,9 +175,9 @@ namespace DiceBattle.Core
 
         private void UpdateDiceCount()
         {
-            // TODO Improvements in the number of cubes
-            // int diceCount = GameProgress.GetDiceCount();
-            // _gameScreen.SetDiceCount(_config.DiceStartCount);
+            DiceList equippedItems = GameData.GetEquippedAsDiceList();
+            int additionalDiceCount = equippedItems.DiceTypes.Count(r => r == DiceType.AdditionalDice);
+            _gameScreen.SetDiceCount(_config.DiceStartCount + additionalDiceCount);
         }
 
         private void UpdateButtonStates()
