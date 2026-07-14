@@ -41,6 +41,13 @@ namespace DiceBattle.UI
             _agreeMark.gameObject.SetActive(isEquipped);
         }
 
+        public void SetContentVisible(bool isVisible)
+        {
+            _dice.gameObject.SetActive(isVisible);
+            _title.gameObject.SetActive(isVisible);
+            _description.gameObject.SetActive(isVisible);
+        }
+
         public void RefreshMultiplier()
         {
             DiceValue? effectValue = _data.Type.GetEffectDiceValue();

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using DiceBattle.Data;
 using DiceBattle.UI;
@@ -56,6 +57,9 @@ namespace DiceBattle.Global
         public static DiceList LoadRandomRewards() => AvailableRewardsPool.Load();
 
         public static void SaveRandomRewards(DiceList diceList) => AvailableRewardsPool.Save(diceList);
+
+        public static List<DiceType> GetRandomRewards(int startIndex, int count) =>
+            AvailableRewardsPool.GetRewardsRange(AvailableRewardsPool.Load(), startIndex, count);
 
         public static void LogRandomRewards() => AvailableRewardsPool.Log();
 
