@@ -54,6 +54,18 @@ namespace DiceBattle.Global
 
         public static void Clear() => PlayerPrefs.DeleteKey(_playerPrefsKey);
 
+        public static List<DiceType> GetRewardsRange(DiceList diceList, int startIndex, int count)
+        {
+            while (diceList.DiceTypes.Count < startIndex + count)
+            {
+                diceList.DiceTypes.AddRange(GetRandomDice());
+            }
+
+            List<DiceType> result = diceList.DiceTypes.GetRange(startIndex, count);
+            Save(diceList);
+            return result;
+        }
+
         private static DiceList GetRandomRewards()
         {
             return new DiceList
@@ -65,7 +77,10 @@ namespace DiceBattle.Global
         private static List<DiceType> GetRandomDice()
         {
             var random = new Random();
-            var rewardTypes = Enum.GetValues(typeof(DiceType)).Cast<DiceType>().ToList();
+            var rewardTypes = Enum.GetValues(typeof(DiceType))
+                .Cast<DiceType>()
+                .Where(type => type != DiceType.Default)
+                .ToList();
             return rewardTypes.OrderBy(x => random.Next()).ToList();
         }
     }
