@@ -35,4 +35,12 @@
 
         LifestealDice, // heals for a share of damage dealt
     }
+
+    public enum DiceRarity
+    {
+        Common,
+        Uncommon,
+        Rare,
+        Legendary,
+    }
 }

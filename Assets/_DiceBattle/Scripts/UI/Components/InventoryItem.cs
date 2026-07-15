@@ -16,8 +16,17 @@ namespace DiceBattle.UI
         [Space]
         [SerializeField] private Dice _dice;
         [SerializeField] private Image _agreeMark;
+        [SerializeField] private Image _rarityGlow;
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private TextMeshProUGUI _description;
+
+        private static readonly Color _uncommonColor = new Color32(0x1E, 0xC8, 0x54, 0xFF);
+        private static readonly Color _rareColor = new Color32(0x2E, 0x8F, 0xF7, 0xFF);
+        private static readonly Color _legendaryColor = new Color32(0xF7, 0x9E, 0x1E, 0xFF);
+
+        private const float _pulseMinAlpha = 0.4f;
+        private const float _pulseMaxAlpha = 1f;
+        private const float _pulseDuration = 0.8f;
 
         private Item _data;
 
@@ -34,6 +43,7 @@ namespace DiceBattle.UI
             _dice.SetFixedFace(item.Type.GetIconCategory());
 
             RefreshMultiplier();
+            RefreshRarityGlow(item.Type.GetRarity());
         }
 
         public void SetEquippedStatus(bool isEquipped)
@@ -46,6 +56,42 @@ namespace DiceBattle.UI
             _dice.gameObject.SetActive(isVisible);
             _title.gameObject.SetActive(isVisible);
             _description.gameObject.SetActive(isVisible);
+
+            bool showGlow = isVisible && _data != null && _data.Type.GetRarity() != DiceRarity.Common;
+            _rarityGlow.gameObject.SetActive(showGlow);
+        }
+
+        public void RefreshRarityGlow(DiceRarity rarity)
+        {
+            LeanTween.cancel(_rarityGlow.gameObject);
+
+            if (rarity == DiceRarity.Common)
+            {
+                _rarityGlow.gameObject.SetActive(false);
+                return;
+            }
+
+            _rarityGlow.color = GetRarityColor(rarity);
+            _rarityGlow.gameObject.SetActive(true);
+
+            Color faded = _rarityGlow.color;
+            faded.a = _pulseMinAlpha;
+            _rarityGlow.color = faded;
+
+            LeanTween.alpha(_rarityGlow.rectTransform, _pulseMaxAlpha, _pulseDuration)
+                .setEase(LeanTweenType.easeInOutSine)
+                .setLoopPingPong(-1);
+        }
+
+        private static Color GetRarityColor(DiceRarity rarity)
+        {
+            return rarity switch
+            {
+                DiceRarity.Uncommon => _uncommonColor,
+                DiceRarity.Rare => _rareColor,
+                DiceRarity.Legendary => _legendaryColor,
+                _ => Color.white,
+            };
         }
 
         public void RefreshMultiplier()
@@ -68,6 +114,7 @@ namespace DiceBattle.UI
         {
             _button.onClick.RemoveAllListeners();
             _dice.OnToggled -= HandleDiceClicked;
+            LeanTween.cancel(_rarityGlow.gameObject);
         }
 
         private void HandleButtonClicked()
