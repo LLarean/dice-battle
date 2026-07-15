@@ -32,6 +32,23 @@ namespace DiceBattle
             };
         }
 
+        public static DiceRarity GetRarity(this DiceType diceType)
+        {
+            return diceType switch {
+                DiceType.LastStandDice => DiceRarity.Legendary,
+                DiceType.DisableEmptyState => DiceRarity.Legendary,
+
+                DiceType.GoldDice => DiceRarity.Rare,
+                DiceType.LifestealDice => DiceRarity.Rare,
+
+                DiceType.AdditionalTry => DiceRarity.Uncommon,
+                DiceType.AdditionalDice => DiceRarity.Uncommon,
+                DiceType.SilverDice => DiceRarity.Uncommon,
+
+                _ => DiceRarity.Common,
+            };
+        }
+
         public static DiceValue? GetEffectDiceValue(this DiceType diceType)
         {
             return diceType switch {
