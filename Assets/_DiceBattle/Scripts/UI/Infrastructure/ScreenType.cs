@@ -12,5 +12,6 @@
         InventoryWindow,
         CreditsWindow,
         HelpWindow,
+        QuestWindow,
     }
 }
