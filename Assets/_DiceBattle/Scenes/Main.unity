@@ -10714,6 +10714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 1636912460}
+  _gameConfig: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
   _close: {fileID: 804198751}
   _unitPanel: {fileID: 2019377728}
   _description: {fileID: 1169374080}

@@ -1,3 +1,5 @@
+using DiceBattle.Data;
+using DiceBattle.Global;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +8,7 @@ namespace DiceBattle.UI
 {
     public class QuestWindow : Screen
     {
+        [SerializeField] private GameConfig _gameConfig;
         [Space]
         [SerializeField] private Button _close;
         [SerializeField] private UnitPanel _unitPanel;
@@ -14,6 +17,12 @@ namespace DiceBattle.UI
         private void Start()
         {
             _close.onClick.AddListener(HandleCloseClick);
+        }
+
+        private void OnEnable()
+        {
+            UnitData nextEnemy = _gameConfig.Enemies[GameData.CompletedLevels];
+            _unitPanel.SetUnitData(nextEnemy.CloneAtFullHealth());
         }
 
         private void OnDestroy()
