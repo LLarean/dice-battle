@@ -9,6 +9,17 @@ namespace DiceBattle
 {
     public static class UnitDataExtensions
     {
+        public static UnitData CloneAtFullHealth(this UnitData source) => new()
+        {
+            Name = source.Name,
+            Portrait = source.Portrait,
+            Background = source.Background,
+            MaxHealth = source.MaxHealth,
+            CurrentHealth = source.MaxHealth,
+            Damage = source.Damage,
+            Armor = source.Armor,
+        };
+
         public static void Log(this UnitData unitData)
         {
 #if UNITY_EDITOR
