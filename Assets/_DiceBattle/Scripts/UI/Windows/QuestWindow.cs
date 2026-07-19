@@ -23,6 +23,7 @@ namespace DiceBattle.UI
         {
             UnitData nextEnemy = _gameConfig.Enemies[GameData.CompletedLevels];
             _unitPanel.SetUnitData(nextEnemy.CloneAtFullHealth());
+            _description.text = nextEnemy.Description;
         }
 
         private void OnDestroy()

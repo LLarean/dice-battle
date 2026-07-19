@@ -12,6 +12,7 @@ namespace DiceBattle
         public static UnitData CloneAtFullHealth(this UnitData source) => new()
         {
             Name = source.Name,
+            Description = source.Description,
             Portrait = source.Portrait,
             Background = source.Background,
             MaxHealth = source.MaxHealth,
