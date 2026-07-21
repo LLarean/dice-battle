@@ -17,6 +17,7 @@ namespace DiceBattle.Core
         private readonly DiceResult _diceResult = new();
 
         private readonly MatchData _matchData = new();
+        private bool _battleEnded;
 
         private UnitConfig PlayerConfig => _config.GetPlayerConfig(GameData.SelectedCharacterClass);
 
@@ -29,6 +30,7 @@ namespace DiceBattle.Core
 
         public void InitializeGame()
         {
+            _battleEnded = false;
             ResetNumbers();
             UpdateDiceCount();
             _gameScreen.ResetDice();
@@ -36,6 +38,37 @@ namespace DiceBattle.Core
             _matchData.EnemyData = _spawner.SpawnEnemy();
             _matchData.PlayerData = _spawner.SpawnHero();
             _matchData.LastStandUsed = false;
+
+            _gameScreen.DisableDiceInteractable();
+            _gameScreen.ClearPlayerDicePreview();
+            SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
+
+            if (_config.CanSaveBattle)
+                BattleSaveData.Save(_matchData);
+        }
+
+        public void AbandonBattle()
+        {
+            _battleEnded = true;
+
+            if (_config.CanSaveBattle)
+                BattleSaveData.Clear();
+        }
+
+        public void RestoreGame()
+        {
+            _battleEnded = false;
+            ResetNumbers();
+            UpdateDiceCount();
+            _gameScreen.ResetDice();
+
+            BattleSnapshot saved = BattleSaveData.Load();
+
+            _matchData.EnemyData = _spawner.RestoreEnemy(saved);
+            _matchData.PlayerData = _spawner.RestoreHero(saved);
+            _matchData.MaxDiceRerolls = saved.MaxDiceRerolls;
+            _matchData.RemainingDiceRerolls = saved.RemainingDiceRerolls;
+            _matchData.LastStandUsed = saved.LastStandUsed;
 
             _gameScreen.DisableDiceInteractable();
             _gameScreen.ClearPlayerDicePreview();
@@ -124,6 +157,9 @@ namespace DiceBattle.Core
 
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
             UpdateButtonStates();
+
+            if (_config.CanSaveBattle && _battleEnded == false)
+                BattleSaveData.Save(_matchData);
         }
 
         private void AnimatePlayerHealth()
@@ -329,6 +365,11 @@ namespace DiceBattle.Core
 
         private void OnPlayerDefeated()
         {
+            _battleEnded = true;
+
+            if (_config.CanSaveBattle)
+                BattleSaveData.Clear();
+
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Defeat));
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameOverScreen));
         }
@@ -379,6 +420,11 @@ namespace DiceBattle.Core
 
         private void OnEnemyDefeated()
         {
+            _battleEnded = true;
+
+            if (_config.CanSaveBattle)
+                BattleSaveData.Clear();
+
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyDefeated));
 
             bool isLastEnemy = GameData.CompletedLevels >= _config.Enemies.Count - 1;

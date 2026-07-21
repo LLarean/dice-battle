@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using DiceBattle.Animations;
 using DiceBattle.Audio;
 using DiceBattle.Core;
+using DiceBattle.Data;
 using DiceBattle.Events;
+using DiceBattle.Global;
 using GameSignals;
 using TMPro;
 using UnityEngine;
@@ -18,6 +20,7 @@ namespace DiceBattle.UI
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private Button _options;
         [SerializeField] private Button _start;
+        [SerializeField] private GameConfig _config;
         [Space]
         [SerializeField] private List<Dice> _dice;
         [SerializeField] private RectTransform _rollAnimationArea;
@@ -62,7 +65,11 @@ namespace DiceBattle.UI
 
         private void HandleStartClick()
         {
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TavernScreen));
+            ScreenType targetScreen = _config.CanSaveBattle && BattleSaveData.HasSavedBattle()
+                ? ScreenType.GameScreen
+                : ScreenType.TavernScreen;
+
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(targetScreen));
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Show());
         }
     }

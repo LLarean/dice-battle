@@ -15,5 +15,7 @@
         public const string PlayerInventory = "RPlayerInventory";
         public const string RewardsList = "RewardsList";
         public const string EquippedRewards = "EquippedRewards";
+
+        public const string BattleState = "BattleState";
     }
 }

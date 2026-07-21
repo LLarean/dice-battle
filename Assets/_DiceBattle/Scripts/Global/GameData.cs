@@ -34,6 +34,7 @@ namespace DiceBattle.Global
             Inventory.Clear();
             ClearRandomRewards();
             ResetSelectedCharacterClass();
+            BattleSaveData.Clear();
         }
 
         public static void ResetSelectedCharacterClass() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.SelectedCharacterClass);
