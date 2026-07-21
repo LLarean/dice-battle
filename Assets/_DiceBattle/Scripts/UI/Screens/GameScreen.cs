@@ -4,6 +4,7 @@ using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Data;
 using DiceBattle.Events;
+using DiceBattle.Global;
 using GameSignals;
 using TMPro;
 using UnityEngine;
@@ -33,6 +34,8 @@ namespace DiceBattle.UI
         public bool HaveUnselectedDice => _gameBoard.HaveUnselectedDice;
 
         public void UpdateRewards() => _gameLogic.UpdateData();
+
+        public void AbandonBattle() => _gameLogic.AbandonBattle();
 
         public void SetPlayerData(UnitData unitData) => _player.SetUnitData(unitData);
 
@@ -166,7 +169,11 @@ namespace DiceBattle.UI
 
         private void OnEnable()
         {
-            _gameLogic.InitializeGame();
+            if (_config.CanSaveBattle && BattleSaveData.HasSavedBattle())
+                _gameLogic.RestoreGame();
+            else
+                _gameLogic.InitializeGame();
+
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Battle));
         }
 

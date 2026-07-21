@@ -48,6 +48,7 @@ namespace DiceBattle.UI
             }
             else if (_currentScreen.TryGetComponent(out GameScreen gameScreen))
             {
+                gameScreen.AbandonBattle();
                 ShowScreen(ScreenType.TavernScreen);
             }
             else if (_currentScreen.TryGetComponent(out InventoryScreen inventoryWindow))

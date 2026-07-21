@@ -9812,6 +9812,7 @@ MonoBehaviour:
   _title: {fileID: 1574294879}
   _options: {fileID: 385551122}
   _start: {fileID: 657270278}
+  _config: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
   _dice:
   - {fileID: 1269819813}
   - {fileID: 1569141924}
