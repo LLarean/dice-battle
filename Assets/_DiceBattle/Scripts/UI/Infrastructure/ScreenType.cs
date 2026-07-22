@@ -13,5 +13,6 @@
         CreditsWindow,
         HelpWindow,
         QuestWindow,
+        ConfirmWindow,
     }
 }
