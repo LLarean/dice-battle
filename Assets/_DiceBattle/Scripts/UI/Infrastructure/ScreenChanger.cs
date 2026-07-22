@@ -19,6 +19,7 @@ namespace DiceBattle.UI
         [SerializeField] private CreditsWindow _creditsWindow;
         [SerializeField] private HelpWindow _helpWindow;
         [SerializeField] private QuestWindow _questWindow;
+        [SerializeField] private ConfirmWindow _confirmWindow;
 
         private Screen _currentScreen;
 
@@ -71,6 +72,7 @@ namespace DiceBattle.UI
                 ScreenType.CreditsWindow => _creditsWindow,
                 ScreenType.HelpWindow => _helpWindow,
                 ScreenType.QuestWindow => _questWindow,
+                ScreenType.ConfirmWindow => _confirmWindow,
                 _ => throw new ArgumentOutOfRangeException(nameof(screenType), screenType, null)
             };
         }
@@ -88,6 +90,7 @@ namespace DiceBattle.UI
             _creditsWindow.gameObject.SetActive(false);
             _helpWindow.gameObject.SetActive(false);
             _questWindow.gameObject.SetActive(false);
+            _confirmWindow.gameObject.SetActive(false);
 
             SignalSystem.Subscribe(this);
         }
