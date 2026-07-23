@@ -49,8 +49,15 @@ namespace DiceBattle.UI
             }
             else if (_currentScreen.TryGetComponent(out GameScreen gameScreen))
             {
-                gameScreen.AbandonBattle();
-                ShowScreen(ScreenType.TavernScreen);
+                var confirmData = new ConfirmData("Выход",
+                    "Вы уверены, что хотите сбежать? Это приведёт к позору (потери прогресса боя)", onAccept: () =>
+                    {
+                        gameScreen.AbandonBattle();
+                        ShowScreen(ScreenType.TavernScreen);
+                    });
+
+                SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
+                SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
             }
             else if (_currentScreen.TryGetComponent(out InventoryScreen inventoryWindow))
             {
