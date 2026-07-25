@@ -153,7 +153,7 @@ namespace DiceBattle.UI
             Inventory.EquipItem(item);
             item.IsEquipped = true;
             inventoryItem.SetEquippedStatus(true);
-            inventoryItem.PlayDiceReaction();
+            inventoryItem.PlaySelectReaction();
 
             PlayClick();
 
@@ -184,7 +184,7 @@ namespace DiceBattle.UI
             Inventory.UnequipItem(item);
             item.IsEquipped = false;
             inventoryItem.SetEquippedStatus(false);
-            inventoryItem.PlayDiceReaction();
+            inventoryItem.PlayDeselectReaction();
 
             _deckHolder.RemoveCopy(copy, animate: true);
             _itemByDice.Remove(copy);
