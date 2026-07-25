@@ -8,11 +8,14 @@ namespace DiceBattle
         [SerializeField] private Loader _loader;
         [SerializeField] private SplashTip _splashTip;
 
-        private void Start()
+        private void Awake()
         {
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 60;
+        }
 
+        private void Start()
+        {
             _loader.StartAnimation();
             _splashTip.ShowRandomTip();
         }
