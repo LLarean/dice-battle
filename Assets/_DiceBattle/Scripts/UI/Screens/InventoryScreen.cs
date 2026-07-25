@@ -58,7 +58,7 @@ namespace DiceBattle.UI
 
         private void OnDisable() => _deckHolder.OnSlotDiceClicked -= HandleSlotDiceClicked;
 
-        private void Refresh()
+        private void Refresh(int direction = 0)
         {
             ClearItems();
             _deckHolder.Initialize(DeckCapacity);
@@ -75,25 +75,38 @@ namespace DiceBattle.UI
                 AddDiceCopyToHolder(inventoryItem);
             }
 
-            UpdatePlayerPanel();
+            UpdatePlayerPanel(direction);
         }
 
-        private void UpdatePlayerPanel()
+        private void UpdatePlayerPanel(int direction = 0)
         {
             UnitConfig playerConfig = _gameConfig.GetPlayerConfig(GameData.SelectedCharacterClass);
             UnitData playerData = HeroFactory.Build(playerConfig);
             playerData.Name = "Герой (вы)"; // TODO Translation
             playerData.Portrait = playerConfig.Portraits[0];
 
-            _player.SetUnitData(playerData);
-
             List<Item> equippedItems = Inventory.EquippedItems();
             int armorBonus = equippedItems.Count(i => i.Type == DiceType.BaseArmor) * playerConfig.GrowthArmor;
             int damageBonus = equippedItems.Count(i => i.Type == DiceType.BaseDamage) * playerConfig.GrowthDamage;
-            _player.SetEquipmentBonus(armorBonus, damageBonus);
 
             int used = DeckCapacity - _deckHolder.FreeSlotCount;
-            _diceCount.text = $"{used} из {DeckCapacity}"; // TODO Translation
+            string diceCountText = $"{used} из {DeckCapacity}"; // TODO Translation
+
+            void ApplyPlayerData()
+            {
+                _player.SetUnitData(playerData);
+                _player.SetEquipmentBonus(armorBonus, damageBonus);
+                _diceCount.text = diceCountText;
+            }
+
+            if (direction != 0)
+            {
+                _player.AnimateCharacterSwap(direction, ApplyPlayerData);
+            }
+            else
+            {
+                ApplyPlayerData();
+            }
         }
 
         private void CreateItem(Item item)
@@ -133,12 +146,14 @@ namespace DiceBattle.UI
 
             if (item.Type != DiceType.AdditionalDice && _deckHolder.FreeSlotCount == 0)
             {
+                inventoryItem.PlayRejectShake();
                 return;
             }
 
             Inventory.EquipItem(item);
             item.IsEquipped = true;
             inventoryItem.SetEquippedStatus(true);
+            inventoryItem.PlayDiceReaction();
 
             PlayClick();
 
@@ -148,7 +163,7 @@ namespace DiceBattle.UI
                 return;
             }
 
-            AddDiceCopyToHolder(inventoryItem);
+            AddDiceCopyToHolder(inventoryItem, animate: true);
             UpdatePlayerPanel();
             RefreshMultipliers();
         }
@@ -169,8 +184,9 @@ namespace DiceBattle.UI
             Inventory.UnequipItem(item);
             item.IsEquipped = false;
             inventoryItem.SetEquippedStatus(false);
+            inventoryItem.PlayDiceReaction();
 
-            _deckHolder.RemoveCopy(copy);
+            _deckHolder.RemoveCopy(copy, animate: true);
             _itemByDice.Remove(copy);
 
             PlayClick();
@@ -193,9 +209,9 @@ namespace DiceBattle.UI
             }
         }
 
-        private void AddDiceCopyToHolder(InventoryItem inventoryItem)
+        private void AddDiceCopyToHolder(InventoryItem inventoryItem, bool animate = false)
         {
-            Dice copy = _deckHolder.TryEquipCopy(inventoryItem.Dice);
+            Dice copy = _deckHolder.TryEquipCopy(inventoryItem.Dice, animate);
 
             if (copy != null)
             {
@@ -220,7 +236,7 @@ namespace DiceBattle.UI
             GameData.SelectedCharacterClass = (CharacterClass)nextIndex;
 
             PlayClick();
-            Refresh();
+            Refresh(direction);
         }
 
         private void PlayClick() => SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));

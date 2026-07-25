@@ -28,6 +28,15 @@ namespace DiceBattle.UI
         private const float _pulseMaxAlpha = 1f;
         private const float _pulseDuration = 0.8f;
 
+        private const float _shakeOffset = 8f;
+        private const float _shakeStep = 0.05f;
+
+        private const float _diceBounceHeight = 10f;
+        private const float _diceBounceUpDuration = 0.1f;
+        private const float _diceBounceDownDuration = 0.2f;
+        private const float _diceWobbleAngle = 10f;
+        private const float _diceWobbleStep = 0.08f;
+
         private Item _data;
 
         public event Action<DiceType> OnDiceToggled;
@@ -49,6 +58,26 @@ namespace DiceBattle.UI
         public void SetEquippedStatus(bool isEquipped)
         {
             _agreeMark.gameObject.SetActive(isEquipped);
+        }
+
+        public void PlayDiceReaction()
+        {
+            RectTransform rect = (RectTransform)_dice.transform;
+            GameObject diceObject = rect.gameObject;
+
+            LeanTween.cancel(diceObject);
+            rect.localRotation = Quaternion.identity;
+
+            float baseY = rect.anchoredPosition.y;
+
+            LTSeq bounce = LeanTween.sequence();
+            bounce.append(LeanTween.moveY(rect, baseY + _diceBounceHeight, _diceBounceUpDuration).setEase(LeanTweenType.easeOutQuad));
+            bounce.append(LeanTween.moveY(rect, baseY, _diceBounceDownDuration).setEase(LeanTweenType.easeOutBounce));
+
+            LTSeq wobble = LeanTween.sequence();
+            wobble.append(LeanTween.rotateZ(diceObject, _diceWobbleAngle, _diceWobbleStep).setEase(LeanTweenType.easeInOutSine));
+            wobble.append(LeanTween.rotateZ(diceObject, -_diceWobbleAngle, _diceWobbleStep).setEase(LeanTweenType.easeInOutSine));
+            wobble.append(LeanTween.rotateZ(diceObject, 0f, _diceWobbleStep).setEase(LeanTweenType.easeInOutSine));
         }
 
         public void SetContentVisible(bool isVisible)
@@ -94,6 +123,20 @@ namespace DiceBattle.UI
             };
         }
 
+        public void PlayRejectShake()
+        {
+            LeanTween.cancel(gameObject);
+
+            var rect = (RectTransform)transform;
+            float baseX = rect.anchoredPosition.x;
+
+            LTSeq sequence = LeanTween.sequence();
+            sequence.append(LeanTween.moveX(rect, baseX - _shakeOffset, _shakeStep).setEase(LeanTweenType.easeInOutSine));
+            sequence.append(LeanTween.moveX(rect, baseX + _shakeOffset, _shakeStep).setEase(LeanTweenType.easeInOutSine));
+            sequence.append(LeanTween.moveX(rect, baseX - _shakeOffset * 0.5f, _shakeStep).setEase(LeanTweenType.easeInOutSine));
+            sequence.append(LeanTween.moveX(rect, baseX, _shakeStep).setEase(LeanTweenType.easeInOutSine));
+        }
+
         public void RefreshMultiplier()
         {
             DiceValue? effectValue = _data.Type.GetEffectDiceValue();
@@ -115,6 +158,8 @@ namespace DiceBattle.UI
             _button.onClick.RemoveAllListeners();
             _dice.OnToggled -= HandleDiceClicked;
             LeanTween.cancel(_rarityGlow.gameObject);
+            LeanTween.cancel(_dice.gameObject);
+            LeanTween.cancel(gameObject);
         }
 
         private void HandleButtonClicked()

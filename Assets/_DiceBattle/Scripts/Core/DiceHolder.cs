@@ -22,6 +22,10 @@ namespace DiceBattle.Core
         private const float _flyStagger = 0.08f;
         private const float _preFlyDelay = 0.15f;
 
+        private const float _equipDuration = 0.25f;
+        private const float _unequipDuration = 0.15f;
+        private const float _equipStartScale = 0.4f;
+
         public event Action OnDiceToggled;
         public event Action<Dice> OnSlotDiceClicked;
 
@@ -209,7 +213,7 @@ namespace DiceBattle.Core
             return true;
         }
 
-        public Dice TryEquipCopy(Dice source)
+        public Dice TryEquipCopy(Dice source, bool animate = false)
         {
             int freeSlot = _slots.FindIndex(IsSlotFree);
             if (freeSlot < 0)
@@ -223,7 +227,21 @@ namespace DiceBattle.Core
             Action handler = () => OnSlotDiceClicked?.Invoke(copy);
             _slotHandlers[copy] = handler;
             copy.OnToggled += handler;
+
+            if (animate)
+            {
+                AnimateEquip(copy);
+            }
+
             return copy;
+        }
+
+        private static void AnimateEquip(Dice copy)
+        {
+            LeanTween.cancel(copy.gameObject);
+
+            copy.transform.localScale = Vector3.one * _equipStartScale;
+            LeanTween.scale(copy.gameObject, Vector3.one, _equipDuration).setEase(LeanTweenType.easeOutBack);
         }
 
         public void Unequip(Dice dice)
@@ -235,11 +253,35 @@ namespace DiceBattle.Core
             }
         }
 
-        public void RemoveCopy(Dice copy)
+        public void RemoveCopy(Dice copy, bool animate = false)
         {
             Unequip(copy);
-            copy.transform.SetParent(null);
-            Destroy(copy.gameObject);
+
+            if (animate)
+            {
+                AnimateUnequip(copy);
+            }
+            else
+            {
+                copy.transform.SetParent(null);
+                Destroy(copy.gameObject);
+            }
+        }
+
+        private static void AnimateUnequip(Dice copy)
+        {
+            GameObject copyObject = copy.gameObject;
+            LeanTween.cancel(copyObject);
+
+            // Destroy only the logic component so the slot frees up immediately (occupancy check
+            // no longer sees a Dice here), while the leftover visual shrinks out in place with no
+            // reparenting - reparenting away from the slot was found to trigger a layout rebuild
+            // on the deck's LayoutGroup, causing the whole row to jitter.
+            Destroy(copy);
+
+            LeanTween.scale(copyObject, Vector3.one * _equipStartScale, _unequipDuration)
+                .setEase(LeanTweenType.easeInBack)
+                .setOnComplete(() => Destroy(copyObject));
         }
 
         private void HandleDiceToggle() => OnDiceToggled?.Invoke();

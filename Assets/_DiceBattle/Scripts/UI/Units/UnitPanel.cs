@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DiceBattle.Animations;
 using DiceBattle.Core;
@@ -134,6 +135,9 @@ namespace DiceBattle.UI
             _health.value = _unitData.CurrentHealth;
             SetCurrentHealth(_unitData.CurrentHealth);
         }
+
+        public void AnimateCharacterSwap(int direction, Action onSwap) =>
+            PortraitSwapAnimation.AnimateSwap(_portrait.rectTransform, direction, onSwap);
 
         public void AnimateHeal() => HealthAnimation.AnimateHeal(_portrait);
 
