@@ -56,8 +56,8 @@ namespace DiceBattle.UI
                         ShowScreen(ScreenType.TavernScreen);
                     });
 
-                SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
                 SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
+                SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
             }
             else if (_currentScreen.TryGetComponent(out InventoryScreen inventoryWindow))
             {
