@@ -27,6 +27,7 @@ namespace DiceBattle.UI
         private const float _pulseMinAlpha = 0.4f;
         private const float _pulseMaxAlpha = 1f;
         private const float _pulseDuration = 0.8f;
+        private const float _glowSpinDuration = 6f;
 
         private const float _shakeOffset = 8f;
         private const float _shakeStep = 0.05f;
@@ -37,7 +38,15 @@ namespace DiceBattle.UI
         private const float _diceWobbleAngle = 10f;
         private const float _diceWobbleStep = 0.08f;
 
+        private const float _diceSelectSpinDuration = 0.3f;
+        private const float _diceSelectScalePeak = 1.25f;
+        private const float _diceSelectScaleUpDuration = 0.15f;
+        private const float _diceSelectScaleDownDuration = 0.15f;
+
         private Item _data;
+        private RectTransform _diceRect;
+        private Vector2 _diceBasePosition;
+        private Vector2 _cardBasePosition;
 
         public event Action<DiceType> OnDiceToggled;
 
@@ -60,15 +69,24 @@ namespace DiceBattle.UI
             _agreeMark.gameObject.SetActive(isEquipped);
         }
 
-        public void PlayDiceReaction()
+        public void PlaySelectReaction()
         {
-            RectTransform rect = (RectTransform)_dice.transform;
+            RectTransform rect = ResetDiceTransform();
             GameObject diceObject = rect.gameObject;
 
-            LeanTween.cancel(diceObject);
-            rect.localRotation = Quaternion.identity;
+            LeanTween.rotateZ(diceObject, 360f, _diceSelectSpinDuration).setEase(LeanTweenType.easeOutQuad);
 
-            float baseY = rect.anchoredPosition.y;
+            LTSeq punch = LeanTween.sequence();
+            punch.append(LeanTween.scale(diceObject, Vector3.one * _diceSelectScalePeak, _diceSelectScaleUpDuration).setEase(LeanTweenType.easeOutBack));
+            punch.append(LeanTween.scale(diceObject, Vector3.one, _diceSelectScaleDownDuration).setEase(LeanTweenType.easeInOutSine));
+        }
+
+        public void PlayDeselectReaction()
+        {
+            RectTransform rect = ResetDiceTransform();
+            GameObject diceObject = rect.gameObject;
+
+            float baseY = _diceBasePosition.y;
 
             LTSeq bounce = LeanTween.sequence();
             bounce.append(LeanTween.moveY(rect, baseY + _diceBounceHeight, _diceBounceUpDuration).setEase(LeanTweenType.easeOutQuad));
@@ -78,6 +96,17 @@ namespace DiceBattle.UI
             wobble.append(LeanTween.rotateZ(diceObject, _diceWobbleAngle, _diceWobbleStep).setEase(LeanTweenType.easeInOutSine));
             wobble.append(LeanTween.rotateZ(diceObject, -_diceWobbleAngle, _diceWobbleStep).setEase(LeanTweenType.easeInOutSine));
             wobble.append(LeanTween.rotateZ(diceObject, 0f, _diceWobbleStep).setEase(LeanTweenType.easeInOutSine));
+        }
+
+        private RectTransform ResetDiceTransform()
+        {
+            LeanTween.cancel(_diceRect.gameObject);
+
+            _diceRect.localRotation = Quaternion.identity;
+            _diceRect.localScale = Vector3.one;
+            _diceRect.anchoredPosition = _diceBasePosition;
+
+            return _diceRect;
         }
 
         public void SetContentVisible(bool isVisible)
@@ -103,13 +132,21 @@ namespace DiceBattle.UI
             _rarityGlow.color = GetRarityColor(rarity);
             _rarityGlow.gameObject.SetActive(true);
 
+            // Guarantee the glow renders behind the dice, otherwise it swallows the select/deselect animation.
+            _rarityGlow.transform.SetSiblingIndex(_diceRect.GetSiblingIndex());
+
             Color faded = _rarityGlow.color;
             faded.a = _pulseMinAlpha;
             _rarityGlow.color = faded;
+            _rarityGlow.rectTransform.localRotation = Quaternion.identity;
 
             LeanTween.alpha(_rarityGlow.rectTransform, _pulseMaxAlpha, _pulseDuration)
                 .setEase(LeanTweenType.easeInOutSine)
                 .setLoopPingPong(-1);
+
+            LeanTween.rotateZ(_rarityGlow.gameObject, 360f, _glowSpinDuration)
+                .setEase(LeanTweenType.linear)
+                .setLoopClamp(-1);
         }
 
         private static Color GetRarityColor(DiceRarity rarity)
@@ -128,7 +165,8 @@ namespace DiceBattle.UI
             LeanTween.cancel(gameObject);
 
             var rect = (RectTransform)transform;
-            float baseX = rect.anchoredPosition.x;
+            rect.anchoredPosition = _cardBasePosition;
+            float baseX = _cardBasePosition.x;
 
             LTSeq sequence = LeanTween.sequence();
             sequence.append(LeanTween.moveX(rect, baseX - _shakeOffset, _shakeStep).setEase(LeanTweenType.easeInOutSine));
@@ -145,6 +183,13 @@ namespace DiceBattle.UI
             {
                 _dice.ShowFixedMultiplier(effectValue.Value);
             }
+        }
+
+        private void Awake()
+        {
+            _diceRect = (RectTransform)_dice.transform;
+            _diceBasePosition = _diceRect.anchoredPosition;
+            _cardBasePosition = ((RectTransform)transform).anchoredPosition;
         }
 
         private void Start()
