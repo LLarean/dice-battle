@@ -45,7 +45,7 @@ namespace DiceBattle.UI
                 }
             }
 
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("Main");
         }
     }
 }
