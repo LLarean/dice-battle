@@ -23,8 +23,16 @@ namespace DiceBattle.UI
 
         private void HandleRestartClick()
         {
-            GameData.ResetAll();
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
+            var confirmData = new ConfirmData("Похоронить героев?",
+                "Герои сдаются, но всегда приходят новые. Весь прогресс и собранная коллекция кубиков будут потеряны безвозвратно.",
+                onAccept: () =>
+                {
+                    GameData.ResetAll();
+                    SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
+                });
+
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
+            SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
         }
     }
 }
