@@ -6,6 +6,7 @@ namespace DiceBattle
     public class SplashScreen : MonoBehaviour
     {
         [SerializeField] private Loader _loader;
+        [SerializeField] private SplashTip _splashTip;
 
         private void Start()
         {
@@ -13,6 +14,7 @@ namespace DiceBattle
             Application.targetFrameRate = 60;
 
             _loader.StartAnimation();
+            _splashTip.ShowRandomTip();
         }
     }
 }
