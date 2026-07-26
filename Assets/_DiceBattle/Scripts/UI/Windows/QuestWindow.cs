@@ -33,7 +33,7 @@ namespace DiceBattle.UI
 
         private void HandleCloseClick()
         {
-            gameObject.SetActive(false);
+            Hide();
         }
     }
 }

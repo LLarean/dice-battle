@@ -59,7 +59,7 @@ namespace DiceBattle.UI
         private void HandleCreditsClick()
         {
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.CreditsWindow));
-            gameObject.SetActive(false);
+            Hide();
         }
 
         private void HandleLanguageClick()
@@ -67,6 +67,6 @@ namespace DiceBattle.UI
             Debug.Log("Language change");
         }
 
-        private void HandleCloseClick() => gameObject.SetActive(false);
+        private void HandleCloseClick() => Hide();
     }
 }
