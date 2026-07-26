@@ -82,7 +82,7 @@ namespace DiceBattle.UI
         {
             UnitConfig playerConfig = _gameConfig.GetPlayerConfig(GameData.SelectedCharacterClass);
             UnitData playerData = HeroFactory.Build(playerConfig);
-            playerData.Name = "Герой (вы)"; // TODO Translation
+            playerData.Name = playerConfig.Name;
             playerData.Portrait = playerConfig.Portraits[0];
 
             List<Item> equippedItems = Inventory.EquippedItems();

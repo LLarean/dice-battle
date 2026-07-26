@@ -30,7 +30,7 @@ namespace DiceBattle.Core
         {
             UnitConfig playerConfig = _config.GetPlayerConfig(GameData.SelectedCharacterClass);
             UnitData playerData = HeroFactory.Build(playerConfig);
-            playerData.Name = "Герой (вы)"; // TODO Translation
+            playerData.Name = playerConfig.Name;
             playerData.Portrait = playerConfig.Portraits[0];
 
             playerData.Log();
@@ -59,7 +59,7 @@ namespace DiceBattle.Core
         {
             UnitConfig playerConfig = _config.GetPlayerConfig(GameData.SelectedCharacterClass);
             UnitData playerData = HeroFactory.Build(playerConfig);
-            playerData.Name = "Герой (вы)"; // TODO Translation
+            playerData.Name = playerConfig.Name;
             playerData.Portrait = playerConfig.Portraits[0];
             ApplySnapshot(playerData, saved.PlayerState);
 

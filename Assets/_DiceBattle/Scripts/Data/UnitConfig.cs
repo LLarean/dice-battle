@@ -6,6 +6,8 @@ namespace DiceBattle.Data
     [Serializable]
     public class UnitConfig
     {
+        [Header("Info")]
+        public string Name;
         public Sprite[] Portraits = Array.Empty<Sprite>();
         [Header("Health")]
         public int StartHealth = 20;

@@ -34,7 +34,7 @@ namespace DiceBattle
             UnitConfig playerConfig = config.GetPlayerConfig(GameData.SelectedCharacterClass);
             List<DiceType> rewardTypes = GameData.GetEquippedAsDiceList().DiceTypes;
 
-            unitData.Name = "Герой (upd)"; // TODO Translation
+            unitData.Name = playerConfig.Name;
 
             unitData.Armor = playerConfig.StartArmor + rewardTypes.Count(r => r == DiceType.BaseArmor) * playerConfig.GrowthArmor;
             unitData.Damage = playerConfig.StartDamage + rewardTypes.Count(r => r == DiceType.BaseDamage) * playerConfig.GrowthDamage;
