@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DiceBattle.Animations;
 using DiceBattle.Audio;
@@ -27,6 +28,7 @@ namespace DiceBattle.UI
         [SerializeField] private RectTransform _bottomButtons;
 
         private GameObjectAnimations _gameObjectAnimations;
+        private readonly List<Action> _diceToggleHandlers = new();
 
         private void Awake()
         {
@@ -38,12 +40,26 @@ namespace DiceBattle.UI
         {
             _options.onClick.AddListener(HandleOptionsClick);
             _start.onClick.AddListener(HandleStartClick);
+
+            foreach (Dice dice in _dice)
+            {
+                Dice clickedDice = dice;
+                Action handler = () => HandleDiceToggled(clickedDice);
+
+                _diceToggleHandlers.Add(handler);
+                clickedDice.OnToggled += handler;
+            }
         }
 
         private void OnDestroy()
         {
             _options.onClick.RemoveAllListeners();
             _start.onClick.RemoveAllListeners();
+
+            for (int i = 0; i < _dice.Count; i++)
+            {
+                _dice[i].OnToggled -= _diceToggleHandlers[i];
+            }
 
             LeanTween.cancel(gameObject);
         }
@@ -71,6 +87,33 @@ namespace DiceBattle.UI
 
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(targetScreen));
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Show());
+        }
+
+        private void HandleDiceToggled(Dice dice)
+        {
+            dice.Roll();
+
+            CheckEasterEgg();
+        }
+
+        private void CheckEasterEgg()
+        {
+            DiceValue firstValue = _dice[0].DiceValue;
+
+            for (int i = 1; i < _dice.Count; i++)
+            {
+                if (_dice[i].DiceValue != firstValue)
+                {
+                    return;
+                }
+            }
+
+            TriggerEasterEgg(firstValue);
+        }
+
+        private void TriggerEasterEgg(DiceValue diceValue)
+        {
+            Debug.Log($"Easter egg triggered! All dice show {diceValue}.");
         }
     }
 }
