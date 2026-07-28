@@ -43,10 +43,15 @@ namespace DiceBattle.UI
         private const float _diceSelectScaleUpDuration = 0.15f;
         private const float _diceSelectScaleDownDuration = 0.15f;
 
+        private const float _contentFadeInDuration = 0.2f;
+        private const float _contentScalePeak = 1f;
+        private const float _contentScaleStart = 0.9f;
+
         private Item _data;
         private RectTransform _diceRect;
         private Vector2 _diceBasePosition;
         private Vector2 _cardBasePosition;
+        private CanvasGroup _contentGroup;
 
         public event Action<DiceType> OnDiceToggled;
 
@@ -117,6 +122,24 @@ namespace DiceBattle.UI
 
             bool showGlow = isVisible && _data != null && _data.Type.GetRarity() != DiceRarity.Common;
             _rarityGlow.gameObject.SetActive(showGlow);
+        }
+
+        public void SetInteractable(bool isInteractable)
+        {
+            _button.interactable = isInteractable;
+            _contentGroup.blocksRaycasts = isInteractable;
+        }
+
+        public void PlayRevealAnimation()
+        {
+            LeanTween.cancel(gameObject);
+
+            _contentGroup.alpha = 0f;
+            var rect = (RectTransform)transform;
+            rect.localScale = Vector3.one * _contentScaleStart;
+
+            LeanTween.alphaCanvas(_contentGroup, 1f, _contentFadeInDuration).setEase(LeanTweenType.easeOutQuad);
+            LeanTween.scale(gameObject, Vector3.one * _contentScalePeak, _contentFadeInDuration).setEase(LeanTweenType.easeOutBack);
         }
 
         public void RefreshRarityGlow(DiceRarity rarity)
@@ -190,6 +213,12 @@ namespace DiceBattle.UI
             _diceRect = (RectTransform)_dice.transform;
             _diceBasePosition = _diceRect.anchoredPosition;
             _cardBasePosition = ((RectTransform)transform).anchoredPosition;
+
+            _contentGroup = GetComponent<CanvasGroup>();
+            if (_contentGroup == null)
+            {
+                _contentGroup = gameObject.AddComponent<CanvasGroup>();
+            }
         }
 
         private void Start()
