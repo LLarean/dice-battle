@@ -136,8 +136,24 @@ namespace DiceBattle.UI
             SetCurrentHealth(_unitData.CurrentHealth);
         }
 
-        public void AnimateCharacterSwap(int direction, Action onSwap) =>
-            PortraitSwapAnimation.AnimateSwap(_portrait.rectTransform, direction, onSwap);
+        public void AnimateCharacterSwap(int direction, Action onSwap)
+        {
+            bool swapped = false;
+
+            void SwapOnce()
+            {
+                if (swapped)
+                {
+                    return;
+                }
+
+                swapped = true;
+                onSwap?.Invoke();
+            }
+
+            PortraitSwapAnimation.AnimateSwap(_portrait.rectTransform, direction, SwapOnce);
+            TextSwapAnimation.AnimateSwap(_title, SwapOnce);
+        }
 
         public void AnimateHeal() => HealthAnimation.AnimateHeal(_portrait);
 
