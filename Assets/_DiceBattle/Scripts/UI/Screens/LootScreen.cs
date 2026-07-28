@@ -77,6 +77,7 @@ namespace DiceBattle.UI
                 _rewardItems[i].Initialize(new Item { Type = _currentRewards[i], IsEquipped = false });
                 _rewardItems[i].SetEquippedStatus(false);
                 _rewardItems[i].SetContentVisible(false);
+                _rewardItems[i].SetInteractable(false);
             }
         }
 
@@ -125,6 +126,8 @@ namespace DiceBattle.UI
                     {
                         _dice[index].gameObject.SetActive(false);
                         _rewardItems[index].SetContentVisible(true);
+                        _rewardItems[index].PlayRevealAnimation();
+                        _rewardItems[index].SetInteractable(true);
 
                         remaining--;
                         if (remaining == 0)
