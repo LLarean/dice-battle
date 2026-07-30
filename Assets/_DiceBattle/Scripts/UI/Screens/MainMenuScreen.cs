@@ -31,6 +31,8 @@ namespace DiceBattle.UI
         private GameObjectAnimations _gameObjectAnimations;
         private readonly List<Action> _diceToggleHandlers = new();
 
+        private bool HasSavedBattle => _config.CanSaveBattle && BattleSaveData.HasSavedBattle();
+
         private void Awake()
         {
             _gameObjectAnimations = new GameObjectAnimations(_rootUI);
@@ -42,6 +44,8 @@ namespace DiceBattle.UI
             _gameObjectAnimations.SlideIn(_title.rectTransform);
             _gameObjectAnimations.SlideIn(_bottomButtons, -1);
             DiceAnimation.Animate(_dice, _rollAnimationArea);
+
+            _startLabel.text = HasSavedBattle ? "В бой" : "В таверну";
 
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Menu));
@@ -82,9 +86,7 @@ namespace DiceBattle.UI
 
         private void HandleStartClick()
         {
-            ScreenType targetScreen = _config.CanSaveBattle && BattleSaveData.HasSavedBattle()
-                ? ScreenType.GameScreen
-                : ScreenType.TavernScreen;
+            ScreenType targetScreen = HasSavedBattle ? ScreenType.GameScreen : ScreenType.TavernScreen;
 
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(targetScreen));
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Show());
