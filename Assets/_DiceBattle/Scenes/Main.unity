@@ -9848,17 +9848,18 @@ MonoBehaviour:
   _transitionKind: 1
   _windowContent: {fileID: 0}
   _dimmer: {fileID: 0}
-  _rootUI: {fileID: 14530408}
   _title: {fileID: 1574294879}
   _options: {fileID: 385551122}
   _start: {fileID: 657270278}
-  _config: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
+  _startLabel: {fileID: 7513583881084916970}
+  _rootUI: {fileID: 14530408}
   _dice:
   - {fileID: 1269819813}
   - {fileID: 1569141924}
   - {fileID: 192876210}
   _rollAnimationArea: {fileID: 459669687}
   _bottomButtons: {fileID: 52125913}
+  _config: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
 --- !u!225 &1513456418
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -15288,6 +15289,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+--- !u!114 &7513583881084916970 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9095163842556213617, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+  m_PrefabInstance: {fileID: 7513583881084916969}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7587949318417113683
 PrefabInstance:
   m_ObjectHideFlags: 0

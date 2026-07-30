@@ -15,17 +15,18 @@ namespace DiceBattle.UI
 {
     public class MainMenuScreen : Screen
     {
-        [Space]
-        [SerializeField] private RectTransform _rootUI;
-        [Space]
+        [Header("UI References")]
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private Button _options;
         [SerializeField] private Button _start;
-        [SerializeField] private GameConfig _config;
-        [Space]
+        [SerializeField] private TextMeshProUGUI _startLabel;
+        [Header("Animation")]
+        [SerializeField] private RectTransform _rootUI;
         [SerializeField] private List<Dice> _dice;
         [SerializeField] private RectTransform _rollAnimationArea;
         [SerializeField] private RectTransform _bottomButtons;
+        [Header("Config")]
+        [SerializeField] private GameConfig _config;
 
         private GameObjectAnimations _gameObjectAnimations;
         private readonly List<Action> _diceToggleHandlers = new();
@@ -34,6 +35,16 @@ namespace DiceBattle.UI
         {
             _gameObjectAnimations = new GameObjectAnimations(_rootUI);
             _gameObjectAnimations.SetParams(.2f, .5f, LeanTweenType.easeOutBack);
+        }
+
+        private void OnEnable()
+        {
+            _gameObjectAnimations.SlideIn(_title.rectTransform);
+            _gameObjectAnimations.SlideIn(_bottomButtons, -1);
+            DiceAnimation.Animate(_dice, _rollAnimationArea);
+
+            SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Menu));
         }
 
         private void Start()
@@ -62,16 +73,6 @@ namespace DiceBattle.UI
             }
 
             LeanTween.cancel(gameObject);
-        }
-
-        private void OnEnable()
-        {
-            _gameObjectAnimations.SlideIn(_title.rectTransform);
-            _gameObjectAnimations.SlideIn(_bottomButtons, -1);
-            DiceAnimation.Animate(_dice, _rollAnimationArea);
-
-            SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Menu));
         }
 
         private void HandleOptionsClick()

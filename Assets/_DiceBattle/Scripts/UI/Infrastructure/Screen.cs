@@ -12,6 +12,7 @@ namespace DiceBattle.UI
 
     public class Screen : MonoBehaviour
     {
+        [Header("Base Screen Components")]
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private TransitionKind _transitionKind = TransitionKind.Screen;
         [SerializeField] [ShowIf(nameof(_transitionKind), TransitionKind.Window)] [AllowNesting] private RectTransform _windowContent;
