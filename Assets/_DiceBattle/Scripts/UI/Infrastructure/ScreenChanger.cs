@@ -54,7 +54,7 @@ namespace DiceBattle.UI
                     {
                         gameScreen.AbandonBattle();
                         ShowScreen(ScreenType.TavernScreen);
-                    });
+                    }, acceptText: "Сбежать", cancelText: "Остаться");
 
                 SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
                 SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
