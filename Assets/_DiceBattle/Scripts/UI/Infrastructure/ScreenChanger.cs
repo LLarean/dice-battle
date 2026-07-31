@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DiceBattle.Events;
 using GameSignals;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace DiceBattle.UI
         [SerializeField] private ConfirmWindow _confirmWindow;
 
         private Screen _currentScreen;
+        private readonly Stack<Screen> _openWindows = new();
 
         public void ShowScreen(ScreenType screenType)
         {
@@ -39,11 +41,27 @@ namespace DiceBattle.UI
         {
             Screen window = GetScreen(screenType);
             window.Show();
+            _openWindows.Push(window);
+        }
+
+        public void CloseTopWindow()
+        {
+            if (_openWindows.Count == 0)
+            {
+                return;
+            }
+
+            Screen window = _openWindows.Pop();
+            window.Hide();
         }
 
         public void Back()
         {
-            if (_currentScreen.TryGetComponent(out TavernScreen dungeonsScreen))
+            if (_openWindows.Count > 0)
+            {
+                CloseTopWindow();
+            }
+            else if (_currentScreen.TryGetComponent(out TavernScreen dungeonsScreen))
             {
                 ShowScreen(ScreenType.MainMenu);
             }
@@ -63,6 +81,24 @@ namespace DiceBattle.UI
             {
                 ShowScreen(ScreenType.TavernScreen);
             }
+            else if (_currentScreen.TryGetComponent(out MainMenuScreen mainMenuScreen))
+            {
+                var confirmData = new ConfirmData("Бежишь из таверны?",
+                    "Трактирщик обидится, но переживёт. Выходим?", onAccept: QuitGame,
+                    acceptText: "Выйти", cancelText: "Остаться");
+
+                SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
+                SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
+            }
+        }
+
+        private static void QuitGame()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
         }
 
         private Screen GetScreen(ScreenType screenType)

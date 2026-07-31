@@ -56,13 +56,13 @@ namespace DiceBattle.UI
 
         private void HandleAccept()
         {
-            Hide();
+            SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
             _onAccept?.Invoke();
         }
 
         private void HandleCancel()
         {
-            Hide();
+            SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
             _onCancel?.Invoke();
         }
     }

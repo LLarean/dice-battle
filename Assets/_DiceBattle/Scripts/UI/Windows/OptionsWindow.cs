@@ -58,8 +58,8 @@ namespace DiceBattle.UI
 
         private void HandleCreditsClick()
         {
+            SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.CreditsWindow));
-            Hide();
         }
 
         private void HandleLanguageClick()
@@ -67,6 +67,6 @@ namespace DiceBattle.UI
             Debug.Log("Language change");
         }
 
-        private void HandleCloseClick() => Hide();
+        private void HandleCloseClick() => SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
     }
 }

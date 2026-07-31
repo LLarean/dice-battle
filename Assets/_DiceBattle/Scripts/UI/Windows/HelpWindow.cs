@@ -1,3 +1,5 @@
+using DiceBattle.Events;
+using GameSignals;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +22,7 @@ namespace DiceBattle.UI
 
         private void HandleCloseClick()
         {
-            Hide();
+            SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
         }
     }
 }
