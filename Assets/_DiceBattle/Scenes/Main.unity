@@ -8865,7 +8865,9 @@ MonoBehaviour:
   _title: {fileID: 1877921182}
   _message: {fileID: 1044876661}
   _accept: {fileID: 1753278160}
+  _acceptText: {fileID: 1851991894}
   _cancel: {fileID: 623361602}
+  _cancelText: {fileID: 1664538193}
 --- !u!1 &1381595742
 GameObject:
   m_ObjectHideFlags: 0
@@ -10763,6 +10765,17 @@ MonoBehaviour:
   _close: {fileID: 804198751}
   _unitPanel: {fileID: 2019377728}
   _description: {fileID: 1169374080}
+--- !u!114 &1664538193 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9095163842556213617, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+  m_PrefabInstance: {fileID: 623361600}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1666338446 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5408422912977510510, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
@@ -12064,6 +12077,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1851125918}
   m_CullTransparentMesh: 1
+--- !u!114 &1851991894 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9095163842556213617, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+  m_PrefabInstance: {fileID: 1753278158}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1877921180
 PrefabInstance:
   m_ObjectHideFlags: 0

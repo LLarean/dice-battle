@@ -14,7 +14,9 @@ namespace DiceBattle.UI
         [SerializeField] private TextMeshProUGUI _message;
         [Space]
         [SerializeField] private Button _accept;
+        [SerializeField] private TextMeshProUGUI _acceptText;
         [SerializeField] private Button _cancel;
+        [SerializeField] private TextMeshProUGUI _cancelText;
 
         private Action _onAccept;
         private Action _onCancel;
@@ -40,6 +42,16 @@ namespace DiceBattle.UI
             _message.text = data.Message;
             _onAccept = data.OnAccept;
             _onCancel = data.OnCancel;
+
+            if (string.IsNullOrEmpty(data.AcceptText) == false)
+            {
+                _acceptText.text = data.AcceptText;
+            }
+
+            if (string.IsNullOrEmpty(data.CancelText) == false)
+            {
+                _cancelText.text = data.CancelText;
+            }
         }
 
         private void HandleAccept()
