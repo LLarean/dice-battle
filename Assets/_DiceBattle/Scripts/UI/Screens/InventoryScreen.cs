@@ -64,6 +64,7 @@ namespace DiceBattle.UI
             _deckHolder.Initialize(DeckCapacity);
 
             List<Item> allItems = Inventory.AllItems();
+            allItems.Reverse();
 
             foreach (Item item in allItems)
             {
