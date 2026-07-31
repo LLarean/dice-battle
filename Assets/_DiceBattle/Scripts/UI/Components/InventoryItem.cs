@@ -50,7 +50,6 @@ namespace DiceBattle.UI
         private Item _data;
         private RectTransform _diceRect;
         private Vector2 _diceBasePosition;
-        private Vector2 _cardBasePosition;
         private CanvasGroup _contentGroup;
 
         public event Action<DiceType> OnDiceToggled;
@@ -188,8 +187,7 @@ namespace DiceBattle.UI
             LeanTween.cancel(gameObject);
 
             var rect = (RectTransform)transform;
-            rect.anchoredPosition = _cardBasePosition;
-            float baseX = _cardBasePosition.x;
+            float baseX = rect.anchoredPosition.x;
 
             LTSeq sequence = LeanTween.sequence();
             sequence.append(LeanTween.moveX(rect, baseX - _shakeOffset, _shakeStep).setEase(LeanTweenType.easeInOutSine));
@@ -212,7 +210,6 @@ namespace DiceBattle.UI
         {
             _diceRect = (RectTransform)_dice.transform;
             _diceBasePosition = _diceRect.anchoredPosition;
-            _cardBasePosition = ((RectTransform)transform).anchoredPosition;
 
             _contentGroup = GetComponent<CanvasGroup>();
             if (_contentGroup == null)
