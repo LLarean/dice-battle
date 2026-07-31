@@ -1,5 +1,7 @@
 using DiceBattle.Data;
+using DiceBattle.Events;
 using DiceBattle.Global;
+using GameSignals;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,7 +35,7 @@ namespace DiceBattle.UI
 
         private void HandleCloseClick()
         {
-            Hide();
+            SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
         }
     }
 }

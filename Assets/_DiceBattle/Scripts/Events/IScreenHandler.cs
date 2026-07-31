@@ -7,6 +7,7 @@ namespace DiceBattle.Events
     {
         void ShowScreen(ScreenType screenType);
         void ShowWindow(ScreenType screenType);
+        void CloseTopWindow();
         void Back();
     }
 }
