@@ -29,7 +29,7 @@ namespace DiceBattle.UI
                 {
                     GameData.ResetAll();
                     SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
-                });
+                }, acceptText: "Заново", cancelText: "Остаться");
 
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
             SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));

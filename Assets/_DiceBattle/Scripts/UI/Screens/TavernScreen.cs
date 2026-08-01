@@ -63,7 +63,7 @@ namespace DiceBattle.UI
                     GameData.ResetAll();
                     DefaultInventory.InitializeDefault(_gameConfig.DiceStartCount);
                     SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
-                });
+                }, acceptText: "Заново", cancelText: "Остаться");
 
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
             SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
