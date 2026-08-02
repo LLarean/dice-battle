@@ -22,11 +22,25 @@ namespace DiceBattle.UI
         [SerializeField] private QuestWindow _questWindow;
         [SerializeField] private ConfirmWindow _confirmWindow;
 
+        private const float TransitionLockDuration = 0.35f;
+
         private Screen _currentScreen;
         private readonly Stack<Screen> _openWindows = new();
+        private float _transitionLockedUntil;
+
+        private bool IsTransitioning => Time.unscaledTime < _transitionLockedUntil;
+
+        private void LockTransitions() => _transitionLockedUntil = Time.unscaledTime + TransitionLockDuration;
 
         public void ShowScreen(ScreenType screenType)
         {
+            if (IsTransitioning)
+            {
+                return;
+            }
+
+            LockTransitions();
+
             if (_currentScreen != null)
             {
                 _currentScreen.Hide();
@@ -39,6 +53,13 @@ namespace DiceBattle.UI
 
         public void ShowWindow(ScreenType screenType)
         {
+            if (IsTransitioning)
+            {
+                return;
+            }
+
+            LockTransitions();
+
             Screen window = GetScreen(screenType);
             window.Show();
             _openWindows.Push(window);
@@ -46,10 +67,12 @@ namespace DiceBattle.UI
 
         public void CloseTopWindow()
         {
-            if (_openWindows.Count == 0)
+            if (IsTransitioning || _openWindows.Count == 0)
             {
                 return;
             }
+
+            LockTransitions();
 
             Screen window = _openWindows.Pop();
             window.Hide();
@@ -57,6 +80,11 @@ namespace DiceBattle.UI
 
         public void Back()
         {
+            if (IsTransitioning)
+            {
+                return;
+            }
+
             if (_openWindows.Count > 0)
             {
                 CloseTopWindow();
