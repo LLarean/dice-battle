@@ -8,6 +8,7 @@
         public const string GameData = "GameData";
         public const string CompletedLevels = "CompletedLevels";
         public const string CurrentLevel = "CurrentLevel";
+        public const string NewGamePlusCycle = "NewGamePlusCycle";
 
         public const string SelectedCharacterClass = "SelectedCharacterClass";
 
