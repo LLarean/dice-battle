@@ -11,6 +11,7 @@
         public const string NewGamePlusCycle = "NewGamePlusCycle";
 
         public const string SelectedCharacterClass = "SelectedCharacterClass";
+        public const string HasEverRolledDice = "HasEverRolledDice";
 
         public const string AllItems = "AllItems";
         public const string PlayerInventory = "RPlayerInventory";

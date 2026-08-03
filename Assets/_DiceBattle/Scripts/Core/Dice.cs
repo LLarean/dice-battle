@@ -38,6 +38,7 @@ namespace DiceBattle.Core
         public event Action OnToggled;
 
         public DiceValue DiceValue => _diceValue;
+        public bool Interactable => _button.interactable;
         public bool IsSelected => _selectionIcon.gameObject.activeSelf;
 
         public void SetFixedFace(DiceIconCategory category)
