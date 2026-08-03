@@ -25,17 +25,28 @@ namespace DiceBattle.Global
 
         public static int CompletedLevels => PlayerPrefs.GetInt(PlayerPrefsKeys.CompletedLevels, 0);
         public static int CurrentLevel => PlayerPrefs.GetInt(PlayerPrefsKeys.CurrentLevel, 0);
+        public static int NewGamePlusCycle => PlayerPrefs.GetInt(PlayerPrefsKeys.NewGamePlusCycle, 0);
 
         public static void ResetAll()
         {
             ResetCompletedLevels();
             ResetCurrentLevel();
+            ResetNewGamePlusCycle();
 
             Inventory.Clear();
             ClearRandomRewards();
             ResetSelectedCharacterClass();
             BattleSaveData.Clear();
         }
+
+        public static void AdvanceNewGamePlus()
+        {
+            int nextCycle = NewGamePlusCycle + 1;
+            ResetAll();
+            PlayerPrefs.SetInt(PlayerPrefsKeys.NewGamePlusCycle, nextCycle);
+        }
+
+        public static void ResetNewGamePlusCycle() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.NewGamePlusCycle);
 
         public static void ResetSelectedCharacterClass() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.SelectedCharacterClass);
 
