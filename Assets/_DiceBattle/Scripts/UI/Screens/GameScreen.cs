@@ -26,6 +26,7 @@ namespace DiceBattle.UI
         [SerializeField] private Button _context;
         [SerializeField] private TextMeshProUGUI _contextLabel;
         [SerializeField] private Button _all;
+        [SerializeField] private RollButtonHint _rollButtonHint;
 
         private GameLogic _gameLogic;
 
@@ -72,9 +73,17 @@ namespace DiceBattle.UI
 
         public void ResetDice() => _gameBoard.ResetDice();
 
-        public void EnableDiceInteractable() => _gameBoard.EnableDiceInteractable();
+        public void EnableDiceInteractable()
+        {
+            _gameBoard.EnableDiceInteractable();
+            _rollButtonHint.SetPaused(false);
+        }
 
-        public void DisableDiceInteractable() => _gameBoard.DisableDiceInteractable();
+        public void DisableDiceInteractable()
+        {
+            _gameBoard.DisableDiceInteractable();
+            _rollButtonHint.SetPaused(true);
+        }
 
         public void RollDice() => _gameBoard.RollDice();
 
@@ -107,10 +116,15 @@ namespace DiceBattle.UI
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.HelpWindow));
         }
 
-        private void HandleContextClicked() => _gameLogic.ContextClick();
+        private void HandleContextClicked()
+        {
+            _rollButtonHint.Notify();
+            _gameLogic.ContextClick();
+        }
 
         private void HandleAllClicked()
         {
+            _rollButtonHint.Notify();
             _gameLogic.AllClick();
             HandleDiceToggle();
         }

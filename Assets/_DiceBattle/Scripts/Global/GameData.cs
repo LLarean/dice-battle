@@ -23,6 +23,12 @@ namespace DiceBattle.Global
         }
 
 
+        public static bool HasEverRolledDice
+        {
+            get => PlayerPrefs.GetInt(PlayerPrefsKeys.HasEverRolledDice, 0) == 1;
+            set => PlayerPrefs.SetInt(PlayerPrefsKeys.HasEverRolledDice, value ? 1 : 0);
+        }
+
         public static int CompletedLevels => PlayerPrefs.GetInt(PlayerPrefsKeys.CompletedLevels, 0);
         public static int CurrentLevel => PlayerPrefs.GetInt(PlayerPrefsKeys.CurrentLevel, 0);
         public static int NewGamePlusCycle => PlayerPrefs.GetInt(PlayerPrefsKeys.NewGamePlusCycle, 0);

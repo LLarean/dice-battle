@@ -96,6 +96,7 @@ namespace DiceBattle.Core
 
             if (_matchData.RemainingDiceRerolls == 1)
             {
+                GameData.HasEverRolledDice = true;
                 _gameScreen.RollDice();
             }
             else if (_matchData.RemainingDiceRerolls < _matchData.MaxDiceRerolls)
