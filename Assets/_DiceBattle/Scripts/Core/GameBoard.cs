@@ -26,6 +26,7 @@ namespace DiceBattle.Core
         public List<Dice> Dices => _dices;
         public bool HaveSelectedDice => _diceHolder.Selected.Count > 0;
         public bool HaveUnselectedDice => _diceHolder.Selected.Count < _dices.Count;
+        public bool DiceInteractable => _dices.Count > 0 && _dices[0].Interactable;
 
         public void RollDice() => _diceShaker.Roll(_diceHolder.Occupied);
 
