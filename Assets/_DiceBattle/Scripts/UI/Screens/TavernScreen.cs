@@ -21,10 +21,13 @@ namespace DiceBattle.UI
         [Space]
         [SerializeField] private Innkeeper _innkeeper;
 
+        private bool IsFullClear => GameData.CompletedLevels >= _gameConfig.Enemies.Count;
+
         private void SetLabel()
         {
-            int completedLevels = GameData.CompletedLevels;
-            _startLabel.text = "Уровень " + (completedLevels + 1); // TODO Translation into other languages
+            _startLabel.text = IsFullClear
+                ? "Новая игра+"
+                : "Уровень " + (GameData.CompletedLevels + 1); // TODO Translation into other languages
         }
 
         #region Unity lifecycle
@@ -71,6 +74,12 @@ namespace DiceBattle.UI
 
         private void HandleStartClick()
         {
+            if (IsFullClear)
+            {
+                GameData.AdvanceNewGamePlus();
+                DefaultInventory.InitializeDefault(_gameConfig.DiceStartCount);
+            }
+
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
         }
 

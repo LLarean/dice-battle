@@ -2,6 +2,7 @@
 using DiceBattle.Data;
 using DiceBattle.Global;
 using DiceBattle.UI;
+using UnityEngine;
 
 namespace DiceBattle.Core
 {
@@ -20,6 +21,7 @@ namespace DiceBattle.Core
         {
             UnitData source = _config.Enemies[GameData.CompletedLevels];
             UnitData enemyData = source.CloneAtFullHealth();
+            ApplyNewGamePlusMultiplier(enemyData);
 
             enemyData.Log();
             _gameScreen.SetEnemyData(enemyData);
@@ -48,6 +50,7 @@ namespace DiceBattle.Core
         {
             UnitData source = _config.Enemies[GameData.CompletedLevels];
             UnitData enemyData = source.CloneAtFullHealth();
+            ApplyNewGamePlusMultiplier(enemyData);
             ApplySnapshot(enemyData, saved.EnemyState);
 
             enemyData.Log();
@@ -79,6 +82,18 @@ namespace DiceBattle.Core
             unitData.CurrentHealth = snapshot.CurrentHealth;
             unitData.Damage = snapshot.Damage;
             unitData.Armor = snapshot.Armor;
+        }
+
+        private void ApplyNewGamePlusMultiplier(UnitData enemyData)
+        {
+            float multiplier = _config.GetNewGamePlusMultiplier(GameData.NewGamePlusCycle);
+            if (multiplier == 1f)
+                return;
+
+            enemyData.MaxHealth = Mathf.RoundToInt(enemyData.MaxHealth * multiplier);
+            enemyData.CurrentHealth = enemyData.MaxHealth;
+            enemyData.Damage = Mathf.RoundToInt(enemyData.Damage * multiplier);
+            enemyData.Armor = Mathf.RoundToInt(enemyData.Armor * multiplier);
         }
     }
 }
