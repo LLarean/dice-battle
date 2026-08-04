@@ -16,6 +16,7 @@ namespace DiceBattle.UI
     public class MainMenuScreen : Screen
     {
         [Header("UI References")]
+        [SerializeField] private Button _language;
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private Button _options;
         [SerializeField] private Button _start;
@@ -53,6 +54,7 @@ namespace DiceBattle.UI
 
         private void Start()
         {
+            _language.onClick.AddListener(HandleLanguageClick);
             _options.onClick.AddListener(HandleOptionsClick);
             _start.onClick.AddListener(HandleStartClick);
 
@@ -77,6 +79,11 @@ namespace DiceBattle.UI
             }
 
             LeanTween.cancel(gameObject);
+        }
+
+        private void HandleLanguageClick()
+        {
+            Debug.Log("Show Language");
         }
 
         private void HandleOptionsClick()
