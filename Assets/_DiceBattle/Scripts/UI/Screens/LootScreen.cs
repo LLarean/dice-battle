@@ -54,6 +54,7 @@ namespace DiceBattle.UI
         private void HandleItemSelect(DiceType diceType)
         {
             Inventory.AddItemToUnequipped(new Item { Type = diceType, IsEquipped = false });
+            GameData.ClearPendingLootReward();
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Reward));
@@ -64,7 +65,9 @@ namespace DiceBattle.UI
 
         private void PrepareRewards()
         {
-            int startIndex = GameData.CompletedLevels;
+            int startIndex = GameData.TryGetPendingLootReward(out int pendingIndex)
+                ? pendingIndex
+                : GameData.CompletedLevels;
 
             _currentRewards.Clear();
             _currentRewards.AddRange(GameData.GetRandomRewards(startIndex, _rewardItems.Count));

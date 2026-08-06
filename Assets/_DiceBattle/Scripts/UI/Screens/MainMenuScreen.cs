@@ -97,6 +97,11 @@ namespace DiceBattle.UI
 
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(targetScreen));
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Show());
+
+            if (targetScreen == ScreenType.TavernScreen && GameData.TryGetPendingLootReward(out _))
+            {
+                SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.LootScreen));
+            }
         }
 
         private void HandleDiceToggled(Dice dice)

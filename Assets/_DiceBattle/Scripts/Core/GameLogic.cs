@@ -437,6 +437,7 @@ namespace DiceBattle.Core
             }
             else
             {
+                GameData.SetPendingLootReward(GameData.CompletedLevels);
                 SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.LootScreen));
             }
 
