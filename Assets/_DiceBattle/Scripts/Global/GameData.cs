@@ -43,6 +43,7 @@ namespace DiceBattle.Global
             ClearRandomRewards();
             ResetSelectedCharacterClass();
             BattleSaveData.Clear();
+            ClearPendingLootReward();
         }
 
         public static void AdvanceNewGamePlus()
@@ -82,6 +83,27 @@ namespace DiceBattle.Global
         public static void LogRandomRewards() => AvailableRewardsPool.Log();
 
         private static void ClearRandomRewards() => AvailableRewardsPool.Clear();
+
+        #endregion
+
+        #region Pending Loot Reward
+
+        public static void SetPendingLootReward(int startIndex) =>
+            PlayerPrefs.SetInt(PlayerPrefsKeys.PendingLootRewardIndex, startIndex);
+
+        public static bool TryGetPendingLootReward(out int startIndex)
+        {
+            if (PlayerPrefs.HasKey(PlayerPrefsKeys.PendingLootRewardIndex))
+            {
+                startIndex = PlayerPrefs.GetInt(PlayerPrefsKeys.PendingLootRewardIndex);
+                return true;
+            }
+
+            startIndex = 0;
+            return false;
+        }
+
+        public static void ClearPendingLootReward() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.PendingLootRewardIndex);
 
         #endregion
     }
