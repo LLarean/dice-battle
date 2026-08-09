@@ -19,17 +19,27 @@ end_of_line = crlf
 # NAMING RULES FOR UNITY
 # ============================================
 
-# Rule 1: Regular private fields with underscore
+# Rule 1: Constant fields (PascalCase) - must precede Rule 3 to take priority
+dotnet_naming_rule.constant_fields.symbols = constant_fields
+dotnet_naming_rule.constant_fields.style = pascal_case_style
+dotnet_naming_rule.constant_fields.severity = suggestion
+
+# Rule 2: Static readonly fields (PascalCase) - must precede Rule 3 to take priority
+dotnet_naming_rule.static_readonly_fields.symbols = static_readonly_fields
+dotnet_naming_rule.static_readonly_fields.style = pascal_case_style
+dotnet_naming_rule.static_readonly_fields.severity = suggestion
+
+# Rule 3: Regular private fields with underscore
 dotnet_naming_rule.private_fields_with_underscore.symbols = private_fields
 dotnet_naming_rule.private_fields_with_underscore.style = underscore_prefix
 dotnet_naming_rule.private_fields_with_underscore.severity = suggestion
 
-# Rule 2: Serialized fields with underscore (Unity-specific)
+# Rule 4: Serialized fields with underscore (Unity-specific)
 dotnet_naming_rule.serialized_fields.symbols = serialized_fields
 dotnet_naming_rule.serialized_fields.style = underscore_prefix
 dotnet_naming_rule.serialized_fields.severity = suggestion
 
-# Rule 3: Public members (PascalCase)
+# Rule 5: Public members (PascalCase)
 dotnet_naming_rule.public_members.symbols = public_members
 dotnet_naming_rule.public_members.style = pascal_case_style
 dotnet_naming_rule.public_members.severity = suggestion
@@ -38,6 +48,16 @@ dotnet_naming_rule.public_members.severity = suggestion
 # SYMBOL DEFINITIONS
 # ============================================
 
+# Constant fields (any accessibility)
+dotnet_naming_symbols.constant_fields.applicable_kinds = field
+dotnet_naming_symbols.constant_fields.applicable_accessibilities = *
+dotnet_naming_symbols.constant_fields.required_modifiers = const
+
+# Static readonly fields (any accessibility)
+dotnet_naming_symbols.static_readonly_fields.applicable_kinds = field
+dotnet_naming_symbols.static_readonly_fields.applicable_accessibilities = *
+dotnet_naming_symbols.static_readonly_fields.required_modifiers = static,readonly
+
 # Regular private fields (without SerializeField)
 dotnet_naming_symbols.private_fields.applicable_kinds = field
 dotnet_naming_symbols.private_fields.applicable_accessibilities = private
@@ -45,7 +65,7 @@ dotnet_naming_symbols.private_fields.applicable_accessibilities = private
 # Serialized fields (with [SerializeField] attribute)
 dotnet_naming_symbols.serialized_fields.applicable_kinds = field
 dotnet_naming_symbols.serialized_fields.applicable_accessibilities = private
-dotnet_naming_symbols.serialized_fields.required_modifiers = 
+dotnet_naming_symbols.serialized_fields.required_modifiers =
 
 # Public members
 dotnet_naming_symbols.public_members.applicable_kinds = property,method,field,event
