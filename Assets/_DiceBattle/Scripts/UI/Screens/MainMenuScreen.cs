@@ -52,7 +52,8 @@ namespace DiceBattle.UI
             _gameObjectAnimations.SlideIn(_bottomButtons, -1);
             DiceAnimation.Animate(_dice, _rollAnimationArea);
 
-            _startLabel.text = HasSavedBattle ? "В бой" : "В таверну";
+            SetStartLabel();
+            SetLanguageLabel();
 
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Menu));
@@ -72,8 +73,6 @@ namespace DiceBattle.UI
                 _diceToggleHandlers.Add(handler);
                 clickedDice.OnToggled += handler;
             }
-
-            SetLanguageLabel();
         }
 
         private void OnDestroy()
@@ -145,7 +144,13 @@ namespace DiceBattle.UI
         private void SetLanguageLabel()
         {
             string localizationKey = LocalizationManager.Language;
-            // _languageLabel.text = LocalizationManager.Localize(localizationKey);
+            _languageLabel.text = LocalizationManager.Localize(localizationKey);
+        }
+
+        private void SetStartLabel()
+        {
+            string key = HasSavedBattle ? LocKeys.Button.ToBattle : LocKeys.Button.ToTavern;
+            _startLabel.text = LocalizationManager.Localize(key);
         }
     }
 }
