@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using GameSignals;
@@ -20,9 +20,11 @@ namespace DiceBattle.UI
         {
             AnimateIn();
 
-            // TODO Add translation to other languages
+            // TODO Translation
             int randomCount = Random.Range(0, _config.Messages.Count);
-            _message.text =  _config.Messages[randomCount];
+            string key =  _config.Messages[randomCount];
+            _message.text = LocalizationManager.Localize(key);
+            // _message.text =  _config.Messages[randomCount];
         }
 
         private void Start()
