@@ -603,6 +603,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1017251807}
     m_Modifications:
+    - target: {fileID: 4771671842657231163, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+      propertyPath: _localizationKey
+      value: ui.button.inventory
+      objectReference: {fileID: 0}
     - target: {fileID: 5591343169715997400, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       propertyPath: m_Name
       value: Button(Inventory)
@@ -2011,6 +2015,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1947482035}
     m_Modifications:
+    - target: {fileID: 4771671842657231163, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+      propertyPath: _localizationKey
+      value: ui.button.settings
+      objectReference: {fileID: 0}
     - target: {fileID: 5591343169715997400, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       propertyPath: m_Name
       value: Button(Options)
@@ -4591,6 +4599,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 182705707}
     m_Modifications:
+    - target: {fileID: 4771671842657231163, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+      propertyPath: _localizationKey
+      value: ui.button.quest
+      objectReference: {fileID: 0}
     - target: {fileID: 5591343169715997400, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       propertyPath: m_Name
       value: LabelButton(Quest)
@@ -9484,6 +9496,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1017251807}
     m_Modifications:
+    - target: {fileID: 4771671842657231163, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+      propertyPath: _localizationKey
+      value: ui.button.restart
+      objectReference: {fileID: 0}
     - target: {fileID: 5591343169715997400, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       propertyPath: m_Name
       value: Button(Restart)
@@ -10869,6 +10885,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1574294878}
   - component: {fileID: 1574294880}
+  - component: {fileID: 1574294881}
   - component: {fileID: 1574294879}
   m_Layer: 5
   m_Name: Title
@@ -10995,6 +11012,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574294877}
   m_CullTransparentMesh: 1
+--- !u!114 &1574294881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574294877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15507b8a0b294f4f828ec5cc8e7b2fc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _localizationKey: ui.game_title
 --- !u!1001 &1598128465
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16134,6 +16164,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1947482035}
     m_Modifications:
+    - target: {fileID: 4771671842657231163, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5591343169715997400, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       propertyPath: m_Name
       value: Button(Start)
@@ -16230,7 +16264,8 @@ PrefabInstance:
       propertyPath: m_fontSizeMax
       value: 80
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4771671842657231163, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

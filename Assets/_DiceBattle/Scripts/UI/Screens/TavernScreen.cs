@@ -1,8 +1,9 @@
-using DiceBattle;
+using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Audio;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
+using DiceBattle.Localization;
 using GameSignals;
 using TMPro;
 using UnityEngine;
@@ -25,9 +26,15 @@ namespace DiceBattle.UI
 
         private void SetLabel()
         {
-            _startLabel.text = IsFullClear
-                ? "Новая игра+"
-                : "Уровень " + (GameData.CompletedLevels + 1); // TODO Translation into other languages
+            string key = IsFullClear
+                ? LocKeys.Button.NewGame
+                : LocKeys.Button.Level + (GameData.CompletedLevels + 1);
+
+            _startLabel.text = LocalizationManager.Localize(key);
+
+            // _startLabel.text = IsFullClear
+            //     ? "Новая игра+"
+            //     : "Уровень " + (GameData.CompletedLevels + 1); // TODO Translation into other languages
         }
 
         #region Unity lifecycle
@@ -59,14 +66,29 @@ namespace DiceBattle.UI
 
         private void HandleRestartClick()
         {
-            var confirmData = new ConfirmData("Похоронить героев?",
-                "Герои сдаются, но всегда приходят новые. Весь прогресс и собранная коллекция кубиков будут потеряны безвозвратно.",
+            string title = LocalizationManager.Localize(LocKeys.Window.RestartTitle);
+            string message = LocalizationManager.Localize(LocKeys.Window.RestartMessage);
+            string acceptText = LocalizationManager.Localize(LocKeys.Button.Again);
+            string cancelText = LocalizationManager.Localize(LocKeys.Button.Stay);
+
+            var confirmData = new ConfirmData(title,
+                message,
                 onAccept: () =>
                 {
                     GameData.ResetAll();
                     DefaultInventory.InitializeDefault(_gameConfig.DiceStartCount);
                     SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
-                }, acceptText: "Заново", cancelText: "Остаться");
+                }, acceptText: acceptText, cancelText: cancelText);
+
+            // TODO Translation
+            // var confirmData = new ConfirmData("Похоронить героев?",
+            //     "Герои сдаются, но всегда приходят новые. Весь прогресс и собранная коллекция кубиков будут потеряны безвозвратно.",
+            //     onAccept: () =>
+            //     {
+            //         GameData.ResetAll();
+            //         DefaultInventory.InitializeDefault(_gameConfig.DiceStartCount);
+            //         SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
+            //     }, acceptText: "Заново", cancelText: "Остаться");
 
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
             SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
