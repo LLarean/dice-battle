@@ -1,3 +1,4 @@
+using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
@@ -25,6 +26,8 @@ namespace DiceBattle.UI
         {
             UnitData nextEnemy = _gameConfig.Enemies[GameData.CompletedLevels];
             _unitPanel.SetUnitData(nextEnemy.CloneAtFullHealth());
+            string descriptionText = LocalizationManager.Localize(nextEnemy.Description);
+            // TODO Localization
             _description.text = nextEnemy.Description;
         }
 
