@@ -1,8 +1,10 @@
 using System.Linq;
+using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Audio;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
+using DiceBattle.Localization;
 using DiceBattle.UI;
 using GameSignals;
 using UnityEngine;
@@ -44,7 +46,9 @@ namespace DiceBattle.Core
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
 
             if (_config.CanSaveBattle)
+            {
                 BattleSaveData.Save(_matchData);
+            }
         }
 
         public void AbandonBattle()
@@ -52,7 +56,9 @@ namespace DiceBattle.Core
             _battleEnded = true;
 
             if (_config.CanSaveBattle)
+            {
                 BattleSaveData.Clear();
+            }
         }
 
         public void RestoreGame()
@@ -154,13 +160,17 @@ namespace DiceBattle.Core
             _matchData.RemainingDiceRerolls = 0;
 
             _gameScreen.ResetSelection();
+            string contextText = LocalizationManager.Localize(LocKeys.Button.RollAll);
+            // _gameScreen.SetContextLabel(contextText);
             _gameScreen.SetContextLabel("Бросить все"); // TODO Translation
 
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
             UpdateButtonStates();
 
             if (_config.CanSaveBattle && _battleEnded == false)
+            {
                 BattleSaveData.Save(_matchData);
+            }
         }
 
         private void AnimatePlayerHealth()
@@ -226,11 +236,15 @@ namespace DiceBattle.Core
             else if (_matchData.RemainingDiceRerolls >= _matchData.MaxDiceRerolls - 1)
             {
                 _gameScreen.DisableDiceInteractable();
+                string contextText = LocalizationManager.Localize(LocKeys.Button.EndTurn);
+                // _gameScreen.SetContextLabel(contextText);
                 _gameScreen.SetContextLabel("Закончить"); // TODO Translation
             }
             else
             {
                 _gameScreen.EnableDiceInteractable();
+                string contextText = LocalizationManager.Localize(LocKeys.Button.EndTurn);
+                // _gameScreen.SetContextLabel(contextText);
                 _gameScreen.SetContextLabel("Закончить"); // TODO Translation
             }
 
@@ -240,6 +254,10 @@ namespace DiceBattle.Core
         private void ShowAttempts()
         {
             int attemptsLeft = _matchData.MaxDiceRerolls - 1 - _matchData.RemainingDiceRerolls;
+
+            string attempts = LocalizationManager.Localize(LocKeys.Message.Attempts);
+            string left = LocalizationManager.Localize(LocKeys.Message.Left);
+            // string message = $"{attempts} {attemptsLeft} {left}";
             // TODO Translate
             string message = $"Осталось {attemptsLeft} попыток";
             SignalSystem.Raise<IHintHandler>(handler => handler.Show(message));
