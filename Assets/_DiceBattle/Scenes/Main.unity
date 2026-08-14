@@ -2443,6 +2443,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0.925
       objectReference: {fileID: 0}
+    - target: {fileID: 8070273315424763389, guid: 9f0441b215f77474d958d0c29b2692c7, type: 3}
+      propertyPath: _localizationKey
+      value: ui.slider.sound_title
+      objectReference: {fileID: 0}
     - target: {fileID: 8612322130297210171, guid: 9f0441b215f77474d958d0c29b2692c7, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.925
@@ -5584,6 +5588,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1016931694}
   - component: {fileID: 1016931696}
+  - component: {fileID: 1016931697}
   - component: {fileID: 1016931695}
   m_Layer: 5
   m_Name: Title_Text
@@ -5710,6 +5715,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1016931693}
   m_CullTransparentMesh: 1
+--- !u!114 &1016931697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016931693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15507b8a0b294f4f828ec5cc8e7b2fc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _localizationKey: ui.title.win
 --- !u!1 &1017251806
 GameObject:
   m_ObjectHideFlags: 0
@@ -7206,6 +7224,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1431344490}
     m_Modifications:
+    - target: {fileID: 4771671842657231163, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+      propertyPath: _localizationKey
+      value: ui.button.credits
+      objectReference: {fileID: 0}
     - target: {fileID: 5591343169715997400, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       propertyPath: m_Name
       value: Button(Credits)
@@ -9936,6 +9958,10 @@ PrefabInstance:
     - target: {fileID: 8464535846812763631, guid: 352e92eb1b6c75345bf975d3d93e298e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -106.480225
+      objectReference: {fileID: 0}
+    - target: {fileID: 8931943107710367742, guid: 352e92eb1b6c75345bf975d3d93e298e, type: 3}
+      propertyPath: _localizationKey
+      value: ui.window.settings_title
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13215,6 +13241,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -106.480225
       objectReference: {fileID: 0}
+    - target: {fileID: 8931943107710367742, guid: 352e92eb1b6c75345bf975d3d93e298e, type: 3}
+      propertyPath: _localizationKey
+      value: ui.window.credits_title
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -15518,6 +15548,10 @@ PrefabInstance:
     - target: {fileID: 4067365161652202340, guid: 9f0441b215f77474d958d0c29b2692c7, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0.925
+      objectReference: {fileID: 0}
+    - target: {fileID: 8070273315424763389, guid: 9f0441b215f77474d958d0c29b2692c7, type: 3}
+      propertyPath: _localizationKey
+      value: ui.slider.music_title
       objectReference: {fileID: 0}
     - target: {fileID: 8612322130297210171, guid: 9f0441b215f77474d958d0c29b2692c7, type: 3}
       propertyPath: m_AnchorMax.x
