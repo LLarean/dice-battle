@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Animations;
 using DiceBattle.Core;
 using DiceBattle.Events;
@@ -16,7 +17,7 @@ namespace DiceBattle.UI
         [SerializeField] private Image _portrait;
         [SerializeField] private Slider _health;
         [SerializeField] private UnitStats _stats;
-        [Tooltip("Источник кубиков, чьи результаты отображает эта панель. Оставить пустым, если у юнита нет собственных кубиков.")]
+        [Tooltip("The source of the dice whose results are displayed by this panel. Leave empty if the unit has no dice of its own.")]
         [SerializeField] private DiceHolder _diceHolder;
 
         private readonly Dictionary<Dice, int> _armorByDice = new();
@@ -33,6 +34,9 @@ namespace DiceBattle.UI
         public void SetUnitData(UnitData unitData)
         {
             _unitData = unitData;
+            string unitTitle = LocalizationManager.Localize(_unitData.Name);
+            // _title.text = unitTitle;
+            // TODO Localization
             _title.text = _unitData.Name;
             _portrait.sprite = _unitData.Portrait;
             _equipmentArmorBonus = 0;
