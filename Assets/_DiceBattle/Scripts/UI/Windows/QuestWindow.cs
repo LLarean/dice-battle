@@ -27,6 +27,7 @@ namespace DiceBattle.UI
             UnitData nextEnemy = _gameConfig.Enemies[GameData.CompletedLevels];
             _unitPanel.SetUnitData(nextEnemy.CloneAtFullHealth());
             string descriptionText = LocalizationManager.Localize(nextEnemy.Description);
+            // _description.text = descriptionText;
             // TODO Localization
             _description.text = nextEnemy.Description;
         }

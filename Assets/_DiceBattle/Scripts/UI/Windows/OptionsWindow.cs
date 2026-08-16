@@ -10,32 +10,41 @@ namespace DiceBattle.UI
     public class OptionsWindow : Screen
     {
         [Space]
+        [SerializeField] private Button _close;
+        [Space]
         [SerializeField] private Slider _music;
         [SerializeField] private Slider _sound;
         [Space]
+        [SerializeField] private Button _info;
         [SerializeField] private Button _credits;
-        [SerializeField] private Button _close;
+        [SerializeField] private Button _share;
         [Space]
         [SerializeField] private TMP_Text _version;
 
         private void Start()
         {
+            _close.onClick.AddListener(HandleCloseClick);
+
             _music.onValueChanged.AddListener(HandleMusicChange);
             _sound.onValueChanged.AddListener(HandleSoundChange);
 
+            _info.onClick.AddListener(HandleInfoClick);
             _credits.onClick.AddListener(HandleCreditsClick);
-            _close.onClick.AddListener(HandleCloseClick);
+            _share.onClick.AddListener(HandleShareClick);
 
             _version.text = Application.version;
         }
 
         private void OnDestroy()
         {
+            _close.onClick.RemoveAllListeners();
+
             _music.onValueChanged.RemoveAllListeners();
             _sound.onValueChanged.RemoveAllListeners();
 
+            _info.onClick.RemoveAllListeners();
             _credits.onClick.RemoveAllListeners();
-            _close.onClick.RemoveAllListeners();
+            _share.onClick.RemoveAllListeners();
         }
 
         private void OnEnable()
@@ -43,6 +52,8 @@ namespace DiceBattle.UI
             _music.value = GameSettings.MusicVolume;
             _sound.value = GameSettings.SoundVolume;
         }
+
+        private void HandleCloseClick() => SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
 
         private void HandleMusicChange(float musicValue)
         {
@@ -54,12 +65,20 @@ namespace DiceBattle.UI
             SignalSystem.Raise<ISoundHandler>(handler => handler.SetSoundVolume(soundValue));
         }
 
+        private void HandleInfoClick()
+        {
+            SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
+        }
+
         private void HandleCreditsClick()
         {
             SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.CreditsWindow));
         }
 
-        private void HandleCloseClick() => SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
+        private void HandleShareClick()
+        {
+            SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
+        }
     }
 }
