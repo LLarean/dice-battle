@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -11,11 +12,28 @@ using UnityEngine.SceneManagement;
 namespace DiceBattle.Localization.Editor
 {
     /// <summary>
-    /// Собирает весь захардкоженный текст (сцены, префабы, ScriptableObject-конфиги) в один CSV
-    /// для последующей загрузки в таблицу локализации. Не находит строки, захардкоженные в коде C#.
+    /// Собирает захардкоженный текст (сцены, префабы, ScriptableObject-конфиги) и уже используемые
+    /// ключи локализации (компонент LocalizedTMP, вызовы LocalizationManager.Localize в коде) в один CSV.
     /// </summary>
     public static class LocalizationTextCollector
     {
+        private const string ScriptsRoot = "Assets/_DiceBattle/Scripts";
+
+        // LocalizationManager.Localize(<arg>) — не срабатывает внутри // и /* */ комментариев.
+        private static readonly Regex LocalizeCallRegex = new Regex(
+            @"(?<!//.*)LocalizationManager\s*\.\s*Localize\s*\(\s*(?<arg>[^)]+?)\s*\)",
+            RegexOptions.Compiled);
+
+        // public const string Name = "value";
+        private static readonly Regex ConstDeclRegex = new Regex(
+            @"const\s+string\s+(?<name>\w+)\s*=\s*""(?<value>(?:[^""\\]|\\.)*)""",
+            RegexOptions.Compiled);
+
+        // class/struct Name — used to track nesting for qualified constant lookup (LocKeys.Button.EndTurn).
+        private static readonly Regex TypeDeclRegex = new Regex(
+            @"\b(?:class|struct)\s+(?<name>\w+)",
+            RegexOptions.Compiled);
+
         private class Row
         {
             public string Key;
@@ -61,10 +79,12 @@ namespace DiceBattle.Localization.Editor
             CollectFromScenes(rows);
             CollectFromPrefabs(rows);
             CollectFromConfigs(rows);
+            CollectFromCode(rows);
 
-            WriteCsv(path, rows);
+            var deduped = Dedupe(rows);
+            WriteCsv(path, deduped);
 
-            Debug.Log($"Localization export done: {rows.Count} rows -> {path}");
+            Debug.Log($"Localization export done: {deduped.Count} rows ({rows.Count} before dedupe) -> {path}");
         }
 
         private static void CollectFromScenes(List<Row> rows)
@@ -81,7 +101,7 @@ namespace DiceBattle.Localization.Editor
                 {
                     foreach (var tmp in root.GetComponentsInChildren<TMP_Text>(true))
                     {
-                        AddRow(rows, tmp.text, $"Scene:{Path.GetFileNameWithoutExtension(path)}", GetHierarchyPath(tmp.transform));
+                        AddTmpRow(rows, tmp, $"Scene:{Path.GetFileNameWithoutExtension(path)}");
                     }
                 }
             }
@@ -105,7 +125,7 @@ namespace DiceBattle.Localization.Editor
 
                 foreach (var tmp in prefab.GetComponentsInChildren<TMP_Text>(true))
                 {
-                    AddRow(rows, tmp.text, $"Prefab:{Path.GetFileNameWithoutExtension(path)}", GetHierarchyPath(tmp.transform));
+                    AddTmpRow(rows, tmp, $"Prefab:{Path.GetFileNameWithoutExtension(path)}");
                 }
             }
         }
@@ -135,6 +155,144 @@ namespace DiceBattle.Localization.Editor
                     AddRow(rows, prop.stringValue, $"Config:{asset.name}", prop.propertyPath);
                 }
             }
+        }
+
+        private static void AddTmpRow(List<Row> rows, TMP_Text tmp, string sourcePrefix)
+        {
+            var localized = tmp.GetComponent<LocalizedTMP>();
+
+            if (localized != null)
+            {
+                var key = new SerializedObject(localized).FindProperty("_localizationKey").stringValue;
+
+                if (!string.IsNullOrWhiteSpace(key))
+                {
+                    rows.Add(new Row { Key = key, Source = $"{sourcePrefix}:LocalizedTMP", Text = tmp.text });
+                    return;
+                }
+            }
+
+            AddRow(rows, tmp.text, sourcePrefix, GetHierarchyPath(tmp.transform));
+        }
+
+        private static void CollectFromCode(List<Row> rows)
+        {
+            var constants = CollectConstants();
+            var codeFiles = Directory.GetFiles(ScriptsRoot, "*.cs", SearchOption.AllDirectories);
+
+            foreach (var file in codeFiles)
+            {
+                var relativePath = file.Replace('\\', '/');
+                var lines = File.ReadAllLines(file);
+
+                for (var i = 0; i < lines.Length; i++)
+                {
+                    var line = lines[i];
+                    var match = LocalizeCallRegex.Match(line);
+
+                    if (!match.Success) continue;
+
+                    var arg = match.Groups["arg"].Value.Trim();
+                    var context = $"{relativePath}:{i + 1}";
+
+                    if (constants.TryGetValue(arg, out var constValue))
+                    {
+                        rows.Add(new Row { Key = constValue, Source = "Code:Constant", Text = context });
+                    }
+                    else if (arg.StartsWith("\"") && arg.EndsWith("\""))
+                    {
+                        var literal = arg.Substring(1, arg.Length - 2);
+                        rows.Add(new Row { Key = literal, Source = "Code:Literal", Text = context });
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Localization export: dynamic key '{arg}' at {context}, verify manually.");
+                        rows.Add(new Row { Key = $"DYNAMIC:{arg}", Source = "Code:Dynamic", Text = context });
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Maps both the short constant name and its fully qualified nested-class path
+        /// (e.g. "EndTurn" and "LocKeys.Button.EndTurn") to the literal string value,
+        /// so calls like LocalizationManager.Localize(LocKeys.Button.EndTurn) resolve.
+        /// </summary>
+        private static Dictionary<string, string> CollectConstants()
+        {
+            var result = new Dictionary<string, string>();
+            var codeFiles = Directory.GetFiles(ScriptsRoot, "*.cs", SearchOption.AllDirectories);
+
+            foreach (var file in codeFiles)
+            {
+                var typeStack = new List<string>();
+                var braceOwners = new List<string>();
+                var depth = 0;
+                string pendingType = null;
+
+                foreach (var rawLine in File.ReadAllLines(file))
+                {
+                    var line = rawLine;
+                    var typeMatch = TypeDeclRegex.Match(line);
+                    if (typeMatch.Success)
+                    {
+                        pendingType = typeMatch.Groups["name"].Value;
+                    }
+
+                    var constMatch = ConstDeclRegex.Match(line);
+                    if (constMatch.Success)
+                    {
+                        var name = constMatch.Groups["name"].Value;
+                        var value = constMatch.Groups["value"].Value;
+                        var qualified = typeStack.Count > 0 ? $"{string.Join(".", typeStack)}.{name}" : name;
+
+                        result[name] = value;
+                        result[qualified] = value;
+                    }
+
+                    foreach (var ch in line)
+                    {
+                        if (ch == '{')
+                        {
+                            depth++;
+                            braceOwners.Add(pendingType);
+                            if (pendingType != null)
+                            {
+                                typeStack.Add(pendingType);
+                                pendingType = null;
+                            }
+                        }
+                        else if (ch == '}' && depth > 0)
+                        {
+                            depth--;
+                            var owner = braceOwners[braceOwners.Count - 1];
+                            braceOwners.RemoveAt(braceOwners.Count - 1);
+                            if (owner != null)
+                            {
+                                typeStack.RemoveAt(typeStack.Count - 1);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private static List<Row> Dedupe(List<Row> rows)
+        {
+            var seen = new HashSet<(string Key, string Source)>();
+            var result = new List<Row>();
+
+            foreach (var row in rows)
+            {
+                if (seen.Add((row.Key, row.Source)))
+                {
+                    result.Add(row);
+                }
+            }
+
+            return result;
         }
 
         private static void AddRow(List<Row> rows, string text, string source, string context)
