@@ -131,18 +131,18 @@ namespace DiceBattle.UI
 
         private void HandleDiceToggle()
         {
-            SetContextLabel("Перебросить выбранные"); // TODO Translation
+            SetContextLabel("Перебросить выбранные"); // TODO Localization
 
             bool isAllSelected = _gameBoard.Dices.All(dice => dice.IsSelected);
             bool isAllUnselected = _gameBoard.Dices.All(dice => !dice.IsSelected);
 
             if (isAllSelected)
             {
-                SetContextLabel("Перебросить все"); // TODO Translation
+                SetContextLabel("Перебросить все"); // TODO Localization
             }
             if (isAllUnselected)
             {
-                SetContextLabel("Закончить"); // TODO Translation
+                SetContextLabel("Закончить"); // TODO Localization
             }
         }
 
@@ -168,7 +168,7 @@ namespace DiceBattle.UI
             _gameBoard.OnRollCompleted += HandleRollComplete;
             _shakeDetector.OnShake += HandleContextClicked;
 
-            SetContextLabel("Бросить все"); // TODO Translation
+            SetContextLabel("Бросить все"); // TODO Localization
         }
 
         private void OnDestroy()

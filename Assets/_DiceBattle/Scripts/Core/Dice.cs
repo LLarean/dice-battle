@@ -174,6 +174,7 @@ namespace DiceBattle.Core
             ShowFixedMultiplier(_diceValue);
         }
 
+        // TODO Localization
         private static string GetEffectLabel(DiceValue diceValue)
         {
             return diceValue switch

@@ -61,7 +61,7 @@ namespace DiceBattle
 
         public static string Title(this DiceType diceType)
         {
-            // TODO Translation
+            // TODO Localization
             return diceType switch {
                 DiceType.Default => "Обычный кубик",
 
@@ -89,7 +89,7 @@ namespace DiceBattle
 
         public static string Description(this DiceType diceType)
         {
-            // TODO Translation
+            // TODO Localization
             return diceType switch {
                 DiceType.Default => "Свойств не имеет",
 

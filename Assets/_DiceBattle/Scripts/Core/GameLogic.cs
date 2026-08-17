@@ -162,7 +162,7 @@ namespace DiceBattle.Core
             _gameScreen.ResetSelection();
             string contextText = LocalizationManager.Localize(LocKeys.Button.RollAll);
             // _gameScreen.SetContextLabel(contextText);
-            _gameScreen.SetContextLabel("Бросить все"); // TODO Translation
+            _gameScreen.SetContextLabel("Бросить все"); // TODO Localization
 
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
             UpdateButtonStates();
@@ -238,14 +238,14 @@ namespace DiceBattle.Core
                 _gameScreen.DisableDiceInteractable();
                 string contextText = LocalizationManager.Localize(LocKeys.Button.EndTurn);
                 // _gameScreen.SetContextLabel(contextText);
-                _gameScreen.SetContextLabel("Закончить"); // TODO Translation
+                _gameScreen.SetContextLabel("Закончить"); // TODO Localization
             }
             else
             {
                 _gameScreen.EnableDiceInteractable();
                 string contextText = LocalizationManager.Localize(LocKeys.Button.EndTurn);
                 // _gameScreen.SetContextLabel(contextText);
-                _gameScreen.SetContextLabel("Закончить"); // TODO Translation
+                _gameScreen.SetContextLabel("Закончить"); // TODO Localization
             }
 
             ShowAttempts();
@@ -258,8 +258,7 @@ namespace DiceBattle.Core
             string attempts = LocalizationManager.Localize(LocKeys.Message.Attempts);
             string left = LocalizationManager.Localize(LocKeys.Message.Left);
             // string message = $"{attempts} {attemptsLeft} {left}";
-            // TODO Translate
-            string message = $"Осталось {attemptsLeft} попыток";
+            string message = $"Осталось {attemptsLeft} попыток"; // TODO Localization
             SignalSystem.Raise<IHintHandler>(handler => handler.Show(message));
         }
 

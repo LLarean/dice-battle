@@ -12,14 +12,14 @@ using UnityEngine.SceneManagement;
 namespace DiceBattle.Localization.Editor
 {
     /// <summary>
-    /// Собирает захардкоженный текст (сцены, префабы, ScriptableObject-конфиги) и уже используемые
-    /// ключи локализации (компонент LocalizedTMP, вызовы LocalizationManager.Localize в коде) в один CSV.
+    /// Collects hardcoded text (scenes, prefabs, ScriptableObject configs) and already used
+    /// localization keys (LocalizedTMP component, LocalizationManager.Localize calls in code) into one CSV.
     /// </summary>
     public static class LocalizationTextCollector
     {
         private const string ScriptsRoot = "Assets/_DiceBattle/Scripts";
 
-        // LocalizationManager.Localize(<arg>) — не срабатывает внутри // и /* */ комментариев.
+        // LocalizationManager.Localize(<arg>) — does not match inside // or /* */ comments.
         private static readonly Regex LocalizeCallRegex = new Regex(
             @"(?<!//.*)LocalizationManager\s*\.\s*Localize\s*\(\s*(?<arg>[^)]+?)\s*\)",
             RegexOptions.Compiled);

@@ -6,9 +6,9 @@ namespace DiceBattle.UI
     [Serializable]
     public class UnitData
     {
-        public string Name;
+        public string Name; // TODO Localization
         [TextArea]
-        public string Description = "Этот монстр доставил много хлопот местным жителям.";
+        public string Description = "Этот монстр доставил много хлопот местным жителям."; // TODO Localization
 
         public Sprite Portrait;
         public Sprite Background;

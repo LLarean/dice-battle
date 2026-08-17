@@ -91,7 +91,7 @@ namespace DiceBattle.UI
             int damageBonus = equippedItems.Count(i => i.Type == DiceType.BaseDamage) * playerConfig.GrowthDamage;
 
             int used = DeckCapacity - _deckHolder.FreeSlotCount;
-            string diceCountText = $"{used} из {DeckCapacity}"; // TODO Translation
+            string diceCountText = $"{used} из {DeckCapacity}"; // TODO Localization
 
             void ApplyPlayerData()
             {
