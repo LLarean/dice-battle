@@ -23,8 +23,8 @@ namespace DiceBattle.UI
 
         private void OnEnable()
         {
-            _finalScore.text = $"Вы победили {GameData.CompletedLevels} врагов!"; // TODO Translation
-            _restartLabel.text = IsFullClear ? "В таверну" : "Заново"; // TODO Translation
+            _finalScore.text = $"Вы победили {GameData.CompletedLevels} врагов!"; // TODO Localization
+            _restartLabel.text = IsFullClear ? "В таверну" : "Заново"; // TODO Localization
         }
 
         private void HandleRestartClick()
@@ -36,6 +36,7 @@ namespace DiceBattle.UI
                 return;
             }
 
+            // TODO Localization
             var confirmData = new ConfirmData("Похоронить героев?",
                 "Герои сдаются, но всегда приходят новые. Весь прогресс и собранная коллекция кубиков будут потеряны безвозвратно.",
                 onAccept: () =>
