@@ -95,6 +95,7 @@ namespace DiceBattle.UI
             }
             else if (_currentScreen.TryGetComponent(out GameScreen gameScreen))
             {
+                // TODO Localization
                 var confirmData = new ConfirmData("Выход",
                     "Вы уверены, что хотите сбежать? Это приведёт к позору (потери прогресса боя)", onAccept: () =>
                     {
@@ -111,6 +112,7 @@ namespace DiceBattle.UI
             }
             else if (_currentScreen.TryGetComponent(out MainMenuScreen mainMenuScreen))
             {
+                // TODO Localization
                 var confirmData = new ConfirmData("Бежишь из таверны?",
                     "Трактирщик обидится, но переживёт. Выходим?", onAccept: QuitGame,
                     acceptText: "Выйти", cancelText: "Остаться");
