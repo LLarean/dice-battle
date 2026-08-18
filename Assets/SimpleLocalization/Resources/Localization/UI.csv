@@ -1,0 +1,23 @@
+Key,English,German,Russian
+ui.game_title,,,Герои и кости
+ui.button.language,EN,GR,РУС
+ui.button.again,,,
+ui.button.end_turn,,,
+ui.button.roll_all,,,
+ui.button.stay,,,
+ui.button.inventory,,,
+ui.button.quest,,,
+ui.button.restart,,,
+ui.button.settings,,,Настройки
+ui.button.tavern_hint,,,
+ui.window.credits_title,,,
+ui.window.help_message,,,
+ui.window.help_title,,,
+ui.window.quest_title,,,
+ui.window.settings_title,,,
+ui.window.restart_message,,,
+ui.window.restart_title,,,
+ui.message.attempts,,,
+ui.message.left,,,
+ui.slider.sound_title,,,
+ui.title.win,,,

@@ -14,13 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TableId: 1Zk2nCE5qECBLcOsMq_YZce3XQo7D4Wok0-EFpy3iyNk
   Sheets:
-  - Name: Menu
+  - Name: UI
     Id: 0
-    TextAsset: {fileID: 0}
-  - Name: Settings
+    TextAsset: {fileID: 4900000, guid: b05181022878e0047a049d98b01d4662, type: 3}
+  - Name: Enemies
     Id: 331980525
-    TextAsset: {fileID: 0}
-  - Name: Tests
+    TextAsset: {fileID: 4900000, guid: e5fd179615ca5c64c9c5dcb33ecfcb88, type: 3}
+  - Name: Innkeeper
     Id: 1674352817
-    TextAsset: {fileID: 0}
+    TextAsset: {fileID: 4900000, guid: 2459cd006e895284d857f6f399de765b, type: 3}
+  - Name: LocalizationExport
+    Id: 108175336
+    TextAsset: {fileID: 4900000, guid: 6437ea2a8e8a35e48b4ff0b28b5b4978, type: 3}
+  - Name: SplashTips
+    Id: 1888254430
+    TextAsset: {fileID: 4900000, guid: 9706406e5d270044598f4e211392e13e, type: 3}
   SaveFolder: {fileID: 102900000, guid: c392831e85f928548b8494fefd912562, type: 3}

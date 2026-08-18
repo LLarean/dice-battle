@@ -11406,6 +11406,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1513456416}
     m_Modifications:
+    - target: {fileID: 4771671842657231163, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+      propertyPath: _localizationKey
+      value: ui.button.language
+      objectReference: {fileID: 0}
     - target: {fileID: 5296815238143314588, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       propertyPath: m_Sprite
       value: 
