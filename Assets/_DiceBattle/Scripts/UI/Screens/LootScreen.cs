@@ -12,10 +12,13 @@ namespace DiceBattle.UI
 {
     public class LootScreen : Screen
     {
+        [Space]
         [SerializeField] private TMP_Text _message;
+        [Space]
         [SerializeField] private List<Dice> _dice;
-        [SerializeField] private List<InventoryItem> _rewardItems;
         [SerializeField] private RectTransform _rollAnimationArea;
+        [Space]
+        [SerializeField] private List<InventoryItem> _rewardItems;
 
         private const float _flyDuration = 0.35f;
         private const float _flyStagger = 0.08f;
