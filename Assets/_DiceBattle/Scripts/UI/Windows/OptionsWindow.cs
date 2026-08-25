@@ -21,6 +21,8 @@ namespace DiceBattle.UI
         [Space]
         [SerializeField] private TMP_Text _version;
 
+        #region Unity lifecycle
+
         private void Start()
         {
             _close.onClick.AddListener(HandleCloseClick);
@@ -53,7 +55,14 @@ namespace DiceBattle.UI
             _sound.value = GameSettings.SoundVolume;
         }
 
-        private void HandleCloseClick() => SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
+        #endregion
+
+        #region Handlers
+
+        private void HandleCloseClick()
+        {
+            SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
+        }
 
         private void HandleMusicChange(float musicValue)
         {
@@ -80,5 +89,7 @@ namespace DiceBattle.UI
         {
             SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
         }
+
+        #endregion
     }
 }
