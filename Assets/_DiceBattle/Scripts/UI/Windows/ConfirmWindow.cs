@@ -21,21 +21,6 @@ namespace DiceBattle.UI
         private Action _onAccept;
         private Action _onCancel;
 
-        private void Awake() => SignalSystem.Subscribe(this);
-
-        private void Start()
-        {
-            _accept.onClick.AddListener(HandleAccept);
-            _cancel.onClick.AddListener(HandleCancel);
-        }
-
-        private void OnDestroy()
-        {
-            SignalSystem.Unsubscribe(this);
-            _accept.onClick.RemoveAllListeners();
-            _cancel.onClick.RemoveAllListeners();
-        }
-
         public void SetConfirmData(ConfirmData data)
         {
             _title.text = data.Title;
@@ -54,6 +39,27 @@ namespace DiceBattle.UI
             }
         }
 
+        #region Unity lifecycle
+
+        private void Awake() => SignalSystem.Subscribe(this);
+
+        private void Start()
+        {
+            _accept.onClick.AddListener(HandleAccept);
+            _cancel.onClick.AddListener(HandleCancel);
+        }
+
+        private void OnDestroy()
+        {
+            SignalSystem.Unsubscribe(this);
+            _accept.onClick.RemoveAllListeners();
+            _cancel.onClick.RemoveAllListeners();
+        }
+
+        #endregion
+
+        #region Handlers
+
         private void HandleAccept()
         {
             SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
@@ -65,5 +71,7 @@ namespace DiceBattle.UI
             SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
             _onCancel?.Invoke();
         }
+
+        #endregion
     }
 }

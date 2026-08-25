@@ -11,11 +11,12 @@ namespace DiceBattle.UI
 {
     public class QuestWindow : Screen
     {
-        [SerializeField] private GameConfig _gameConfig;
         [Space]
         [SerializeField] private Button _close;
         [SerializeField] private UnitPanel _unitPanel;
         [SerializeField] private TextMeshProUGUI _description;
+        [Space]
+        [SerializeField] private GameConfig _gameConfig;
 
         private void Start()
         {
