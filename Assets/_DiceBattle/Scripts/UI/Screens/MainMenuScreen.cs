@@ -144,6 +144,7 @@ namespace DiceBattle.UI
         private void SetLanguageLabel()
         {
             string localizationKey = LocalizationManager.Language;
+            // TODO Localization
             // _languageLabel.text = LocalizationManager.Localize(localizationKey);
         }
 

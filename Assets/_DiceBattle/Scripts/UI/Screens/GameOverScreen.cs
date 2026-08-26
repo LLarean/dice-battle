@@ -10,10 +10,12 @@ namespace DiceBattle.UI
 {
     public class GameOverScreen : Screen
     {
-        [SerializeField] private GameConfig _config;
+        [Space]
         [SerializeField] private TextMeshProUGUI _finalScore;
         [SerializeField] private Button _restart;
         [SerializeField] private TextMeshProUGUI _restartLabel;
+        [Space]
+        [SerializeField] private GameConfig _config;
 
         private bool IsFullClear => GameData.CompletedLevels >= _config.Enemies.Count;
 
@@ -23,8 +25,10 @@ namespace DiceBattle.UI
 
         private void OnEnable()
         {
-            _finalScore.text = $"Вы победили {GameData.CompletedLevels} врагов!"; // TODO Localization
-            _restartLabel.text = IsFullClear ? "В таверну" : "Заново"; // TODO Localization
+            // TODO Localization
+            _finalScore.text = $"Вы победили {GameData.CompletedLevels} врагов!";
+            // TODO Localization
+            _restartLabel.text = IsFullClear ? "В таверну" : "Заново";
         }
 
         private void HandleRestartClick()
