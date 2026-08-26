@@ -13,29 +13,16 @@ namespace DiceBattle.UI
 {
     public class TavernScreen : Screen
     {
-        [SerializeField] private GameConfig _gameConfig;
         [Space]
         [SerializeField] private Button _restart;
         [SerializeField] private Button _start;
-        [SerializeField] private Button _inventory;
         [SerializeField] private TextMeshProUGUI _startLabel;
+        [SerializeField] private Button _inventory;
         [Space]
         [SerializeField] private Innkeeper _innkeeper;
+        [SerializeField] private GameConfig _gameConfig;
 
         private bool IsFullClear => GameData.CompletedLevels >= _gameConfig.Enemies.Count;
-
-        private void SetLabel()
-        {
-            string key = IsFullClear
-                ? LocKeys.Button.NewGame
-                : LocKeys.Button.Level + (GameData.CompletedLevels + 1);
-
-            _startLabel.text = LocalizationManager.Localize(key);
-
-            // _startLabel.text = IsFullClear
-            //     ? "Новая игра+"
-            //     : "Уровень " + (GameData.CompletedLevels + 1); // TODO Translation into other languages
-        }
 
         #region Unity lifecycle
 
@@ -80,7 +67,7 @@ namespace DiceBattle.UI
                     SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
                 }, acceptText: acceptText, cancelText: cancelText);
 
-            // TODO Translation
+            // TODO Localization
             // var confirmData = new ConfirmData("Похоронить героев?",
             //     "Герои сдаются, но всегда приходят новые. Весь прогресс и собранная коллекция кубиков будут потеряны безвозвратно.",
             //     onAccept: () =>
@@ -111,5 +98,19 @@ namespace DiceBattle.UI
         }
 
         #endregion
+
+        private void SetLabel()
+        {
+            string key = IsFullClear
+                ? LocKeys.Button.NewGame
+                : LocKeys.Button.Level + (GameData.CompletedLevels + 1);
+
+            _startLabel.text = LocalizationManager.Localize(key);
+
+            // TODO Localization
+            // _startLabel.text = IsFullClear
+            //     ? "Новая игра+"
+            //     : "Уровень " + (GameData.CompletedLevels + 1);
+        }
     }
 }
