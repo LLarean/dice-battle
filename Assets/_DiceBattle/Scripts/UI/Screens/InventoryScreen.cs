@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using DiceBattle.Audio;
@@ -18,7 +17,6 @@ namespace DiceBattle.UI
         private readonly List<InventoryItem> _inventoryItems = new();
         private readonly Dictionary<Dice, InventoryItem> _itemByDice = new();
 
-        [SerializeField] private GameConfig _gameConfig;
         [Space]
         [SerializeField] private UnitPanel _player;
         [SerializeField] private Button _previousCharacter;
@@ -28,6 +26,8 @@ namespace DiceBattle.UI
         [SerializeField] private InventoryItem _item;
         [SerializeField] private Transform _availableSpawn;
         [SerializeField] private DiceHolder _deckHolder;
+        [Space]
+        [SerializeField] private GameConfig _gameConfig;
 
         private int DeckCapacity
         {
@@ -38,10 +38,12 @@ namespace DiceBattle.UI
             }
         }
 
+        #region Unity lifecycle
+
         private void Start()
         {
-            _previousCharacter.onClick.AddListener(PreviousCharacter);
-            _nextCharacter.onClick.AddListener(NextCharacter);
+            _previousCharacter.onClick.AddListener(HandlePreviousCharacter);
+            _nextCharacter.onClick.AddListener(HandleNextCharacter);
         }
 
         private void OnDestroy()
@@ -57,6 +59,65 @@ namespace DiceBattle.UI
         }
 
         private void OnDisable() => _deckHolder.OnSlotDiceClicked -= HandleSlotDiceClicked;
+
+        #endregion
+
+        #region Handlers
+
+        private void HandlePreviousCharacter() => ChangeCharacterClass(-1);
+
+        private void HandleNextCharacter() => ChangeCharacterClass(1);
+
+        private void HandleSlotDiceClicked(Dice dice)
+        {
+            if (_itemByDice.TryGetValue(dice, out InventoryItem inventoryItem) == false)
+            {
+                return;
+            }
+
+            Unequip(inventoryItem, dice);
+        }
+
+        private void HandleCardClicked(InventoryItem inventoryItem)
+        {
+            Item item = inventoryItem.Data;
+
+            if (item.IsEquipped)
+            {
+                Dice equippedCopy = _itemByDice.FirstOrDefault(pair => pair.Value == inventoryItem).Key;
+                if (equippedCopy != null)
+                {
+                    Unequip(inventoryItem, equippedCopy);
+                }
+
+                return;
+            }
+
+            if (item.Type != DiceType.AdditionalDice && _deckHolder.FreeSlotCount == 0)
+            {
+                inventoryItem.PlayRejectShake();
+                return;
+            }
+
+            Inventory.EquipItem(item);
+            item.IsEquipped = true;
+            inventoryItem.SetEquippedStatus(true);
+            inventoryItem.PlaySelectReaction();
+
+            PlayClick();
+
+            if (item.Type == DiceType.AdditionalDice)
+            {
+                Refresh();
+                return;
+            }
+
+            AddDiceCopyToHolder(inventoryItem, animate: true);
+            UpdatePlayerPanel();
+            RefreshMultipliers();
+        }
+
+        #endregion
 
         private void Refresh(int direction = 0)
         {
@@ -130,55 +191,6 @@ namespace DiceBattle.UI
             _itemByDice.Clear();
         }
 
-        private void HandleCardClicked(InventoryItem inventoryItem)
-        {
-            Item item = inventoryItem.Data;
-
-            if (item.IsEquipped)
-            {
-                Dice equippedCopy = _itemByDice.FirstOrDefault(pair => pair.Value == inventoryItem).Key;
-                if (equippedCopy != null)
-                {
-                    Unequip(inventoryItem, equippedCopy);
-                }
-
-                return;
-            }
-
-            if (item.Type != DiceType.AdditionalDice && _deckHolder.FreeSlotCount == 0)
-            {
-                inventoryItem.PlayRejectShake();
-                return;
-            }
-
-            Inventory.EquipItem(item);
-            item.IsEquipped = true;
-            inventoryItem.SetEquippedStatus(true);
-            inventoryItem.PlaySelectReaction();
-
-            PlayClick();
-
-            if (item.Type == DiceType.AdditionalDice)
-            {
-                Refresh();
-                return;
-            }
-
-            AddDiceCopyToHolder(inventoryItem, animate: true);
-            UpdatePlayerPanel();
-            RefreshMultipliers();
-        }
-
-        private void HandleSlotDiceClicked(Dice dice)
-        {
-            if (_itemByDice.TryGetValue(dice, out InventoryItem inventoryItem) == false)
-            {
-                return;
-            }
-
-            Unequip(inventoryItem, dice);
-        }
-
         private void Unequip(InventoryItem inventoryItem, Dice copy)
         {
             Item item = inventoryItem.Data;
@@ -225,10 +237,6 @@ namespace DiceBattle.UI
                 inventoryItem.SetEquippedStatus(false);
             }
         }
-
-        private void PreviousCharacter() => ChangeCharacterClass(-1);
-
-        private void NextCharacter() => ChangeCharacterClass(1);
 
         private void ChangeCharacterClass(int direction)
         {
