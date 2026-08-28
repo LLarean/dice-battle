@@ -14,6 +14,7 @@ namespace DiceBattle.UI
     public class TavernScreen : Screen
     {
         [Space]
+        [SerializeField] private Button _tournament;
         [SerializeField] private Button _restart;
         [SerializeField] private Button _start;
         [SerializeField] private TextMeshProUGUI _startLabel;
@@ -28,6 +29,7 @@ namespace DiceBattle.UI
 
         private void Start()
         {
+            _tournament.onClick.AddListener(HandleTournamentClick);
             _restart.onClick.AddListener(HandleRestartClick);
             _start.onClick.AddListener(HandleStartClick);
             _inventory.onClick.AddListener(HandleInventoryClick);
@@ -35,6 +37,7 @@ namespace DiceBattle.UI
 
         private void OnDestroy()
         {
+            _tournament.onClick.RemoveAllListeners();
             _restart.onClick.RemoveAllListeners();
             _start.onClick.RemoveAllListeners();
             _inventory.onClick.RemoveAllListeners();
@@ -50,6 +53,11 @@ namespace DiceBattle.UI
         #endregion
 
         #region Handlers
+
+        private void HandleTournamentClick()
+        {
+
+        }
 
         private void HandleRestartClick()
         {
