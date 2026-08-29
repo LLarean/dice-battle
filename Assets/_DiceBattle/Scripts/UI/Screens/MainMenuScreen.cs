@@ -18,6 +18,7 @@ namespace DiceBattle.UI
     public class MainMenuScreen : Screen
     {
         [Header("UI References")]
+        [SerializeField] private Button _tutor;
         [SerializeField] private Button _language;
         [SerializeField] private TextMeshProUGUI _languageLabel;
         [Space]
@@ -40,6 +41,8 @@ namespace DiceBattle.UI
 
         private bool HasSavedBattle => _config.CanSaveBattle && BattleSaveData.HasSavedBattle();
 
+        #region Unity lifecycle
+
         private void Awake()
         {
             _gameObjectAnimations = new GameObjectAnimations(_rootUI);
@@ -61,6 +64,7 @@ namespace DiceBattle.UI
 
         private void Start()
         {
+            _tutor.onClick.AddListener(HandleTutorClick);
             _language.onClick.AddListener(HandleLanguageClick);
             _options.onClick.AddListener(HandleOptionsClick);
             _start.onClick.AddListener(HandleStartClick);
@@ -77,6 +81,8 @@ namespace DiceBattle.UI
 
         private void OnDestroy()
         {
+            _tutor.onClick.RemoveAllListeners();
+            _language.onClick.RemoveAllListeners();
             _options.onClick.RemoveAllListeners();
             _start.onClick.RemoveAllListeners();
 
@@ -86,6 +92,15 @@ namespace DiceBattle.UI
             }
 
             LeanTween.cancel(gameObject);
+        }
+
+        #endregion
+
+        #region Handlers
+
+        private void HandleTutorClick()
+        {
+            Debug.Log("Tutor clicked");
         }
 
         private void HandleLanguageClick()
@@ -120,6 +135,8 @@ namespace DiceBattle.UI
 
             CheckEasterEgg();
         }
+
+        #endregion
 
         private void CheckEasterEgg()
         {
