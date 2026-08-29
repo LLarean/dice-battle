@@ -1,19 +1,196 @@
+using System.Collections.Generic;
+using System.Linq;
+using DiceBattle.Audio;
+using DiceBattle.Core;
+using DiceBattle.Data;
+using DiceBattle.Events;
+using DiceBattle.Global;
+using GameSignals;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace DiceBattle
+namespace DiceBattle.UI
 {
-    public class TournamentScreen : MonoBehaviour
+    public class TournamentScreen : Screen, IChangeHandler
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        [SerializeField] private GameConfig _config;
+        [Space]
+        [SerializeField] private ContextBackground _contextBackground;
+        [SerializeField] private UnitPanel _player;
+        [SerializeField] private UnitPanel _enemy;
+        [SerializeField] private GameBoard _gameBoard;
+        [SerializeField] private ShakeDetector _shakeDetector;
+        [Space]
+        [SerializeField] private Button _help;
+        [SerializeField] private Button _context;
+        [SerializeField] private TextMeshProUGUI _contextLabel;
+        [SerializeField] private Button _all;
+        [SerializeField] private RollButtonHint _rollButtonHint;
+
+        private GameLogic _gameLogic;
+
+        public List<Dice> Dices => _gameBoard.Dices;
+        public bool HaveSelectedDice => _gameBoard.HaveSelectedDice;
+        public bool HaveUnselectedDice => _gameBoard.HaveUnselectedDice;
+
+        public void UpdateRewards() => _gameLogic.UpdateData();
+
+        public void AbandonBattle() => _gameLogic.AbandonBattle();
+
+        public void SetPlayerData(UnitData unitData) => _player.SetUnitData(unitData);
+
+        public void UpdatePlayerStats() => _player.UpdateStats();
+
+        public void SetPlayerEquipmentBonus(int? armorBonus, int? damageBonus) => _player.SetEquipmentBonus(armorBonus, damageBonus);
+
+        public void SetPlayerDicePreview(int armorBonus, int damageBonus, int healBonus) =>
+            _player.SetDicePreview(armorBonus, damageBonus, healBonus);
+
+        public void ClearPlayerDicePreview() => _player.ClearDicePreview();
+
+        public void SetEnemyData(UnitData unitData)
         {
-        
+            _contextBackground.SetSprite(unitData.Background);
+            _enemy.SetUnitData(unitData);
         }
 
-        // Update is called once per frame
-        void Update()
+        public void SetContextLabel(string label) => _contextLabel.text = label;
+
+        #region Damage/Healing Mediation
+
+        public void PlayerTakeDamage(int damageAmount) => _player.TakeDamage(damageAmount);
+
+        public void EnemyTakeDamage(int damageAmount) => _enemy.TakeDamage(damageAmount);
+
+        public void PlayerTakeHeal(int healAmount) => _player.TakeHeal(healAmount);
+
+        #endregion
+
+        #region Dice
+
+        public void SetDiceCount(int count) => _gameBoard.SetDiceCount(count);
+
+        public void ResetDice() => _gameBoard.ResetDice();
+
+        public void EnableDiceInteractable()
         {
-        
+            _gameBoard.EnableDiceInteractable();
+            _rollButtonHint.SetPaused(false);
         }
+
+        public void DisableDiceInteractable()
+        {
+            _gameBoard.DisableDiceInteractable();
+            _rollButtonHint.SetPaused(true);
+        }
+
+        public void RollDice() => _gameBoard.RollDice();
+
+        public void RerollSelectedDice() => _gameBoard.RerollSelectedDice();
+
+        public void ResetSelection() => _gameBoard.ClearAllSelection();
+
+        public void ToggleAllDice() => _gameBoard.ToggleAll();
+
+        public void SetSelectionStatus(bool isSelected) => _gameBoard.SetSelectionStatus(isSelected);
+
+        #endregion
+
+        #region Damage/Healing Animation
+
+        public void PlayerAnimateHeal() => _player.AnimateHeal();
+
+        public void PlayerAnimateDamage() => _player.AnimateDamage();
+
+        public void EnemyAnimateHeal() => _enemy.AnimateHeal();
+
+        public void EnemyAnimateDamage() => _enemy.AnimateDamage();
+
+        #endregion
+
+        #region Event Handlers
+
+        private void HandleHelpClicked()
+        {
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.HelpWindow));
+        }
+
+        private void HandleContextClicked()
+        {
+            _rollButtonHint.Notify();
+            _gameLogic.ContextClick();
+        }
+
+        private void HandleAllClicked()
+        {
+            _rollButtonHint.Notify();
+            _gameLogic.AllClick();
+            HandleDiceToggle();
+        }
+
+        private void HandleDiceToggle()
+        {
+            SetContextLabel("Перебросить выбранные"); // TODO Localization
+
+            bool isAllSelected = _gameBoard.Dices.All(dice => dice.IsSelected);
+            bool isAllUnselected = _gameBoard.Dices.All(dice => !dice.IsSelected);
+
+            if (isAllSelected)
+            {
+                SetContextLabel("Перебросить все"); // TODO Localization
+            }
+            if (isAllUnselected)
+            {
+                SetContextLabel("Закончить"); // TODO Localization
+            }
+        }
+
+        private void HandleRollComplete()
+        {
+            _gameLogic.UpdateDicePreview();
+
+            //TODO Add lock/unlock action buttons
+        }
+
+        #endregion
+
+        #region Unity lifecycle
+
+        // private void Awake() => _gameLogic = new GameLogic(_config, this);
+
+        private void Start()
+        {
+            _help.onClick.AddListener(HandleHelpClicked);
+            _context.onClick.AddListener(HandleContextClicked);
+            _all.onClick.AddListener(HandleAllClicked);
+            _gameBoard.OnDiceToggled += HandleDiceToggle;
+            _gameBoard.OnRollCompleted += HandleRollComplete;
+            _shakeDetector.OnShake += HandleContextClicked;
+
+            SetContextLabel("Бросить все"); // TODO Localization
+        }
+
+        private void OnDestroy()
+        {
+            _help.onClick.RemoveAllListeners();
+            _context.onClick.RemoveAllListeners();
+            _all.onClick.RemoveAllListeners();
+            _gameBoard.OnDiceToggled -= HandleDiceToggle;
+            _gameBoard.OnRollCompleted -= HandleRollComplete;
+            _shakeDetector.OnShake -= HandleContextClicked;
+        }
+
+        private void OnEnable()
+        {
+            if (_config.CanSaveBattle && BattleSaveData.HasSavedBattle())
+                _gameLogic.RestoreGame();
+            else
+                _gameLogic.InitializeGame();
+
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Battle));
+        }
+
+        #endregion
     }
 }
