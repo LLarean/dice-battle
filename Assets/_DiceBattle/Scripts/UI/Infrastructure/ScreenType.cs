@@ -7,6 +7,7 @@
         GameOverScreen,
         LootScreen,
         TavernScreen,
+        TournamentScreen,
 
         OptionsWindow,
         InventoryWindow,

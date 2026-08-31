@@ -11,6 +11,7 @@ namespace DiceBattle.UI
         [Header("Screens")]
         [SerializeField] private MainMenuScreen _mainMenuScreen;
         [SerializeField] private TavernScreen _tavernScreen;
+        [SerializeField] private TournamentScreen _tournamentScreen;
         [SerializeField] private InventoryScreen _inventoryScreen;
         [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
@@ -110,6 +111,10 @@ namespace DiceBattle.UI
             {
                 ShowScreen(ScreenType.TavernScreen);
             }
+            else if (_currentScreen.TryGetComponent(out TournamentScreen tournamentScreen))
+            {
+                ShowScreen(ScreenType.TavernScreen);
+            }
             else if (_currentScreen.TryGetComponent(out MainMenuScreen mainMenuScreen))
             {
                 // TODO Localization
@@ -139,6 +144,7 @@ namespace DiceBattle.UI
                 ScreenType.GameOverScreen => _gameOverScreen,
                 ScreenType.LootScreen => _lootScreen,
                 ScreenType.TavernScreen => _tavernScreen,
+                ScreenType.TournamentScreen => _tournamentScreen,
 
                 ScreenType.OptionsWindow => _optionsWindow,
                 ScreenType.InventoryWindow => _inventoryScreen,
@@ -154,6 +160,7 @@ namespace DiceBattle.UI
         {
             _mainMenuScreen.gameObject.SetActive(false);
             _tavernScreen.gameObject.SetActive(false);
+            _tournamentScreen.gameObject.SetActive(false);
             _gameOverScreen.gameObject.SetActive(false);
             _gameScreen.gameObject.SetActive(false);
             _lootScreen.gameObject.SetActive(false);
