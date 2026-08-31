@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using DiceBattle.Data;
-using DiceBattle.Global;
-using DiceBattle.UI;
 using UnityEngine;
 
 namespace DiceBattle.Core
@@ -85,9 +82,7 @@ namespace DiceBattle.Core
         {
             ClearDice();
 
-            DiceList receivedRewards = GameData.GetEquippedAsDiceList();
-            int additionalDiceCount = receivedRewards.DiceTypes.Count(r => r == DiceBattle.DiceType.AdditionalDice);
-            int diceCount = _config.DiceStartCount + additionalDiceCount;
+            int diceCount = DiceRuleset.DiceCount(_config.DiceStartCount);
 
             for (int i = 0; i < diceCount; i++)
             {

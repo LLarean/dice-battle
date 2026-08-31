@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using DiceBattle.Audio;
 using DiceBattle.Events;
-using DiceBattle.Global;
 using DiceBattle.UI;
 using GameSignals;
 using TMPro;
@@ -79,7 +78,7 @@ namespace DiceBattle.Core
 
         public void ShowFixedMultiplier(DiceValue diceValue)
         {
-            DiceList diceList = GameData.GetEquippedAsDiceList();
+            DiceList diceList = DiceRuleset.Current;
             int multiplier = DiceResult.CalculateSingle(diceValue, diceList);
 
             _multiplier.gameObject.SetActive(multiplier > 1);
@@ -88,7 +87,7 @@ namespace DiceBattle.Core
 
         public void Roll()
         {
-            DiceList receivedRewards = GameData.GetEquippedAsDiceList();
+            DiceList receivedRewards = DiceRuleset.Current;
             bool containsDisableEmptyState = receivedRewards.DiceTypes.Contains(DiceType.DisableEmptyState);
             int firstIndex = containsDisableEmptyState ? 1 : 0;
 
