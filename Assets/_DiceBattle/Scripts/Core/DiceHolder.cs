@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DiceBattle.Events;
-using DiceBattle.Global;
 using DiceBattle.UI;
 using GameSignals;
 using UnityEngine;
@@ -121,7 +120,7 @@ namespace DiceBattle.Core
                 return;
             }
 
-            DiceList equippedItems = GameData.GetEquippedAsDiceList();
+            DiceList equippedItems = DiceRuleset.Current;
             int amount = DiceResult.CalculateSingle(dice.DiceValue, equippedItems);
 
             SignalSystem.Raise<IDiceResultHandler>(handler => handler.OnDiceLanded(this, dice, amount));

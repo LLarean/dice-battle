@@ -4,7 +4,6 @@ using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Data;
 using DiceBattle.Events;
-using DiceBattle.Global;
 using GameSignals;
 using TMPro;
 using UnityEngine;
@@ -12,14 +11,15 @@ using UnityEngine.UI;
 
 namespace DiceBattle.UI
 {
-    public class TournamentScreen : Screen, IChangeHandler
+    public class TournamentScreen : Screen
     {
         [SerializeField] private GameConfig _config;
         [Space]
         [SerializeField] private ContextBackground _contextBackground;
+        [SerializeField] private Sprite _background;
         [SerializeField] private UnitPanel _player;
         [SerializeField] private UnitPanel _enemy;
-        [SerializeField] private GameBoard _gameBoard;
+        [SerializeField] private TournamentBoard _board;
         [SerializeField] private ShakeDetector _shakeDetector;
         [Space]
         [SerializeField] private Button _help;
@@ -28,147 +28,137 @@ namespace DiceBattle.UI
         [SerializeField] private Button _all;
         [SerializeField] private RollButtonHint _rollButtonHint;
 
-        private GameLogic _gameLogic;
+        private TournamentLogic _logic;
 
-        public List<Dice> Dices => _gameBoard.Dices;
-        public bool HaveSelectedDice => _gameBoard.HaveSelectedDice;
-        public bool HaveUnselectedDice => _gameBoard.HaveUnselectedDice;
+        public List<Dice> PlayerDices => _board.PlayerDices;
+        public List<Dice> EnemyDices => _board.EnemyDices;
+        public bool HavePlayerSelectedDice => _board.HavePlayerSelectedDice;
+        public bool HavePlayerUnselectedDice => _board.HavePlayerUnselectedDice;
 
-        public void UpdateRewards() => _gameLogic.UpdateData();
-
-        public void AbandonBattle() => _gameLogic.AbandonBattle();
+        #region Unit data
 
         public void SetPlayerData(UnitData unitData) => _player.SetUnitData(unitData);
 
-        public void UpdatePlayerStats() => _player.UpdateStats();
+        public void SetEnemyData(UnitData unitData)
+        {
+            if (_background != null)
+            {
+                _contextBackground.SetSprite(_background);
+            }
 
-        public void SetPlayerEquipmentBonus(int? armorBonus, int? damageBonus) => _player.SetEquipmentBonus(armorBonus, damageBonus);
+            _enemy.SetUnitData(unitData);
+        }
+
+        public void SetContextLabel(string label) => _contextLabel.text = label;
 
         public void SetPlayerDicePreview(int armorBonus, int damageBonus, int healBonus) =>
             _player.SetDicePreview(armorBonus, damageBonus, healBonus);
 
         public void ClearPlayerDicePreview() => _player.ClearDicePreview();
 
-        public void SetEnemyData(UnitData unitData)
-        {
-            _contextBackground.SetSprite(unitData.Background);
-            _enemy.SetUnitData(unitData);
-        }
-
-        public void SetContextLabel(string label) => _contextLabel.text = label;
-
-        #region Damage/Healing Mediation
-
-        public void PlayerTakeDamage(int damageAmount) => _player.TakeDamage(damageAmount);
-
-        public void EnemyTakeDamage(int damageAmount) => _enemy.TakeDamage(damageAmount);
-
-        public void PlayerTakeHeal(int healAmount) => _player.TakeHeal(healAmount);
-
         #endregion
 
-        #region Dice
+        #region Damage / healing
 
-        public void SetDiceCount(int count) => _gameBoard.SetDiceCount(count);
+        public void PlayerTakeDamage(int amount) => _player.TakeDamage(amount);
 
-        public void ResetDice() => _gameBoard.ResetDice();
+        public void EnemyTakeDamage(int amount) => _enemy.TakeDamage(amount);
 
-        public void EnableDiceInteractable()
-        {
-            _gameBoard.EnableDiceInteractable();
-            _rollButtonHint.SetPaused(false);
-        }
+        public void PlayerTakeHeal(int amount) => _player.TakeHeal(amount);
 
-        public void DisableDiceInteractable()
-        {
-            _gameBoard.DisableDiceInteractable();
-            _rollButtonHint.SetPaused(true);
-        }
-
-        public void RollDice() => _gameBoard.RollDice();
-
-        public void RerollSelectedDice() => _gameBoard.RerollSelectedDice();
-
-        public void ResetSelection() => _gameBoard.ClearAllSelection();
-
-        public void ToggleAllDice() => _gameBoard.ToggleAll();
-
-        public void SetSelectionStatus(bool isSelected) => _gameBoard.SetSelectionStatus(isSelected);
-
-        #endregion
-
-        #region Damage/Healing Animation
-
-        public void PlayerAnimateHeal() => _player.AnimateHeal();
+        public void EnemyTakeHeal(int amount) => _enemy.TakeHeal(amount);
 
         public void PlayerAnimateDamage() => _player.AnimateDamage();
-
-        public void EnemyAnimateHeal() => _enemy.AnimateHeal();
 
         public void EnemyAnimateDamage() => _enemy.AnimateDamage();
 
         #endregion
 
-        #region Event Handlers
+        #region Dice
 
-        private void HandleHelpClicked()
+        public void ResetPlayerDice() => _board.ResetPlayerDice();
+
+        public void ResetEnemyDice() => _board.ResetEnemyDice();
+
+        public void EnablePlayerDice()
         {
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.HelpWindow));
+            _board.EnablePlayerDice();
+            _rollButtonHint.SetPaused(false);
         }
+
+        public void DisablePlayerDice()
+        {
+            _board.DisablePlayerDice();
+            _rollButtonHint.SetPaused(true);
+        }
+
+        public void RollPlayer() => _board.RollPlayer();
+
+        public void RerollPlayerSelected() => _board.RerollPlayerSelected();
+
+        public void RollEnemy() => _board.RollEnemy();
+
+        public void RerollEnemySelected() => _board.RerollEnemySelected();
+
+        public void SelectEnemyDice(IEnumerable<Dice> dice) => _board.SelectEnemyDice(dice);
+
+        public void SetPlayerSelectionStatus(bool isSelected) => _board.SetPlayerSelectionStatus(isSelected);
+
+        #endregion
+
+        #region Event handlers
+
+        private void HandleHelpClicked() =>
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.HelpWindow));
 
         private void HandleContextClicked()
         {
             _rollButtonHint.Notify();
-            _gameLogic.ContextClick();
+            _logic.ContextClick();
         }
 
         private void HandleAllClicked()
         {
             _rollButtonHint.Notify();
-            _gameLogic.AllClick();
+            _logic.AllClick();
             HandleDiceToggle();
         }
 
         private void HandleDiceToggle()
         {
-            SetContextLabel("Перебросить выбранные"); // TODO Localization
+            bool allSelected = _board.PlayerDices.All(dice => dice.IsSelected);
+            bool allUnselected = _board.PlayerDices.All(dice => !dice.IsSelected);
 
-            bool isAllSelected = _gameBoard.Dices.All(dice => dice.IsSelected);
-            bool isAllUnselected = _gameBoard.Dices.All(dice => !dice.IsSelected);
-
-            if (isAllSelected)
+            if (allSelected)
             {
                 SetContextLabel("Перебросить все"); // TODO Localization
             }
-            if (isAllUnselected)
+            else if (allUnselected)
             {
                 SetContextLabel("Закончить"); // TODO Localization
             }
+            else
+            {
+                SetContextLabel("Перебросить выбранные"); // TODO Localization
+            }
         }
 
-        private void HandleRollComplete()
-        {
-            _gameLogic.UpdateDicePreview();
-
-            //TODO Add lock/unlock action buttons
-        }
+        private void HandleRollComplete() => _logic.OnRollCompleted();
 
         #endregion
 
         #region Unity lifecycle
 
-        // private void Awake() => _gameLogic = new GameLogic(_config, this);
+        private void Awake() => _logic = new TournamentLogic(_config, this);
 
         private void Start()
         {
             _help.onClick.AddListener(HandleHelpClicked);
             _context.onClick.AddListener(HandleContextClicked);
             _all.onClick.AddListener(HandleAllClicked);
-            _gameBoard.OnDiceToggled += HandleDiceToggle;
-            _gameBoard.OnRollCompleted += HandleRollComplete;
+            _board.OnPlayerDiceToggled += HandleDiceToggle;
+            _board.OnRollCompleted += HandleRollComplete;
             _shakeDetector.OnShake += HandleContextClicked;
-
-            SetContextLabel("Бросить все"); // TODO Localization
         }
 
         private void OnDestroy()
@@ -176,18 +166,14 @@ namespace DiceBattle.UI
             _help.onClick.RemoveAllListeners();
             _context.onClick.RemoveAllListeners();
             _all.onClick.RemoveAllListeners();
-            _gameBoard.OnDiceToggled -= HandleDiceToggle;
-            _gameBoard.OnRollCompleted -= HandleRollComplete;
+            _board.OnPlayerDiceToggled -= HandleDiceToggle;
+            _board.OnRollCompleted -= HandleRollComplete;
             _shakeDetector.OnShake -= HandleContextClicked;
         }
 
         private void OnEnable()
         {
-            if (_config.CanSaveBattle && BattleSaveData.HasSavedBattle())
-                _gameLogic.RestoreGame();
-            else
-                _gameLogic.InitializeGame();
-
+            _logic.InitializeMatch();
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Battle));
         }
 

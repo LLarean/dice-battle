@@ -222,9 +222,7 @@ namespace DiceBattle.Core
 
         private void UpdateDiceCount()
         {
-            DiceList equippedItems = GameData.GetEquippedAsDiceList();
-            int additionalDiceCount = equippedItems.DiceTypes.Count(r => r == DiceType.AdditionalDice);
-            _gameScreen.SetDiceCount(_config.DiceStartCount + additionalDiceCount);
+            _gameScreen.SetDiceCount(DiceRuleset.DiceCount(_config.DiceStartCount));
         }
 
         private void UpdateButtonStates()
