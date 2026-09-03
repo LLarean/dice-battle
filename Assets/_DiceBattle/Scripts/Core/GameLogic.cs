@@ -253,10 +253,7 @@ namespace DiceBattle.Core
         {
             int attemptsLeft = _matchData.MaxDiceRerolls - 1 - _matchData.RemainingDiceRerolls;
 
-            string attempts = LocalizationManager.Localize(LocKeys.Message.Attempts);
-            string left = LocalizationManager.Localize(LocKeys.Message.Left);
-            // string message = $"{attempts} {attemptsLeft} {left}";
-            string message = $"Осталось {attemptsLeft} попыток"; // TODO Localization
+            string message = LocalizationManager.Localize(LocKeys.Message.AttemptsLeft, attemptsLeft);
             SignalSystem.Raise<IHintHandler>(handler => handler.Show(message));
         }
 
