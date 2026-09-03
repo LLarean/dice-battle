@@ -21,6 +21,7 @@ namespace DiceBattle.Localization
         {
             public const string Attempts = "ui.message.attempts";
             public const string Left = "ui.message.left";
+            public const string AttemptsLeft = "ui.message.attempts_left";
         }
 
         public static class Window

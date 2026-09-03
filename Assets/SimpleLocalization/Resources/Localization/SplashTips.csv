@@ -1,16 +1,16 @@
 Key,English,German,Russian,French,Portuguese,Japanese,Chinese,Spanish
-Config:SplashTipsConfig._tips.Array.data[0],,,,,,,,
-Config:SplashTipsConfig._tips.Array.data[1],,,,,,,,
-Config:SplashTipsConfig._tips.Array.data[10],,,,,,,,
-Config:SplashTipsConfig._tips.Array.data[11],,,,,,,,
-Config:SplashTipsConfig._tips.Array.data[12],,,,,,,,
-Config:SplashTipsConfig._tips.Array.data[13],,,,,,,,
-Config:SplashTipsConfig._tips.Array.data[14],,,,,,,,
-Config:SplashTipsConfig._tips.Array.data[2],,,,,,,,
-Config:SplashTipsConfig._tips.Array.data[3],,,,,,,,
-Config:SplashTipsConfig._tips.Array.data[4],,,,,,,,
-Config:SplashTipsConfig._tips.Array.data[5],,,,,,,,
-Config:SplashTipsConfig._tips.Array.data[6],,,,,,,,
-Config:SplashTipsConfig._tips.Array.data[7],,,,,,,,
-Config:SplashTipsConfig._tips.Array.data[8],,,,,,,,
-Config:SplashTipsConfig._tips.Array.data[9],,,,,,,,
+splash_tips.msg[0],Polishing the armor,Rüstung wird poliert,Полируем доспехи,On astique l'armure,Polindo a armadura,鎧を磨いています,擦亮盔甲,Puliendo la armadura
+splash_tips.msg[1],Lost the sword,Schwert verlegt,Потеряли меч,On a perdu l'épée,Perdemos a espada,剣を失くしました,弄丢了剑,Perdimos la espada
+splash_tips.msg[2],Lost my precious...,Mein Schatz ist weg...,Потерял мою прелесть...,J'ai perdu mon précieux...,Perdi meu precioso...,いとしいものを失くした…,失去了我的宝贝……,Perdí mi tesoro...
+splash_tips.msg[3],Rolling the dice,Wir würfeln,Бросаем кубики,On lance les dés,Rolando os dados,サイコロを振っています,掷骰子,Tirando los dados
+splash_tips.msg[4],Sharpening the dice,Wir schärfen die Würfel,Точим кости,On aiguise les dés,Afiando os dados,ダイスを研いでいます,磨骰子,Afilando los dados
+splash_tips.msg[5],The innkeeper counts his coins,Der Wirt zählt seine Münzen,Трактирщик считает монеты,L'aubergiste compte ses pièces,O taberneiro conta suas moedas,宿屋の主人が硬貨を数えています,店主在数钱,El posadero cuenta sus monedas
+splash_tips.msg[6],Hiding the corpse under the stairs,Wir verstecken die Leiche unter der Treppe,Прячем труп под лестницей,On cache le cadavre sous l'escalier,Escondendo o corpo sob a escada,階段の下に死体を隠しています,把尸体藏到楼梯底下,Escondiendo el cadáver bajo la escalera
+splash_tips.msg[7],Negotiating with the dragon,Wir verhandeln mit dem Drachen,Договариваемся с драконом,On négocie avec le dragon,Negociando com o dragão,ドラゴンと交渉しています,和巨龙谈判,Negociando con el dragón
+splash_tips.msg[8],Looking for the way out of the dungeon,Wir suchen den Ausgang aus dem Verlies,Ищем выход из подземелья,On cherche la sortie du donjon,Procurando a saída da masmorra,ダンジョンの出口を探しています,寻找地牢的出口,Buscando la salida de la mazmorra
+splash_tips.msg[9],Counting the surviving heroes,Wir zählen die überlebenden Helden,Пересчитываем оставшихся героев,On compte les héros survivants,Contando os heróis restantes,生き残った英雄を数えています,清点剩下的英雄,Contando los héroes que quedan
+splash_tips.msg[10],Sharpening the scythe,Wir schärfen die Sense,Точим косу,On aiguise la faux,Afiando a foice,大鎌を研いでいます,磨镰刀,Afilando la guadaña
+splash_tips.msg[11],Brewing a potion of unknown purpose,Wir brauen einen Trank unbekannten Zwecks,Варим зелье неизвестного назначения,On prépare une potion à l'usage inconnu,Preparando uma poção de finalidade desconhecida,用途不明の薬を煎じています,熬一锅用途不明的药水,Preparando una poción de propósito desconocido
+splash_tips.msg[12],Chasing the rats out of the tavern,Wir jagen die Ratten aus der Taverne,Прогоняем крыс из таверны,On chasse les rats de la taverne,Expulsando os ratos da taverna,酒場からネズミを追い払っています,把老鼠赶出酒馆,Echando a las ratas de la taberna
+splash_tips.msg[13],Haggling with the goblin over the price,Wir feilschen mit dem Kobold um den Preis,Спорим с гоблином о цене,On marchande le prix avec le gobelin,Pechinchando o preço com o goblin,ゴブリンと値段で揉めています,和哥布林讨价还价,Regateando el precio con el goblin
+splash_tips.msg[14],Loading the dice (don't tell anyone),Wir zinken die Würfel (sag's niemandem),Заряжаем кубики (никому не говори),On pipe les dés (ne le dis à personne),Viciando os dados (não conte a ninguém),サイコロに細工しています（誰にも言うな）,给骰子做手脚（别告诉别人）,Trucando los dados (no se lo digas a nadie)
