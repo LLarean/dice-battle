@@ -1,24 +1,25 @@
 Key,English,German,Russian,French,Portuguese,Japanese,Chinese,Spanish
-ui.game_title,,,Герои и кости,,,,,
-ui.button.language,EN,GR,РУС,,,,,
-ui.button.again,,,Снова,,,,,
-ui.button.end_turn,,,Закончить ход,,,,,
-ui.button.roll_all,,,Бросить все,,,,,
-ui.button.stay,,,Остаться,,,,,
-ui.button.inventory,,,Инвентарь,,,,,
-ui.button.quest,,,Задания,,,,,
-ui.button.restart,,,Перезапуск,,,,,
-ui.button.settings,,,Настройки,,,,,
-ui.button.tavern_hint,,,Подсказки трактирщика,,,,,
-ui.window.credits_title,,,Создатели,,,,,
-ui.window.help_message,,,"Как играть:\n• Бросайте кости (до 3 попыток) — получите урон, броню и лечение.\n• В свой ход герой лечится, получает броню и бьёт врага (минус его броня).\n• Затем враг бьёт героя (минус броня героя), после чего броня героя спадает.\n• Цель — снизить здоровье врага до нуля раньше, чем он ваше.",,,,,
-ui.window.help_title,,,Подсказки,,,,,
-ui.window.quest_title,,,Задания,,,,,
-ui.window.settings_title,,,Настройки,,,,,
-ui.window.restart_message,,,"Герои сдаются, но всегда приходят новые. Весь прогресс и собранная коллекция кубиков будут потеряны безвозвратно.",,,,,
-ui.window.restart_title,,,Похоронить героев?,,,,,
-ui.message.attempts,,,попыток,,,,,
-ui.message.left,,,осталось,,,,,
-ui.slider.sound_title,,,Звук,,,,,
-ui.title.win,,,Победа,,,,,
-ui.slider.music_title,,,Музыка,,,,,
+ui.game_title,Heroes and Dice,Helden und Würfel,Герои и кости,Héros et dés,Heróis e Dados,ヒーローズ＆ダイス,英雄与骰子,Héroes y Dados
+ui.button.language,EN,DE,RU,FR,PT,JA,ZH,ES
+ui.button.again,Again,Nochmal,Снова,Encore,De novo,もう一度,再来,Otra vez
+ui.button.end_turn,End Turn,Zug beenden,Закончить ход,Fin du tour,Terminar turno,ターン終了,结束回合,Terminar turno
+ui.button.roll_all,Roll All,Alle würfeln,Бросить все,Tout lancer,Rolar tudo,すべて振る,全部重掷,Tirar todo
+ui.button.stay,Stay,Bleiben,Остаться,Rester,Ficar,キープ,保留,Quedarse
+ui.button.inventory,Inventory,Inventar,Инвентарь,Inventaire,Inventário,持ち物,物品栏,Inventario
+ui.button.quest,Quests,Aufgaben,Задания,Quêtes,Missões,クエスト,任务,Misiones
+ui.button.restart,Restart,Neustart,Перезапуск,Recommencer,Reiniciar,リスタート,重新开始,Reiniciar
+ui.button.settings,Settings,Einstellungen,Настройки,Paramètres,Configurações,設定,设置,Ajustes
+ui.button.tavern_hint,Innkeeper's hints,Tipps des Wirts,Подсказки трактирщика,Conseils de l'aubergiste,Dicas do taberneiro,宿屋の主人のヒント,店主的提示,Consejos del posadero
+ui.window.credits_title,Credits,Mitwirkende,Создатели,Crédits,Créditos,クレジット,制作人员,Créditos
+ui.window.help_message,"How to play:\n• Roll the dice (up to 3 tries) — get damage, armor and healing.\n• On your turn the hero heals, gains armor and strikes the enemy (minus its armor).\n• Then the enemy strikes the hero (minus the hero's armor), after which the hero's armor wears off.\n• The goal is to bring the enemy's health to zero before it brings down yours.","So wird gespielt:\n• Würfle (bis zu 3 Versuche) — du erhältst Schaden, Rüstung und Heilung.\n• In deinem Zug heilt sich der Held, erhält Rüstung und trifft den Gegner (minus dessen Rüstung).\n• Dann trifft der Gegner den Helden (minus dessen Rüstung), danach fällt die Rüstung des Helden ab.\n• Ziel ist es, die Lebenspunkte des Gegners auf null zu bringen, bevor er deine auf null bringt.","Как играть:\n• Бросайте кости (до 3 попыток) — получите урон, броню и лечение.\n• В свой ход герой лечится, получает броню и бьёт врага (минус его броня).\n• Затем враг бьёт героя (минус броня героя), после чего броня героя спадает.\n• Цель — снизить здоровье врага до нуля раньше, чем он ваше.","Comment jouer :\n• Lancez les dés (jusqu'à 3 essais) — obtenez des dégâts, de l'armure et des soins.\n• À votre tour, le héros se soigne, gagne de l'armure et frappe l'ennemi (moins son armure).\n• Ensuite l'ennemi frappe le héros (moins l'armure du héros), après quoi l'armure du héros disparaît.\n• Le but est de réduire les points de vie de l'ennemi à zéro avant qu'il ne réduise les vôtres.","Como jogar:\n• Role os dados (até 3 tentativas) — obtenha dano, armadura e cura.\n• No seu turno o herói se cura, ganha armadura e ataca o inimigo (menos a armadura dele).\n• Depois o inimigo ataca o herói (menos a armadura do herói), após o que a armadura do herói se desfaz.\n• O objetivo é zerar a vida do inimigo antes que ele zere a sua.","遊び方：\n• サイコロを振る（最大3回）——ダメージ、防御、回復を得る。\n• 自分のターンでは、ヒーローが回復し、防御を得て、敵を攻撃する（敵の防御を差し引く）。\n• 次に敵がヒーローを攻撃し（ヒーローの防御を差し引く）、その後ヒーローの防御は消える。\n• 目的は、相手より先に敵の体力をゼロにすること。","玩法：\n• 掷骰子（最多3次）——获得伤害、护甲和治疗。\n• 轮到你时，英雄先治疗、获得护甲，再攻击敌人（减去敌人护甲）。\n• 随后敌人攻击英雄（减去英雄护甲），之后英雄的护甲消失。\n• 目标是在敌人清空你的血量之前，先把敌人的血量降到零。","Cómo jugar:\n• Tira los dados (hasta 3 intentos) — obtén daño, armadura y curación.\n• En tu turno el héroe se cura, gana armadura y golpea al enemigo (menos su armadura).\n• Luego el enemigo golpea al héroe (menos la armadura del héroe), tras lo cual la armadura del héroe se desvanece.\n• El objetivo es reducir la salud del enemigo a cero antes de que él reduzca la tuya."
+ui.window.help_title,Hints,Hinweise,Подсказки,Conseils,Dicas,ヒント,提示,Consejos
+ui.window.quest_title,Quests,Aufgaben,Задания,Quêtes,Missões,クエスト,任务,Misiones
+ui.window.settings_title,Settings,Einstellungen,Настройки,Paramètres,Configurações,設定,设置,Ajustes
+ui.window.restart_message,"The heroes give up, but new ones always come. All progress and the collected dice will be lost forever.","Die Helden geben auf, doch es kommen immer neue. Aller Fortschritt und die gesammelten Würfel gehen für immer verloren.","Герои сдаются, но всегда приходят новые. Весь прогресс и собранная коллекция кубиков будут потеряны безвозвратно.","Les héros abandonnent, mais de nouveaux arrivent toujours. Toute la progression et les dés collectés seront perdus à jamais.","Os heróis desistem, mas sempre chegam novos. Todo o progresso e os dados coletados serão perdidos para sempre.","英雄たちは諦めるが、新たな者が必ず現れる。すべての進行状況と集めたサイコロは永久に失われる。","英雄们放弃了，但总会有新的到来。所有进度和收集到的骰子将永久丢失。","Los héroes se rinden, pero siempre llegan otros nuevos. Todo el progreso y los dados reunidos se perderán para siempre."
+ui.window.restart_title,Bury the heroes?,Die Helden begraben?,Похоронить героев?,Enterrer les héros ?,Enterrar os heróis?,英雄たちを葬る？,埋葬这些英雄？,¿Enterrar a los héroes?
+ui.message.attempts,attempts,Versuche,попыток,essais,tentativas,回,次,intentos
+ui.message.left,left,übrig,осталось,restants,restantes,残り,剩余,restantes
+ui.message.attempts_left,"{0} attempts left","Noch {0} Versuche","Осталось {0} попыток","{0} essais restants","{0} tentativas restantes",残り{0}回,剩余{0}次,Quedan {0} intentos
+ui.slider.sound_title,Sound,Ton,Звук,Son,Som,効果音,音效,Sonido
+ui.title.win,Victory,Sieg,Победа,Victoire,Vitória,勝利,胜利,Victoria
+ui.slider.music_title,Music,Musik,Музыка,Musique,Música,音楽,音乐,Música

@@ -1,11 +1,11 @@
 Key,English,German,Russian,French,Portuguese,Japanese,Chinese,Spanish
-enemy_names.slime_small,,,Малый слайм,,,,,
-enemy_names.slime,,,Слайм,,,,,
-enemy_names.slime_big,,,Большой слайм,,,,,
-enemy_names.skeleton_archer,,,Скелет лучник,,,,,
-enemy_names.skeleton_warrior,,,Скелет воин,,,,,
-enemy_names.elemental,,,Элементаль,,,,,
-enemy_names.elemental_big,,,Большой элементаль,,,,,
-enemy_names.lizard,,,Ящер,,,,,
-enemy_names.lizard_warrior,,,Ящер воин,,,,,
-enemy_names.dragon,,,Дракон,,,,,
+enemy_names.slime_small,Small Slime,Kleiner Schleim,Малый слайм,Petite gelée,Slime pequeno,小さなスライム,小史莱姆,Slime pequeño
+enemy_names.slime,Slime,Schleim,Слайм,Gelée,Slime,スライム,史莱姆,Slime
+enemy_names.slime_big,Big Slime,Großer Schleim,Большой слайм,Grande gelée,Slime grande,大きなスライム,大史莱姆,Slime grande
+enemy_names.skeleton_archer,Skeleton Archer,Skelett-Bogenschütze,Скелет лучник,Archer squelette,Esqueleto arqueiro,スケルトンアーチャー,骷髅弓箭手,Esqueleto arquero
+enemy_names.skeleton_warrior,Skeleton Warrior,Skelettkrieger,Скелет воин,Guerrier squelette,Esqueleto guerreiro,スケルトンウォリアー,骷髅战士,Esqueleto guerrero
+enemy_names.elemental,Elemental,Elementar,Элементаль,Élémentaire,Elemental,エレメンタル,元素生物,Elemental
+enemy_names.elemental_big,Greater Elemental,Großer Elementar,Большой элементаль,Grand élémentaire,Elemental maior,大エレメンタル,大元素生物,Elemental mayor
+enemy_names.lizard,Lizard,Echse,Ящер,Lézard,Lagarto,リザード,蜥蜴,Lagarto
+enemy_names.lizard_warrior,Lizard Warrior,Echsenkrieger,Ящер воин,Guerrier lézard,Lagarto guerreiro,リザードウォリアー,蜥蜴战士,Lagarto guerrero
+enemy_names.dragon,Dragon,Drache,Дракон,Dragon,Dragão,ドラゴン,巨龙,Dragón
