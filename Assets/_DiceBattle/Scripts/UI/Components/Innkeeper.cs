@@ -20,11 +20,8 @@ namespace DiceBattle.UI
         {
             AnimateIn();
 
-            // TODO Translation
-            int randomCount = Random.Range(0, _config.Messages.Count);
-            string key =  _config.Messages[randomCount];
+            string key = _config.GetKey(Random.Range(0, _config.Count));
             _message.text = LocalizationManager.Localize(key);
-            // _message.text =  _config.Messages[randomCount];
         }
 
         private void Start()

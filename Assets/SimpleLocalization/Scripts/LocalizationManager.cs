@@ -106,6 +106,26 @@ namespace Assets.SimpleLocalization.Scripts
         }
 
         /// <summary>
+        /// Count sequential indexed keys ("prefix[0]", "prefix[1]", ...) starting from 0.
+        /// </summary>
+        public static int CountIndexedKeys(string keyPrefix)
+        {
+            if (Dictionary.Count == 0)
+            {
+                Read();
+            }
+
+            var count = 0;
+
+            while (HasKey($"{keyPrefix}[{count}]"))
+            {
+                count++;
+            }
+
+            return count;
+        }
+
+        /// <summary>
         /// Get localized value by localization key.
         /// </summary>
         public static string Localize(string localizationKey)
