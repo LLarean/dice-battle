@@ -1,3 +1,4 @@
+using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Data;
 using TMPro;
 using UnityEngine;
@@ -16,8 +17,8 @@ namespace DiceBattle.UI
 
         public void ShowRandomTip()
         {
-            int randomIndex = Random.Range(0, _config.Tips.Count);
-            _text.text = _config.Tips[randomIndex];
+            string key = _config.GetKey(Random.Range(0, _config.Count));
+            _text.text = LocalizationManager.Localize(key);
 
             Color faded = _text.color;
             faded.a = _pulseMinAlpha;
