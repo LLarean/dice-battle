@@ -26,9 +26,6 @@ MonoBehaviour:
   - Name: Innkeeper
     Id: 1674352817
     TextAsset: {fileID: 4900000, guid: 2459cd006e895284d857f6f399de765b, type: 3}
-  - Name: LocalizationExport
-    Id: 108175336
-    TextAsset: {fileID: 4900000, guid: 6437ea2a8e8a35e48b4ff0b28b5b4978, type: 3}
   - Name: SplashTips
     Id: 1888254430
     TextAsset: {fileID: 4900000, guid: 9706406e5d270044598f4e211392e13e, type: 3}
