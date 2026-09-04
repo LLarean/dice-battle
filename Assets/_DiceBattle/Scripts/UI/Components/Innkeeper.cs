@@ -1,6 +1,6 @@
 ﻿using Assets.SimpleLocalization.Scripts;
-using DiceBattle.Data;
 using DiceBattle.Events;
+using DiceBattle.Localization;
 using GameSignals;
 using TMPro;
 using UnityEngine;
@@ -13,14 +13,13 @@ namespace DiceBattle.UI
     {
         [SerializeField] private TextMeshProUGUI _message;
         [SerializeField] private Button _quest;
-        [Space]
-        [SerializeField] private InnkeeperConfig _config;
 
         public void ShowMessage()
         {
             AnimateIn();
 
-            string key = _config.GetKey(Random.Range(0, _config.Count));
+            int count = LocalizationManager.CountIndexedKeys(LocKeys.Innkeeper.MessagePrefix);
+            string key = $"{LocKeys.Innkeeper.MessagePrefix}[{Random.Range(0, count)}]";
             _message.text = LocalizationManager.Localize(key);
         }
 
