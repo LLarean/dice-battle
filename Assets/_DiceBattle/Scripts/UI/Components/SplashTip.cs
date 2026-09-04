@@ -1,5 +1,5 @@
 using Assets.SimpleLocalization.Scripts;
-using DiceBattle.Data;
+using DiceBattle.Localization;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,7 +9,6 @@ namespace DiceBattle.UI
     public class SplashTip : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _text;
-        [SerializeField] private SplashTipsConfig _config;
         [Space]
         [SerializeField] private float _pulseMinAlpha = 0.4f;
         [SerializeField] private float _pulseMaxAlpha = 1f;
@@ -17,7 +16,8 @@ namespace DiceBattle.UI
 
         public void ShowRandomTip()
         {
-            string key = _config.GetKey(Random.Range(0, _config.Count));
+            int count = LocalizationManager.CountIndexedKeys(LocKeys.SplashTips.MessagePrefix);
+            string key = $"{LocKeys.SplashTips.MessagePrefix}[{Random.Range(0, count)}]";
             _text.text = LocalizationManager.Localize(key);
 
             Color faded = _text.color;

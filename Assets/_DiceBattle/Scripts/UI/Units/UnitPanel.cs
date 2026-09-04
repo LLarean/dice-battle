@@ -34,10 +34,9 @@ namespace DiceBattle.UI
         public void SetUnitData(UnitData unitData)
         {
             _unitData = unitData;
-            string unitTitle = LocalizationManager.Localize(_unitData.Name);
-            // _title.text = unitTitle;
-            // TODO Localization
-            _title.text = _unitData.Name;
+            _title.text = LocalizationManager.HasKey(_unitData.Name)
+                ? LocalizationManager.Localize(_unitData.Name)
+                : _unitData.Name;
             _portrait.sprite = _unitData.Portrait;
             _equipmentArmorBonus = 0;
             _equipmentDamageBonus = 0;

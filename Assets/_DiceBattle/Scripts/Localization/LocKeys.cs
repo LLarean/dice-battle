@@ -29,5 +29,15 @@ namespace DiceBattle.Localization
             public const string RestartTitle = "ui.window.restart_title";
             public const string RestartMessage = "ui.window.restart_message";
         }
+
+        public static class Innkeeper
+        {
+            public const string MessagePrefix = "innkeeper.msg";
+        }
+
+        public static class SplashTips
+        {
+            public const string MessagePrefix = "splash_tips.msg";
+        }
     }
 }
