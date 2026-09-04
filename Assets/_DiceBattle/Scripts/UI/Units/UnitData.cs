@@ -6,9 +6,10 @@ namespace DiceBattle.UI
     [Serializable]
     public class UnitData
     {
-        public string Name; // TODO Localization
-        [TextArea]
-        public string Description = "Этот монстр доставил много хлопот местным жителям."; // TODO Localization
+        // Enemy: localization key. Hero: plain display name (no localization key exists for it).
+        public string Name;
+        // Localization key, empty for units without a description (e.g. the hero).
+        public string Description;
 
         public Sprite Portrait;
         public Sprite Background;
