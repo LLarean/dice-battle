@@ -1852,7 +1852,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _message: {fileID: 1381595744}
   _quest: {fileID: 822715858}
-  _config: {fileID: 11400000, guid: df54c4b9d3e2d694da2d8d39c35d28b6, type: 2}
 --- !u!1 &192742483
 GameObject:
   m_ObjectHideFlags: 0
@@ -10401,6 +10400,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1974331638}
     m_Modifications:
+    - target: {fileID: 4771671842657231163, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+      propertyPath: _localizationKey
+      value: ui.button.settings
+      objectReference: {fileID: 0}
     - target: {fileID: 5296815238143314588, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -11764,6 +11767,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1974331638}
     m_Modifications:
+    - target: {fileID: 4771671842657231163, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+      propertyPath: _localizationKey
+      value: ui.button.back
+      objectReference: {fileID: 0}
     - target: {fileID: 5296815238143314588, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -15481,7 +15488,6 @@ MonoBehaviour:
   _dimmer: {fileID: 0}
   _tutor: {fileID: 1527536706}
   _language: {fileID: 1662601867}
-  _languageLabel: {fileID: 1662601868}
   _title: {fileID: 1574294879}
   _options: {fileID: 385551122}
   _start: {fileID: 657270278}
@@ -15673,6 +15679,10 @@ PrefabInstance:
     - target: {fileID: 5591343169715997400, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       propertyPath: m_Name
       value: Button(Tutor)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591343169715997400, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6691906081132345294, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       propertyPath: m_Pivot.x
@@ -17027,17 +17037,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1662601868 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9095163842556213617, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
-  m_PrefabInstance: {fileID: 1662601865}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1664538193 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9095163842556213617, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
@@ -17256,7 +17255,8 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 64
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4771671842657231163, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
