@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: 
   PlayerClasses:
-  - Name: "\u041B\u0430\u043D\u0446\u0435\u043B\u043E\u0442"
+  - Name: player_names.lacelot
     Portraits:
     - {fileID: 1893152718, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     StartHealth: 15
@@ -23,7 +23,7 @@ MonoBehaviour:
     GrowthDamage: 2
     StartArmor: 2
     GrowthArmor: 2
-  - Name: "\u0420\u043E\u0431\u0438\u043D \u0413\u0443\u0434"
+  - Name: player_names.robin_good
     Portraits:
     - {fileID: -955355205, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     StartHealth: 20
@@ -33,7 +33,7 @@ MonoBehaviour:
     GrowthDamage: 2
     StartArmor: 1
     GrowthArmor: 2
-  - Name: "\u041C\u044D\u0440\u043B\u0438\u043D"
+  - Name: player_names.lacelot
     Portraits:
     - {fileID: 213636260, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     StartHealth: 13
@@ -143,4 +143,9 @@ MonoBehaviour:
   DiceStartCount: 5
   MaxAttempts: 3
   CanSaveBattle: 1
+  NewGamePlusMultipliers:
+  - 1.2
+  - 1.5
+  - 1.7
+  - 2
   IsInstaWin: 0

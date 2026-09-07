@@ -20,7 +20,6 @@ namespace DiceBattle.UI
         [Header("UI References")]
         [SerializeField] private Button _tutor;
         [SerializeField] private Button _language;
-        [SerializeField] private TextMeshProUGUI _languageLabel;
         [Space]
         [SerializeField] private TextMeshProUGUI _title;
         [Space]
@@ -56,7 +55,6 @@ namespace DiceBattle.UI
             DiceAnimation.Animate(_dice, _rollAnimationArea);
 
             SetStartLabel();
-            SetLanguageLabel();
 
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Menu));
@@ -108,7 +106,6 @@ namespace DiceBattle.UI
             SystemLanguage nextLanguage = AvailableLanguages.GetNextLanguage(GameSettings.SelectedLanguage);
 
             LocalizationInitializer.SetLanguage(nextLanguage);
-            SetLanguageLabel();
         }
 
         private void HandleOptionsClick()
@@ -156,13 +153,6 @@ namespace DiceBattle.UI
         private void TriggerEasterEgg(DiceValue diceValue)
         {
             Debug.Log($"Easter egg triggered! All dice show {diceValue}.");
-        }
-
-        private void SetLanguageLabel()
-        {
-            string localizationKey = LocalizationManager.Language;
-            // TODO Localization
-            // _languageLabel.text = LocalizationManager.Localize(localizationKey);
         }
 
         private void SetStartLabel()

@@ -23,3 +23,8 @@ ui.message.attempts_left,{0} attempts left,Noch {0} Versuche,Осталось {0
 ui.slider.sound_title,Sound,Ton,Звук,Son,Som,効果音,音效,Sonido
 ui.title.win,Victory,Sieg,Победа,Victoire,Vitória,勝利,胜利,Victoria
 ui.slider.music_title,Music,Musik,Музыка,Musique,Música,音楽,音乐,Música
+ui.button.to_battle,To Battle,In den Kampf,В бой,Au combat,Para a batalha,戦いへ,前往战斗,A la batalla
+ui.button.to_tavern,To Tavern,Zur Taverne,В таверну,À la taverne,Para a taberna,酒場へ,前往酒馆,A la taberna
+ui.button.credits,Credits,Mitwirkende,Титры,Crédits,Créditos,クレジット,制作人员,Créditos
+ui.button.tournament,Tournament,Turnier,Турнир,Tournoi,Torneio,トーナメント,锦标赛,Torneo
+ui.button.back,Back,Zurück,Назад,Retour,Voltar,戻る,返回,Volver
