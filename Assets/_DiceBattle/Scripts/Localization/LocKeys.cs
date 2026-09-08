@@ -15,6 +15,8 @@ namespace DiceBattle.Localization
 
             public const string RollAll = "ui.button.roll_all";
             public const string EndTurn = "ui.button.end_turn";
+
+            public const string Repeat = "ui.button.repeat";
         }
 
         public static class Message
