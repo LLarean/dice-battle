@@ -28,3 +28,5 @@ ui.button.to_tavern,To Tavern,Zur Taverne,В таверну,À la taverne,Para a
 ui.button.credits,Credits,Mitwirkende,Титры,Crédits,Créditos,クレジット,制作人员,Créditos
 ui.button.tournament,Tournament,Turnier,Турнир,Tournoi,Torneio,トーナメント,锦标赛,Torneo
 ui.button.back,Back,Zurück,Назад,Retour,Voltar,戻る,返回,Volver
+ui.message.select_reward,,,Выберите награду,,,,,
+ui.button.repeat,,,Заново,,,,,

@@ -1,6 +1,8 @@
-﻿using DiceBattle.Data;
+﻿using Assets.SimpleLocalization.Scripts;
+using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
+using DiceBattle.Localization;
 using GameSignals;
 using TMPro;
 using UnityEngine;
@@ -27,8 +29,9 @@ namespace DiceBattle.UI
         {
             // TODO Localization
             _finalScore.text = $"Вы победили {GameData.CompletedLevels} врагов!";
-            // TODO Localization
-            _restartLabel.text = IsFullClear ? "В таверну" : "Заново";
+
+            string key = IsFullClear ? LocKeys.Button.ToTavern : LocKeys.Button.Repeat;
+            _restartLabel.text = LocalizationManager.Localize(key);
         }
 
         private void HandleRestartClick()
@@ -40,14 +43,13 @@ namespace DiceBattle.UI
                 return;
             }
 
-            // TODO Localization
-            var confirmData = new ConfirmData("Похоронить героев?",
-                "Герои сдаются, но всегда приходят новые. Весь прогресс и собранная коллекция кубиков будут потеряны безвозвратно.",
+            var confirmData = new ConfirmData(LocalizationManager.Localize(LocKeys.Window.RestartTitle),
+                LocalizationManager.Localize(LocKeys.Window.RestartMessage),
                 onAccept: () =>
                 {
                     GameData.ResetAll();
                     SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
-                }, acceptText: "Заново", cancelText: "Остаться");
+                }, acceptText: LocalizationManager.Localize(LocKeys.Button.Repeat), cancelText: LocKeys.Button.Stay);
 
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
             SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
