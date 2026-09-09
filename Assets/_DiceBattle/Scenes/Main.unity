@@ -13598,7 +13598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scaleAmount: 0.05
   _duration: 1.6
-  _startDelay: 0
+  _startDelay: 1
 --- !u!1001 &1598128465
 PrefabInstance:
   m_ObjectHideFlags: 0
