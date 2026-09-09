@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DiceBattle.Animations
@@ -6,6 +7,7 @@ namespace DiceBattle.Animations
     public class GameObjectAnimations
     {
         private readonly RectTransform _canvasRect;
+        private readonly Dictionary<RectTransform, int> _activeTweens = new();
 
         private float _time = 1;
         private float _delay = .5f;
@@ -27,15 +29,17 @@ namespace DiceBattle.Animations
 
         public void SlideIn(RectTransform animationObject, int direction = 1)
         {
-            Vector2 startPosition = Vector2.zero;
+            Vector2 startPosition;
 
-            if (LeanTween.isTweening(animationObject.gameObject))
+            if (_activeTweens.TryGetValue(animationObject, out int runningId))
             {
-                LeanTween.cancel(animationObject.gameObject);
+                LeanTween.cancel(runningId);
+                _activeTweens.Remove(animationObject);
+                startPosition = Vector2.zero;
             }
             else
             {
-                startPosition = animationObject.GetComponent<RectTransform>().anchoredPosition;
+                startPosition = animationObject.anchoredPosition;
             }
 
             float canvasHeight = _canvasRect.rect.height;
@@ -43,13 +47,15 @@ namespace DiceBattle.Animations
             Vector2 offScreenPos = startPosition + new Vector2(0, canvasHeight * direction);
             animationObject.anchoredPosition = offScreenPos;
 
-            LeanTween.move(animationObject, startPosition, _time)
+            _activeTweens[animationObject] = LeanTween.move(animationObject, startPosition, _time)
                 .setDelay(_delay)
                 .setEase(_leanTweenType)
                 .setOnComplete(() =>
                 {
+                    _activeTweens.Remove(animationObject);
                     OnAnimationComplete?.Invoke();
-                });
+                })
+                .id;
         }
     }
 }

@@ -157,6 +157,7 @@ namespace DiceBattle.UI
 
         private void SetStartLabel()
         {
+            // TODO Localization (subsribe on changing)
             string key = HasSavedBattle ? LocKeys.Button.ToBattle : LocKeys.Button.ToTavern;
             _startLabel.text = LocalizationManager.Localize(key);
         }

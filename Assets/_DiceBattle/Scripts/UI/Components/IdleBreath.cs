@@ -10,6 +10,7 @@ namespace DiceBattle.UI
         [SerializeField] private float _startDelay = 0f;
 
         private Vector3 _originalScale;
+        private int _tweenId = -1;
 
         private void Awake() => _originalScale = transform.localScale;
 
@@ -17,15 +18,21 @@ namespace DiceBattle.UI
         {
             transform.localScale = _originalScale;
 
-            LeanTween.scale(gameObject, _originalScale * (1f + _scaleAmount), _duration)
+            _tweenId = LeanTween.scale(gameObject, _originalScale * (1f + _scaleAmount), _duration)
                 .setDelay(_startDelay)
                 .setEase(LeanTweenType.easeInOutSine)
-                .setLoopPingPong(-1);
+                .setLoopPingPong(-1)
+                .id;
         }
 
         private void OnDisable()
         {
-            LeanTween.cancel(gameObject);
+            if (_tweenId != -1)
+            {
+                LeanTween.cancel(_tweenId);
+                _tweenId = -1;
+            }
+
             transform.localScale = _originalScale;
         }
     }
