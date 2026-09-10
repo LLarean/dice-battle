@@ -55,6 +55,7 @@ namespace DiceBattle.UI
             DiceAnimation.Animate(_dice, _rollAnimationArea);
 
             SetStartLabel();
+            LocalizationManager.OnLocalizationChanged += SetStartLabel;
 
             SignalSystem.Raise<ITopBarHandler>(handler => handler.Hide());
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Menu));
@@ -75,6 +76,11 @@ namespace DiceBattle.UI
                 _diceToggleHandlers.Add(handler);
                 clickedDice.OnToggled += handler;
             }
+        }
+
+        private void OnDisable()
+        {
+            LocalizationManager.OnLocalizationChanged -= SetStartLabel;
         }
 
         private void OnDestroy()
@@ -157,7 +163,6 @@ namespace DiceBattle.UI
 
         private void SetStartLabel()
         {
-            // TODO Localization (subsribe on changing)
             string key = HasSavedBattle ? LocKeys.Button.ToBattle : LocKeys.Button.ToTavern;
             _startLabel.text = LocalizationManager.Localize(key);
         }
