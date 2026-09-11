@@ -4,8 +4,10 @@ namespace DiceBattle.Global
 {
     public static class GameSettings
     {
-        public static float MusicVolume => PlayerPrefs.GetFloat(PlayerPrefsKeys.MusicVolume, 1);
-        public static float SoundVolume => PlayerPrefs.GetFloat(PlayerPrefsKeys.SoundVolume, 1);
+        private const float DefaultMusicVolume = .5f;
+
+        public static float MusicVolume => PlayerPrefs.GetFloat(PlayerPrefsKeys.MusicVolume, DefaultMusicVolume);
+        public static float SoundVolume => PlayerPrefs.GetFloat(PlayerPrefsKeys.SoundVolume, DefaultMusicVolume);
 
         public static bool HasSelectedLanguage => PlayerPrefs.HasKey(PlayerPrefsKeys.SelectedLanguage);
 
@@ -17,8 +19,8 @@ namespace DiceBattle.Global
 
         public static void ResetVolume()
         {
-            PlayerPrefs.SetFloat(PlayerPrefsKeys.MusicVolume, 1);
-            PlayerPrefs.SetFloat(PlayerPrefsKeys.SoundVolume, 1);
+            PlayerPrefs.SetFloat(PlayerPrefsKeys.MusicVolume, DefaultMusicVolume);
+            PlayerPrefs.SetFloat(PlayerPrefsKeys.SoundVolume, DefaultMusicVolume);
         }
 
         public static void SetMusicVolume(float volume) => PlayerPrefs.SetFloat(PlayerPrefsKeys.MusicVolume, volume);

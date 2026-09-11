@@ -30,3 +30,5 @@ ui.button.tournament,Tournament,Turnier,Турнир,Tournoi,Torneio,トーナ�
 ui.button.back,Back,Zurück,Назад,Retour,Voltar,戻る,返回,Volver
 ui.message.select_reward,,,Выберите награду,,,,,
 ui.button.repeat,,,Заново,,,,,
+ui.button.level,,,Уровень,,,,,
+ui.button.all,,,Все,,,,,
