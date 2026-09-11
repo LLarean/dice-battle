@@ -75,16 +75,6 @@ namespace DiceBattle.UI
                     SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
                 }, acceptText: acceptText, cancelText: cancelText);
 
-            // TODO Localization
-            // var confirmData = new ConfirmData("Похоронить героев?",
-            //     "Герои сдаются, но всегда приходят новые. Весь прогресс и собранная коллекция кубиков будут потеряны безвозвратно.",
-            //     onAccept: () =>
-            //     {
-            //         GameData.ResetAll();
-            //         DefaultInventory.InitializeDefault(_gameConfig.DiceStartCount);
-            //         SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.MainMenu));
-            //     }, acceptText: "Заново", cancelText: "Остаться");
-
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
             SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
         }
@@ -111,14 +101,9 @@ namespace DiceBattle.UI
         {
             string key = IsFullClear
                 ? LocKeys.Button.NewGame
-                : LocKeys.Button.Level + (GameData.CompletedLevels + 1);
+                : LocKeys.Button.Level;
 
-            _startLabel.text = LocalizationManager.Localize(key);
-
-            // TODO Localization
-            // _startLabel.text = IsFullClear
-            //     ? "Новая игра+"
-            //     : "Уровень " + (GameData.CompletedLevels + 1);
+            _startLabel.text = $"{LocalizationManager.Localize(key)} {GameData.CompletedLevels + 1}";
         }
     }
 }
