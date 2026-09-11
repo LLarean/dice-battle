@@ -244,7 +244,6 @@ namespace DiceBattle.UI
             int nextIndex = (((int)GameData.SelectedCharacterClass + direction) % classCount + classCount) % classCount;
             GameData.SelectedCharacterClass = (CharacterClass)nextIndex;
 
-            PlayClick();
             Refresh(direction);
         }
 
