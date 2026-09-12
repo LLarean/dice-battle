@@ -32,4 +32,13 @@ MonoBehaviour:
   - Name: SplashTips
     Id: 1888254430
     TextAsset: {fileID: 4900000, guid: 9706406e5d270044598f4e211392e13e, type: 3}
+  - Name: GameHits
+    Id: 1789465256
+    TextAsset: {fileID: 4900000, guid: ebba6b342acc1584c85a3a9a22944b8c, type: 3}
+  - Name: DiceTitles
+    Id: 321027947
+    TextAsset: {fileID: 4900000, guid: 96a54daa3d923ef409acdc21a1730259, type: 3}
+  - Name: DiceDescriptions
+    Id: 169874335
+    TextAsset: {fileID: 4900000, guid: 3b76878d5d8d1664eae597ee761d9cdc, type: 3}
   SaveFolder: {fileID: 102900000, guid: c392831e85f928548b8494fefd912562, type: 3}

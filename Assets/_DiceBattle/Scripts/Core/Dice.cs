@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
+using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Audio;
 using DiceBattle.Events;
+using DiceBattle.Localization;
 using DiceBattle.UI;
 using GameSignals;
 using TMPro;
@@ -173,14 +175,13 @@ namespace DiceBattle.Core
             ShowFixedMultiplier(_diceValue);
         }
 
-        // TODO Localization
         private static string GetEffectLabel(DiceValue diceValue)
         {
             return diceValue switch
             {
-                DiceValue.Attack => "УР ",
-                DiceValue.Defense => "ЗЩ ",
-                DiceValue.Heal => "ХП ",
+                DiceValue.Attack => LocalizationManager.Localize(LocKeys.Dice.AttackAbbr),
+                DiceValue.Defense => LocalizationManager.Localize(LocKeys.Dice.DefenseAbbr),
+                DiceValue.Heal => LocalizationManager.Localize(LocKeys.Dice.HealAbbr),
                 _ => string.Empty,
             };
         }

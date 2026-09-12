@@ -1,16 +1,16 @@
-Key,,,Russian,French,Portuguese,Japanese,Chinese,Spanish
-dice_descriptions.,,,Свойств не имеет,,,,,
-dice_descriptions.,,,Отключает пустое состояние,,,,,
-dice_descriptions.,,,Даёт ещё попытку,,,,,
-dice_descriptions.,,,Даёт дополнительный слот,,,,,
-dice_descriptions.,,,Добавляет базовый урон персонажу,,,,,
-dice_descriptions.,,,Добавляет базовую броню персонажу,,,,,
-dice_descriptions.,,,Добавляет базовое здоровье персонажа,,,,,
-dice_descriptions.,,,Значение атаки х2,,,,,
-dice_descriptions.,,,Значение лечения х2,,,,,
-dice_descriptions.,,,Значение брони х2,,,,,
-dice_descriptions.,,,Увеличивает общий множитель значений кубиков на 1,,,,,
-dice_descriptions.,,,Увеличивает общий множитель значений кубиков на 2,,,,,
-dice_descriptions.,,,Регенерация здоровья,,,,,
-dice_descriptions.,,,"Один раз за бой не даёт погибнуть от смертельного удара, оставляя 1 HP",,,,,
-dice_descriptions.,,,Восстанавливает часть нанесённого урона здоровьем,,,,,
+Key,English,German,Russian,French,Portuguese,Japanese,Chinese,Spanish
+dice_descriptions.default,Has no properties,Hat keine Eigenschaften,Свойств не имеет,N'a aucune propriété,Não possui propriedades,特性を持たない,没有特殊属性,No tiene propiedades
+dice_descriptions.disable_empty_state,Disables the empty state,Deaktiviert den leeren Zustand,Отключает пустое состояние,Désactive l'état vide,Desativa o estado vazio,空の状態を無効にする,禁用空状态,Desactiva el estado vacío
+dice_descriptions.additional_try,Grants another try,Gewährt einen weiteren Versuch,Даёт ещё попытку,Donne un essai supplémentaire,Concede mais uma tentativa,もう一回試せる,给予额外一次尝试,Otorga un intento más
+dice_descriptions.additional_dice,Grants an extra slot,Gewährt einen zusätzlichen Slot,Даёт дополнительный слот,Donne un emplacement supplémentaire,Concede um espaço extra,追加スロットを得る,给予额外槽位,Otorga una ranura adicional
+dice_descriptions.base_damage,Adds base damage to the character,Fügt dem Charakter Grundschaden hinzu,Добавляет базовый урон персонажу,Ajoute des dégâts de base au personnage,Adiciona dano base ao personagem,キャラクターに基本ダメージを追加,为角色增加基础伤害,Añade daño base al personaje
+dice_descriptions.base_armor,Adds base armor to the character,Fügt dem Charakter Grundrüstung hinzu,Добавляет базовую броню персонажу,Ajoute une armure de base au personnage,Adiciona armadura base ao personagem,キャラクターに基本防御力を追加,为角色增加基础护甲,Añade armadura base al personaje
+dice_descriptions.base_health,Adds base health to the character,Fügt dem Charakter Grundleben hinzu,Добавляет базовое здоровье персонажа,Ajoute des points de vie de base au personnage,Adiciona vida base ao personagem,キャラクターに基本体力を追加,为角色增加基础生命值,Añade salud base al personaje
+dice_descriptions.upgrade_attack,x2 attack value,Angriffswert x2,Значение атаки х2,Valeur d'attaque x2,Valor de ataque x2,攻撃力x2,攻击值x2,Valor de ataque x2
+dice_descriptions.upgrade_health,x2 healing value,Heilwert x2,Значение лечения х2,Valeur de soin x2,Valor de cura x2,回復力x2,治疗值x2,Valor de curación x2
+dice_descriptions.upgrade_armor,x2 armor value,Rüstungswert x2,Значение брони х2,Valeur d'armure x2,Valor de armadura x2,防御力x2,护甲值x2,Valor de armadura x2
+dice_descriptions.silver_dice,Increases the shared dice value multiplier by 1,Erhöht den gemeinsamen Würfelwert-Multiplikator um 1,Увеличивает общий множитель значений кубиков на 1,Augmente le multiplicateur commun des valeurs de dés de 1,Aumenta em 1 o multiplicador compartilhado dos valores dos dados,ダイス値の共通倍率を1増加させる,提升骰子数值的共享倍率+1,Aumenta en 1 el multiplicador compartido de los valores de los dados
+dice_descriptions.gold_dice,Increases the shared dice value multiplier by 2,Erhöht den gemeinsamen Würfelwert-Multiplikator um 2,Увеличивает общий множитель значений кубиков на 2,Augmente le multiplicateur commun des valeurs de dés de 2,Aumenta em 2 o multiplicador compartilhado dos valores dos dados,ダイス値の共通倍率を2増加させる,提升骰子数值的共享倍率+2,Aumenta en 2 el multiplicador compartido de los valores de los dados
+dice_descriptions.regen_health,Health regeneration,Gesundheitsregeneration,Регенерация здоровья,Régénération de vie,Regeneração de vida,体力再生,生命回复,Regeneración de vida
+dice_descriptions.last_stand_dice,"Once per battle, prevents death from a lethal hit, leaving 1 HP","Verhindert einmal pro Kampf den Tod durch einen tödlichen Treffer und lässt 1 HP übrig","Один раз за бой не даёт погибнуть от смертельного удара, оставляя 1 HP","Une fois par combat, empêche la mort suite à un coup fatal, en laissant 1 PV","Uma vez por batalha, impede a morte por um golpe fatal, deixando 1 HP","戦闘中1回だけ、致命的な一撃による死亡を防ぎ、HPを1残す","每场战斗一次，免于致命一击死亡，保留1点生命值","Una vez por batalla, evita la muerte por un golpe letal, dejando 1 PV"
+dice_descriptions.lifesteal_dice,Restores part of the damage dealt as health,Stellt einen Teil des verursachten Schadens als Gesundheit wieder her,Восстанавливает часть нанесённого урона здоровьем,Restaure une partie des dégâts infligés sous forme de vie,Restaura parte do dano causado como vida,与えたダメージの一部を体力として回復する,将部分造成的伤害转化为生命值恢复,Restaura parte del daño infligido como salud

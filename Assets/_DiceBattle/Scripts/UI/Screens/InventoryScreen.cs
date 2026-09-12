@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
+using DiceBattle.Localization;
 using GameSignals;
 using TMPro;
 using UnityEngine;
@@ -152,7 +154,7 @@ namespace DiceBattle.UI
             int damageBonus = equippedItems.Count(i => i.Type == DiceType.BaseDamage) * playerConfig.GrowthDamage;
 
             int used = DeckCapacity - _deckHolder.FreeSlotCount;
-            string diceCountText = $"{used} из {DeckCapacity}"; // TODO Localization
+            string diceCountText = LocalizationManager.Localize(LocKeys.Message.DiceSlots, used, DeckCapacity);
 
             void ApplyPlayerData()
             {

@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
+using DiceBattle.Localization;
 using GameSignals;
 using TMPro;
 using UnityEngine;
@@ -131,18 +133,18 @@ namespace DiceBattle.UI
 
         private void HandleDiceToggle()
         {
-            SetContextLabel("Перебросить выбранные"); // TODO Localization
+            SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.RerollSelected));
 
             bool isAllSelected = _gameBoard.Dices.All(dice => dice.IsSelected);
             bool isAllUnselected = _gameBoard.Dices.All(dice => !dice.IsSelected);
 
             if (isAllSelected)
             {
-                SetContextLabel("Перебросить все"); // TODO Localization
+                SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.RerollAll));
             }
             if (isAllUnselected)
             {
-                SetContextLabel("Закончить"); // TODO Localization
+                SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.Finish));
             }
         }
 
@@ -168,7 +170,7 @@ namespace DiceBattle.UI
             _gameBoard.OnRollCompleted += HandleRollComplete;
             _shakeDetector.OnShake += HandleContextClicked;
 
-            SetContextLabel("Бросить все"); // TODO Localization
+            SetContextLabel(LocalizationManager.Localize(LocKeys.Button.RollAll));
         }
 
         private void OnDestroy()

@@ -27,8 +27,7 @@ namespace DiceBattle.UI
 
         private void OnEnable()
         {
-            // TODO Localization
-            _finalScore.text = $"Вы победили {GameData.CompletedLevels} врагов!";
+            _finalScore.text = LocalizationManager.Localize(LocKeys.Message.VictoryCount, GameData.CompletedLevels);
 
             string key = IsFullClear ? LocKeys.Button.ToTavern : LocKeys.Button.Repeat;
             _restartLabel.text = LocalizationManager.Localize(key);
@@ -49,7 +48,7 @@ namespace DiceBattle.UI
                 {
                     GameData.ResetAll();
                     SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
-                }, acceptText: LocalizationManager.Localize(LocKeys.Button.Repeat), cancelText: LocKeys.Button.Stay);
+                }, acceptText: LocalizationManager.Localize(LocKeys.Button.Repeat), cancelText: LocalizationManager.Localize(LocKeys.Button.Stay));
 
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
             SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));

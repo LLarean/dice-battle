@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Audio;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
+using DiceBattle.Localization;
 using DiceBattle.UI;
 using GameSignals;
 using UnityEngine;
@@ -74,7 +76,7 @@ namespace DiceBattle.Core
             _enemy.Result.Calculate(new List<Dice>(), _standardDeck);
 
             _screen.EnablePlayerDice();
-            _screen.SetContextLabel("Бросить кубики"); // TODO Localization
+            _screen.SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.RollDice));
         }
 
         public void ContextClick()
@@ -110,8 +112,8 @@ namespace DiceBattle.Core
                 return;
             }
 
-            _screen.SetContextLabel("Закончить"); // TODO Localization
-            SignalSystem.Raise<IHintHandler>(handler => handler.Show($"Осталось бросков: {_playerRollsLeft}")); // TODO Localization
+            _screen.SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.Finish));
+            SignalSystem.Raise<IHintHandler>(handler => handler.Show(LocalizationManager.Localize(LocKeys.GameHits.RollsLeft, _playerRollsLeft)));
         }
 
         public void AllClick()
@@ -155,7 +157,7 @@ namespace DiceBattle.Core
 
             _phase = Phase.EnemyRolling;
             _enemyRollsLeft = RollsPerTurn;
-            SignalSystem.Raise<IHintHandler>(handler => handler.Show("Ход противника")); // TODO Localization
+            SignalSystem.Raise<IHintHandler>(handler => handler.Show(LocalizationManager.Localize(LocKeys.GameHits.EnemyTurn)));
 
             LeanTween.delayedCall(0.5f, StartEnemyTurn);
         }

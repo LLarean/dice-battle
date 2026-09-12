@@ -1,5 +1,7 @@
 ﻿using System;
+using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Core;
+using DiceBattle.Localization;
 
 namespace DiceBattle
 {
@@ -61,56 +63,54 @@ namespace DiceBattle
 
         public static string Title(this DiceType diceType)
         {
-            // TODO Localization
             return diceType switch {
-                DiceType.Default => "Обычный кубик",
+                DiceType.Default => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "default"),
 
-                DiceType.DisableEmptyState => "Совершенный кубик",
-                DiceType.AdditionalTry => "Кубик попытки",
-                DiceType.AdditionalDice => "Дополнительный",
+                DiceType.DisableEmptyState => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "disable_empty_state"),
+                DiceType.AdditionalTry => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "additional_try"),
+                DiceType.AdditionalDice => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "additional_dice"),
 
-                DiceType.BaseDamage => "Кубик-меч",
-                DiceType.BaseArmor => "Кубик-щит",
-                DiceType.BaseHealth => "Кубик-аптечка",
+                DiceType.BaseDamage => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "base_damage"),
+                DiceType.BaseArmor => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "base_armor"),
+                DiceType.BaseHealth => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "base_health"),
 
-                DiceType.UpgradeAttack => "Острый кубик",
-                DiceType.UpgradeHealth => "Лечебный кубик",
-                DiceType.UpgradeArmor => "Прочный кубик",
+                DiceType.UpgradeAttack => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "upgrade_attack"),
+                DiceType.UpgradeHealth => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "upgrade_health"),
+                DiceType.UpgradeArmor => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "upgrade_armor"),
 
-                DiceType.SilverDice => "Серебряный кубик (+x1)",
-                DiceType.GoldDice => "Золотой кубик (+x2)",
+                DiceType.SilverDice => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "silver_dice"),
+                DiceType.GoldDice => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "gold_dice"),
 
-                DiceType.RegenHealth => "Регенерация здоровья",
-                DiceType.LastStandDice => "Последний шанс",
-                DiceType.LifestealDice => "Кубик вампиризма",
+                DiceType.RegenHealth => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "regen_health"),
+                DiceType.LastStandDice => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "last_stand_dice"),
+                DiceType.LifestealDice => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "lifesteal_dice"),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
 
         public static string Description(this DiceType diceType)
         {
-            // TODO Localization
             return diceType switch {
-                DiceType.Default => "Свойств не имеет",
+                DiceType.Default => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "default"),
 
-                DiceType.DisableEmptyState => "Отключает пустое состояние",
-                DiceType.AdditionalTry => "Даёт ещё попытку",
-                DiceType.AdditionalDice => "Даёт дополнительный слот",
+                DiceType.DisableEmptyState => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "disable_empty_state"),
+                DiceType.AdditionalTry => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "additional_try"),
+                DiceType.AdditionalDice => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "additional_dice"),
 
-                DiceType.BaseDamage => "Добавляет базовый урон персонажу",
-                DiceType.BaseArmor => "Добавляет базовую броню персонажу",
-                DiceType.BaseHealth => "Добавляет базовое здоровье персонажа",
+                DiceType.BaseDamage => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "base_damage"),
+                DiceType.BaseArmor => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "base_armor"),
+                DiceType.BaseHealth => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "base_health"),
 
-                DiceType.UpgradeAttack => "Значение атаки х2",
-                DiceType.UpgradeHealth => "Значение лечения х2",
-                DiceType.UpgradeArmor => "Значение брони х2",
+                DiceType.UpgradeAttack => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "upgrade_attack"),
+                DiceType.UpgradeHealth => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "upgrade_health"),
+                DiceType.UpgradeArmor => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "upgrade_armor"),
 
-                DiceType.SilverDice => "Увеличивает общий множитель значений кубиков на 1",
-                DiceType.GoldDice => "Увеличивает общий множитель значений кубиков на 2",
+                DiceType.SilverDice => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "silver_dice"),
+                DiceType.GoldDice => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "gold_dice"),
 
-                DiceType.RegenHealth => "Регенерация здоровья",
-                DiceType.LastStandDice => "Один раз за бой не даёт погибнуть от смертельного удара, оставляя 1 HP",
-                DiceType.LifestealDice => "Восстанавливает часть нанесённого урона здоровьем",
+                DiceType.RegenHealth => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "regen_health"),
+                DiceType.LastStandDice => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "last_stand_dice"),
+                DiceType.LifestealDice => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "lifesteal_dice"),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
