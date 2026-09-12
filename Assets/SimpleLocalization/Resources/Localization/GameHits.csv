@@ -1,5 +1,7 @@
-Key,,,Russian,French,Portuguese,Japanese,Chinese,Spanish
-game_hits.,,,Бросить кубики,,,,,
-game_hits.,,,Закончить,,,,,
-game_hits.,,,Осталось бросков:,,,,,
-game_hits.,,,Ход противника,,,,,
+Key,English,German,Russian,French,Portuguese,Japanese,Chinese,Spanish
+game_hits.roll_dice,Roll the Dice,Würfel werfen,Бросить кубики,Lancer les dés,Rolar os dados,サイコロを振る,掷骰子,Tirar los dados
+game_hits.finish,Finish,Fertig,Закончить,Terminer,Terminar,終了,结束,Terminar
+game_hits.rolls_left,{0} rolls left,Noch {0} Würfe,Осталось бросков: {0},{0} lancers restants,{0} lançamentos restantes,残り{0}回,剩余{0}次投掷,Quedan {0} tiradas
+game_hits.enemy_turn,Enemy's Turn,Zug des Gegners,Ход противника,Tour de l'ennemi,Turno do inimigo,敵のターン,敌方回合,Turno del enemigo
+game_hits.reroll_selected,Reroll Selected,Auswahl neu würfeln,Перебросить выбранные,Relancer la sélection,Rerolar selecionados,選択したものを振り直す,重掷所选,Volver a tirar seleccionados
+game_hits.reroll_all,Reroll All,Alle neu würfeln,Перебросить все,Relancer tout,Rerolar todos,すべて振り直す,重掷全部,Volver a tirar todo

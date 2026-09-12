@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Events;
+using DiceBattle.Localization;
 using GameSignals;
 using UnityEngine;
 
@@ -96,13 +98,12 @@ namespace DiceBattle.UI
             }
             else if (_currentScreen.TryGetComponent(out GameScreen gameScreen))
             {
-                // TODO Localization
-                var confirmData = new ConfirmData("Выход",
-                    "Вы уверены, что хотите сбежать? Это приведёт к позору (потери прогресса боя)", onAccept: () =>
+                var confirmData = new ConfirmData(LocalizationManager.Localize(LocKeys.Window.AbandonTitle),
+                    LocalizationManager.Localize(LocKeys.Window.AbandonMessage), onAccept: () =>
                     {
                         gameScreen.AbandonBattle();
                         ShowScreen(ScreenType.TavernScreen);
-                    }, acceptText: "Сбежать", cancelText: "Остаться");
+                    }, acceptText: LocalizationManager.Localize(LocKeys.Button.Flee), cancelText: LocalizationManager.Localize(LocKeys.Button.Stay));
 
                 SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
                 SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
@@ -117,10 +118,9 @@ namespace DiceBattle.UI
             }
             else if (_currentScreen.TryGetComponent(out MainMenuScreen mainMenuScreen))
             {
-                // TODO Localization
-                var confirmData = new ConfirmData("Бежишь из таверны?",
-                    "Трактирщик обидится, но переживёт. Выходим?", onAccept: QuitGame,
-                    acceptText: "Выйти", cancelText: "Остаться");
+                var confirmData = new ConfirmData(LocalizationManager.Localize(LocKeys.Window.QuitTavernTitle),
+                    LocalizationManager.Localize(LocKeys.Window.QuitTavernMessage), onAccept: QuitGame,
+                    acceptText: LocalizationManager.Localize(LocKeys.Button.Quit), cancelText: LocalizationManager.Localize(LocKeys.Button.Stay));
 
                 SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
                 SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));

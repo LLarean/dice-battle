@@ -28,7 +28,18 @@ ui.button.to_tavern,To Tavern,Zur Taverne,В таверну,À la taverne,Para a
 ui.button.credits,Credits,Mitwirkende,Титры,Crédits,Créditos,クレジット,制作人员,Créditos
 ui.button.tournament,Tournament,Turnier,Турнир,Tournoi,Torneio,トーナメント,锦标赛,Torneo
 ui.button.back,Back,Zurück,Назад,Retour,Voltar,戻る,返回,Volver
-ui.message.select_reward,,,Выберите награду,,,,,
-ui.button.repeat,,,Заново,,,,,
-ui.button.level,,,Уровень,,,,,
-ui.button.all,,,Все,,,,,
+ui.message.select_reward,Choose a reward,Belohnung wählen,Выберите награду,Choisissez une récompense,Escolha uma recompensa,報酬を選んでください,选择奖励,Elige una recompensa
+ui.button.repeat,Again,Nochmal,Заново,Encore,De novo,もう一度,再来,Otra vez
+ui.button.level,Level,Level,Уровень,Niveau,Nível,レベル,等级,Nivel
+ui.button.all,All,Alle,Все,Tous,Todos,すべて,全部,Todos
+ui.dice.attack_abbr,ATK ,ANG ,УР ,ATT ,ATQ ,攻 ,攻 ,ATQ
+ui.dice.defense_abbr,DEF ,VER ,ЗЩ ,DÉF ,DEF ,防 ,防 ,DEF
+ui.dice.heal_abbr,HP ,HP ,ХП ,PV ,HP ,回 ,回 ,PV
+ui.window.abandon_title,Leave,Verlassen,Выход,Quitter,Sair,退出,退出,Salir
+ui.window.abandon_message,"Are you sure you want to flee? This will bring shame upon you (battle progress will be lost).","Bist du sicher, dass du fliehen willst? Das bringt Schande über dich (der Kampffortschritt geht verloren).","Вы уверены, что хотите сбежать? Это приведёт к позору (потери прогресса боя)","Voulez-vous vraiment fuir ? Cela vous couvrira de honte (la progression du combat sera perdue).","Tem certeza de que deseja fugir? Isso trará vergonha (o progresso da batalha será perdido).",本当に逃げますか？恥をさらすことになります（戦闘の進行状況は失われます）。,你确定要逃跑吗？这将带来耻辱（战斗进度将丢失）。,"¿Seguro que quieres huir? Esto te traerá deshonra (se perderá el progreso de la batalla)."
+ui.button.flee,Flee,Fliehen,Сбежать,Fuir,Fugir,逃げる,逃跑,Huir
+ui.window.quit_tavern_title,Leaving the tavern?,Verlässt du die Taverne?,Бежишь из таверны?,Tu quittes la taverne ?,Vai deixar a taberna?,酒場から出ますか？,要离开酒馆吗？,¿Sales de la taberna?
+ui.window.quit_tavern_message,"The innkeeper will be upset, but he'll survive. Shall we quit?","Der Wirt wird traurig sein, aber er übersteht es. Wollen wir das Spiel beenden?","Трактирщик обидится, но переживёт. Выходим?","L'aubergiste sera vexé, mais il s'en remettra. On quitte le jeu ?","O taberneiro vai ficar chateado, mas vai superar. Vamos sair?",宿屋の主人は気を悪くするだろうが、乗り越えるだろう。終了しますか？,店主会不高兴，但他会挺过去的。要退出吗？,"El posadero se disgustará, pero lo superará. ¿Salimos?"
+ui.button.quit,Quit,Beenden,Выйти,Quitter,Sair,終了,退出,Salir
+ui.message.victory_count,You defeated {0} enemies!,Du hast {0} Gegner besiegt!,Вы победили {0} врагов!,Vous avez vaincu {0} ennemis !,Você derrotou {0} inimigos!,{0}体の敵を倒した！,你击败了{0}个敌人！,¡Has derrotado a {0} enemigos!
+ui.message.dice_slots,{0} of {1},{0} von {1},{0} из {1},{0} sur {1},{0} de {1},{1}中{0},{0}/{1},{0} de {1}

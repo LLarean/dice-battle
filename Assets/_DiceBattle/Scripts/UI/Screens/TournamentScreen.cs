@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Data;
 using DiceBattle.Events;
+using DiceBattle.Localization;
 using GameSignals;
 using TMPro;
 using UnityEngine;
@@ -131,15 +133,15 @@ namespace DiceBattle.UI
 
             if (allSelected)
             {
-                SetContextLabel("Перебросить все"); // TODO Localization
+                SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.RerollAll));
             }
             else if (allUnselected)
             {
-                SetContextLabel("Закончить"); // TODO Localization
+                SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.Finish));
             }
             else
             {
-                SetContextLabel("Перебросить выбранные"); // TODO Localization
+                SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.RerollSelected));
             }
         }
 

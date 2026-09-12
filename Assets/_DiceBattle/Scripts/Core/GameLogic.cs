@@ -160,9 +160,7 @@ namespace DiceBattle.Core
             _matchData.RemainingDiceRerolls = 0;
 
             _gameScreen.ResetSelection();
-            string contextText = LocalizationManager.Localize(LocKeys.Button.RollAll);
-            // _gameScreen.SetContextLabel(contextText);
-            _gameScreen.SetContextLabel("Бросить все"); // TODO Localization
+            _gameScreen.SetContextLabel(LocalizationManager.Localize(LocKeys.Button.RollAll));
 
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
             UpdateButtonStates();
@@ -234,16 +232,12 @@ namespace DiceBattle.Core
             else if (_matchData.RemainingDiceRerolls >= _matchData.MaxDiceRerolls - 1)
             {
                 _gameScreen.DisableDiceInteractable();
-                string contextText = LocalizationManager.Localize(LocKeys.Button.EndTurn);
-                // _gameScreen.SetContextLabel(contextText);
-                _gameScreen.SetContextLabel("Закончить"); // TODO Localization
+                _gameScreen.SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.Finish));
             }
             else
             {
                 _gameScreen.EnableDiceInteractable();
-                string contextText = LocalizationManager.Localize(LocKeys.Button.EndTurn);
-                // _gameScreen.SetContextLabel(contextText);
-                _gameScreen.SetContextLabel("Закончить"); // TODO Localization
+                _gameScreen.SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.Finish));
             }
 
             ShowAttempts();

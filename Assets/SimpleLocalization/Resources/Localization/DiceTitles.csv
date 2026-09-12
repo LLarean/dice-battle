@@ -1,16 +1,16 @@
-Key,,,Russian,French,Portuguese,Japanese,Chinese,Spanish
-dice_titles.,,,Обычный кубик,,,,,
-dice_titles.,,,Совершенный кубик,,,,,
-dice_titles.,,,Кубик попытки,,,,,
-dice_titles.,,,Дополнительный,,,,,
-dice_titles.,,,Кубик-меч,,,,,
-dice_titles.,,,Кубик-щит,,,,,
-dice_titles.,,,Кубик-аптечка,,,,,
-dice_titles.,,,Острый кубик,,,,,
-dice_titles.,,,Лечебный кубик,,,,,
-dice_titles.,,,Прочный кубик,,,,,
-dice_titles.,,,Серебянный кубик (+х1),,,,,
-dice_titles.,,,Золотой кубик (+х2),,,,,
-dice_titles.,,,Регенерация здоровья,,,,,
-dice_titles.,,,Последний шанс,,,,,
-dice_titles.,,,Кубик вампиризма,,,,,
+Key,English,German,Russian,French,Portuguese,Japanese,Chinese,Spanish
+dice_titles.default,Basic Die,Einfacher Würfel,Обычный кубик,Dé basique,Dado básico,基本のサイコロ,基础骰子,Dado básico
+dice_titles.disable_empty_state,Perfect Die,Perfekter Würfel,Совершенный кубик,Dé parfait,Dado perfeito,完璧なサイコロ,完美骰子,Dado perfecto
+dice_titles.additional_try,Try Die,Versuchswürfel,Кубик попытки,Dé d'essai,Dado de tentativa,トライのサイコロ,尝试骰子,Dado de intento
+dice_titles.additional_dice,Extra Die,Zusatzwürfel,Дополнительный,Dé supplémentaire,Dado extra,追加のサイコロ,额外骰子,Dado adicional
+dice_titles.base_damage,Sword Die,Schwertwürfel,Кубик-меч,Dé épée,Dado espada,剣のサイコロ,剑骰子,Dado espada
+dice_titles.base_armor,Shield Die,Schildwürfel,Кубик-щит,Dé bouclier,Dado escudo,盾のサイコロ,盾骰子,Dado escudo
+dice_titles.base_health,Medkit Die,Verbandskastenwürfel,Кубик-аптечка,Dé trousse de soin,Dado kit médico,救急箱のサイコロ,医疗包骰子,Dado botiquín
+dice_titles.upgrade_attack,Sharp Die,Scharfer Würfel,Острый кубик,Dé tranchant,Dado afiado,鋭いサイコロ,锋利骰子,Dado afilado
+dice_titles.upgrade_health,Healing Die,Heilwürfel,Лечебный кубик,Dé soignant,Dado curativo,治癒のサイコロ,治疗骰子,Dado curativo
+dice_titles.upgrade_armor,Sturdy Die,Robuster Würfel,Прочный кубик,Dé robuste,Dado resistente,頑丈なサイコロ,坚固骰子,Dado resistente
+dice_titles.silver_dice,Silver Die (+x1),Silberwürfel (+x1),Серебряный кубик (+х1),Dé argent (+x1),Dado prata (+x1),シルバーのサイコロ（+x1）,银色骰子（+x1）,Dado plateado (+x1)
+dice_titles.gold_dice,Gold Die (+x2),Goldwürfel (+x2),Золотой кубик (+х2),Dé or (+x2),Dado ouro (+x2),ゴールドのサイコロ（+x2）,金色骰子（+x2）,Dado dorado (+x2)
+dice_titles.regen_health,Health Regen,Heilungsregeneration,Регенерация здоровья,Régénération de vie,Regeneração de vida,体力再生,生命回复,Regeneración de vida
+dice_titles.last_stand_dice,Last Chance,Letzte Chance,Последний шанс,Dernière chance,Última chance,最後のチャンス,最后一击,Última oportunidad
+dice_titles.lifesteal_dice,Vampiric Die,Vampirwürfel,Кубик вампиризма,Dé vampirique,Dado vampírico,ヴァンパイアのサイコロ,吸血骰子,Dado vampírico
