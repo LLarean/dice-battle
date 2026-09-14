@@ -17,8 +17,6 @@ namespace DiceBattle.UI
     {
         [SerializeField] private GameConfig _config;
         [Space]
-        [SerializeField] private ContextBackground _contextBackground;
-        [SerializeField] private Sprite _background;
         [SerializeField] private UnitPanel _player;
         [SerializeField] private UnitPanel _enemy;
         [SerializeField] private TournamentBoard _board;
@@ -43,11 +41,6 @@ namespace DiceBattle.UI
 
         public void SetEnemyData(UnitData unitData)
         {
-            if (_background != null)
-            {
-                _contextBackground.SetSprite(_background);
-            }
-
             _enemy.SetUnitData(unitData);
         }
 
