@@ -29,20 +29,24 @@ namespace DiceBattle.UI
 
         private Screen _currentScreen;
         private readonly Stack<Screen> _openWindows = new();
-        private float _transitionLockedUntil;
+        private float _screenTransitionLockedUntil;
+        private float _windowTransitionLockedUntil;
 
-        private bool IsTransitioning => Time.unscaledTime < _transitionLockedUntil;
+        private bool IsScreenTransitioning => Time.unscaledTime < _screenTransitionLockedUntil;
+        private bool IsWindowTransitioning => Time.unscaledTime < _windowTransitionLockedUntil;
 
-        private void LockTransitions() => _transitionLockedUntil = Time.unscaledTime + TransitionLockDuration;
+        private void LockScreenTransitions() => _screenTransitionLockedUntil = Time.unscaledTime + TransitionLockDuration;
+
+        private void LockWindowTransitions() => _windowTransitionLockedUntil = Time.unscaledTime + TransitionLockDuration;
 
         public void ShowScreen(ScreenType screenType)
         {
-            if (IsTransitioning)
+            if (IsScreenTransitioning)
             {
                 return;
             }
 
-            LockTransitions();
+            LockScreenTransitions();
 
             if (_currentScreen != null)
             {
@@ -56,12 +60,12 @@ namespace DiceBattle.UI
 
         public void ShowWindow(ScreenType screenType)
         {
-            if (IsTransitioning)
+            if (IsWindowTransitioning)
             {
                 return;
             }
 
-            LockTransitions();
+            LockWindowTransitions();
 
             Screen window = GetScreen(screenType);
             window.Show();
@@ -70,12 +74,12 @@ namespace DiceBattle.UI
 
         public void CloseTopWindow()
         {
-            if (IsTransitioning || _openWindows.Count == 0)
+            if (IsWindowTransitioning || _openWindows.Count == 0)
             {
                 return;
             }
 
-            LockTransitions();
+            LockWindowTransitions();
 
             Screen window = _openWindows.Pop();
             window.Hide();
@@ -83,7 +87,7 @@ namespace DiceBattle.UI
 
         public void Back()
         {
-            if (IsTransitioning)
+            if (IsScreenTransitioning || IsWindowTransitioning)
             {
                 return;
             }

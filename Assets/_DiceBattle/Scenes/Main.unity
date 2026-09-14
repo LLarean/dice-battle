@@ -6120,14 +6120,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 805864184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc46a51da3894a048ad578dbc9f3a656, type: 3}
+  m_Script: {fileID: 11500000, guid: ffda692938174d2ba2dbc95ba335b577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
   _diceShaker: {fileID: 758242725}
-  _diceHolder: {fileID: 2018541684}
-  _dice: {fileID: 2983668718188166613, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
-  _diceSpawn: {fileID: 758242724}
+  _playerHolder: {fileID: 2018541684}
+  _enemyHolder: {fileID: 1859216653}
+  _dicePrefab: {fileID: 2983668718188166613, guid: ff18b788de19fda44ac1b0935cc2ab0e, type: 3}
+  _playerSpawn: {fileID: 2018541685}
+  _enemySpawn: {fileID: 1859216651}
 --- !u!1 &808507486
 GameObject:
   m_ObjectHideFlags: 0
@@ -6868,7 +6870,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 938467512}
-  - component: {fileID: 938467515}
   - component: {fileID: 938467516}
   - component: {fileID: 938467514}
   - component: {fileID: 938467513}
@@ -6927,33 +6928,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _threshold: 2.5
   _cooldown: 1.5
---- !u!114 &938467515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 938467511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ab628cbfb80a7849afd9e614ed94b01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 938467513}
-  _transitionKind: 1
-  _windowContent: {fileID: 0}
-  _dimmer: {fileID: 0}
-  _config: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
-  _contextBackground: {fileID: 956064749}
-  _player: {fileID: 638053301}
-  _enemy: {fileID: 1949417767}
-  _gameBoard: {fileID: 805864186}
-  _shakeDetector: {fileID: 938467514}
-  _help: {fileID: 1974548797}
-  _context: {fileID: 1746385511}
-  _contextLabel: {fileID: 1746385509}
-  _all: {fileID: 1909755291}
-  _rollButtonHint: {fileID: 1746385513}
 --- !u!114 &938467516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6971,12 +6945,10 @@ MonoBehaviour:
   _windowContent: {fileID: 0}
   _dimmer: {fileID: 0}
   _config: {fileID: 11400000, guid: c6f9059ff237559498b5ed1191794987, type: 2}
-  _contextBackground: {fileID: 956064749}
-  _background: {fileID: 0}
   _player: {fileID: 638053301}
   _enemy: {fileID: 1949417767}
-  _board: {fileID: 0}
-  _shakeDetector: {fileID: 0}
+  _board: {fileID: 805864186}
+  _shakeDetector: {fileID: 938467514}
   _help: {fileID: 1746385511}
   _context: {fileID: 1746385511}
   _contextLabel: {fileID: 1746385509}
@@ -7040,7 +7012,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1c958bde6c526ea49acd3d2879fcb488, type: 3}
+  m_Sprite: {fileID: 21300000, guid: daf1e281e1e6ded4194aaac9d6e64174, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -17267,17 +17239,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6691906081132345294, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
   m_PrefabInstance: {fileID: 1974548795}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1974548797 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5408422912977510510, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
-  m_PrefabInstance: {fileID: 1974548795}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1995131650
 GameObject:
   m_ObjectHideFlags: 0

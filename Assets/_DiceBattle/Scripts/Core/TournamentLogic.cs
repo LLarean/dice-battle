@@ -113,7 +113,6 @@ namespace DiceBattle.Core
             }
 
             _screen.SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.Finish));
-            SignalSystem.Raise<IHintHandler>(handler => handler.Show(LocalizationManager.Localize(LocKeys.GameHits.RollsLeft, _playerRollsLeft)));
         }
 
         public void AllClick()
