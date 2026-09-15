@@ -118,7 +118,15 @@ namespace DiceBattle.UI
             }
             else if (_currentScreen.TryGetComponent(out TournamentScreen tournamentScreen))
             {
-                ShowScreen(ScreenType.TavernScreen);
+                var confirmData = new ConfirmData(LocalizationManager.Localize(LocKeys.Window.LeaveArenaTitle),
+                    LocalizationManager.Localize(LocKeys.Window.LeaveArenaMessage), onAccept: () =>
+                    {
+                        tournamentScreen.AbandonMatch();
+                        ShowScreen(ScreenType.TavernScreen);
+                    }, acceptText: LocalizationManager.Localize(LocKeys.Button.LeaveArena), cancelText: LocalizationManager.Localize(LocKeys.Button.Stay));
+
+                SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
+                SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
             }
             else if (_currentScreen.TryGetComponent(out MainMenuScreen mainMenuScreen))
             {

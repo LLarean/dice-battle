@@ -79,6 +79,13 @@ namespace DiceBattle.Core
             _screen.SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.RollDice));
         }
 
+        public void AbandonMatch()
+        {
+            _matchEnded = true;
+            LeanTween.cancel(_screen.gameObject);
+            DiceRuleset.Reset();
+        }
+
         public void ContextClick()
         {
             if (_phase != Phase.PlayerRolling || _matchEnded)
@@ -158,7 +165,7 @@ namespace DiceBattle.Core
             _enemyRollsLeft = RollsPerTurn;
             SignalSystem.Raise<IHintHandler>(handler => handler.Show(LocalizationManager.Localize(LocKeys.GameHits.EnemyTurn)));
 
-            LeanTween.delayedCall(0.5f, StartEnemyTurn);
+            LeanTween.delayedCall(_screen.gameObject, 0.5f, StartEnemyTurn);
         }
 
         private void StartEnemyTurn()
@@ -175,7 +182,7 @@ namespace DiceBattle.Core
             {
                 _enemyRollsLeft--;
                 _screen.SelectEnemyDice(rerollTargets);
-                LeanTween.delayedCall(0.4f, _screen.RerollEnemySelected);
+                LeanTween.delayedCall(_screen.gameObject, 0.4f, _screen.RerollEnemySelected);
             }
             else
             {

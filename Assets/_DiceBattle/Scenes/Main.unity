@@ -6949,7 +6949,7 @@ MonoBehaviour:
   _enemy: {fileID: 1949417767}
   _board: {fileID: 805864186}
   _shakeDetector: {fileID: 938467514}
-  _help: {fileID: 1746385511}
+  _help: {fileID: 1974548797}
   _context: {fileID: 1746385511}
   _contextLabel: {fileID: 1746385509}
   _all: {fileID: 1909755291}
@@ -17239,6 +17239,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6691906081132345294, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
   m_PrefabInstance: {fileID: 1974548795}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1974548797 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5408422912977510510, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+  m_PrefabInstance: {fileID: 1974548795}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1995131650
 GameObject:
   m_ObjectHideFlags: 0
