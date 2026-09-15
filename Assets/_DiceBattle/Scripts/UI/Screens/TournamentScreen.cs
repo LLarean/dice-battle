@@ -101,6 +101,8 @@ namespace DiceBattle.UI
 
         #endregion
 
+        public void AbandonMatch() => _logic.AbandonMatch();
+
         #region Event handlers
 
         private void HandleHelpClicked() =>

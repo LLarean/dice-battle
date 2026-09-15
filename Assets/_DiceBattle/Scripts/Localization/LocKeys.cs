@@ -20,6 +20,7 @@ namespace DiceBattle.Localization
 
             public const string Flee = "ui.button.flee";
             public const string Quit = "ui.button.quit";
+            public const string LeaveArena = "ui.button.leave_arena";
         }
 
         public static class Message
@@ -39,6 +40,9 @@ namespace DiceBattle.Localization
 
             public const string AbandonTitle = "ui.window.abandon_title";
             public const string AbandonMessage = "ui.window.abandon_message";
+
+            public const string LeaveArenaTitle = "ui.window.leave_arena_title";
+            public const string LeaveArenaMessage = "ui.window.leave_arena_message";
 
             public const string QuitTavernTitle = "ui.window.quit_tavern_title";
             public const string QuitTavernMessage = "ui.window.quit_tavern_message";
