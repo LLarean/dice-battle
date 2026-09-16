@@ -35,8 +35,8 @@ namespace DiceBattle.Core
 
         private void HandleRollComplete() => OnRollCompleted?.Invoke();
 
-        private void Start() => DiceAnimation.OnDiceRollComplete += HandleRollComplete;
+        private void OnEnable() => DiceAnimation.OnDiceRollComplete += HandleRollComplete;
 
-        private void OnDestroy() => DiceAnimation.OnDiceRollComplete -= HandleRollComplete;
+        private void OnDisable() => DiceAnimation.OnDiceRollComplete -= HandleRollComplete;
     }
 }
