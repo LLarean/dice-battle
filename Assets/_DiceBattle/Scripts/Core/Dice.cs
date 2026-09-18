@@ -13,7 +13,6 @@ using Random = System.Random;
 
 namespace DiceBattle.Core
 {
-    [RequireComponent(typeof(Image))]
     [RequireComponent(typeof(Button))]
     public class Dice : MonoBehaviour
     {
@@ -29,9 +28,9 @@ namespace DiceBattle.Core
         [Space]
         [SerializeField] private bool _isMenu;
 
-        // private static readonly Color _uncommonGlowColor = new Color32(0x1E, 0xC8, 0x54, 0xFF);
-        // private static readonly Color _rareGlowColor = new Color32(0x2E, 0x8F, 0xF7, 0xFF);
-        // private static readonly Color _legendaryGlowColor = new Color32(0xF7, 0x9E, 0x1E, 0xFF);
+        private static readonly Color _uncommonGlowColor = new Color32(0x1E, 0xC8, 0x54, 0xFF);
+        private static readonly Color _rareGlowColor = new Color32(0x2E, 0x8F, 0xF7, 0xFF);
+        private static readonly Color _legendaryGlowColor = new Color32(0xF7, 0x9E, 0x1E, 0xFF);
 
         private Random _random;
         private DiceValue _diceValue = DiceValue.Empty;
@@ -61,22 +60,22 @@ namespace DiceBattle.Core
             _faceIcon.sprite = _faceSprites[randomIndex];
         }
 
-        // public void SetRarityGlow(DiceRarity rarity)
-        // {
-        //     _rarityGlow.color = GetRarityGlowColor(rarity);
-        //     _rarityGlow.gameObject.SetActive(true);
-        // }
+        public void SetRarityGlow(DiceRarity rarity)
+        {
+            _rarityGlow.color = GetRarityGlowColor(rarity);
+            _rarityGlow.gameObject.SetActive(_rarityGlow.color != Color.white);
+        }
 
-        // private static Color GetRarityGlowColor(DiceRarity rarity)
-        // {
-        //     return rarity switch
-        //     {
-        //         DiceRarity.Uncommon => _uncommonGlowColor,
-        //         DiceRarity.Rare => _rareGlowColor,
-        //         DiceRarity.Legendary => _legendaryGlowColor,
-        //         _ => Color.white,
-        //     };
-        // }
+        private static Color GetRarityGlowColor(DiceRarity rarity)
+        {
+            return rarity switch
+            {
+                DiceRarity.Uncommon => _uncommonGlowColor,
+                DiceRarity.Rare => _rareGlowColor,
+                DiceRarity.Legendary => _legendaryGlowColor,
+                _ => Color.white,
+            };
+        }
 
         public void ShowFixedMultiplier(DiceValue diceValue)
         {
@@ -145,7 +144,8 @@ namespace DiceBattle.Core
                 ResetToEmpty();
             }
 
-            // SetRarityGlow(DiceRarity.Common); // TEMP: visual test
+            // TODO RarityGlow
+            SetRarityGlow(DiceRarity.Common); // TEMP: visual test
         }
 
         private void OnDestroy()
