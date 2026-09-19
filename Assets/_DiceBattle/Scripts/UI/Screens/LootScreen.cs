@@ -111,6 +111,7 @@ namespace DiceBattle.UI
             for (int i = 0; i < _dice.Count; i++)
             {
                 _dice[i].SetFixedFace(_currentRewards[i].GetIconCategory());
+                _dice[i].SetRarityGlow(_currentRewards[i].GetRarity());
             }
 
             FlyDiceToCards();

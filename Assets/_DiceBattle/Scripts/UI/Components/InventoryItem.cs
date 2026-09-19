@@ -20,10 +20,6 @@ namespace DiceBattle.UI
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private TextMeshProUGUI _description;
 
-        private static readonly Color _uncommonColor = new Color32(0x1E, 0xC8, 0x54, 0xFF);
-        private static readonly Color _rareColor = new Color32(0x2E, 0x8F, 0xF7, 0xFF);
-        private static readonly Color _legendaryColor = new Color32(0xF7, 0x9E, 0x1E, 0xFF);
-
         private const float _pulseMinAlpha = 0.4f;
         private const float _pulseMaxAlpha = 1f;
         private const float _pulseDuration = 0.8f;
@@ -151,7 +147,7 @@ namespace DiceBattle.UI
                 return;
             }
 
-            _rarityGlow.color = GetRarityColor(rarity);
+            _rarityGlow.color = DiceRarityColors.Get(rarity);
             _rarityGlow.gameObject.SetActive(true);
 
             // Guarantee the glow renders behind the dice, otherwise it swallows the select/deselect animation.
@@ -169,17 +165,6 @@ namespace DiceBattle.UI
             LeanTween.rotateZ(_rarityGlow.gameObject, 360f, _glowSpinDuration)
                 .setEase(LeanTweenType.linear)
                 .setLoopClamp(-1);
-        }
-
-        private static Color GetRarityColor(DiceRarity rarity)
-        {
-            return rarity switch
-            {
-                DiceRarity.Uncommon => _uncommonColor,
-                DiceRarity.Rare => _rareColor,
-                DiceRarity.Legendary => _legendaryColor,
-                _ => Color.white,
-            };
         }
 
         public void PlayRejectShake()
