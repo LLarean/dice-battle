@@ -31,6 +31,7 @@ ui.button.back,Back,Zurück,Назад,Retour,Voltar,戻る,返回,Volver
 ui.message.select_reward,Choose a reward,Belohnung wählen,Выберите награду,Choisissez une récompense,Escolha uma recompensa,報酬を選んでください,选择奖励,Elige una recompensa
 ui.button.repeat,Again,Nochmal,Заново,Encore,De novo,もう一度,再来,Otra vez
 ui.button.level,Level,Level,Уровень,Niveau,Nível,レベル,等级,Nivel
+ui.button.new_game,New Game,Neues Spiel,Новая игра,Nouvelle partie,Novo jogo,ニューゲーム,新游戏,Nueva partida
 ui.button.all,All,Alle,Все,Tous,Todos,すべて,全部,Todos
 ui.dice.attack_abbr,ATK ,ANG ,УР ,ATT ,ATQ ,攻 ,攻 ,ATQ
 ui.dice.defense_abbr,DEF ,VER ,ЗЩ ,DÉF ,DEF ,防 ,防 ,DEF
