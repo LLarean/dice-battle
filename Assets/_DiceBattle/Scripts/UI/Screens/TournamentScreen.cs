@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.SimpleLocalization.Scripts;
+using DiceBattle.Animations;
 using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Data;
@@ -58,6 +59,18 @@ namespace DiceBattle.UI
         public void PlayerTakeDamage(int amount) => _player.TakeDamage(amount);
 
         public void EnemyTakeDamage(int amount) => _enemy.TakeDamage(amount);
+
+        public void PlayerTakeCriticalHit()
+        {
+            _player.TakeCriticalHit();
+            ShakeAnimation.Shake((RectTransform)transform);
+        }
+
+        public void EnemyTakeCriticalHit()
+        {
+            _enemy.TakeCriticalHit();
+            ShakeAnimation.Shake((RectTransform)transform);
+        }
 
         public void PlayerTakeHeal(int amount) => _player.TakeHeal(amount);
 

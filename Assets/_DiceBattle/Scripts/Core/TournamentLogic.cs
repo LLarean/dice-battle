@@ -18,6 +18,7 @@ namespace DiceBattle.Core
     public class TournamentLogic
     {
         private const int RollsPerTurn = 2;
+        private const float MatchEndPause = 1f;
 
         private enum Phase
         {
@@ -38,6 +39,7 @@ namespace DiceBattle.Core
         private int _playerRollsLeft;
         private int _enemyRollsLeft;
         private bool _matchEnded;
+        private int _matchEndTweenId = -1;
 
         public TournamentLogic(GameConfig config, TournamentScreen screen)
         {
@@ -83,6 +85,7 @@ namespace DiceBattle.Core
         {
             _matchEnded = true;
             LeanTween.cancel(_screen.gameObject);
+            LeanTween.cancel(_matchEndTweenId);
             DiceRuleset.Reset();
         }
 
@@ -204,7 +207,7 @@ namespace DiceBattle.Core
         {
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
 
-            ApplySide(_player, _screen.PlayerTakeHeal, _screen.EnemyTakeDamage, _screen.EnemyAnimateDamage);
+            ApplySide(_player, _screen.PlayerTakeHeal, _screen.EnemyTakeDamage, _screen.EnemyTakeCriticalHit, _screen.EnemyAnimateDamage);
 
             if (_enemy.Data.CurrentHealth <= 0)
             {
@@ -212,7 +215,7 @@ namespace DiceBattle.Core
                 return;
             }
 
-            ApplySide(_enemy, _screen.EnemyTakeHeal, _screen.PlayerTakeDamage, _screen.PlayerAnimateDamage);
+            ApplySide(_enemy, _screen.EnemyTakeHeal, _screen.PlayerTakeDamage, _screen.PlayerTakeCriticalHit, _screen.PlayerAnimateDamage);
 
             if (_player.Data.CurrentHealth <= 0)
             {
@@ -230,11 +233,20 @@ namespace DiceBattle.Core
         }
 
         private static void ApplySide(TournamentFighter attacker,
-            System.Action<int> heal, System.Action<int> dealDamage, System.Action animateDamage)
+            System.Action<int> heal, System.Action<int> dealDamage, System.Action criticalHit, System.Action animateDamage)
         {
             heal(attacker.Result.Heal);
             attacker.Data.Armor = attacker.BaseArmor + attacker.Result.Armor;
-            dealDamage(attacker.BaseDamage + attacker.Result.Damage);
+
+            if (attacker.Result.IsCritical)
+            {
+                criticalHit();
+            }
+            else
+            {
+                dealDamage(attacker.BaseDamage + attacker.Result.Damage);
+            }
+
             animateDamage();
         }
 
@@ -247,7 +259,8 @@ namespace DiceBattle.Core
                       $"Бот HP {_enemy.Data.CurrentHealth}/{_enemy.Data.MaxHealth}");
 
             DiceRuleset.Reset();
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TavernScreen));
+            _matchEndTweenId = LeanTween.delayedCall(MatchEndPause,
+                () => SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TavernScreen))).id;
         }
 
         private CharacterClass PickOpponentClass()

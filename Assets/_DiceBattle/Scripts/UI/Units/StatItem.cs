@@ -12,6 +12,8 @@ namespace DiceBattle.UI
 
         private string _lastText;
 
+        public TMP_Text Label => _value;
+
         public void SetValue(string value) => SetValue(value, 0);
 
         public void SetValue(string value, int bonus)
