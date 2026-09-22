@@ -8,6 +8,10 @@ namespace DiceBattle.UI
         [SerializeField] private StatItem _attack;
         [SerializeField] private StatItem _armor;
 
+        public StatItem Health => _health;
+        public StatItem Attack => _attack;
+        public StatItem Armor => _armor;
+
         public void SetHealth(string value, int bonus = 0) => _health.SetValue(value, bonus);
 
         public void SetAttack(string value, int bonus = 0) => _attack.SetValue(value, bonus);

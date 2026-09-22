@@ -18,8 +18,11 @@ namespace DiceBattle.Core
         private readonly Spawner _spawner;
         private readonly DiceResult _diceResult = new();
 
+        private const float _battleEndPause = 1f;
+
         private readonly MatchData _matchData = new();
         private bool _battleEnded;
+        private int _battleEndTweenId = -1;
 
         private UnitConfig PlayerConfig => _config.GetPlayerConfig(GameData.SelectedCharacterClass);
 
@@ -54,6 +57,7 @@ namespace DiceBattle.Core
         public void AbandonBattle()
         {
             _battleEnded = true;
+            LeanTween.cancel(_battleEndTweenId);
 
             if (_config.CanSaveBattle)
             {
@@ -98,6 +102,11 @@ namespace DiceBattle.Core
 
         public void ContextClick()
         {
+            if (_battleEnded)
+            {
+                return;
+            }
+
             _matchData.RemainingDiceRerolls++;
 
             if (_matchData.RemainingDiceRerolls == 1)
@@ -332,7 +341,15 @@ namespace DiceBattle.Core
             int bonusDamageCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceType.BaseDamage) * PlayerConfig.GrowthDamage;
             _matchData.PlayerData.Damage = Mathf.Max(0, PlayerConfig.StartDamage + _diceResult.Damage + bonusDamageCount);
             _gameScreen.SetPlayerEquipmentBonus(null, bonusDamageCount);
-            _gameScreen.EnemyTakeDamage(_matchData.PlayerData.Damage);
+
+            if (_diceResult.IsCritical)
+            {
+                _gameScreen.EnemyTakeCriticalHit();
+            }
+            else
+            {
+                _gameScreen.EnemyTakeDamage(_matchData.PlayerData.Damage);
+            }
 
             Debug.Log("Damage: Dice = " + _diceResult.Damage + ", Character = " + bonusDamageCount);
 
@@ -378,7 +395,7 @@ namespace DiceBattle.Core
                 BattleSaveData.Clear();
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Defeat));
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameOverScreen));
+            AfterBattleEndPause(() => SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameOverScreen)));
         }
 
         #endregion
@@ -439,12 +456,12 @@ namespace DiceBattle.Core
 
             if (isLastEnemy)
             {
-                SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.GameOverScreen));
+                AfterBattleEndPause(() => SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.GameOverScreen)));
             }
             else
             {
                 GameData.SetPendingLootReward(GameData.CompletedLevels);
-                SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.LootScreen));
+                AfterBattleEndPause(() => SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.LootScreen)));
             }
 
             GameData.IncrementLevels();
@@ -456,6 +473,12 @@ namespace DiceBattle.Core
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Victory));
             RemovePlayerArmor();
             UpdateButtonStates();
+        }
+
+        // Lets the final hit and floating numbers play out before the result screen covers them.
+        private void AfterBattleEndPause(System.Action showResult)
+        {
+            _battleEndTweenId = LeanTween.delayedCall(_battleEndPause, showResult).id;
         }
         #endregion
     }

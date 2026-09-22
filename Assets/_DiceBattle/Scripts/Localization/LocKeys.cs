@@ -63,6 +63,7 @@ namespace DiceBattle.Localization
             public const string EnemyTurn = "game_hits.enemy_turn";
             public const string RerollSelected = "game_hits.reroll_selected";
             public const string RerollAll = "game_hits.reroll_all";
+            public const string Critical = "game_hits.critical";
         }
 
         public static class DiceTitles

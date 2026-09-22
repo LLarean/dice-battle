@@ -9,16 +9,21 @@ namespace DiceBattle.Core
         private int _damage;
         private int _armor;
         private int _heal;
+        private bool _isCritical;
+
+        public const int CriticalAttackCount = 5;
 
         public int Damage => _damage;
         public int Armor => _armor;
         public int Heal => _heal;
+        public bool IsCritical => _isCritical;
 
         public void Calculate(List<Dice> dices, DiceList equippedItems)
         {
             _damage = 0;
             _armor = 0;
             _heal = 0;
+            _isCritical = dices.Count(dice => dice.DiceValue == DiceValue.Attack) >= CriticalAttackCount;
 
             foreach (Dice dice in dices)
             {
