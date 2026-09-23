@@ -39,10 +39,22 @@ namespace DiceBattle.UI
             _initialized = true;
         }
 
+        // Window tweens run on the content and dimmer, not on the root: a pending Hide would deactivate a re-shown window.
+        private void CancelTweens()
+        {
+            LeanTween.cancel(gameObject);
+            LeanTween.cancel(_rect.gameObject);
+
+            if (_dimmer != null)
+            {
+                LeanTween.cancel(_dimmer.gameObject);
+            }
+        }
+
         public void Show()
         {
             Initialize();
-            LeanTween.cancel(gameObject);
+            CancelTweens();
 
             bool isWindow = _transitionKind == TransitionKind.Window;
             float startScale = isWindow ? 0.9f : 1.1f;
@@ -70,7 +82,7 @@ namespace DiceBattle.UI
         public void Hide()
         {
             Initialize();
-            LeanTween.cancel(gameObject);
+            CancelTweens();
 
             bool isWindow = _transitionKind == TransitionKind.Window;
             float endScale = isWindow ? 0.9f : 1.1f;

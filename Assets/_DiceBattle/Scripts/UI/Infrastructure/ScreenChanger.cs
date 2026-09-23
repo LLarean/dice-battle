@@ -25,7 +25,7 @@ namespace DiceBattle.UI
         [SerializeField] private QuestWindow _questWindow;
         [SerializeField] private ConfirmWindow _confirmWindow;
 
-        private const float TransitionLockDuration = 0.35f;
+        public const float TransitionLockDuration = 0.35f;
 
         private Screen _currentScreen;
         private readonly Stack<Screen> _openWindows = new();
@@ -85,6 +85,9 @@ namespace DiceBattle.UI
             window.Hide();
         }
 
+        private static bool IsBattleResultWindow(Screen window) =>
+            window is LootScreen or GameOverScreen;
+
         public void Back()
         {
             if (IsScreenTransitioning || IsWindowTransitioning)
@@ -94,7 +97,10 @@ namespace DiceBattle.UI
 
             if (_openWindows.Count > 0)
             {
-                CloseTopWindow();
+                if (IsBattleResultWindow(_openWindows.Peek()) == false)
+                {
+                    CloseTopWindow();
+                }
             }
             else if (_currentScreen.TryGetComponent(out TavernScreen dungeonsScreen))
             {
@@ -102,6 +108,12 @@ namespace DiceBattle.UI
             }
             else if (_currentScreen.TryGetComponent(out GameScreen gameScreen))
             {
+                // The result screen is about to show; fleeing now would skip the defeat penalty or the loot.
+                if (gameScreen.IsBattleEnded)
+                {
+                    return;
+                }
+
                 var confirmData = new ConfirmData(LocalizationManager.Localize(LocKeys.Window.AbandonTitle),
                     LocalizationManager.Localize(LocKeys.Window.AbandonMessage), onAccept: () =>
                     {

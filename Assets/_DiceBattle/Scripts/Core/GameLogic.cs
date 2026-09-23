@@ -22,6 +22,9 @@ namespace DiceBattle.Core
 
         private readonly MatchData _matchData = new();
         private bool _battleEnded;
+
+        public bool IsBattleEnded => _battleEnded;
+        private bool _isRolling;
         private int _battleEndTweenId = -1;
 
         private UnitConfig PlayerConfig => _config.GetPlayerConfig(GameData.SelectedCharacterClass);
@@ -36,6 +39,7 @@ namespace DiceBattle.Core
         public void InitializeGame()
         {
             _battleEnded = false;
+            _isRolling = false;
             ResetNumbers();
             UpdateDiceCount();
             _gameScreen.ResetDice();
@@ -68,6 +72,7 @@ namespace DiceBattle.Core
         public void RestoreGame()
         {
             _battleEnded = false;
+            _isRolling = false;
             ResetNumbers();
             UpdateDiceCount();
             _gameScreen.ResetDice();
@@ -85,24 +90,32 @@ namespace DiceBattle.Core
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
         }
 
-        public void UpdateDicePreview()
+        public void OnRollCompleted()
+        {
+            if (_isRolling == false)
+            {
+                return;
+            }
+
+            _isRolling = false;
+            UpdateDicePreview();
+            UpdateButtonStates();
+        }
+
+        // Equipment bonuses are already shown by UnitPanel, so the preview carries dice results only.
+        private void UpdateDicePreview()
         {
             DiceList equippedItems = GameData.GetEquippedAsDiceList();
             _diceResult.Calculate(_gameScreen.Dices, equippedItems);
 
             int regenHealth = equippedItems.DiceTypes.Count(r => r == DiceType.RegenHealth) * PlayerConfig.GrowthHealth;
-            int bonusArmorCount = equippedItems.DiceTypes.Count(r => r == DiceType.BaseArmor) * PlayerConfig.GrowthArmor;
-            int bonusDamageCount = equippedItems.DiceTypes.Count(r => r == DiceType.BaseDamage) * PlayerConfig.GrowthDamage;
 
-            _gameScreen.SetPlayerDicePreview(
-                Mathf.Max(0, _diceResult.Armor + bonusArmorCount),
-                Mathf.Max(0, _diceResult.Damage + bonusDamageCount),
-                _diceResult.Heal + regenHealth);
+            _gameScreen.SetPlayerDicePreview(_diceResult.Armor, _diceResult.Damage, _diceResult.Heal + regenHealth);
         }
 
         public void ContextClick()
         {
-            if (_battleEnded)
+            if (_battleEnded || _isRolling)
             {
                 return;
             }
@@ -112,12 +125,14 @@ namespace DiceBattle.Core
             if (_matchData.RemainingDiceRerolls == 1)
             {
                 GameData.HasEverRolledDice = true;
+                _isRolling = true;
                 _gameScreen.RollDice();
             }
             else if (_matchData.RemainingDiceRerolls < _matchData.MaxDiceRerolls)
             {
                 if (_gameScreen.HaveSelectedDice)
                 {
+                    _isRolling = true;
                     _gameScreen.RerollSelectedDice();
                 }
                 else
@@ -135,7 +150,7 @@ namespace DiceBattle.Core
 
         public void AllClick()
         {
-            if (_matchData.RemainingDiceRerolls <= 0)
+            if (_isRolling || _matchData.RemainingDiceRerolls <= 0)
             {
                 return;
             }
@@ -234,7 +249,7 @@ namespace DiceBattle.Core
 
         private void UpdateButtonStates()
         {
-            if (_matchData.RemainingDiceRerolls == 0)
+            if (_matchData.RemainingDiceRerolls == 0 || _isRolling)
             {
                 _gameScreen.DisableDiceInteractable();
             }

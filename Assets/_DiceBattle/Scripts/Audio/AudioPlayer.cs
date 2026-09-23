@@ -13,12 +13,17 @@ namespace DiceBattle.Audio
         [SerializeField] private AudioSource _musicSource;
         [SerializeField] private AudioSource _sfxSource;
 
+        private SoundType? _currentMusic;
+
         public void PlayMusic(SoundType soundType)
         {
-            if (_soundConfig.TryGetAudioClip(soundType, out AudioClip audioClip) == false)
+            if (_currentMusic == soundType || _soundConfig.TryGetAudioClip(soundType, out AudioClip audioClip) == false)
             {
                 return;
             }
+
+            _currentMusic = soundType;
+            LeanTween.cancel(gameObject);
 
             if (_musicSource.isPlaying)
             {

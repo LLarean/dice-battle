@@ -189,6 +189,10 @@ namespace DiceBattle.UI
             {
                 _dice.ShowFixedMultiplier(effectValue.Value);
             }
+            else
+            {
+                _dice.HideMultiplier();
+            }
         }
 
         private void Awake()

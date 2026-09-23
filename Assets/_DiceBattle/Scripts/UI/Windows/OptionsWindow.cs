@@ -55,6 +55,8 @@ namespace DiceBattle.UI
             _sound.value = GameSettings.SoundVolume;
         }
 
+        private void OnDisable() => PlayerPrefs.Save();
+
         #endregion
 
         #region Handlers
@@ -79,9 +81,9 @@ namespace DiceBattle.UI
             SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
         }
 
+        // Opens over Options: closing first would start the window lock and drop this ShowWindow.
         private void HandleCreditsClick()
         {
-            SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.CreditsWindow));
         }
 

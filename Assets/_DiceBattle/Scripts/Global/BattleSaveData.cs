@@ -67,7 +67,11 @@ namespace DiceBattle.Global
             return data;
         }
 
-        public static void Clear() => PlayerPrefs.DeleteKey(_playerPrefsKey);
+        public static void Clear()
+        {
+            PlayerPrefs.DeleteKey(_playerPrefsKey);
+            PlayerPrefs.Save();
+        }
 
         private static UnitSnapshot ToSnapshot(UI.UnitData unitData) => new()
         {

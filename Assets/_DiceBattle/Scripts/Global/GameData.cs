@@ -44,6 +44,7 @@ namespace DiceBattle.Global
             ResetSelectedCharacterClass();
             BattleSaveData.Clear();
             ClearPendingLootReward();
+            PlayerPrefs.Save();
         }
 
         public static void AdvanceNewGamePlus()
@@ -51,6 +52,7 @@ namespace DiceBattle.Global
             int nextCycle = NewGamePlusCycle + 1;
             ResetAll();
             PlayerPrefs.SetInt(PlayerPrefsKeys.NewGamePlusCycle, nextCycle);
+            PlayerPrefs.Save();
         }
 
         public static void ResetNewGamePlusCycle() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.NewGamePlusCycle);
@@ -61,6 +63,7 @@ namespace DiceBattle.Global
         {
             PlayerPrefs.SetInt(PlayerPrefsKeys.CompletedLevels, CompletedLevels + 1);
             PlayerPrefs.SetInt(PlayerPrefsKeys.CurrentLevel, CurrentLevel + 1);
+            PlayerPrefs.Save();
         }
 
         public static void IncrementCompletedLevels() => PlayerPrefs.SetInt(PlayerPrefsKeys.CompletedLevels, CompletedLevels + 1);

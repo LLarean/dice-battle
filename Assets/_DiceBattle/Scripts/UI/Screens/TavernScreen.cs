@@ -99,11 +99,9 @@ namespace DiceBattle.UI
 
         private void SetLabel()
         {
-            string key = IsFullClear
-                ? LocKeys.Button.NewGame
-                : LocKeys.Button.Level;
-
-            _startLabel.text = $"{LocalizationManager.Localize(key)} {GameData.CompletedLevels + 1}";
+            _startLabel.text = IsFullClear
+                ? LocalizationManager.Localize(LocKeys.Button.NewGame)
+                : $"{LocalizationManager.Localize(LocKeys.Button.Level)} {GameData.CompletedLevels + 1}";
         }
     }
 }
