@@ -126,28 +126,6 @@ namespace DiceBattle.Core
             SignalSystem.Raise<IDiceResultHandler>(handler => handler.OnDiceLanded(this, dice, amount));
         }
 
-        public void SetSocketCount(int count)
-        {
-            for (int i = 0; i < _slots.Count; i++)
-            {
-                _slots[i].gameObject.SetActive(i < count);
-            }
-        }
-
-        public void AddSocket()
-        {
-            for (int i = _slots.Count - 1; i < _slots.Count + 1; i++)
-            {
-                GameObject diceSlot = Instantiate(_diceSlot, _slotSpawn);
-                _slots.Add(diceSlot);
-            }
-        }
-
-        public void RemoveSocket()
-        {
-            _slots.RemoveAt(_slots.Count - 1);
-        }
-
         private void DestroySlots()
         {
             foreach (GameObject slot in _slots)

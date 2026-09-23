@@ -47,6 +47,7 @@ namespace DiceBattle.UI
                 onAccept: () =>
                 {
                     GameData.ResetAll();
+                    DefaultInventory.InitializeDefault(_config.DiceStartCount);
                     SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
                 }, acceptText: LocalizationManager.Localize(LocKeys.Button.Repeat), cancelText: LocalizationManager.Localize(LocKeys.Button.Stay));
 

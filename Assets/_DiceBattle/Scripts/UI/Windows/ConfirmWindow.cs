@@ -20,6 +20,8 @@ namespace DiceBattle.UI
 
         private Action _onAccept;
         private Action _onCancel;
+        private bool _isAnswered;
+        private float _answerAllowedFrom;
 
         public void SetConfirmData(ConfirmData data)
         {
@@ -27,6 +29,7 @@ namespace DiceBattle.UI
             _message.text = data.Message;
             _onAccept = data.OnAccept;
             _onCancel = data.OnCancel;
+            _isAnswered = false;
 
             if (string.IsNullOrEmpty(data.AcceptText) == false)
             {
@@ -42,6 +45,9 @@ namespace DiceBattle.UI
         #region Unity lifecycle
 
         private void Awake() => SignalSystem.Subscribe(this);
+
+        // Until the window lock expires CloseTopWindow is ignored, so an early answer would leave the window open.
+        private void OnEnable() => _answerAllowedFrom = Time.unscaledTime + ScreenChanger.TransitionLockDuration;
 
         private void Start()
         {
@@ -62,16 +68,37 @@ namespace DiceBattle.UI
 
         private void HandleAccept()
         {
+            if (TryAnswer() == false)
+            {
+                return;
+            }
+
             SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
             _onAccept?.Invoke();
         }
 
         private void HandleCancel()
         {
+            if (TryAnswer() == false)
+            {
+                return;
+            }
+
             SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
             _onCancel?.Invoke();
         }
 
         #endregion
+
+        private bool TryAnswer()
+        {
+            if (_isAnswered || Time.unscaledTime < _answerAllowedFrom)
+            {
+                return false;
+            }
+
+            _isAnswered = true;
+            return true;
+        }
     }
 }

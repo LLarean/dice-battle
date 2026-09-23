@@ -39,6 +39,7 @@ namespace DiceBattle.Core
         private int _playerRollsLeft;
         private int _enemyRollsLeft;
         private bool _matchEnded;
+        private bool _isPlayerRolling;
         private int _matchEndTweenId = -1;
 
         public TournamentLogic(GameConfig config, TournamentScreen screen)
@@ -73,6 +74,7 @@ namespace DiceBattle.Core
             _playerRollsLeft = RollsPerTurn;
             _enemyRollsLeft = RollsPerTurn;
             _phase = Phase.PlayerRolling;
+            _isPlayerRolling = false;
 
             _player.Result.Calculate(new List<Dice>(), _standardDeck);
             _enemy.Result.Calculate(new List<Dice>(), _standardDeck);
@@ -91,43 +93,36 @@ namespace DiceBattle.Core
 
         public void ContextClick()
         {
-            if (_phase != Phase.PlayerRolling || _matchEnded)
+            if (_phase != Phase.PlayerRolling || _matchEnded || _isPlayerRolling)
             {
                 return;
             }
 
             if (_playerRollsLeft == RollsPerTurn)
             {
-                _screen.RollPlayer();
-                _playerRollsLeft--;
+                StartPlayerRoll(_screen.RollPlayer);
             }
-            else if (_playerRollsLeft > 0)
+            else if (_screen.HavePlayerSelectedDice)
             {
-                _playerRollsLeft--;
-
-                if (_screen.HavePlayerSelectedDice)
-                {
-                    _screen.RerollPlayerSelected();
-                }
-                else
-                {
-                    FinishPlayerTurn();
-                    return;
-                }
+                StartPlayerRoll(_screen.RerollPlayerSelected);
             }
-
-            if (_playerRollsLeft == 0)
+            else
             {
-                _screen.DisablePlayerDice();
-                return;
+                FinishPlayerTurn();
             }
+        }
 
-            _screen.SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.Finish));
+        private void StartPlayerRoll(System.Action roll)
+        {
+            _playerRollsLeft--;
+            _isPlayerRolling = true;
+            _screen.DisablePlayerDice();
+            roll();
         }
 
         public void AllClick()
         {
-            if (_phase != Phase.PlayerRolling || _playerRollsLeft == 0 || _matchEnded)
+            if (_phase != Phase.PlayerRolling || _playerRollsLeft == 0 || _matchEnded || _isPlayerRolling)
             {
                 return;
             }
@@ -137,15 +132,26 @@ namespace DiceBattle.Core
 
         public void OnRollCompleted()
         {
+            if (_matchEnded)
+            {
+                return;
+            }
+
             switch (_phase)
             {
                 case Phase.PlayerRolling:
+                    _isPlayerRolling = false;
                     _player.Result.Calculate(_screen.PlayerDices, _standardDeck);
                     _screen.SetPlayerDicePreview(_player.Result.Armor, _player.Result.Damage, _player.Result.Heal);
 
                     if (_playerRollsLeft == 0)
                     {
                         FinishPlayerTurn();
+                    }
+                    else
+                    {
+                        _screen.EnablePlayerDice();
+                        _screen.SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.Finish));
                     }
                     break;
 
@@ -207,7 +213,10 @@ namespace DiceBattle.Core
         {
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
 
-            ApplySide(_player, _screen.PlayerTakeHeal, _screen.EnemyTakeDamage, _screen.EnemyTakeCriticalHit, _screen.EnemyAnimateDamage);
+            ApplyDefense(_player, _screen.PlayerTakeHeal);
+            ApplyDefense(_enemy, _screen.EnemyTakeHeal);
+
+            ApplyAttack(_player, _screen.EnemyTakeDamage, _screen.EnemyTakeCriticalHit, _screen.EnemyAnimateDamage);
 
             if (_enemy.Data.CurrentHealth <= 0)
             {
@@ -215,7 +224,7 @@ namespace DiceBattle.Core
                 return;
             }
 
-            ApplySide(_enemy, _screen.EnemyTakeHeal, _screen.PlayerTakeDamage, _screen.PlayerTakeCriticalHit, _screen.PlayerAnimateDamage);
+            ApplyAttack(_enemy, _screen.PlayerTakeDamage, _screen.PlayerTakeCriticalHit, _screen.PlayerAnimateDamage);
 
             if (_player.Data.CurrentHealth <= 0)
             {
@@ -232,12 +241,15 @@ namespace DiceBattle.Core
             BeginRound();
         }
 
-        private static void ApplySide(TournamentFighter attacker,
-            System.Action<int> heal, System.Action<int> dealDamage, System.Action criticalHit, System.Action animateDamage)
+        private static void ApplyDefense(TournamentFighter fighter, System.Action<int> heal)
         {
-            heal(attacker.Result.Heal);
-            attacker.Data.Armor = attacker.BaseArmor + attacker.Result.Armor;
+            heal(fighter.Result.Heal);
+            fighter.Data.Armor = fighter.BaseArmor + fighter.Result.Armor;
+        }
 
+        private static void ApplyAttack(TournamentFighter attacker,
+            System.Action<int> dealDamage, System.Action criticalHit, System.Action animateDamage)
+        {
             if (attacker.Result.IsCritical)
             {
                 criticalHit();

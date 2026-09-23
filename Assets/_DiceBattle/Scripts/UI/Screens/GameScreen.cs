@@ -39,6 +39,8 @@ namespace DiceBattle.UI
 
         public void UpdateRewards() => _gameLogic.UpdateData();
 
+        public bool IsBattleEnded => _gameLogic.IsBattleEnded;
+
         public void AbandonBattle() => _gameLogic.AbandonBattle();
 
         public void SetPlayerData(UnitData unitData) => _player.SetUnitData(unitData);
@@ -155,12 +157,7 @@ namespace DiceBattle.UI
             }
         }
 
-        private void HandleRollComplete()
-        {
-            _gameLogic.UpdateDicePreview();
-
-            //TODO Add lock/unlock action buttons
-        }
+        private void HandleRollComplete() => _gameLogic.OnRollCompleted();
 
         #endregion
 

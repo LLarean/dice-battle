@@ -43,15 +43,11 @@ namespace DiceBattle.Core
 
         public void SetDiceCount(int count)
         {
-            for (int i = 0; i < _dices.Count; i++)
+            if (count != _dices.Count)
             {
-                _dices[i].gameObject.SetActive(i < count);
+                RebuildDice(count);
             }
-
-            _diceHolder.SetSocketCount(count);
         }
-
-        public void InitDice() => InstantiateDice();
 
         private void HandleRollComplete()
         {
@@ -60,10 +56,13 @@ namespace DiceBattle.Core
 
         private void HandleDiceToggle() => OnDiceToggled?.Invoke();
 
+        // GameScreen.OnEnable may run before this Awake and have built the dice already.
         private void Awake()
         {
-            InstantiateDice();
-            _diceHolder.Initialize(_dices);
+            if (_dices.Count == 0)
+            {
+                RebuildDice(DiceRuleset.DiceCount(_config.DiceStartCount));
+            }
         }
 
         private void Start()
@@ -78,17 +77,17 @@ namespace DiceBattle.Core
             _diceHolder.OnDiceToggled -= HandleDiceToggle;
         }
 
-        private void InstantiateDice()
+        private void RebuildDice(int diceCount)
         {
             ClearDice();
-
-            int diceCount = DiceRuleset.DiceCount(_config.DiceStartCount);
 
             for (int i = 0; i < diceCount; i++)
             {
                 Dice dice = Instantiate(_dice, _diceSpawn);
                 _dices.Add(dice);
             }
+
+            _diceHolder.Initialize(_dices);
         }
 
         private void ClearDice()

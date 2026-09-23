@@ -42,6 +42,8 @@ namespace DiceBattle.Core
             _faceIcon.sprite = _faceSprites[(int)category];
         }
 
+        public void HideMultiplier() => _multiplier.gameObject.SetActive(false);
+
         public void ResetToEmpty()
         {
             _diceValue = DiceValue.Empty;

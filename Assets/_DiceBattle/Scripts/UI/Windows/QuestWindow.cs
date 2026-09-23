@@ -25,7 +25,8 @@ namespace DiceBattle.UI
 
         private void OnEnable()
         {
-            UnitData nextEnemy = _gameConfig.Enemies[GameData.CompletedLevels];
+            // After a full clear the next run starts over from the first enemy.
+            UnitData nextEnemy = _gameConfig.Enemies[GameData.CompletedLevels % _gameConfig.Enemies.Count];
             _unitPanel.SetUnitData(nextEnemy.CloneAtFullHealth());
             _description.text = LocalizationManager.Localize(nextEnemy.Description);
         }

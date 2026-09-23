@@ -56,13 +56,19 @@ namespace DiceBattle.UI
 
         private void HandleItemSelect(DiceType diceType)
         {
-            Inventory.AddItemToUnequipped(new Item { Type = diceType, IsEquipped = false });
+            foreach (InventoryItem rewardItem in _rewardItems)
+            {
+                rewardItem.SetInteractable(false);
+            }
+
+            // Clear first so the inventory save persists both; otherwise a kill in between duplicates the reward.
             GameData.ClearPendingLootReward();
+            Inventory.AddItemToUnequipped(new Item { Type = diceType, IsEquipped = false });
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Reward));
 
-            gameObject.SetActive(false);
+            SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TavernScreen));
         }
 
