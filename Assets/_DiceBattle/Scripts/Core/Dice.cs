@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Audio;
@@ -30,10 +30,12 @@ namespace DiceBattle.Core
 
         private Random _random;
         private DiceValue _diceValue = DiceValue.Empty;
+        private DiceType _type = DiceType.Default;
 
         public event Action OnToggled;
 
         public DiceValue DiceValue => _diceValue;
+        public DiceType Type => _type;
         public bool Interactable => _button.interactable;
         public bool IsSelected => _selectionIcon.gameObject.activeSelf;
 
@@ -64,20 +66,21 @@ namespace DiceBattle.Core
             _rarityGlow.gameObject.SetActive(rarity != DiceRarity.Common);
         }
 
-        public void ShowFixedMultiplier(DiceValue diceValue)
+        public void SetType(DiceType type)
         {
-            DiceList diceList = DiceRuleset.Current;
-            int multiplier = DiceResult.CalculateSingle(diceValue, diceList);
+            _type = type;
+            SetRarityGlow(type.GetRarity());
+        }
 
+        public void ShowFixedMultiplier(DiceValue diceValue, int multiplier)
+        {
             _multiplier.gameObject.SetActive(multiplier > 1);
             _multiplier.text = GetEffectLabel(diceValue) + "x" + multiplier;
         }
 
         public void Roll()
         {
-            DiceList receivedRewards = DiceRuleset.Current;
-            bool containsDisableEmptyState = receivedRewards.DiceTypes.Contains(DiceType.DisableEmptyState);
-            int firstIndex = containsDisableEmptyState ? 1 : 0;
+            int firstIndex = _type == DiceType.Reliable ? 1 : 0;
 
             int randomIndex = _random.Next(firstIndex, _faceSprites.Length);
             _diceValue = (DiceValue)randomIndex;
@@ -156,7 +159,7 @@ namespace DiceBattle.Core
                 return;
             }
 
-            ShowFixedMultiplier(_diceValue);
+            ShowFixedMultiplier(_diceValue, DiceResult.OwnFaceValue(_type, _diceValue));
         }
 
         private static string GetEffectLabel(DiceValue diceValue)

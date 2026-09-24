@@ -1,3 +1,4 @@
+﻿using System.Collections.Generic;
 using System.Linq;
 using DiceBattle.Global;
 using DiceBattle.UI;
@@ -19,6 +20,20 @@ namespace DiceBattle.Core
             _override != null
                 ? _diceCountOverride
                 : baseCount + Current.DiceTypes.Count(t => t == DiceType.AdditionalDice);
+
+        /// <summary>
+        /// Die types in board order: equipped dice first, free slots filled with default dice.
+        /// </summary>
+        public static List<DiceType> Deck(int baseCount)
+        {
+            int count = DiceCount(baseCount);
+
+            return Current.DiceTypes
+                .Where(type => type != DiceType.AdditionalDice)
+                .Concat(Enumerable.Repeat(DiceType.Default, count))
+                .Take(count)
+                .ToList();
+        }
 
         public static void SetStandard(int diceCount)
         {

@@ -115,15 +115,26 @@ namespace DiceBattle.Core
 
         private void RaiseDiceLanded(Dice dice)
         {
+            RefreshMultipliers();
+
             if (dice.DiceValue == DiceValue.Empty)
             {
                 return;
             }
 
-            DiceList equippedItems = DiceRuleset.Current;
-            int amount = DiceResult.CalculateSingle(dice.DiceValue, equippedItems);
+            int amount = DiceResult.FaceValue(dice, _occupied);
 
             SignalSystem.Raise<IDiceResultHandler>(handler => handler.OnDiceLanded(this, dice, amount));
+        }
+
+        // Golden and Joker depend on the other dice, so a reroll can change labels of dice kept in place.
+        private void RefreshMultipliers()
+        {
+            foreach (Dice dice in _occupied)
+            {
+                DiceValue face = DiceResult.ResolveFace(dice, _occupied);
+                dice.ShowFixedMultiplier(face, DiceResult.FaceValue(dice, _occupied));
+            }
         }
 
         private void DestroySlots()

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Animations;
@@ -47,7 +47,6 @@ namespace DiceBattle.UI
 
         public void UpdatePlayerStats() => _player.UpdateStats();
 
-        public void SetPlayerEquipmentBonus(int? armorBonus, int? damageBonus) => _player.SetEquipmentBonus(armorBonus, damageBonus);
 
         public void SetPlayerDicePreview(int armorBonus, int damageBonus, int healBonus) =>
             _player.SetDicePreview(armorBonus, damageBonus, healBonus);
@@ -80,7 +79,7 @@ namespace DiceBattle.UI
 
         #region Dice
 
-        public void SetDiceCount(int count) => _gameBoard.SetDiceCount(count);
+        public void SetDeck(List<DiceType> deck) => _gameBoard.SetDeck(deck);
 
         public void ResetDice() => _gameBoard.ResetDice();
 

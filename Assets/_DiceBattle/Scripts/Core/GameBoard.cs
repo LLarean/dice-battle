@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using DiceBattle.Data;
 using UnityEngine;
@@ -41,11 +41,16 @@ namespace DiceBattle.Core
 
         public void SetSelectionStatus(bool isSelected) => _dices.ForEach(dice => dice.SetSelection(isSelected));
 
-        public void SetDiceCount(int count)
+        public void SetDeck(List<DiceType> deck)
         {
-            if (count != _dices.Count)
+            if (deck.Count != _dices.Count)
             {
-                RebuildDice(count);
+                RebuildDice(deck.Count);
+            }
+
+            for (int i = 0; i < deck.Count; i++)
+            {
+                _dices[i].SetType(deck[i]);
             }
         }
 
@@ -61,7 +66,7 @@ namespace DiceBattle.Core
         {
             if (_dices.Count == 0)
             {
-                RebuildDice(DiceRuleset.DiceCount(_config.DiceStartCount));
+                SetDeck(DiceRuleset.Deck(_config.DiceStartCount));
             }
         }
 

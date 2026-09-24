@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using DiceBattle.Audio;
 using DiceBattle.Core;
 using DiceBattle.Events;
@@ -60,7 +60,7 @@ namespace DiceBattle.UI
             _description.text = item.Type.Description();
             _dice.SetFixedFace(item.Type.GetIconCategory());
 
-            RefreshMultiplier();
+            ShowMultiplier();
             RefreshRarityGlow(item.Type.GetRarity());
         }
 
@@ -181,13 +181,13 @@ namespace DiceBattle.UI
             sequence.append(LeanTween.moveX(rect, baseX, _shakeStep).setEase(LeanTweenType.easeInOutSine));
         }
 
-        public void RefreshMultiplier()
+        private void ShowMultiplier()
         {
             DiceValue? effectValue = _data.Type.GetEffectDiceValue();
 
             if (effectValue.HasValue)
             {
-                _dice.ShowFixedMultiplier(effectValue.Value);
+                _dice.ShowFixedMultiplier(effectValue.Value, DiceResult.OwnFaceValue(_data.Type, effectValue.Value));
             }
             else
             {

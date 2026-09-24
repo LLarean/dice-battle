@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DiceBattle.Data;
+﻿using DiceBattle.Data;
 using DiceBattle.Global;
 using DiceBattle.UI;
 using UnityEngine;
@@ -32,19 +30,10 @@ namespace DiceBattle
         public static void Update(this UnitData unitData, GameConfig config)
         {
             UnitConfig playerConfig = config.GetPlayerConfig(GameData.SelectedCharacterClass);
-            List<DiceType> rewardTypes = GameData.GetEquippedAsDiceList().DiceTypes;
 
             unitData.Name = playerConfig.Name;
-
-            unitData.Armor = playerConfig.StartArmor + rewardTypes.Count(r => r == DiceType.BaseArmor) * playerConfig.GrowthArmor;
-            unitData.Damage = playerConfig.StartDamage + rewardTypes.Count(r => r == DiceType.BaseDamage) * playerConfig.GrowthDamage;
-
-            int doubleHealthCount = rewardTypes.Count(r => r == DiceType.BaseHealth);
-            int newMaxHealth = playerConfig.StartHealth + playerConfig.StartHealth * doubleHealthCount;
-            int maxHealthGain = newMaxHealth - unitData.MaxHealth;
-
-            unitData.MaxHealth = newMaxHealth;
-            unitData.CurrentHealth = Mathf.Clamp(unitData.CurrentHealth + maxHealthGain, 0, newMaxHealth);
+            unitData.Armor = playerConfig.StartArmor;
+            unitData.Damage = playerConfig.StartDamage;
         }
     }
 }

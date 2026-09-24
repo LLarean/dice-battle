@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Core;
 using DiceBattle.Localization;
@@ -18,17 +18,14 @@ namespace DiceBattle
         public static DiceIconCategory GetIconCategory(this DiceType diceType)
         {
             return diceType switch {
-                DiceType.BaseDamage => DiceIconCategory.Sword,
-                DiceType.UpgradeAttack => DiceIconCategory.Sword,
+                DiceType.Sharp => DiceIconCategory.Sword,
+                DiceType.Vampiric => DiceIconCategory.Sword,
 
-                DiceType.BaseArmor => DiceIconCategory.Shield,
-                DiceType.UpgradeArmor => DiceIconCategory.Shield,
+                DiceType.Sturdy => DiceIconCategory.Shield,
+                DiceType.Thorns => DiceIconCategory.Shield,
 
-                DiceType.BaseHealth => DiceIconCategory.Heart,
-                DiceType.UpgradeHealth => DiceIconCategory.Heart,
-                DiceType.RegenHealth => DiceIconCategory.Heart,
-                DiceType.LastStandDice => DiceIconCategory.Heart,
-                DiceType.LifestealDice => DiceIconCategory.Heart,
+                DiceType.Healing => DiceIconCategory.Heart,
+                DiceType.LastStand => DiceIconCategory.Heart,
 
                 _ => DiceIconCategory.Empty,
             };
@@ -37,15 +34,16 @@ namespace DiceBattle
         public static DiceRarity GetRarity(this DiceType diceType)
         {
             return diceType switch {
-                DiceType.LastStandDice => DiceRarity.Legendary,
-                DiceType.DisableEmptyState => DiceRarity.Legendary,
+                DiceType.LastStand => DiceRarity.Legendary,
 
-                DiceType.GoldDice => DiceRarity.Rare,
-                DiceType.LifestealDice => DiceRarity.Rare,
+                DiceType.Golden => DiceRarity.Rare,
+                DiceType.Joker => DiceRarity.Rare,
+                DiceType.AdditionalDice => DiceRarity.Rare,
 
+                DiceType.Reliable => DiceRarity.Uncommon,
+                DiceType.Thorns => DiceRarity.Uncommon,
+                DiceType.Vampiric => DiceRarity.Uncommon,
                 DiceType.AdditionalTry => DiceRarity.Uncommon,
-                DiceType.AdditionalDice => DiceRarity.Uncommon,
-                DiceType.SilverDice => DiceRarity.Uncommon,
 
                 _ => DiceRarity.Common,
             };
@@ -54,64 +52,38 @@ namespace DiceBattle
         public static DiceValue? GetEffectDiceValue(this DiceType diceType)
         {
             return diceType switch {
-                DiceType.UpgradeAttack => DiceValue.Attack,
-                DiceType.UpgradeArmor => DiceValue.Defense,
-                DiceType.UpgradeHealth => DiceValue.Heal,
+                DiceType.Sharp => DiceValue.Attack,
+                DiceType.Sturdy => DiceValue.Defense,
+                DiceType.Healing => DiceValue.Heal,
                 _ => null,
             };
         }
 
-        public static string Title(this DiceType diceType)
+        public static string Title(this DiceType diceType) =>
+            LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + diceType.LocKey());
+
+        public static string Description(this DiceType diceType) =>
+            LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + diceType.LocKey());
+
+        private static string LocKey(this DiceType diceType)
         {
             return diceType switch {
-                DiceType.Default => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "default"),
+                DiceType.Default => "default",
 
-                DiceType.DisableEmptyState => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "disable_empty_state"),
-                DiceType.AdditionalTry => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "additional_try"),
-                DiceType.AdditionalDice => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "additional_dice"),
+                DiceType.Sharp => "sharp",
+                DiceType.Sturdy => "sturdy",
+                DiceType.Healing => "healing",
 
-                DiceType.BaseDamage => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "base_damage"),
-                DiceType.BaseArmor => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "base_armor"),
-                DiceType.BaseHealth => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "base_health"),
+                DiceType.Reliable => "reliable",
+                DiceType.Thorns => "thorns",
+                DiceType.Vampiric => "vampiric",
+                DiceType.Golden => "golden",
+                DiceType.Joker => "joker",
 
-                DiceType.UpgradeAttack => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "upgrade_attack"),
-                DiceType.UpgradeHealth => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "upgrade_health"),
-                DiceType.UpgradeArmor => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "upgrade_armor"),
-
-                DiceType.SilverDice => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "silver_dice"),
-                DiceType.GoldDice => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "gold_dice"),
-
-                DiceType.RegenHealth => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "regen_health"),
-                DiceType.LastStandDice => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "last_stand_dice"),
-                DiceType.LifestealDice => LocalizationManager.Localize(LocKeys.DiceTitles.Prefix + "lifesteal_dice"),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
-
-        public static string Description(this DiceType diceType)
-        {
-            return diceType switch {
-                DiceType.Default => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "default"),
-
-                DiceType.DisableEmptyState => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "disable_empty_state"),
-                DiceType.AdditionalTry => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "additional_try"),
-                DiceType.AdditionalDice => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "additional_dice"),
-
-                DiceType.BaseDamage => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "base_damage"),
-                DiceType.BaseArmor => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "base_armor"),
-                DiceType.BaseHealth => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "base_health"),
-
-                DiceType.UpgradeAttack => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "upgrade_attack"),
-                DiceType.UpgradeHealth => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "upgrade_health"),
-                DiceType.UpgradeArmor => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "upgrade_armor"),
-
-                DiceType.SilverDice => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "silver_dice"),
-                DiceType.GoldDice => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "gold_dice"),
-
-                DiceType.RegenHealth => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "regen_health"),
-                DiceType.LastStandDice => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "last_stand_dice"),
-                DiceType.LifestealDice => LocalizationManager.Localize(LocKeys.DiceDescriptions.Prefix + "lifesteal_dice"),
-                _ => throw new ArgumentOutOfRangeException()
+                DiceType.LastStand => "last_stand",
+                DiceType.AdditionalTry => "additional_try",
+                DiceType.AdditionalDice => "additional_dice",
+                _ => throw new ArgumentOutOfRangeException(nameof(diceType), diceType, null),
             };
         }
     }

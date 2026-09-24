@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Audio;
@@ -116,7 +116,6 @@ namespace DiceBattle.UI
 
             AddDiceCopyToHolder(inventoryItem, animate: true);
             UpdatePlayerPanel();
-            RefreshMultipliers();
         }
 
         #endregion
@@ -149,17 +148,12 @@ namespace DiceBattle.UI
             playerData.Name = playerConfig.Name;
             playerData.Portrait = playerConfig.Portraits[0];
 
-            List<Item> equippedItems = Inventory.EquippedItems();
-            int armorBonus = equippedItems.Count(i => i.Type == DiceType.BaseArmor) * playerConfig.GrowthArmor;
-            int damageBonus = equippedItems.Count(i => i.Type == DiceType.BaseDamage) * playerConfig.GrowthDamage;
-
             int used = DeckCapacity - _deckHolder.FreeSlotCount;
             string diceCountText = LocalizationManager.Localize(LocKeys.Message.DiceSlots, used, DeckCapacity);
 
             void ApplyPlayerData()
             {
                 _player.SetUnitData(playerData);
-                _player.SetEquipmentBonus(armorBonus, damageBonus);
                 _diceCount.text = diceCountText;
             }
 
@@ -213,15 +207,6 @@ namespace DiceBattle.UI
             }
 
             UpdatePlayerPanel();
-            RefreshMultipliers();
-        }
-
-        private void RefreshMultipliers()
-        {
-            foreach (InventoryItem inventoryItem in _inventoryItems)
-            {
-                inventoryItem.RefreshMultiplier();
-            }
         }
 
         private void AddDiceCopyToHolder(InventoryItem inventoryItem, bool animate = false)
