@@ -49,22 +49,6 @@ namespace DiceBattle.Core
             PlaceDiceToSlots(dice);
         }
 
-        public void RepositionDice()
-        {
-            for (int i = 0; i < _occupied.Count; i++)
-            {
-                if (_occupied[i].gameObject.activeSelf == false)
-                {
-                    continue;
-                }
-
-                if (_occupied[i].transform.parent != _slots[i].transform)
-                {
-                    PlaceInSlot(_occupied[i], i);
-                }
-            }
-        }
-
         public void AnimateDiceToSlots(Action onComplete)
         {
             var flyingIndices = new List<int>();
