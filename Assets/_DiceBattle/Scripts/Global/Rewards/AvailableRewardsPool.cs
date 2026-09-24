@@ -29,6 +29,7 @@ namespace DiceBattle.Global
             }
 
             data.DiceTypes ??= GetRandomDice();
+            data.DiceTypes.RemoveAll(type => Enum.IsDefined(typeof(DiceType), type) == false);
             return data;
         }
 
@@ -48,8 +49,10 @@ namespace DiceBattle.Global
 
         public static void Log()
         {
+#if UNITY_EDITOR
             string randomRewardsJson = PlayerPrefs.GetString(_playerPrefsKey, "{}");
             Debug.Log("<color=yellow>AvailableRewardsPool: </color>" + randomRewardsJson);
+#endif
         }
 
         public static void Clear() => PlayerPrefs.DeleteKey(_playerPrefsKey);

@@ -167,8 +167,6 @@ namespace DiceBattle.Core
             _screen.DisablePlayerDice();
             _screen.ClearPlayerDicePreview();
 
-            Debug.Log($"Турнир — Игрок: DMG={_player.Result.Damage} ARM={_player.Result.Armor} HEAL={_player.Result.Heal}");
-
             _phase = Phase.EnemyRolling;
             _enemyRollsLeft = RollsPerTurn;
             SignalSystem.Raise<IHintHandler>(handler => handler.Show(LocalizationManager.Localize(LocKeys.GameHits.EnemyTurn)));
@@ -201,8 +199,6 @@ namespace DiceBattle.Core
         private void FinishEnemyTurn()
         {
             _enemy.Result.Calculate(_screen.EnemyDices);
-
-            Debug.Log($"Турнир — Бот: DMG={_enemy.Result.Damage} ARM={_enemy.Result.Armor} HEAL={_enemy.Result.Heal}");
 
             _phase = Phase.Resolving;
             ResolveRound();

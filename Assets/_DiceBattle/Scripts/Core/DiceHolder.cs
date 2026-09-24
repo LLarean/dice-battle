@@ -101,14 +101,9 @@ namespace DiceBattle.Core
         {
             RefreshMultipliers();
 
-            if (dice.DiceValue == DiceValue.Empty)
-            {
-                return;
-            }
+            DiceContribution contribution = DiceResult.Contribution(dice, _occupied);
 
-            int amount = DiceResult.FaceValue(dice, _occupied);
-
-            SignalSystem.Raise<IDiceResultHandler>(handler => handler.OnDiceLanded(this, dice, amount));
+            SignalSystem.Raise<IDiceResultHandler>(handler => handler.OnDiceLanded(this, dice, contribution));
         }
 
         // Golden and Joker depend on the other dice, so a reroll can change labels of dice kept in place.

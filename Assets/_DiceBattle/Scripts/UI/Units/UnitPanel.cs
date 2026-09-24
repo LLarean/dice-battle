@@ -21,9 +21,7 @@ namespace DiceBattle.UI
         [Tooltip("The source of the dice whose results are displayed by this panel. Leave empty if the unit has no dice of its own.")]
         [SerializeField] private DiceHolder _diceHolder;
 
-        private readonly Dictionary<Dice, int> _armorByDice = new();
-        private readonly Dictionary<Dice, int> _damageByDice = new();
-        private readonly Dictionary<Dice, int> _healByDice = new();
+        private readonly Dictionary<Dice, DiceContribution> _contributionByDice = new();
         private readonly List<GameObject> _flyingNumbers = new();
 
         private UnitData _unitData;
@@ -76,46 +74,33 @@ namespace DiceBattle.UI
         public void ClearDicePreview()
         {
             CancelFlyingNumbers();
-            _armorByDice.Clear();
-            _damageByDice.Clear();
-            _healByDice.Clear();
+            _contributionByDice.Clear();
 
             SetDicePreview(0, 0, 0);
         }
 
-        public void OnDiceLanded(DiceHolder source, Dice dice, int amount)
+        public void OnDiceLanded(DiceHolder source, Dice dice, DiceContribution contribution)
         {
             if (source != _diceHolder)
             {
                 return;
             }
 
-            StatItem target;
+            _contributionByDice[dice] = contribution;
+            _pendingPreview = SumContributions();
 
-            switch (dice.DiceValue)
-            {
-                case DiceValue.Attack:
-                    _damageByDice[dice] = amount;
-                    target = _stats.Attack;
-                    break;
-                case DiceValue.Defense:
-                    _armorByDice[dice] = amount;
-                    target = _stats.Armor;
-                    break;
-                case DiceValue.Heal:
-                    _healByDice[dice] = amount;
-                    target = _stats.Health;
-                    break;
-                default:
-                    return;
-            }
-
-            _pendingPreview = (Sum(_armorByDice), Sum(_damageByDice), Sum(_healByDice));
-            FlyNumberToStat(dice, amount, target, _pendingPreview);
+            FlyNumberToStat(dice, contribution.Armor, _stats.Armor, _pendingPreview);
+            FlyNumberToStat(dice, contribution.Damage, _stats.Attack, _pendingPreview);
+            FlyNumberToStat(dice, contribution.Heal, _stats.Health, _pendingPreview);
         }
 
         private void FlyNumberToStat(Dice dice, int amount, StatItem target, (int, int, int) previewOnArrival)
         {
+            if (amount <= 0)
+            {
+                return;
+            }
+
             TMP_Text label = FloatingText.Spawn(target.Label, dice.transform.position, $"+{amount}", FloatingText.Positive);
             GameObject number = label.gameObject;
             _flyingNumbers.Add(number);
@@ -138,13 +123,15 @@ namespace DiceBattle.UI
             _flyingNumbers.Clear();
         }
 
-        private static int Sum(Dictionary<Dice, int> bonusByDice)
+        private (int Armor, int Damage, int Heal) SumContributions()
         {
-            int sum = 0;
+            (int Armor, int Damage, int Heal) sum = (0, 0, 0);
 
-            foreach (int value in bonusByDice.Values)
+            foreach (DiceContribution contribution in _contributionByDice.Values)
             {
-                sum += value;
+                sum.Armor += contribution.Armor;
+                sum.Damage += contribution.Damage;
+                sum.Heal += contribution.Heal;
             }
 
             return sum;
