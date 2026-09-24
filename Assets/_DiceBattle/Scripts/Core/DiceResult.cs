@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using DiceBattle.UI;
 
 namespace DiceBattle.Core
 {
@@ -18,45 +17,69 @@ namespace DiceBattle.Core
         public int Heal => _heal;
         public bool IsCritical => _isCritical;
 
-        public void Calculate(List<Dice> dices, DiceList equippedItems)
+        public void Calculate(List<Dice> dices)
         {
             _damage = 0;
             _armor = 0;
             _heal = 0;
-            _isCritical = dices.Count(dice => dice.DiceValue == DiceValue.Attack) >= CriticalAttackCount;
+            _isCritical = dices.Count(dice => ResolveFace(dice, dices) == DiceValue.Attack) >= CriticalAttackCount;
 
             foreach (Dice dice in dices)
             {
-                switch (dice.DiceValue)
+                DiceValue face = ResolveFace(dice, dices);
+                int value = FaceValue(dice, face, dices);
+
+                switch (face)
                 {
                     case DiceValue.Attack:
-                        _damage += CalculateSingle(DiceValue.Attack, equippedItems);
+                        _damage += value;
+                        _heal += dice.Type == DiceType.Vampiric ? 1 : 0;
                         break;
                     case DiceValue.Defense:
-                        _armor += CalculateSingle(DiceValue.Defense, equippedItems);
+                        _armor += value;
+                        _damage += dice.Type == DiceType.Thorns ? 1 : 0;
                         break;
                     case DiceValue.Heal:
-                        _heal += CalculateSingle(DiceValue.Heal, equippedItems);
+                        _heal += value;
                         break;
                 }
             }
         }
 
-        public static int CalculateSingle(DiceValue diceValue, DiceList equippedItems)
+        /// <summary>
+        /// Value of the die's main face, including the Golden bonus from the other dice.
+        /// </summary>
+        public static int FaceValue(Dice dice, List<Dice> dices)
         {
-            int silverCount = equippedItems.DiceTypes.Count(t => t == DiceType.SilverDice);
-            int goldCount = equippedItems.DiceTypes.Count(t => t == DiceType.GoldDice);
-            int globalMultiplier = 1 + silverCount + goldCount * 2;
+            DiceValue face = ResolveFace(dice, dices);
+            return face == DiceValue.Empty ? 0 : FaceValue(dice, face, dices);
+        }
 
-            int upgradeCount = diceValue switch
+        public static int OwnFaceValue(DiceType diceType, DiceValue face) =>
+            1 + (diceType.GetEffectDiceValue() == face ? 1 : 0);
+
+        private static int FaceValue(Dice dice, DiceValue face, List<Dice> dices)
+        {
+            int goldenBonus = dices.Count(other => other.Type == DiceType.Golden && ResolveFace(other, dices) == face);
+            return OwnFaceValue(dice.Type, face) + goldenBonus;
+        }
+
+        public static DiceValue ResolveFace(Dice dice, List<Dice> dices)
+        {
+            if (dice.Type != DiceType.Joker || dice.DiceValue != DiceValue.Empty)
             {
-                DiceValue.Attack => equippedItems.DiceTypes.Count(t => t == DiceType.UpgradeAttack),
-                DiceValue.Defense => equippedItems.DiceTypes.Count(t => t == DiceType.UpgradeArmor),
-                DiceValue.Heal => equippedItems.DiceTypes.Count(t => t == DiceType.UpgradeHealth),
-                _ => 0,
-            };
+                return dice.DiceValue;
+            }
 
-            return (1 + upgradeCount) * globalMultiplier;
+            // Ties go to the lower enum value, so Attack wins and helps toward a critical hit.
+            return dices
+                .Where(other => other != dice && other.DiceValue != DiceValue.Empty)
+                .GroupBy(other => other.DiceValue)
+                .OrderByDescending(group => group.Count())
+                .ThenBy(group => group.Key)
+                .Select(group => group.Key)
+                .DefaultIfEmpty(DiceValue.Empty)
+                .First();
         }
     }
 }

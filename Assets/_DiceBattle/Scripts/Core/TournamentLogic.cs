@@ -29,7 +29,6 @@ namespace DiceBattle.Core
 
         private readonly GameConfig _config;
         private readonly TournamentScreen _screen;
-        private readonly DiceList _standardDeck = new();
 
         private TournamentFighter _player;
         private TournamentFighter _enemy;
@@ -76,8 +75,8 @@ namespace DiceBattle.Core
             _phase = Phase.PlayerRolling;
             _isPlayerRolling = false;
 
-            _player.Result.Calculate(new List<Dice>(), _standardDeck);
-            _enemy.Result.Calculate(new List<Dice>(), _standardDeck);
+            _player.Result.Calculate(new List<Dice>());
+            _enemy.Result.Calculate(new List<Dice>());
 
             _screen.EnablePlayerDice();
             _screen.SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.RollDice));
@@ -141,7 +140,7 @@ namespace DiceBattle.Core
             {
                 case Phase.PlayerRolling:
                     _isPlayerRolling = false;
-                    _player.Result.Calculate(_screen.PlayerDices, _standardDeck);
+                    _player.Result.Calculate(_screen.PlayerDices);
                     _screen.SetPlayerDicePreview(_player.Result.Armor, _player.Result.Damage, _player.Result.Heal);
 
                     if (_playerRollsLeft == 0)
@@ -156,7 +155,7 @@ namespace DiceBattle.Core
                     break;
 
                 case Phase.EnemyRolling:
-                    _enemy.Result.Calculate(_screen.EnemyDices, _standardDeck);
+                    _enemy.Result.Calculate(_screen.EnemyDices);
                     ContinueEnemyTurn();
                     break;
             }
@@ -164,7 +163,7 @@ namespace DiceBattle.Core
 
         private void FinishPlayerTurn()
         {
-            _player.Result.Calculate(_screen.PlayerDices, _standardDeck);
+            _player.Result.Calculate(_screen.PlayerDices);
             _screen.DisablePlayerDice();
             _screen.ClearPlayerDicePreview();
 
@@ -201,7 +200,7 @@ namespace DiceBattle.Core
 
         private void FinishEnemyTurn()
         {
-            _enemy.Result.Calculate(_screen.EnemyDices, _standardDeck);
+            _enemy.Result.Calculate(_screen.EnemyDices);
 
             Debug.Log($"Турнир — Бот: DMG={_enemy.Result.Damage} ARM={_enemy.Result.Armor} HEAL={_enemy.Result.Heal}");
 

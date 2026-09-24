@@ -74,12 +74,12 @@ namespace DiceBattle.UI
 
         private void PrepareRewards()
         {
-            int startIndex = GameData.TryGetPendingLootReward(out int pendingIndex)
+            int level = GameData.TryGetPendingLootReward(out int pendingIndex)
                 ? pendingIndex
                 : GameData.CompletedLevels;
 
             _currentRewards.Clear();
-            _currentRewards.AddRange(GameData.GetRandomRewards(startIndex, _rewardItems.Count));
+            _currentRewards.AddRange(GameData.GetRandomRewards(level * _rewardItems.Count, _rewardItems.Count));
             GameData.LogRandomRewards();
 
             _message.gameObject.SetActive(false);

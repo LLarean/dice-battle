@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Audio;
 using DiceBattle.Data;
@@ -41,7 +41,7 @@ namespace DiceBattle.Core
             _battleEnded = false;
             _isRolling = false;
             ResetNumbers();
-            UpdateDiceCount();
+            UpdateDeck();
             _gameScreen.ResetDice();
 
             _matchData.EnemyData = _spawner.SpawnEnemy();
@@ -74,7 +74,7 @@ namespace DiceBattle.Core
             _battleEnded = false;
             _isRolling = false;
             ResetNumbers();
-            UpdateDiceCount();
+            UpdateDeck();
             _gameScreen.ResetDice();
 
             BattleSnapshot saved = BattleSaveData.Load();
@@ -105,12 +105,8 @@ namespace DiceBattle.Core
         // Equipment bonuses are already shown by UnitPanel, so the preview carries dice results only.
         private void UpdateDicePreview()
         {
-            DiceList equippedItems = GameData.GetEquippedAsDiceList();
-            _diceResult.Calculate(_gameScreen.Dices, equippedItems);
-
-            int regenHealth = equippedItems.DiceTypes.Count(r => r == DiceType.RegenHealth) * PlayerConfig.GrowthHealth;
-
-            _gameScreen.SetPlayerDicePreview(_diceResult.Armor, _diceResult.Damage, _diceResult.Heal + regenHealth);
+            _diceResult.Calculate(_gameScreen.Dices);
+            _gameScreen.SetPlayerDicePreview(_diceResult.Armor, _diceResult.Damage, _diceResult.Heal);
         }
 
         public void ContextClick()
@@ -175,7 +171,7 @@ namespace DiceBattle.Core
         private void EndTurn()
         {
             _matchData.DiceList = GameData.GetEquippedAsDiceList();
-            _diceResult.Calculate(_gameScreen.Dices, _matchData.DiceList);
+            _diceResult.Calculate(_gameScreen.Dices);
             _matchData.PlayerHealthChange = _matchData.PlayerData.CurrentHealth;
             _matchData.EnemyHealthChange = _matchData.EnemyData.CurrentHealth;
 
@@ -239,12 +235,12 @@ namespace DiceBattle.Core
             UpdatePlayerStats();
 
             ResetNumbers();
-            UpdateDiceCount();
+            UpdateDeck();
         }
 
-        private void UpdateDiceCount()
+        private void UpdateDeck()
         {
-            _gameScreen.SetDiceCount(DiceRuleset.DiceCount(_config.DiceStartCount));
+            _gameScreen.SetDeck(DiceRuleset.Deck(_config.DiceStartCount));
         }
 
         private void UpdateButtonStates()
@@ -293,17 +289,12 @@ namespace DiceBattle.Core
 
         private void UpdatePlayerStats()
         {
-            // int regenHealth = _rewardsData.RewardTypes.Count(r => r == RewardType.RegenHealth) * PlayerConfig.GrowthHealth;
-            int bonusArmorCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceType.BaseArmor) * PlayerConfig.GrowthArmor;
-            int bonusDamageCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceType.BaseDamage) * PlayerConfig.GrowthDamage;
+            _matchData.PlayerData.Armor = Mathf.Max(0, PlayerConfig.StartArmor);
+            _matchData.PlayerData.Damage = Mathf.Max(0, PlayerConfig.StartDamage);
 
-            _matchData.PlayerData.Armor = Mathf.Max(0, PlayerConfig.StartArmor + bonusArmorCount);
-            _matchData.PlayerData.Damage = Mathf.Max(0, PlayerConfig.StartDamage + bonusDamageCount);
-
-            _gameScreen.SetPlayerEquipmentBonus(bonusArmorCount, bonusDamageCount);
             _gameScreen.UpdatePlayerStats();
 
-            UpdateDiceCount();
+            UpdateDeck();
             SetMaxAttempts();
         }
 
@@ -333,29 +324,23 @@ namespace DiceBattle.Core
 
         private void ApplyPlayerHealing()
         {
-            int regenHealth = _matchData.DiceList.DiceTypes.Count(r => r == DiceType.RegenHealth) * PlayerConfig.GrowthHealth;
-            int allRegenHealth = _diceResult.Heal + regenHealth;
-            _gameScreen.PlayerTakeHeal(allRegenHealth);
+            _gameScreen.PlayerTakeHeal(_diceResult.Heal);
 
-            Debug.Log("Heal: Dice = " + _diceResult.Heal + ", Character = " + regenHealth);
+            Debug.Log("Heal: Dice = " + _diceResult.Heal);
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerHeal));
         }
 
         private void ApplyPlayerArmor()
         {
-            int bonusArmorCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceType.BaseArmor) * PlayerConfig.GrowthArmor;
-            _matchData.PlayerData.Armor = Mathf.Max(0, PlayerConfig.StartArmor + _diceResult.Armor + bonusArmorCount);
-            _gameScreen.SetPlayerEquipmentBonus(bonusArmorCount, null);
+            _matchData.PlayerData.Armor = Mathf.Max(0, PlayerConfig.StartArmor + _diceResult.Armor);
 
-            Debug.Log("Armor: Dice = " + _diceResult.Armor + ", Character = " + bonusArmorCount);
+            Debug.Log("Armor: Dice = " + _diceResult.Armor);
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerArmor));
         }
 
         private void ApplyPlayerAttack()
         {
-            int bonusDamageCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceType.BaseDamage) * PlayerConfig.GrowthDamage;
-            _matchData.PlayerData.Damage = Mathf.Max(0, PlayerConfig.StartDamage + _diceResult.Damage + bonusDamageCount);
-            _gameScreen.SetPlayerEquipmentBonus(null, bonusDamageCount);
+            _matchData.PlayerData.Damage = Mathf.Max(0, PlayerConfig.StartDamage + _diceResult.Damage);
 
             if (_diceResult.IsCritical)
             {
@@ -366,40 +351,21 @@ namespace DiceBattle.Core
                 _gameScreen.EnemyTakeDamage(_matchData.PlayerData.Damage);
             }
 
-            Debug.Log("Damage: Dice = " + _diceResult.Damage + ", Character = " + bonusDamageCount);
-
-            ApplyLifesteal();
+            Debug.Log("Damage: Dice = " + _diceResult.Damage);
 
             // TODO You can add different sounds to attack different enemies
             // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyHit));
         }
 
-        private void ApplyLifesteal()
-        {
-            int lifestealCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceType.LifestealDice);
-
-            if (lifestealCount == 0)
-            {
-                return;
-            }
-
-            int lifestealHeal = _matchData.PlayerData.Damage / 4 * lifestealCount;
-            _gameScreen.PlayerTakeHeal(lifestealHeal);
-        }
-
         private void RemovePlayerArmor()
         {
-            int bonusArmor = _matchData.DiceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseArmor) * PlayerConfig.GrowthArmor;
-            _matchData.PlayerData.Armor = Mathf.Max(0, PlayerConfig.StartArmor + bonusArmor);
-            _gameScreen.SetPlayerEquipmentBonus(bonusArmor, null);
+            _matchData.PlayerData.Armor = Mathf.Max(0, PlayerConfig.StartArmor);
         }
 
         private void RemovePlayerDamage()
         {
-            int bonusDamageCount = _matchData.DiceList.DiceTypes.Count(r => r == DiceBattle.DiceType.BaseDamage) * PlayerConfig.GrowthDamage;
-            _matchData.PlayerData.Damage = Mathf.Max(0, PlayerConfig.StartDamage + bonusDamageCount);
-            _gameScreen.SetPlayerEquipmentBonus(null, bonusDamageCount);
+            _matchData.PlayerData.Damage = Mathf.Max(0, PlayerConfig.StartDamage);
         }
 
         private void OnPlayerDefeated()
@@ -444,7 +410,7 @@ namespace DiceBattle.Core
                 return false;
             }
 
-            bool hasLastStandDice = _matchData.DiceList.DiceTypes.Contains(DiceType.LastStandDice);
+            bool hasLastStandDice = _matchData.DiceList.DiceTypes.Contains(DiceType.LastStand);
 
             if (hasLastStandDice == false)
             {

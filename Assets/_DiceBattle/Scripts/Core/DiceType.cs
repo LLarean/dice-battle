@@ -1,4 +1,4 @@
-﻿namespace DiceBattle
+namespace DiceBattle
 {
     /// <summary>
     /// This file must be updated when updating -
@@ -6,34 +6,26 @@
     /// </summary>
     public enum DiceType
     {
-        //Everything is on the dice. A dice can give additional armor,
-        //a dice can give an attack, and so on.
+        // Each equipped die carries its own effect, triggered by its own face.
 
         Default,
 
-        // General
-        DisableEmptyState,
-        AdditionalTry, // need specific dice
-        AdditionalDice,
+        // Face value upgrades
+        Sharp, // Attack = 2
+        Sturdy, // Defense = 2
+        Healing, // Heal = 2
 
-        // Character Upgrades
-        BaseDamage,
-        BaseArmor,
-        BaseHealth,
+        // Face tricks
+        Reliable, // never rolls Empty
+        Thorns, // Defense also deals 1 damage
+        Vampiric, // Attack also heals 1
+        Golden, // +1 to every die showing the same face
+        Joker, // Empty turns into the most common face among the other dice
 
-        // Dice Upgrades
-        UpgradeAttack,
-        UpgradeHealth,
-        UpgradeArmor,
-
-        GoldDice, // adds +2 to the shared value multiplier
-        SilverDice, // adds +1 to the shared value multiplier
-
-        // Restore Health
-        RegenHealth,
-        LastStandDice, // survives one lethal hit with 1 HP, once per match
-
-        LifestealDice, // heals for a share of damage dealt
+        // Passive, the die itself rolls as a default one
+        LastStand, // survives one lethal hit with 1 HP, once per battle
+        AdditionalTry, // +1 reroll
+        AdditionalDice, // +1 slot, takes no slot itself
     }
 
     public enum DiceRarity
