@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DiceBattle.UI
@@ -20,7 +21,21 @@ namespace DiceBattle.UI
                 return new List<Item>();
             }
 
-            return JsonUtility.FromJson<ItemList>(json)?.Items ?? new List<Item>();
+            List<Item> items = JsonUtility.FromJson<ItemList>(json)?.Items ?? new List<Item>();
+            ReplaceRemovedTypes(items);
+            return items;
+        }
+
+        // Saves from before the dice rework may hold removed types; keep the items so index-based IDs stay unique.
+        private static void ReplaceRemovedTypes(List<Item> items)
+        {
+            foreach (Item item in items)
+            {
+                if (Enum.IsDefined(typeof(DiceType), item.Type) == false)
+                {
+                    item.Type = DiceType.Default;
+                }
+            }
         }
 
         public static void Save(string playerPrefsKey, List<Item> updatedItems)

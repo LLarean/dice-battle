@@ -326,7 +326,6 @@ namespace DiceBattle.Core
         {
             _gameScreen.PlayerTakeHeal(_diceResult.Heal);
 
-            Debug.Log("Heal: Dice = " + _diceResult.Heal);
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerHeal));
         }
 
@@ -334,7 +333,6 @@ namespace DiceBattle.Core
         {
             _matchData.PlayerData.Armor = Mathf.Max(0, PlayerConfig.StartArmor + _diceResult.Armor);
 
-            Debug.Log("Armor: Dice = " + _diceResult.Armor);
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerArmor));
         }
 
@@ -351,10 +349,6 @@ namespace DiceBattle.Core
                 _gameScreen.EnemyTakeDamage(_matchData.PlayerData.Damage);
             }
 
-            Debug.Log("Damage: Dice = " + _diceResult.Damage);
-
-            // TODO You can add different sounds to attack different enemies
-            // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyHit));
         }
 
@@ -387,8 +381,6 @@ namespace DiceBattle.Core
         {
             _gameScreen.PlayerTakeDamage(_matchData.EnemyData.Damage);
 
-            // TODO You can add different sounds to attack different enemies
-            // SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
 
             if (_matchData.PlayerData.CurrentHealth <= 0 && TryTriggerLastStand() == false)

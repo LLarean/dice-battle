@@ -51,6 +51,7 @@ namespace DiceBattle.Core
             _diceValue = DiceValue.Empty;
             _faceIcon.sprite = _faceSprites[(int)_diceValue];
 
+            HideMultiplier();
             ClearSelection();
         }
 

@@ -3,6 +3,20 @@ using System.Linq;
 
 namespace DiceBattle.Core
 {
+    public readonly struct DiceContribution
+    {
+        public readonly int Armor;
+        public readonly int Damage;
+        public readonly int Heal;
+
+        public DiceContribution(int armor, int damage, int heal)
+        {
+            Armor = armor;
+            Damage = damage;
+            Heal = heal;
+        }
+    }
+
     public class DiceResult
     {
         private int _damage;
@@ -26,24 +40,24 @@ namespace DiceBattle.Core
 
             foreach (Dice dice in dices)
             {
-                DiceValue face = ResolveFace(dice, dices);
-                int value = FaceValue(dice, face, dices);
-
-                switch (face)
-                {
-                    case DiceValue.Attack:
-                        _damage += value;
-                        _heal += dice.Type == DiceType.Vampiric ? 1 : 0;
-                        break;
-                    case DiceValue.Defense:
-                        _armor += value;
-                        _damage += dice.Type == DiceType.Thorns ? 1 : 0;
-                        break;
-                    case DiceValue.Heal:
-                        _heal += value;
-                        break;
-                }
+                DiceContribution contribution = Contribution(dice, dices);
+                _damage += contribution.Damage;
+                _armor += contribution.Armor;
+                _heal += contribution.Heal;
             }
+        }
+
+        public static DiceContribution Contribution(Dice dice, List<Dice> dices)
+        {
+            DiceValue face = ResolveFace(dice, dices);
+            int value = face == DiceValue.Empty ? 0 : FaceValue(dice, face, dices);
+
+            return face switch {
+                DiceValue.Attack => new DiceContribution(0, value, dice.Type == DiceType.Vampiric ? 1 : 0),
+                DiceValue.Defense => new DiceContribution(value, dice.Type == DiceType.Thorns ? 1 : 0, 0),
+                DiceValue.Heal => new DiceContribution(0, 0, value),
+                _ => default,
+            };
         }
 
         /// <summary>
