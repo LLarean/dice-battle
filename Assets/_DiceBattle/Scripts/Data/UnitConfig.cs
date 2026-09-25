@@ -1,4 +1,5 @@
 ﻿using System;
+using DiceBattle.UI;
 using UnityEngine;
 
 namespace DiceBattle.Data
@@ -19,5 +20,15 @@ namespace DiceBattle.Data
         [Header("Armor")]
         public int StartArmor = 0;
         public int GrowthArmor = 1;
+
+        public UnitData CreateUnitData() => new()
+        {
+            Name = Name,
+            Portrait = Portraits.Length > 0 ? Portraits[0] : null,
+            MaxHealth = StartHealth,
+            CurrentHealth = StartHealth,
+            Damage = StartDamage,
+            Armor = StartArmor,
+        };
     }
 }

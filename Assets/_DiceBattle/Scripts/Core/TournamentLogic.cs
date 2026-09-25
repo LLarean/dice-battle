@@ -32,7 +32,6 @@ namespace DiceBattle.Core
 
         private TournamentFighter _player;
         private TournamentFighter _enemy;
-        private TournamentBracket _bracket;
 
         private Phase _phase;
         private int _playerRollsLeft;
@@ -40,6 +39,8 @@ namespace DiceBattle.Core
         private bool _matchEnded;
         private bool _isPlayerRolling;
         private int _matchEndTweenId = -1;
+
+        public bool IsMatchEnded => _matchEnded;
 
         public TournamentLogic(GameConfig config, TournamentScreen screen)
         {
@@ -52,10 +53,8 @@ namespace DiceBattle.Core
             _matchEnded = false;
             DiceRuleset.SetStandard(_config.DiceStartCount);
 
-            _bracket = new TournamentBracket(new[] { PickOpponentClass() });
-
             _player = BuildFighter(_config.GetPlayerConfig(GameData.SelectedCharacterClass));
-            _enemy = BuildFighter(_config.GetPlayerConfig(_bracket.Next()));
+            _enemy = BuildFighter(_config.GetPlayerConfig(TournamentBracket.CurrentOpponent));
 
             _screen.SetPlayerData(_player.Data);
             _screen.SetEnemyData(_enemy.Data);
@@ -88,6 +87,7 @@ namespace DiceBattle.Core
             LeanTween.cancel(_screen.gameObject);
             LeanTween.cancel(_matchEndTweenId);
             DiceRuleset.Reset();
+            TournamentBracket.RegisterDefeat();
         }
 
         public void ContextClick()
@@ -261,6 +261,15 @@ namespace DiceBattle.Core
         {
             _matchEnded = true;
 
+            if (playerWon)
+            {
+                TournamentBracket.RegisterWin();
+            }
+            else
+            {
+                TournamentBracket.RegisterDefeat();
+            }
+
             Debug.Log($"Турнир: {(playerWon ? "Победа" : "Поражение")}. " +
                       $"Игрок HP {_player.Data.CurrentHealth}/{_player.Data.MaxHealth}, " +
                       $"Бот HP {_enemy.Data.CurrentHealth}/{_enemy.Data.MaxHealth}");
@@ -270,27 +279,11 @@ namespace DiceBattle.Core
                 () => SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TournamentPyramidScreen))).id;
         }
 
-        private CharacterClass PickOpponentClass()
-        {
-            var values = (CharacterClass[])System.Enum.GetValues(typeof(CharacterClass));
-            return values[Random.Range(0, values.Length)];
-        }
-
         private static TournamentFighter BuildFighter(UnitConfig config)
         {
-            var data = new UnitData
-            {
-                Name = config.Name,
-                Portrait = config.Portraits.Length > 0 ? config.Portraits[0] : null,
-                MaxHealth = config.StartHealth,
-                CurrentHealth = config.StartHealth,
-                Damage = config.StartDamage,
-                Armor = config.StartArmor,
-            };
-
             return new TournamentFighter
             {
-                Data = data,
+                Data = config.CreateUnitData(),
                 BaseDamage = config.StartDamage,
                 BaseArmor = config.StartArmor,
             };

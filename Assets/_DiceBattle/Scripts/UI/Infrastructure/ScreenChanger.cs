@@ -131,6 +131,12 @@ namespace DiceBattle.UI
             }
             else if (_currentScreen.TryGetComponent(out TournamentScreen tournamentScreen))
             {
+                // The result is already recorded; fleeing now would turn a win into a defeat.
+                if (tournamentScreen.IsMatchEnded)
+                {
+                    return;
+                }
+
                 var confirmData = new ConfirmData(LocalizationManager.Localize(LocKeys.Window.LeaveArenaTitle),
                     LocalizationManager.Localize(LocKeys.Window.LeaveArenaMessage), onAccept: () =>
                     {

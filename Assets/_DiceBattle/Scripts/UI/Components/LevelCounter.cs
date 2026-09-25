@@ -13,9 +13,10 @@ namespace DiceBattle.UI
         [SerializeField] private Sprite _success;
         [SerializeField] private Sprite _defeat;
 
-        public void SetEmptyState()
+        public void SetEmptyState(string label)
         {
             _state.sprite = _empty;
+            _label.text = label;
             _label.gameObject.SetActive(true);
         }
 
