@@ -35,6 +35,7 @@ namespace DiceBattle.UI
         public List<Dice> EnemyDices => _board.EnemyDices;
         public bool HavePlayerSelectedDice => _board.HavePlayerSelectedDice;
         public bool HavePlayerUnselectedDice => _board.HavePlayerUnselectedDice;
+        public bool IsMatchEnded => _logic.IsMatchEnded;
 
         #region Unit data
 
