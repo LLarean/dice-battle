@@ -8,6 +8,7 @@
         LootScreen,
         TavernScreen,
         TournamentScreen,
+        TournamentPyramidScreen,
 
         OptionsWindow,
         InventoryWindow,

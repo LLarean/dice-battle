@@ -14,6 +14,7 @@ namespace DiceBattle.UI
         [SerializeField] private MainMenuScreen _mainMenuScreen;
         [SerializeField] private TavernScreen _tavernScreen;
         [SerializeField] private TournamentScreen _tournamentScreen;
+        [SerializeField] private TournamentPyramidScreen _tournamentPyramidScreen;
         [SerializeField] private InventoryScreen _inventoryScreen;
         [SerializeField] private GameScreen _gameScreen;
         [SerializeField] private GameOverScreen _gameOverScreen;
@@ -134,11 +135,15 @@ namespace DiceBattle.UI
                     LocalizationManager.Localize(LocKeys.Window.LeaveArenaMessage), onAccept: () =>
                     {
                         tournamentScreen.AbandonMatch();
-                        ShowScreen(ScreenType.TavernScreen);
+                        ShowScreen(ScreenType.TournamentPyramidScreen);
                     }, acceptText: LocalizationManager.Localize(LocKeys.Button.LeaveArena), cancelText: LocalizationManager.Localize(LocKeys.Button.Stay));
 
                 SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
                 SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
+            }
+            else if (_currentScreen.TryGetComponent(out TournamentPyramidScreen tournamentPyramidScreen))
+            {
+                ShowScreen(ScreenType.TavernScreen);
             }
             else if (_currentScreen.TryGetComponent(out MainMenuScreen mainMenuScreen))
             {
@@ -169,6 +174,7 @@ namespace DiceBattle.UI
                 ScreenType.LootScreen => _lootScreen,
                 ScreenType.TavernScreen => _tavernScreen,
                 ScreenType.TournamentScreen => _tournamentScreen,
+                ScreenType.TournamentPyramidScreen => _tournamentPyramidScreen,
 
                 ScreenType.OptionsWindow => _optionsWindow,
                 ScreenType.InventoryWindow => _inventoryScreen,
@@ -185,6 +191,7 @@ namespace DiceBattle.UI
             _mainMenuScreen.gameObject.SetActive(false);
             _tavernScreen.gameObject.SetActive(false);
             _tournamentScreen.gameObject.SetActive(false);
+            _tournamentPyramidScreen.gameObject.SetActive(false);
             _gameOverScreen.gameObject.SetActive(false);
             _gameScreen.gameObject.SetActive(false);
             _lootScreen.gameObject.SetActive(false);
