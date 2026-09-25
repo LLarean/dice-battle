@@ -56,7 +56,7 @@ namespace DiceBattle.UI
 
         private void HandleTournamentClick()
         {
-            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TournamentScreen));
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TournamentPyramidScreen));
         }
 
         private void HandleRestartClick()

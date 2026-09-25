@@ -267,7 +267,7 @@ namespace DiceBattle.Core
 
             DiceRuleset.Reset();
             _matchEndTweenId = LeanTween.delayedCall(MatchEndPause,
-                () => SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TavernScreen))).id;
+                () => SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TournamentPyramidScreen))).id;
         }
 
         private CharacterClass PickOpponentClass()
