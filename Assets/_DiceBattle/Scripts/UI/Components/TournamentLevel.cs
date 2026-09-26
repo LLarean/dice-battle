@@ -21,24 +21,28 @@ namespace DiceBattle
 
         public void SetCurrentState()
         {
+            _player.gameObject.SetActive(true);
             _blackout.gameObject.SetActive(false);
             _levelCounter.SetEmptyState(CurrentLabel);
         }
 
         public void SetLockedState(int number)
         {
+            _player.gameObject.SetActive(false);
             _blackout.gameObject.SetActive(true);
             _levelCounter.SetEmptyState(number.ToString());
         }
 
         public void SetPassedState()
         {
+            _player.gameObject.SetActive(false);
             _blackout.gameObject.SetActive(true);
             _levelCounter.SetSuccessState();
         }
 
         public void SetDefeatedState()
         {
+            _player.gameObject.SetActive(true);
             _blackout.gameObject.SetActive(false);
             _levelCounter.SetDefeatState();
         }
