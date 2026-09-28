@@ -82,6 +82,19 @@ namespace DiceBattle.UI
             }
         }
 
+        private static void ShowResult()
+        {
+            bool isVictory = TournamentBracket.IsCompleted;
+            string title = isVictory ? LocKeys.Window.TournamentVictoryTitle : LocKeys.Window.TournamentDefeatTitle;
+            string message = isVictory ? LocKeys.Window.TournamentVictoryMessage : LocKeys.Window.TournamentDefeatMessage;
+
+            var confirmData = new ConfirmData(LocalizationManager.Localize(title), LocalizationManager.Localize(message),
+                onAccept: null, acceptText: LocalizationManager.Localize(LocKeys.Button.Ok));
+
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
+            SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
+        }
+
         #region Event handlers
 
         private void HandleContextClicked()
@@ -113,6 +126,12 @@ namespace DiceBattle.UI
 
             Refresh();
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Tavern));
+
+            // Delayed past the window lock: leaving the arena via ConfirmWindow has just closed a window.
+            if (TournamentBracket.IsFinished)
+            {
+                LeanTween.delayedCall(gameObject, ScreenChanger.TransitionLockDuration, ShowResult);
+            }
         }
 
         #endregion
