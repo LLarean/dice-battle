@@ -7,7 +7,6 @@ using DiceBattle.Global;
 using DiceBattle.Localization;
 using DiceBattle.UI;
 using GameSignals;
-using UnityEngine;
 
 namespace DiceBattle.Core
 {
@@ -269,10 +268,6 @@ namespace DiceBattle.Core
             {
                 TournamentBracket.RegisterDefeat();
             }
-
-            Debug.Log($"Турнир: {(playerWon ? "Победа" : "Поражение")}. " +
-                      $"Игрок HP {_player.Data.CurrentHealth}/{_player.Data.MaxHealth}, " +
-                      $"Бот HP {_enemy.Data.CurrentHealth}/{_enemy.Data.MaxHealth}");
 
             DiceRuleset.Reset();
             _matchEndTweenId = LeanTween.delayedCall(MatchEndPause,

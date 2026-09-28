@@ -36,7 +36,10 @@ namespace DiceBattle.UI
                 _acceptText.text = data.AcceptText;
             }
 
-            if (string.IsNullOrEmpty(data.CancelText) == false)
+            bool hasCancel = string.IsNullOrEmpty(data.CancelText) == false;
+            _cancel.gameObject.SetActive(hasCancel);
+
+            if (hasCancel)
             {
                 _cancelText.text = data.CancelText;
             }
