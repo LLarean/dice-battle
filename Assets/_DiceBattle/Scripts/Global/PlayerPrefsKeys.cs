@@ -19,5 +19,6 @@
 
         public const string BattleState = "BattleState";
         public const string PendingLootRewardIndex = "PendingLootRewardIndex";
+        public const string TournamentState = "TournamentState";
     }
 }

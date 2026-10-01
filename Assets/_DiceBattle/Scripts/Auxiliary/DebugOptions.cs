@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using DiceBattle.Core;
 using DiceBattle.Global;
 using DiceBattle.UI;
 using NaughtyAttributes;
@@ -22,6 +23,7 @@ namespace DiceBattle.Auxiliary
             if (_needResetAll)
             {
                 GameData.ResetAll();
+                TournamentBracket.Clear();
                 GameSettings.ResetVolume();
 
                 // _defaultInventory.SetEquippedItems();
