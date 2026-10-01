@@ -117,6 +117,10 @@ namespace DiceBattle.UI
 
         public void AbandonMatch() => _logic.AbandonMatch();
 
+#if UNITY_EDITOR
+        public void DebugEndMatch(bool playerWon) => _logic.DebugEndMatch(playerWon);
+#endif
+
         #region Event handlers
 
         private void HandleHelpClicked() =>

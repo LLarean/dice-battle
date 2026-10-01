@@ -50,6 +50,7 @@ namespace DiceBattle.Core
             for (int i = 0; i < deck.Count; i++)
             {
                 _dices[i].SetType(deck[i]);
+                _dices[i].SetBoardIndex(i);
             }
         }
 
