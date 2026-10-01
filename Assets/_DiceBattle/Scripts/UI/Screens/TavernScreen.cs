@@ -45,7 +45,7 @@ namespace DiceBattle.UI
 
         private void OnEnable()
         {
-            _innkeeper.ShowMessage();
+            _innkeeper.ShowMessage(_gameConfig);
             SetLabel();
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Tavern));
         }

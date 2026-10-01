@@ -109,5 +109,24 @@ namespace DiceBattle.Global
         public static void ClearPendingLootReward() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.PendingLootRewardIndex);
 
         #endregion
+
+        #region Innkeeper memory
+
+        // Deliberately survives ResetAll: the innkeeper's respect grows across runs.
+        public static int TotalVictories => PlayerPrefs.GetInt(PlayerPrefsKeys.TotalVictories, 0);
+
+        public static void IncrementTotalVictories() => PlayerPrefs.SetInt(PlayerPrefsKeys.TotalVictories, TotalVictories + 1);
+
+        public static InnkeeperEvent PendingInnkeeperEvent
+        {
+            get => (InnkeeperEvent)PlayerPrefs.GetInt(PlayerPrefsKeys.PendingInnkeeperEvent, 0);
+            set
+            {
+                PlayerPrefs.SetInt(PlayerPrefsKeys.PendingInnkeeperEvent, (int)value);
+                PlayerPrefs.Save();
+            }
+        }
+
+        #endregion
     }
 }

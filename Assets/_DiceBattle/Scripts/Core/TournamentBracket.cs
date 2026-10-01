@@ -53,12 +53,18 @@ namespace DiceBattle.Core
         {
             CurrentIndex++;
             Save();
+
+            if (IsCompleted)
+            {
+                GameData.PendingInnkeeperEvent = InnkeeperEvent.TournamentWon;
+            }
         }
 
         public static void RegisterDefeat()
         {
             IsDefeated = true;
             Save();
+            GameData.PendingInnkeeperEvent = InnkeeperEvent.TournamentLost;
         }
 
         public static void Clear()

@@ -84,7 +84,23 @@ namespace DiceBattle.Localization
 
         public static class Innkeeper
         {
-            public const string MessagePrefix = "innkeeper.msg";
+            public const string Traveler = "innkeeper.traveler";
+            public const string Regular = "innkeeper.regular";
+            public const string Friend = "innkeeper.friend";
+            public const string Hero = "innkeeper.hero";
+            public const string Legend = "innkeeper.legend";
+
+            public const string AfterDefeat = "innkeeper.after_defeat";
+            public const string AfterDragon = "innkeeper.after_dragon";
+            public const string AfterTournamentWin = "innkeeper.after_tournament_win";
+            public const string AfterTournamentLoss = "innkeeper.after_tournament_loss";
+
+            public const string RumorPrefix = "innkeeper.rumor.";
+        }
+
+        public static class EnemyDescriptions
+        {
+            public const string NewGamePlusPrefix = "enemy_descriptions.ng_plus.";
         }
 
         public static class SplashTips

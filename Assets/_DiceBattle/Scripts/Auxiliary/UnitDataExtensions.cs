@@ -19,6 +19,9 @@ namespace DiceBattle
             Armor = source.Armor,
         };
 
+        // Relies on the key naming convention: "enemy_descriptions.slime_small" -> "slime".
+        public static string GetFamily(this UnitData unitData) => unitData.Description.Split('.')[^1].Split('_')[0];
+
         public static void Log(this UnitData unitData)
         {
 #if UNITY_EDITOR
