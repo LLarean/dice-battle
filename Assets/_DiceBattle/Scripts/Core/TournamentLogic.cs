@@ -50,6 +50,7 @@ namespace DiceBattle.Core
         public void InitializeMatch()
         {
             _matchEnded = false;
+            TournamentBracket.BeginMatch();
             DiceRuleset.SetStandard(_config.DiceStartCount);
 
             _player = BuildFighter(_config.GetPlayerConfig(GameData.SelectedCharacterClass));
