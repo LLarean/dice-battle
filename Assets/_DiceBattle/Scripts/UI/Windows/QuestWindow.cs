@@ -2,6 +2,7 @@ using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
+using DiceBattle.Localization;
 using GameSignals;
 using TMPro;
 using UnityEngine;
@@ -28,7 +29,15 @@ namespace DiceBattle.UI
             // After a full clear the next run starts over from the first enemy.
             UnitData nextEnemy = _gameConfig.Enemies[GameData.CompletedLevels % _gameConfig.Enemies.Count];
             _unitPanel.SetUnitData(nextEnemy.CloneAtFullHealth());
-            _description.text = LocalizationManager.Localize(nextEnemy.Description);
+            _description.text = LocalizationManager.Localize(nextEnemy.Description) + GetNewGamePlusNote(nextEnemy);
+        }
+
+        private static string GetNewGamePlusNote(UnitData enemy)
+        {
+            string key = LocKeys.EnemyDescriptions.NewGamePlusPrefix + enemy.GetFamily();
+            bool hasNote = GameData.NewGamePlusCycle > 0 && LocalizationManager.HasKey(key);
+
+            return hasNote ? " " + LocalizationManager.Localize(key) : string.Empty;
         }
 
         private void OnDestroy()

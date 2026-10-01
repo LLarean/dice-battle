@@ -380,6 +380,8 @@ namespace DiceBattle.Core
             if (_config.CanSaveBattle)
                 BattleSaveData.Clear();
 
+            GameData.PendingInnkeeperEvent = InnkeeperEvent.Defeat;
+
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Defeat));
             AfterBattleEndPause(() => SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameOverScreen)));
         }
@@ -440,8 +442,11 @@ namespace DiceBattle.Core
             bool isLastEnemy = GameData.CompletedLevels >= _config.Enemies.Count - 1;
             _matchData.IsLastEnemy = isLastEnemy;
 
+            GameData.IncrementTotalVictories();
+
             if (isLastEnemy)
             {
+                GameData.PendingInnkeeperEvent = InnkeeperEvent.CampaignWon;
                 AfterBattleEndPause(() => SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.GameOverScreen)));
             }
             else

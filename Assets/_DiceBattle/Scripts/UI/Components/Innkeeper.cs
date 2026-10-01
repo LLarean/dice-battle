@@ -1,5 +1,7 @@
-﻿using Assets.SimpleLocalization.Scripts;
+using Assets.SimpleLocalization.Scripts;
+using DiceBattle.Data;
 using DiceBattle.Events;
+using DiceBattle.Global;
 using DiceBattle.Localization;
 using GameSignals;
 using TMPro;
@@ -11,16 +13,19 @@ namespace DiceBattle.UI
 {
     public class Innkeeper : MonoBehaviour
     {
+        private const int RegularVictories = 3;
+        private const int FriendVictories = 6;
+        private const int HeroVictories = 10;
+        private const float RumorChance = 0.35f;
+
         [SerializeField] private TextMeshProUGUI _message;
         [SerializeField] private Button _quest;
 
-        public void ShowMessage()
+        public void ShowMessage(GameConfig config)
         {
             AnimateIn();
 
-            int count = LocalizationManager.CountIndexedKeys(LocKeys.Innkeeper.MessagePrefix);
-            string key = $"{LocKeys.Innkeeper.MessagePrefix}[{Random.Range(0, count)}]";
-            _message.text = LocalizationManager.Localize(key);
+            _message.text = LocalizationManager.Localize(PickKey(config));
         }
 
         private void Start()
@@ -43,5 +48,56 @@ namespace DiceBattle.UI
             // TODO Add animation
         }
 
+        private static string PickKey(GameConfig config)
+        {
+            InnkeeperEvent pendingEvent = GameData.PendingInnkeeperEvent;
+
+            if (pendingEvent != InnkeeperEvent.None)
+            {
+                GameData.PendingInnkeeperEvent = InnkeeperEvent.None;
+                return RandomKey(GetEventPrefix(pendingEvent));
+            }
+
+            bool isFullClear = GameData.CompletedLevels >= config.Enemies.Count;
+
+            if (isFullClear == false && Random.value < RumorChance)
+            {
+                string rumorPrefix = LocKeys.Innkeeper.RumorPrefix + config.Enemies[GameData.CompletedLevels].GetFamily();
+
+                if (LocalizationManager.CountIndexedKeys(rumorPrefix) > 0)
+                {
+                    return RandomKey(rumorPrefix);
+                }
+            }
+
+            return RandomKey(GetStagePrefix(isFullClear));
+        }
+
+        private static string GetEventPrefix(InnkeeperEvent innkeeperEvent) => innkeeperEvent switch
+        {
+            InnkeeperEvent.Defeat => LocKeys.Innkeeper.AfterDefeat,
+            InnkeeperEvent.CampaignWon => LocKeys.Innkeeper.AfterDragon,
+            InnkeeperEvent.TournamentWon => LocKeys.Innkeeper.AfterTournamentWin,
+            _ => LocKeys.Innkeeper.AfterTournamentLoss,
+        };
+
+        private static string GetStagePrefix(bool isFullClear)
+        {
+            if (isFullClear || GameData.NewGamePlusCycle > 0)
+            {
+                return LocKeys.Innkeeper.Legend;
+            }
+
+            return GameData.TotalVictories switch
+            {
+                >= HeroVictories => LocKeys.Innkeeper.Hero,
+                >= FriendVictories => LocKeys.Innkeeper.Friend,
+                >= RegularVictories => LocKeys.Innkeeper.Regular,
+                _ => LocKeys.Innkeeper.Traveler,
+            };
+        }
+
+        private static string RandomKey(string prefix) =>
+            $"{prefix}[{Random.Range(0, LocalizationManager.CountIndexedKeys(prefix))}]";
     }
 }

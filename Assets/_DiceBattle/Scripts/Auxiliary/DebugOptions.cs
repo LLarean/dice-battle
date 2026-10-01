@@ -17,7 +17,7 @@ namespace DiceBattle.Auxiliary
         [SerializeField] private DefaultInventory _defaultInventory;
 
         [Header("On start (applied on every Play)")]
-        [Tooltip("Wipes campaign progress, inventory, battle save, tournament and volume on every Play. Turn off to test save/restore.")]
+        [Tooltip("Wipes campaign progress, inventory, battle save, tournament, innkeeper memory and volume on every Play. Turn off to test save/restore.")]
         [SerializeField] private bool _needResetAll;
         [Tooltip("Adds one dice of every type to the unequipped inventory on every Play.")]
         [SerializeField] private bool _needAddAllItemsToInventory;
@@ -54,6 +54,12 @@ namespace DiceBattle.Auxiliary
         [Header("Tournament: Set Opponents button")]
         [Tooltip("Opponent order from first fight to final. Restarts the tournament with this bracket.")]
         [SerializeField] private CharacterClass[] _opponents;
+
+        [Header("Innkeeper: Set Memory button")]
+        [Tooltip("Lifetime campaign victories: 3 = regular, 6 = friend, 10 = hero. Full clear or New Game+ = legend.")]
+        [SerializeField] private int _totalVictories;
+        [Tooltip("One-shot phrase shown on the next tavern visit instead of the usual one.")]
+        [SerializeField] private InnkeeperEvent _innkeeperEvent;
 
         private static GameConfig Config =>
             AssetDatabase.LoadAssetAtPath<GameConfig>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:GameConfig")[0]));
@@ -103,11 +109,13 @@ namespace DiceBattle.Auxiliary
 
         #region Campaign
 
-        [Button("Campaign: Reset All (progress, inventory, tournament, volume)")]
+        [Button("Campaign: Reset All (progress, inventory, tournament, innkeeper, volume)")]
         private void ResetAll()
         {
             GameData.ResetAll();
             TournamentBracket.Clear();
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.TotalVictories);
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.PendingInnkeeperEvent);
             GameSettings.ResetVolume();
             _defaultInventory.SetDefaultInventory();
         }
@@ -217,6 +225,17 @@ namespace DiceBattle.Auxiliary
 
         #endregion
 
+        #region Innkeeper
+
+        [Button("Innkeeper: Set Memory (victories and pending event)")]
+        private void SetInnkeeperMemory()
+        {
+            PlayerPrefs.SetInt(PlayerPrefsKeys.TotalVictories, Mathf.Max(0, _totalVictories));
+            GameData.PendingInnkeeperEvent = _innkeeperEvent;
+        }
+
+        #endregion
+
         #region Saves
 
         [Button("Saves: Log PlayerPrefs State")]
@@ -224,6 +243,7 @@ namespace DiceBattle.Auxiliary
         {
             Debug.Log($"<color=yellow>Saves:</color> level {GameData.CompletedLevels}, NG+ {GameData.NewGamePlusCycle}, " +
                       $"class {GameData.SelectedCharacterClass}, pending loot {PrefOrNone(PlayerPrefsKeys.PendingLootRewardIndex)}\n" +
+                      $"Innkeeper: {GameData.TotalVictories} victories, pending event {GameData.PendingInnkeeperEvent}\n" +
                       $"Battle: {PrefOrNone(PlayerPrefsKeys.BattleState)}\n" +
                       $"Tournament: {PrefOrNone(PlayerPrefsKeys.TournamentState)}\n" +
                       $"Inventory: {PrefOrNone(PlayerPrefsKeys.AllItems)}");
