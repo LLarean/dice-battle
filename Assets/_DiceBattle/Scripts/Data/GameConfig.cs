@@ -39,12 +39,5 @@ namespace DiceBattle.Data
             int index = Mathf.Min(cycle - 1, NewGamePlusMultipliers.Length - 1);
             return NewGamePlusMultipliers[index];
         }
-
-        [Header("Debug")]
-        #if UNITY_EDITOR
-        public bool IsInstaWin = false;
-        #else
-        public bool IsInstaWin = false;
-        #endif
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Audio;
+using DiceBattle.Auxiliary;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
@@ -68,6 +69,14 @@ namespace DiceBattle.Core
                 BattleSaveData.Clear();
             }
         }
+
+#if UNITY_EDITOR
+        public void DebugSetHealth(int playerHealth, int enemyHealth)
+        {
+            _matchData.PlayerData.CurrentHealth = Mathf.Clamp(playerHealth, 1, _matchData.PlayerData.MaxHealth);
+            _matchData.EnemyData.CurrentHealth = Mathf.Clamp(enemyHealth, 1, _matchData.EnemyData.MaxHealth);
+        }
+#endif
 
         public void RestoreGame()
         {
@@ -284,7 +293,9 @@ namespace DiceBattle.Core
         {
             DiceList receivedRewards = GameData.GetEquippedAsDiceList();
             int additionalTryCount = receivedRewards.DiceTypes.Count(reward => reward == DiceType.AdditionalTry);
-            _matchData.MaxDiceRerolls = _config.MaxAttempts + additionalTryCount;
+            _matchData.MaxDiceRerolls = DebugOverrides.HasInfiniteRerolls
+                ? DebugOverrides.InfiniteRerolls
+                : _config.MaxAttempts + additionalTryCount;
         }
 
         private void UpdatePlayerStats()
@@ -310,7 +321,7 @@ namespace DiceBattle.Core
 
             AnimateEnemyHealth();
 
-            if (_matchData.EnemyData.CurrentHealth <= 0 || _config.IsInstaWin)
+            if (_matchData.EnemyData.CurrentHealth <= 0 || DebugOverrides.IsInstaWin)
             {
                 OnEnemyDefeated();
             }
@@ -383,7 +394,9 @@ namespace DiceBattle.Core
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
 
-            if (_matchData.PlayerData.CurrentHealth <= 0 && TryTriggerLastStand() == false)
+            bool isLethal = _matchData.PlayerData.CurrentHealth <= 0 && TryTriggerLastStand() == false;
+
+            if (isLethal || DebugOverrides.IsInstaLose)
             {
                 OnPlayerDefeated();
                 return;

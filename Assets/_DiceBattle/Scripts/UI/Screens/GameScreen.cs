@@ -43,6 +43,15 @@ namespace DiceBattle.UI
 
         public void AbandonBattle() => _gameLogic.AbandonBattle();
 
+#if UNITY_EDITOR
+        public void DebugSetHealth(int playerHealth, int enemyHealth)
+        {
+            _gameLogic.DebugSetHealth(playerHealth, enemyHealth);
+            _player.UpdateStats();
+            _enemy.UpdateStats();
+        }
+#endif
+
         public void SetPlayerData(UnitData unitData) => _player.SetUnitData(unitData);
 
         public void UpdatePlayerStats() => _player.UpdateStats();

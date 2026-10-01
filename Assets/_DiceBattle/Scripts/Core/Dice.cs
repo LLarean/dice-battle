@@ -2,6 +2,7 @@
 using System.Linq;
 using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Audio;
+using DiceBattle.Auxiliary;
 using DiceBattle.Events;
 using DiceBattle.Localization;
 using DiceBattle.UI;
@@ -31,6 +32,7 @@ namespace DiceBattle.Core
         private Random _random;
         private DiceValue _diceValue = DiceValue.Empty;
         private DiceType _type = DiceType.Default;
+        private int _boardIndex = -1;
 
         public event Action OnToggled;
 
@@ -73,6 +75,8 @@ namespace DiceBattle.Core
             SetRarityGlow(type.GetRarity());
         }
 
+        public void SetBoardIndex(int index) => _boardIndex = index;
+
         public void ShowFixedMultiplier(DiceValue diceValue, int multiplier)
         {
             _multiplier.gameObject.SetActive(multiplier > 1);
@@ -84,7 +88,7 @@ namespace DiceBattle.Core
             int firstIndex = _type == DiceType.Reliable ? 1 : 0;
 
             int randomIndex = _random.Next(firstIndex, _faceSprites.Length);
-            _diceValue = (DiceValue)randomIndex;
+            _diceValue = DebugOverrides.TryGetForcedFace(_boardIndex, out DiceValue forcedFace) ? forcedFace : (DiceValue)randomIndex;
             _faceIcon.sprite = _faceSprites[(int)_diceValue];
 
             ClearSelection();

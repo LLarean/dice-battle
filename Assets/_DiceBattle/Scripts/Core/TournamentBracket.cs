@@ -69,6 +69,29 @@ namespace DiceBattle.Core
             PlayerPrefs.DeleteKey(PlayerPrefsKeys.TournamentState);
         }
 
+#if UNITY_EDITOR
+        public static void DebugSetOpponents(IEnumerable<CharacterClass> opponents)
+        {
+            _opponents.Clear();
+            _opponents.AddRange(opponents);
+            CurrentIndex = 0;
+            IsDefeated = false;
+            Save();
+        }
+
+        public static void DebugSkipToFinal()
+        {
+            if (IsStarted == false)
+            {
+                Restart();
+            }
+
+            CurrentIndex = _opponents.Count - 1;
+            IsDefeated = false;
+            Save();
+        }
+#endif
+
         private static void Save(bool isMatchInProgress = false)
         {
             var snapshot = new Snapshot

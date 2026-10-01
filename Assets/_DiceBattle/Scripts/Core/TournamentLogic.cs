@@ -90,6 +90,19 @@ namespace DiceBattle.Core
             TournamentBracket.RegisterDefeat();
         }
 
+#if UNITY_EDITOR
+        public void DebugEndMatch(bool playerWon)
+        {
+            if (_matchEnded)
+            {
+                return;
+            }
+
+            LeanTween.cancel(_screen.gameObject);
+            EndMatch(playerWon);
+        }
+#endif
+
         public void ContextClick()
         {
             if (_phase != Phase.PlayerRolling || _matchEnded || _isPlayerRolling)
