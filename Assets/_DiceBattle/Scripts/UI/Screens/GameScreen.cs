@@ -31,6 +31,8 @@ namespace DiceBattle.UI
         [SerializeField] private Button _all;
         [SerializeField] private RollButtonHint _rollButtonHint;
 
+        private const int _minimumPlayerHit = 1;
+
         private GameLogic _gameLogic;
 
         public List<Dice> Dices => _gameBoard.Dices;
@@ -74,7 +76,7 @@ namespace DiceBattle.UI
 
         public void PlayerTakeDamage(int damageAmount) => _player.TakeDamage(damageAmount);
 
-        public void EnemyTakeDamage(int damageAmount) => _enemy.TakeDamage(damageAmount);
+        public void EnemyTakeDamage(int damageAmount) => _enemy.TakeDamage(damageAmount, _minimumPlayerHit);
 
         public void EnemyTakeCriticalHit()
         {

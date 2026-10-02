@@ -137,9 +137,9 @@ namespace DiceBattle.UI
             return sum;
         }
 
-        public void TakeDamage(int damageAmount)
+        public void TakeDamage(int damageAmount, int minimumDamage = 0)
         {
-            int calculatedDamage = Mathf.Max(0, damageAmount - _unitData.Armor);
+            int calculatedDamage = Mathf.Max(minimumDamage, damageAmount - _unitData.Armor);
             ChangeHealth(Mathf.Max(0, _unitData.CurrentHealth - calculatedDamage));
         }
 
