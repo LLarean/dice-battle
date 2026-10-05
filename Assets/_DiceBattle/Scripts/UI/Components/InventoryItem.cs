@@ -151,7 +151,10 @@ namespace DiceBattle.UI
             _rarityGlow.gameObject.SetActive(true);
 
             // Guarantee the glow renders behind the dice, otherwise it swallows the select/deselect animation.
-            _rarityGlow.transform.SetSiblingIndex(_diceRect.GetSiblingIndex());
+            if (_rarityGlow.transform.GetSiblingIndex() > _diceRect.GetSiblingIndex())
+            {
+                _rarityGlow.transform.SetSiblingIndex(_diceRect.GetSiblingIndex());
+            }
 
             Color faded = _rarityGlow.color;
             faded.a = _pulseMinAlpha;
