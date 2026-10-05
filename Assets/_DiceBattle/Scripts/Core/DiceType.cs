@@ -19,7 +19,7 @@ namespace DiceBattle
         Reliable, // never rolls Empty
         Thorns, // Defense also deals 1 damage
         Vampiric, // Attack also heals 1
-        Golden, // +1 to every die showing the same face
+        Golden, // any face counts as 2
         Joker, // Empty turns into the most common face among the other dice
 
         // Passive, the die itself rolls as a default one

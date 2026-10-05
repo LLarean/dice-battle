@@ -50,7 +50,7 @@ namespace DiceBattle.Core
         public static DiceContribution Contribution(Dice dice, List<Dice> dices)
         {
             DiceValue face = ResolveFace(dice, dices);
-            int value = face == DiceValue.Empty ? 0 : FaceValue(dice, face, dices);
+            int value = OwnFaceValue(dice.Type, face);
 
             return face switch {
                 DiceValue.Attack => new DiceContribution(0, value, dice.Type == DiceType.Vampiric ? 1 : 0),
@@ -60,22 +60,17 @@ namespace DiceBattle.Core
             };
         }
 
-        /// <summary>
-        /// Value of the die's main face, including the Golden bonus from the other dice.
-        /// </summary>
-        public static int FaceValue(Dice dice, List<Dice> dices)
-        {
-            DiceValue face = ResolveFace(dice, dices);
-            return face == DiceValue.Empty ? 0 : FaceValue(dice, face, dices);
-        }
+        public static int FaceValue(Dice dice, List<Dice> dices) => OwnFaceValue(dice.Type, ResolveFace(dice, dices));
 
-        public static int OwnFaceValue(DiceType diceType, DiceValue face) =>
-            1 + (diceType.GetEffectDiceValue() == face ? 1 : 0);
-
-        private static int FaceValue(Dice dice, DiceValue face, List<Dice> dices)
+        public static int OwnFaceValue(DiceType diceType, DiceValue face)
         {
-            int goldenBonus = dices.Count(other => other.Type == DiceType.Golden && ResolveFace(other, dices) == face);
-            return OwnFaceValue(dice.Type, face) + goldenBonus;
+            if (face == DiceValue.Empty)
+            {
+                return 0;
+            }
+
+            bool isDoubled = diceType == DiceType.Golden || diceType.GetEffectDiceValue() == face;
+            return isDoubled ? 2 : 1;
         }
 
         public static DiceValue ResolveFace(Dice dice, List<Dice> dices)

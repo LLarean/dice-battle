@@ -111,7 +111,7 @@ namespace DiceBattle.Core
             SignalSystem.Raise<IDiceResultHandler>(handler => handler.OnDiceLanded(this, dice, contribution));
         }
 
-        // Golden and Joker depend on the other dice, so a reroll can change labels of dice kept in place.
+        // Joker depends on the other dice, so a reroll can change labels of dice kept in place.
         private void RefreshMultipliers()
         {
             foreach (Dice dice in _occupied)
