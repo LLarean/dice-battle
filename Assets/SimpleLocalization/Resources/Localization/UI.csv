@@ -19,7 +19,7 @@ ui.window.restart_message,"The heroes give up, but new ones always come. All pro
 ui.window.restart_title,Bury the heroes?,Die Helden begraben?,Похоронить героев?,Enterrer les héros ?,Enterrar os heróis?,英雄たちを葬る？,埋葬这些英雄？,¿Enterrar a los héroes?
 ui.message.attempts,attempts,Versuche,попыток,essais,tentativas,回,次,intentos
 ui.message.left,left,übrig,осталось,restants,restantes,残り,剩余,restantes
-ui.message.attempts_left,{0} attempts left,Noch {0} Versuche,Осталось {0} попыток,{0} essais restants,{0} tentativas restantes,残り{0}回,剩余{0}次,Quedan {0} intentos
+ui.message.attempts_left,Attempts left: {0},Versuche übrig: {0},Осталось попыток: {0},Essais restants : {0},Tentativas restantes: {0},残り{0}回,剩余{0}次,Intentos restantes: {0}
 ui.slider.sound_title,Sound,Ton,Звук,Son,Som,効果音,音效,Sonido
 ui.title.win,Victory,Sieg,Победа,Victoire,Vitória,勝利,胜利,Victoria
 ui.slider.music_title,Music,Musik,Музыка,Musique,Música,音楽,音乐,Música
