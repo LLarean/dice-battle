@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Assets.SimpleLocalization.Scripts;
+using DiceBattle.Animations;
 using DiceBattle.Audio;
 using DiceBattle.Auxiliary;
 using DiceBattle.Events;
@@ -28,6 +29,9 @@ namespace DiceBattle.Core
         [SerializeField] private Sprite[] _faceSprites;
         [Space]
         [SerializeField] private bool _isMenu;
+
+        private const float _togglePopScale = 1.15f;
+        private const float _togglePopDuration = 0.15f;
 
         private Random _random;
         private DiceValue _diceValue = DiceValue.Empty;
@@ -155,6 +159,7 @@ namespace DiceBattle.Core
             if (_isMenu == false)
             {
                 Toggle();
+                DiceAnimation.Lift(gameObject, _togglePopScale, _togglePopDuration, 0f);
             }
 
             OnToggled?.Invoke();
