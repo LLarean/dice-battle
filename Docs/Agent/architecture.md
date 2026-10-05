@@ -27,13 +27,13 @@ Components do not reference each other across features. They talk through `GameS
 SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
 ```
 
-A handler subscribes in `Awake`/`Start` and unsubscribes in `OnDestroy`. Screens raise signals from `OnEnable`, which can run before a handler's `Start` — a handler that subscribes in `Start` misses them (see the comment in `Hint.Start`).
+A handler subscribes in `Awake`/`Start` and unsubscribes in `OnDestroy`. Screens raise signals from `OnEnable`, which can run before a handler's `Start` — a handler that subscribes in `Start` misses them (`Hint` subscribes in `Awake` for this reason). The same goes for a screen that is activated for the first time: its `OnEnable` runs before the `Awake` of its children, so anything it calls on them there must not rely on their `Awake` (`InventoryItem.ContentGroup` is lazy for this reason).
 
 ## Screens
 
 `ScreenChanger` owns everything under `RootUI`. Screens replace each other (`ShowScreen`), windows stack on top (`ShowWindow` / `CloseTopWindow`). Input is locked for `TransitionLockDuration` after a change. Each screen starts its logic and music in `OnEnable`.
 
-Flow: `SplashScreen` → `MainMenuScreen` → `TavernScreen` → `GameScreen` (campaign battle) → `LootScreen` (window, pick 1 of 2) → tavern. Tavern also leads to `InventoryScreen` and `TournamentPyramidScreen` → `TournamentScreen`.
+Flow: `SplashScreen` → `MainMenuScreen` → `TavernScreen` → `GameScreen` (campaign battle) → `LootScreen` (window, pick 1 of 3) → tavern. Tavern also leads to `InventoryScreen` and `TournamentPyramidScreen` → `TournamentScreen`.
 
 ## Dice rules
 
@@ -51,7 +51,7 @@ Flow: `SplashScreen` → `MainMenuScreen` → `TavernScreen` → `GameScreen` (c
 
 ## Campaign
 
-10 enemies in `GameConfig.asset`, three player classes (Knight, Archer, Mage). After the dragon, New Game+ scales enemy HP only (`Spawner`). Loot after each victory: `GameData.GetRandomRewards(level * 2, 2)` from a shuffled pool saved in `AvailableRewardsPool`; the pending reward index survives an app kill (`SetPendingLootReward`).
+10 enemies in `GameConfig.asset`, three player classes (Knight, Archer, Mage). After the dragon, New Game+ scales enemy HP only (`Spawner`). Loot after each victory: `GameData.GetRandomRewards(level * 3, 3)` (the count is the number of cards on `LootScreen`) from a shuffled pool saved in `AvailableRewardsPool`; the pending reward index survives an app kill (`SetPendingLootReward`).
 
 An unfinished battle is saved (`BattleSaveData`) when `GameConfig.CanSaveBattle` is set and restored by `GameScreen.OnEnable`. It is written at the start of a battle, when a roll starts (attempt already spent, old faces), when it lands (new faces) and at the end of a turn, so quitting never gives a roll back.
 

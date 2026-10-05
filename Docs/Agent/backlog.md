@@ -4,7 +4,7 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 
 ## In order
 
-1. **Rarity and drop chances.** AdditionalDice is stronger than its tier (Golden was cut down to "any face counts 2"); LastStand, Joker and Reliable are weaker. The reward pool is a plain shuffle. Do together with 2 and 3.
+1. **Rarity and drop chances.** AdditionalDice is stronger than its tier (Golden was cut down to "any face counts 2"); LastStand, Joker and Reliable are weaker. The reward pool is a plain shuffle, and the three offered dice can repeat a type across a shuffle boundary. Do together with 2 and 3.
 2. **After loot:** two buttons, "To tavern" and "To inventory".
 3. **Dice without an own face** (Reliable, Golden, Joker, AdditionalTry, AdditionalDice) look empty and differ only by colour. Needs a type badge.
 4. **Sound:** victory and defeat jingles play over the music without ducking; Menu and Battle share one track.

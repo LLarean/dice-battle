@@ -34,7 +34,7 @@ Screenshots and logs go to the session scratchpad, never into the repo.
 ## Useful paths in the scene
 
 - Buttons: `RootUI/MainMenuScreen/Bottom/Button(Start)`, `RootUI/TavernScreen/Button(Start)`, `RootUI/TavernScreen/Button(Tournament)`, `RootUI/TavernScreen/IconButton(Inventory)`, `RootUI/GameScreen/Bot/Button(Context)`, `RootUI/GameScreen/Bot/Button(All)`, `RootUI/TournamentPyramidScreen/Button(Context)`, `RootUI/TournamentScreen/Bot/Button(Context)`, `RootUI/TopBar/Panel/Button(Back)`, `RootUI/ConfirmWindow/Substrate/Window/LabelButton(Accept)`
-- Board dice: `RootUI/GameScreen/GameBoard/DiceHolder`; loot cards: `RootUI/LootScreen/InventoryItem_0`, `_1`
+- Board dice: `RootUI/GameScreen/GameBoard/DiceHolder`; loot cards: `RootUI/LootScreen/InventoryItem_0`, `_1`, `_2`
 - Music sources: both `AudioSource`s on the `Music` object
 
 ## Recipes

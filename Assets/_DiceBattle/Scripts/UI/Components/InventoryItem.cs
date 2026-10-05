@@ -53,6 +53,20 @@ namespace DiceBattle.UI
         public Item Data => _data;
         public Dice Dice => _dice;
 
+        // Lazy: a screen may set up its cards in OnEnable, before their Awake has run.
+        private CanvasGroup ContentGroup
+        {
+            get
+            {
+                if (_contentGroup == null && TryGetComponent(out _contentGroup) == false)
+                {
+                    _contentGroup = gameObject.AddComponent<CanvasGroup>();
+                }
+
+                return _contentGroup;
+            }
+        }
+
         public void Initialize(Item item)
         {
             _data = item;
@@ -123,18 +137,18 @@ namespace DiceBattle.UI
         public void SetInteractable(bool isInteractable)
         {
             _button.interactable = isInteractable;
-            _contentGroup.blocksRaycasts = isInteractable;
+            ContentGroup.blocksRaycasts = isInteractable;
         }
 
         public void PlayRevealAnimation()
         {
             LeanTween.cancel(gameObject);
 
-            _contentGroup.alpha = 0f;
+            ContentGroup.alpha = 0f;
             var rect = (RectTransform)transform;
             rect.localScale = Vector3.one * _contentScaleStart;
 
-            LeanTween.alphaCanvas(_contentGroup, 1f, _contentFadeInDuration).setEase(LeanTweenType.easeOutQuad);
+            LeanTween.alphaCanvas(ContentGroup, 1f, _contentFadeInDuration).setEase(LeanTweenType.easeOutQuad);
             LeanTween.scale(gameObject, Vector3.one * _contentScalePeak, _contentFadeInDuration).setEase(LeanTweenType.easeOutBack);
         }
 
@@ -152,9 +166,9 @@ namespace DiceBattle.UI
             _rarityGlow.gameObject.SetActive(true);
 
             // Guarantee the glow renders behind the dice, otherwise it swallows the select/deselect animation.
-            if (_rarityGlow.transform.GetSiblingIndex() > _diceRect.GetSiblingIndex())
+            if (_rarityGlow.transform.GetSiblingIndex() > _dice.transform.GetSiblingIndex())
             {
-                _rarityGlow.transform.SetSiblingIndex(_diceRect.GetSiblingIndex());
+                _rarityGlow.transform.SetSiblingIndex(_dice.transform.GetSiblingIndex());
             }
 
             Color faded = _rarityGlow.color;
@@ -189,12 +203,6 @@ namespace DiceBattle.UI
         {
             _diceRect = (RectTransform)_dice.transform;
             _diceBasePosition = _diceRect.anchoredPosition;
-
-            _contentGroup = GetComponent<CanvasGroup>();
-            if (_contentGroup == null)
-            {
-                _contentGroup = gameObject.AddComponent<CanvasGroup>();
-            }
         }
 
         private void Start()
