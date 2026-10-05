@@ -4,16 +4,14 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 
 ## In order
 
-1. **Golden breaks the curve.** A build with one Golden wins about 99% even against the dragon. Needs a nerf.
-2. **Two exploits** *(unverified)*: fleeing a battle is free; quitting mid-turn gives an extra reroll.
-3. **"Осталось 1 попыток"** — the attempts label has no plural forms.
-4. **Tournament shows two hints** with the same "opponent's turn" text.
-5. **UI stubs** *(unverified)*: Tutorial, easter egg, Info, Share — finish or hide.
-6. **Rarity and drop chances.** Golden and AdditionalDice are stronger than their tier; LastStand, Joker and Reliable are weaker. The reward pool is a plain shuffle. Do together with 7 and 8.
-7. **After loot:** two buttons, "To tavern" and "To inventory".
-8. **Dice without an own face** (Reliable, Golden, Joker, AdditionalTry, AdditionalDice) look empty and differ only by colour. Needs a type badge.
-9. **Sound:** victory and defeat jingles play over the music without ducking; Menu and Battle share one track.
-10. **Playtest the difficulty curve.** Target win rate by enemy: 100, 99, 97, 95, 88, 85, 82, 80, 68, 55%. The solver is an upper bound; soften with −1 enemy damage if it plays too hard.
+1. **Defeat can be dodged.** Fleeing a battle is free and restarts the fight; closing the app on the defeat screen keeps the run (the wipe happens only on the Restart button). Waits for the owner's decision: flee = defeat, wipe at the moment of defeat.
+2. **Tournament shows two hints** with the same "opponent's turn" text.
+3. **UI stubs** *(unverified)*: Tutorial, easter egg, Info, Share — finish or hide.
+4. **Rarity and drop chances.** AdditionalDice is stronger than its tier (Golden was cut down to "any face counts 2"); LastStand, Joker and Reliable are weaker. The reward pool is a plain shuffle. Do together with 5 and 6.
+5. **After loot:** two buttons, "To tavern" and "To inventory".
+6. **Dice without an own face** (Reliable, Golden, Joker, AdditionalTry, AdditionalDice) look empty and differ only by colour. Needs a type badge.
+7. **Sound:** victory and defeat jingles play over the music without ducking; Menu and Battle share one track.
+8. **Playtest the difficulty curve.** Target win rate by enemy: 100, 99, 97, 95, 88, 85, 82, 80, 68, 55%. The solver is an upper bound; soften with −1 enemy damage if it plays too hard. A full build of five special dice still solves at 91–99% against enemies 7–10.
 
 ## Before release
 

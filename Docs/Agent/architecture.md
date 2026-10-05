@@ -43,7 +43,7 @@ Flow: `SplashScreen` → `MainMenuScreen` → `TavernScreen` → `GameScreen` (c
   - Sharp / Sturdy / Healing: own face counts 2
   - Vampiric: Attack also heals 1; Thorns: Defense also deals 1
   - Reliable: never rolls Empty; Joker: Empty becomes the most common other face
-  - Golden: +1 to every die showing the same face as it
+  - Golden: any own face counts 2 as it
   - LastStand: survive a lethal hit once per battle at 1 HP
   - AdditionalTry: +1 reroll; AdditionalDice: +1 board slot (not a physical die)
 - 5 or more Attack faces is a critical: instant kill. The owner wants this kept.
@@ -53,7 +53,7 @@ Flow: `SplashScreen` → `MainMenuScreen` → `TavernScreen` → `GameScreen` (c
 
 10 enemies in `GameConfig.asset`, three player classes (Knight, Archer, Mage). After the dragon, New Game+ scales enemy HP only (`Spawner`). Loot after each victory: `GameData.GetRandomRewards(level * 2, 2)` from a shuffled pool saved in `AvailableRewardsPool`; the pending reward index survives an app kill (`SetPendingLootReward`).
 
-An unfinished battle is saved (`BattleSaveData`) when `GameConfig.CanSaveBattle` is set and restored by `GameScreen.OnEnable`.
+An unfinished battle is saved (`BattleSaveData`) when `GameConfig.CanSaveBattle` is set and restored by `GameScreen.OnEnable`. It is written at the start of a battle, when a roll starts (attempt already spent, old faces), when it lands (new faces) and at the end of a turn, so quitting never gives a roll back.
 
 ## Saves
 

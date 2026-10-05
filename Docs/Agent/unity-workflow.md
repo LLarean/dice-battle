@@ -29,6 +29,7 @@ Screenshots and logs go to the session scratchpad, never into the repo.
 - A round trip takes seconds, so timing cannot be observed by polling. To watch an animation or a fade, schedule the actions and a per-frame logger inside one `eval` (`LeanTween.delayedCall` + `LeanTween.value(...).setOnUpdate`), write to a file, read it afterwards.
 - `ScreenCapture.CaptureScreenshot` is written at the end of the frame; wait a second before reading the file.
 - Python on Windows does not see Git Bash's `/tmp`; use the scratchpad path.
+- `DebugOptions._needResetAll` is on in the scene: every Play start wipes all saves. To test anything that survives a restart, set the field to false through reflection in edit mode (do not save the scene) and set it back afterwards.
 
 ## Useful paths in the scene
 
