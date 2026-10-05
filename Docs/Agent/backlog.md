@@ -14,6 +14,8 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 
 ## Before release
 
+- Go through the third-party assets (art, fonts, sounds, music, plugins under `Assets/`), check their licences and list them in the credits (owner's request, 2026-10-05).
+- `BackgroundParallax` on a phone: the tilt is now measured from how the phone is held (slowly recentred). Written without a device — check on a real phone.
 - Custom keystore instead of the debug one.
 - Pin `jlumbroso/free-disk-space@main` to a SHA in `.github/workflows/build.yml`.
 - `com.unity.pipeline` is experimental; no tag build has run with it yet.
@@ -24,6 +26,7 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 
 - `Button(Tutor)` in the main menu is a stub (the handler only logs): finish or delete.
 - Short monster lines.
+- Animation polish, none of it agreed: the loot and inventory cards have no press reaction (no `BaseButton`, plain colour tint); only the main menu background has an intro zoom and sparkles, the tavern has parallax only, the battle, tournament and game over screens have a static background; `ButtonShine` is only on the two Start buttons.
 - `GameOverScreen` as a window instead of a screen.
 
 ## Deferred
