@@ -92,12 +92,14 @@ namespace DiceBattle.UI
         public void EnablePlayerDice()
         {
             _board.EnablePlayerDice();
+            SetButtonsAvailable(true);
             _rollButtonHint.SetPaused(false);
         }
 
         public void DisablePlayerDice()
         {
             _board.DisablePlayerDice();
+            SetButtonsAvailable(false);
             _rollButtonHint.SetPaused(true);
         }
 
@@ -159,6 +161,12 @@ namespace DiceBattle.UI
         }
 
         private void HandleRollComplete() => _logic.OnRollCompleted();
+
+        private void SetButtonsAvailable(bool isAvailable)
+        {
+            _context.SetAvailable(isAvailable);
+            _all.SetAvailable(isAvailable);
+        }
 
         #endregion
 

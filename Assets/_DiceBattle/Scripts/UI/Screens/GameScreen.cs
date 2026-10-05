@@ -72,6 +72,8 @@ namespace DiceBattle.UI
 
         public void SetContextLabel(string label) => _contextLabel.text = label;
 
+        public void SetContextAvailable(bool isAvailable) => _context.SetAvailable(isAvailable);
+
         #region Damage/Healing Mediation
 
         public void PlayerTakeDamage(int damageAmount) => _player.TakeDamage(damageAmount);
@@ -97,12 +99,14 @@ namespace DiceBattle.UI
         public void EnableDiceInteractable()
         {
             _gameBoard.EnableDiceInteractable();
+            _all.SetAvailable(true);
             _rollButtonHint.SetPaused(false);
         }
 
         public void DisableDiceInteractable()
         {
             _gameBoard.DisableDiceInteractable();
+            _all.SetAvailable(false);
             _rollButtonHint.SetPaused(true);
         }
 
