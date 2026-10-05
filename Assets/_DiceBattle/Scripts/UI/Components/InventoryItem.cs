@@ -61,7 +61,7 @@ namespace DiceBattle.UI
             _dice.SetFixedFace(item.Type.GetIconCategory());
             _dice.SetBodyColor(item.Type);
 
-            ShowMultiplier();
+            _dice.HideMultiplier();
             RefreshRarityGlow(item.Type.GetRarity());
         }
 
@@ -183,20 +183,6 @@ namespace DiceBattle.UI
             sequence.append(LeanTween.moveX(rect, baseX + _shakeOffset, _shakeStep).setEase(LeanTweenType.easeInOutSine));
             sequence.append(LeanTween.moveX(rect, baseX - _shakeOffset * 0.5f, _shakeStep).setEase(LeanTweenType.easeInOutSine));
             sequence.append(LeanTween.moveX(rect, baseX, _shakeStep).setEase(LeanTweenType.easeInOutSine));
-        }
-
-        private void ShowMultiplier()
-        {
-            DiceValue? effectValue = _data.Type.GetEffectDiceValue();
-
-            if (effectValue.HasValue)
-            {
-                _dice.ShowFixedMultiplier(effectValue.Value, DiceResult.OwnFaceValue(_data.Type, effectValue.Value));
-            }
-            else
-            {
-                _dice.HideMultiplier();
-            }
         }
 
         private void Awake()
