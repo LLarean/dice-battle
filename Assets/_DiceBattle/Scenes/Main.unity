@@ -4149,7 +4149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_AnchorMin.x
@@ -4157,7 +4157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4201,7 +4201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1728
+      value: 192
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -11801,11 +11801,19 @@ MonoBehaviour:
   _defaultInventory: {fileID: 43135460}
   _needResetAll: 1
   _needAddAllItemsToInventory: 0
+  _isInstaWin: 0
+  _isInstaLose: 0
+  _hasInfiniteRerolls: 0
+  _forcedFaces: 
+  _playerHealth: 1
+  _enemyHealth: 1
+  _level: 0
+  _newGamePlusCycle: 0
+  _lootLevel: 0
   _diceType: 0
-  _item:
-    ID: 
-    Type: 0
-    IsEquipped: 0
+  _opponents: 
+  _totalVictories: 0
+  _innkeeperEvent: 0
 --- !u!4 &1327191625
 Transform:
   m_ObjectHideFlags: 0
@@ -18474,23 +18482,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 149.9999
+      value: 149.99988
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_SizeDelta.y
@@ -18526,11 +18534,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -915.45
+      value: 164.54999
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1728
+      value: 192
       objectReference: {fileID: 0}
     - target: {fileID: 2789515023215607703, guid: 8bbce6b9691145340b576a9ba33dae79, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
