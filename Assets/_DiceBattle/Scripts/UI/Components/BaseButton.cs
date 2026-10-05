@@ -16,6 +16,7 @@ namespace DiceBattle.UI
         [SerializeField] private SoundType _soundType = SoundType.Click;
 
         private Vector3 _originalScale;
+        private int _tweenId = -1;
 
         public void OnPointerDown(PointerEventData eventData)
         {
@@ -24,21 +25,18 @@ namespace DiceBattle.UI
                 return;
             }
 
-            LeanTween.cancel(gameObject);
-            LeanTween.scale(gameObject, _originalScale * _pressScale, _duration)
-                .setEase(LeanTweenType.easeOutQuad);
+            ScaleTo(_originalScale * _pressScale);
         }
 
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            if (_button.interactable == false)
-            {
-                return;
-            }
+        public void OnPointerUp(PointerEventData eventData) => ScaleTo(_originalScale);
 
-            LeanTween.cancel(gameObject);
-            LeanTween.scale(gameObject, _originalScale, _duration)
-                .setEase(LeanTweenType.easeOutQuad);
+        // Cancels only its own tween: the object may be mid-animation (a rolling die), and cancelling that would drop its completion callback.
+        private void ScaleTo(Vector3 scale)
+        {
+            LeanTween.cancel(_tweenId);
+            _tweenId = LeanTween.scale(gameObject, scale, _duration)
+                .setEase(LeanTweenType.easeOutQuad)
+                .id;
         }
 
         private void Awake() => _originalScale = transform.localScale;
@@ -58,7 +56,7 @@ namespace DiceBattle.UI
         private void OnDestroy()
         {
             _button.onClick.RemoveAllListeners();
-            LeanTween.cancel(gameObject);
+            LeanTween.cancel(_tweenId);
         }
     }
 }

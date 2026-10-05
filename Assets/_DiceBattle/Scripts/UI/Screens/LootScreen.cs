@@ -103,6 +103,7 @@ namespace DiceBattle.UI
                 dice.transform.SetParent(_rollAnimationArea);
                 dice.gameObject.SetActive(true);
                 dice.SetBodyColor(DiceType.Default);
+                dice.DisableButton();
             }
 
             DiceAnimation.Animate(_dice, _rollAnimationArea);
