@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DiceBattle.Data;
 using DiceBattle.Events;
 using DiceBattle.Global;
@@ -11,33 +12,36 @@ namespace DiceBattle.Audio
         [SerializeField] private SoundConfig _soundConfig;
         [Space]
         [SerializeField] private AudioSource _musicSource;
+        [SerializeField] private AudioSource _fadingMusicSource;
         [SerializeField] private AudioSource _sfxSource;
 
-        private SoundType? _currentMusic;
+        private const float _musicFadeDuration = 1.5f;
+
+        private readonly Dictionary<AudioClip, float> _musicPositions = new();
+
+        private float _musicVolume;
 
         public void PlayMusic(SoundType soundType)
         {
-            if (_currentMusic == soundType || _soundConfig.TryGetAudioClip(soundType, out AudioClip audioClip) == false)
+            if (_soundConfig.TryGetAudioClip(soundType, out AudioClip audioClip) == false || _musicSource.clip == audioClip)
             {
                 return;
             }
 
-            _currentMusic = soundType;
-            LeanTween.cancel(gameObject);
+            (_musicSource, _fadingMusicSource) = (_fadingMusicSource, _musicSource);
 
-            if (_musicSource.isPlaying)
+            // The requested track may still be fading out on this source; then it just fades back in.
+            if (_musicSource.clip == audioClip && _musicSource.isPlaying)
             {
-                LeanTween.value(gameObject,
-                        _musicSource.volume,
-                        0f,
-                        1f)
-                    .setOnUpdate(v => _musicSource.volume = v)
-                    .setOnComplete(() => SwapTrack(audioClip));
+                return;
             }
-            else
-            {
-                SwapTrack(audioClip);
-            }
+
+            StopMusic(_musicSource);
+
+            _musicSource.clip = audioClip;
+            _musicSource.volume = 0f;
+            _musicSource.Play();
+            _musicSource.time = _musicPositions.GetValueOrDefault(audioClip);
         }
 
         public void PlaySound(SoundType soundType)
@@ -53,7 +57,9 @@ namespace DiceBattle.Audio
 
         public void SetMusicVolume(float value)
         {
+            _musicVolume = value;
             _musicSource.volume = value;
+            _fadingMusicSource.volume = Mathf.Min(_fadingMusicSource.volume, value);
             GameSettings.SetMusicVolume(value);
         }
 
@@ -63,24 +69,45 @@ namespace DiceBattle.Audio
             GameSettings.SetSoundVolume(value);
         }
 
-        private void Awake() => SignalSystem.Subscribe(this);
+        private void Awake()
+        {
+            _musicVolume = GameSettings.MusicVolume;
+            SignalSystem.Subscribe(this);
+        }
 
         private void Start()
         {
             _musicSource.loop = true;
+            _fadingMusicSource.loop = true;
             _sfxSource.loop = false;
 
-            _musicSource.volume = GameSettings.MusicVolume;
             _sfxSource.volume = GameSettings.SoundVolume;
+        }
+
+        private void Update()
+        {
+            float step = _musicVolume * Time.unscaledDeltaTime / _musicFadeDuration;
+
+            _musicSource.volume = Mathf.MoveTowards(_musicSource.volume, _musicVolume, step);
+            _fadingMusicSource.volume = Mathf.MoveTowards(_fadingMusicSource.volume, 0f, step);
+
+            if (_fadingMusicSource.volume <= 0f)
+            {
+                StopMusic(_fadingMusicSource);
+            }
         }
 
         private void OnDestroy() => SignalSystem.Unsubscribe(this);
 
-        private void SwapTrack(AudioClip audioClip)
+        private void StopMusic(AudioSource source)
         {
-            _musicSource.clip = audioClip;
-            _musicSource.volume = GameSettings.MusicVolume;
-            _musicSource.Play();
+            if (source.isPlaying == false)
+            {
+                return;
+            }
+
+            _musicPositions[source.clip] = source.time;
+            source.Stop();
         }
     }
 }
