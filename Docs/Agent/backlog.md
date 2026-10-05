@@ -5,6 +5,7 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 ## In order
 
 1. **Rarity and drop chances.** AdditionalDice is stronger than its tier (Golden was cut down to "any face counts 2"); LastStand, Joker and Reliable are weaker. The reward pool is a plain shuffle, and the three offered dice can repeat a type across a shuffle boundary. Do together with 2 and 3.
+   Proposal of 2026-10-05, liked by the owner but not confirmed in detail: draw three *different* types by weight. Common (weight 10): Sharp, Sturdy, Healing, Reliable. Uncommon (6): Thorns, Vampiric, Joker. Rare (3): Golden, AdditionalTry, LastStand. Legendary (2): AdditionalDice. Simulated chance to be in one offer / at least once in nine victories: 42% / 99%, 27% / 94%, 14% / 75%, 10% / 60% (legendary at weight 1: 5% / 37%). Still open: the legendary weight, moving the glow from LastStand to AdditionalDice, and resetting the saved pool because its format changes. Only Golden was measured alone with the solver; the other tiers follow the owner's judgement.
 2. **After loot:** two buttons, "To tavern" and "To inventory".
 3. **Dice without an own face** (Reliable, Golden, Joker, AdditionalTry, AdditionalDice) look empty and differ only by colour. Needs a type badge.
 4. **Sound:** victory and defeat jingles play over the music without ducking; Menu and Battle share one track.

@@ -41,6 +41,7 @@ Screenshots and logs go to the session scratchpad, never into the repo.
 
 - **Show loot without winning:** `GameData.SetPendingLootReward(level)`, toggle `RootUI/LootScreen` off and on, then `GameData.ClearPendingLootReward()`. Do not pick a card — it adds a die to the save.
 - **See any die type on a card:** in the inventory, call `InventoryItem.Initialize(new DiceBattle.UI.Item { Type = ... })` on the existing cards. Nothing is saved.
+- **Simulate a tap or a hold:** `ExecuteEvents.Execute(go, new PointerEventData(EventSystem.current), ExecuteEvents.pointerDownHandler)` and `pointerUpHandler`; `click` only invokes `onClick` and skips the press handlers.
 - **Edit a prefab:** `PrefabUtility.LoadPrefabContents` → change → `SaveAsPrefabAsset` → `UnloadPrefabContents`.
 - **Edit the scene:** change the object in edit mode, `EditorSceneManager.MarkSceneDirty`, `SaveOpenScenes`. Check `git diff` for unrelated hunks.
 - **Check text fits in every language:** iterate `LocalizationManager.Dictionary` and compare `TMP_Text.GetPreferredValues(text, width, 0)` with the rect.
