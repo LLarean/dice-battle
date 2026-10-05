@@ -116,7 +116,7 @@ namespace DiceBattle.UI
             _title.gameObject.SetActive(isVisible);
             _description.gameObject.SetActive(isVisible);
 
-            bool showGlow = isVisible && _data != null && _data.Type.GetRarity() != DiceRarity.Common;
+            bool showGlow = isVisible && _data != null && _data.Type.GetRarity() == DiceRarity.Legendary;
             _rarityGlow.gameObject.SetActive(showGlow);
         }
 
@@ -142,7 +142,7 @@ namespace DiceBattle.UI
         {
             LeanTween.cancel(_rarityGlow.gameObject);
 
-            if (rarity == DiceRarity.Common)
+            if (rarity != DiceRarity.Legendary)
             {
                 _rarityGlow.gameObject.SetActive(false);
                 return;
