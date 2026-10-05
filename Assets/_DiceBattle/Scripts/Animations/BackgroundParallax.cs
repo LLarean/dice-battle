@@ -11,11 +11,15 @@ namespace DiceBattle.Animations
 
         // Gyroscope tilt range in degrees mapped to ±1
         [SerializeField] private float _gyroTiltRange = 20f;
+        // How fast the current way of holding the phone becomes the new centre
+        [SerializeField] private float _gyroRecenterSpeed = 0.5f;
 
         private RectTransform _rect;
         private Vector2 _basePosition;
         private bool _useGyro;
         private Gyroscope _gyro;
+        private Vector2 _gyroCenter;
+        private bool _hasGyroCenter;
 
         private void Awake()
         {
@@ -33,6 +37,7 @@ namespace DiceBattle.Animations
         private void OnDisable()
         {
             _rect.anchoredPosition = _basePosition;
+            _hasGyroCenter = false;
         }
 
         private void Update()
@@ -57,10 +62,19 @@ namespace DiceBattle.Animations
         private Vector2 GetGyroNormalized()
         {
             // gravity vector in device space: x = roll, y = pitch
-            Vector3 gravity = _gyro.gravity;
-            return new Vector2(
-                Mathf.Clamp(gravity.x / Mathf.Sin(_gyroTiltRange * Mathf.Deg2Rad), -1f, 1f),
-                Mathf.Clamp(gravity.y / Mathf.Sin(_gyroTiltRange * Mathf.Deg2Rad), -1f, 1f));
+            Vector2 gravity = _gyro.gravity;
+
+            // Tilt is measured from how the phone is held, not from lying flat: a hand-held phone is always pitched far past the range.
+            if (_hasGyroCenter == false)
+            {
+                _gyroCenter = gravity;
+                _hasGyroCenter = true;
+            }
+
+            _gyroCenter = Vector2.Lerp(_gyroCenter, gravity, Time.deltaTime * _gyroRecenterSpeed);
+
+            Vector2 tilt = (gravity - _gyroCenter) / Mathf.Sin(_gyroTiltRange * Mathf.Deg2Rad);
+            return new Vector2(Mathf.Clamp(tilt.x, -1f, 1f), Mathf.Clamp(tilt.y, -1f, 1f));
         }
     }
 }
