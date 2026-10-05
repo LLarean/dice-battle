@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DiceBattle.Animations;
 using DiceBattle.Events;
 using DiceBattle.UI;
 using GameSignals;
@@ -18,6 +19,7 @@ namespace DiceBattle.Core
         [SerializeField] private Transform _slotSpawn;
 
         private const float _flyDuration = 0.35f;
+        private const float _flyScale = 1.2f;
         private const float _flyStagger = 0.08f;
         private const float _preFlyDelay = 0.15f;
 
@@ -86,12 +88,15 @@ namespace DiceBattle.Core
         {
             Vector3 targetPosition = _slots[slotIndex].transform.position;
 
+            DiceAnimation.Lift(dice.gameObject, _flyScale, _flyDuration, delay);
+
             LeanTween.move(dice.gameObject, targetPosition, _flyDuration)
                 .setDelay(delay)
                 .setEase(LeanTweenType.easeInOutQuad)
                 .setOnComplete(() =>
                 {
                     PlaceInSlot(dice, slotIndex);
+                    DiceAnimation.Land(dice.gameObject);
                     RaiseDiceLanded(dice);
                     onComplete?.Invoke();
                 });

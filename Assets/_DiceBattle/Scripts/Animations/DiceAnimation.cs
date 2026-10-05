@@ -47,6 +47,20 @@ namespace DiceBattle.Animations
             }
         }
 
+        public static void Lift(GameObject dice, float peakScale, float duration, float delay)
+        {
+            LeanTween.value(dice, 0f, Mathf.PI, duration)
+                .setDelay(delay)
+                .setOnUpdate((float angle) => dice.transform.localScale = Vector3.one * (1f + (peakScale - 1f) * Mathf.Sin(angle)));
+        }
+
+        public static void Land(GameObject dice)
+        {
+            LeanTween.scale(dice, Vector3.one * _landSquash, _landDuration)
+                .setEase(LeanTweenType.easeOutQuad)
+                .setOnComplete(() => LeanTween.scale(dice, Vector3.one, _landDuration).setEase(LeanTweenType.easeOutQuad));
+        }
+
         private static void DisableIcons()
         {
             foreach (Dice dice in _dicesToRoll)
@@ -118,9 +132,7 @@ namespace DiceBattle.Animations
                 .setEase(LeanTweenType.easeOutCubic);
 
             // Top-down throw: the dice grows while in the air and shrinks back on landing
-            LeanTween.value(dice.gameObject, 0f, Mathf.PI, _throwDuration)
-                .setDelay(delay)
-                .setOnUpdate((float angle) => dice.transform.localScale = Vector3.one * (1f + (_throwScale - 1f) * Mathf.Sin(angle)));
+            Lift(dice.gameObject, _throwScale, _throwDuration, delay);
 
             AnimateFaceCycling(dice, delay);
 
@@ -167,9 +179,7 @@ namespace DiceBattle.Animations
             Dice dice = _dicesToRoll[index];
             dice.Roll();
 
-            LeanTween.scale(dice.gameObject, Vector3.one * _landSquash, _landDuration)
-                .setEase(LeanTweenType.easeOutQuad)
-                .setOnComplete(() => LeanTween.scale(dice.gameObject, Vector3.one, _landDuration).setEase(LeanTweenType.easeOutQuad));
+            Land(dice.gameObject);
 
             if (index >= _dicesToRoll.Count - 1)
             {
