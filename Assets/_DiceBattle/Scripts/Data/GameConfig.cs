@@ -29,7 +29,7 @@ namespace DiceBattle.Data
 
         [Header("New Game+")]
         [Tooltip("Enemy stat multiplier per New Game+ cycle. Last value repeats once cycles exceed the array length.")]
-        public float[] NewGamePlusMultipliers = { 1.2f, 1.5f, 1.7f, 2f };
+        public float[] NewGamePlusMultipliers = { 1.1f, 1.15f, 1.2f, 1.25f };
 
         public float GetNewGamePlusMultiplier(int cycle)
         {
