@@ -16,7 +16,7 @@ MonoBehaviour:
   - Name: player_names.lacelot
     Portraits:
     - {fileID: 1893152718, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-    StartHealth: 15
+    StartHealth: 16
     RegenHealth: 1
     GrowthHealth: 1
     StartDamage: 1
@@ -26,7 +26,7 @@ MonoBehaviour:
   - Name: player_names.robin_good
     Portraits:
     - {fileID: -955355205, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-    StartHealth: 20
+    StartHealth: 18
     RegenHealth: 1
     GrowthHealth: 1
     StartDamage: 2
@@ -36,7 +36,7 @@ MonoBehaviour:
   - Name: player_names.lacelot
     Portraits:
     - {fileID: 213636260, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
-    StartHealth: 13
+    StartHealth: 15
     RegenHealth: 1
     GrowthHealth: 1
     StartDamage: 3
@@ -58,23 +58,23 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 77290d437408bba489950d34739e7714, type: 3}
     MaxHealth: 8
     CurrentHealth: 8
-    Damage: 3
+    Damage: 4
     Armor: 0
   - Name: enemy_names.slime_big
     Description: enemy_descriptions.slime_big
     Portrait: {fileID: 1682503996, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     Background: {fileID: 21300000, guid: 38e7f46f0ee18fe409c5180c9acf2716, type: 3}
-    MaxHealth: 12
-    CurrentHealth: 12
-    Damage: 4
+    MaxHealth: 14
+    CurrentHealth: 14
+    Damage: 8
     Armor: 0
   - Name: enemy_names.skeleton_archer
     Description: enemy_descriptions.skeleton_archer
     Portrait: {fileID: -110279060, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     Background: {fileID: 21300000, guid: ca95bfa043921c04ebfe8d666590b369, type: 3}
-    MaxHealth: 10
-    CurrentHealth: 10
-    Damage: 5
+    MaxHealth: 14
+    CurrentHealth: 14
+    Damage: 9
     Armor: 0
   - Name: enemy_names.skeleton_warrior
     Description: enemy_descriptions.skeleton_warrior
@@ -82,15 +82,15 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 0ab4e8524e6395644a3f5b53339fa1bf, type: 3}
     MaxHealth: 12
     CurrentHealth: 12
-    Damage: 4
+    Damage: 8
     Armor: 2
   - Name: enemy_names.elemental
     Description: enemy_descriptions.elemental
     Portrait: {fileID: 1616578468, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     Background: {fileID: 21300000, guid: d568177668b2b704596764cdf4a5f945, type: 3}
-    MaxHealth: 12
-    CurrentHealth: 12
-    Damage: 6
+    MaxHealth: 15
+    CurrentHealth: 15
+    Damage: 10
     Armor: 0
   - Name: enemy_names.elemental_big
     Description: enemy_descriptions.elemental_big
@@ -98,32 +98,32 @@ MonoBehaviour:
     Background: {fileID: 21300000, guid: 7a83ef18b50434549875480c7a2ce916, type: 3}
     MaxHealth: 16
     CurrentHealth: 16
-    Damage: 7
+    Damage: 10
     Armor: 0
   - Name: enemy_names.lizard
     Description: enemy_descriptions.lizard
     Portrait: {fileID: 441093746, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     Background: {fileID: 21300000, guid: daf1e281e1e6ded4194aaac9d6e64174, type: 3}
-    MaxHealth: 20
-    CurrentHealth: 20
-    Damage: 5
+    MaxHealth: 15
+    CurrentHealth: 15
+    Damage: 9
     Armor: 1
   - Name: enemy_names.lizard_warrior
     Description: enemy_descriptions.lizard_warrior
     Portrait: {fileID: 328333050, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     Background: {fileID: 21300000, guid: 5a65086367bcdff419cf8c4981e22ed1, type: 3}
-    MaxHealth: 22
-    CurrentHealth: 22
-    Damage: 6
+    MaxHealth: 16
+    CurrentHealth: 16
+    Damage: 8
     Armor: 2
   - Name: enemy_names.dragon
     Description: enemy_descriptions.dragon
     Portrait: {fileID: 86372833, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     Background: {fileID: 21300000, guid: 7f5b74ca0989d5b4392d011875961b0f, type: 3}
-    MaxHealth: 30
-    CurrentHealth: 30
-    Damage: 7
-    Armor: 3
+    MaxHealth: 23
+    CurrentHealth: 23
+    Damage: 8
+    Armor: 1
   DefaultInventory:
   - ID: 0
     Type: 0
@@ -144,8 +144,8 @@ MonoBehaviour:
   MaxAttempts: 3
   CanSaveBattle: 1
   NewGamePlusMultipliers:
+  - 1.1
   - 1.2
-  - 1.5
-  - 1.7
-  - 2
+  - 1.3
+  - 1.4
   IsInstaWin: 0

@@ -81,7 +81,6 @@ namespace DiceBattle.Core
 
             enemyData.MaxHealth = Mathf.RoundToInt(enemyData.MaxHealth * multiplier);
             enemyData.CurrentHealth = enemyData.MaxHealth;
-            enemyData.Damage = Mathf.RoundToInt(enemyData.Damage * multiplier);
         }
     }
 }
