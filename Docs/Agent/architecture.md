@@ -55,6 +55,8 @@ Flow: `SplashScreen` → `MainMenuScreen` → `TavernScreen` → `GameScreen` (c
 
 An unfinished battle is saved (`BattleSaveData`) when `GameConfig.CanSaveBattle` is set and restored by `GameScreen.OnEnable`. It is written at the start of a battle, when a roll starts (attempt already spent, old faces), when it lands (new faces) and at the end of a turn, so quitting never gives a roll back.
 
+Dodging a campaign defeat is left in on purpose (owner's decision, 2026-10-05): fleeing is free, and closing the app on the defeat screen keeps the run. The tournament is strict: fleeing or closing the app mid-match is a defeat (`TournamentBracket.IsMatchInProgress`), and a defeat ends the bracket.
+
 ## Saves
 
 Everything is PlayerPrefs (`PlayerPrefsKeys`). There is no migration: a breaking change needs `DebugOptions` → reset. `GameData.ResetAll` is the full wipe.

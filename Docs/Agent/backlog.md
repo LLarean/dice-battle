@@ -4,12 +4,11 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 
 ## In order
 
-1. **Defeat can be dodged.** Fleeing a battle is free and restarts the fight; closing the app on the defeat screen keeps the run (the wipe happens only on the Restart button). Waits for the owner's decision: flee = defeat, wipe at the moment of defeat.
-2. **Rarity and drop chances.** AdditionalDice is stronger than its tier (Golden was cut down to "any face counts 2"); LastStand, Joker and Reliable are weaker. The reward pool is a plain shuffle. Do together with 3 and 4.
-3. **After loot:** two buttons, "To tavern" and "To inventory".
-4. **Dice without an own face** (Reliable, Golden, Joker, AdditionalTry, AdditionalDice) look empty and differ only by colour. Needs a type badge.
-5. **Sound:** victory and defeat jingles play over the music without ducking; Menu and Battle share one track.
-6. **Playtest the difficulty curve.** Target win rate by enemy: 100, 99, 97, 95, 88, 85, 82, 80, 68, 55%. The solver is an upper bound; soften with −1 enemy damage if it plays too hard. A full build of five special dice still solves at 91–99% against enemies 7–10.
+1. **Rarity and drop chances.** AdditionalDice is stronger than its tier (Golden was cut down to "any face counts 2"); LastStand, Joker and Reliable are weaker. The reward pool is a plain shuffle. Do together with 2 and 3.
+2. **After loot:** two buttons, "To tavern" and "To inventory".
+3. **Dice without an own face** (Reliable, Golden, Joker, AdditionalTry, AdditionalDice) look empty and differ only by colour. Needs a type badge.
+4. **Sound:** victory and defeat jingles play over the music without ducking; Menu and Battle share one track.
+5. **Playtest the difficulty curve.** Target win rate by enemy: 100, 99, 97, 95, 88, 85, 82, 80, 68, 55%. The solver is an upper bound; soften with −1 enemy damage if it plays too hard. A full build of five special dice still solves at 91–99% against enemies 7–10.
 
 ## Before release
 
