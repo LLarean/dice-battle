@@ -15,8 +15,13 @@ namespace DiceBattle.Animations
         private static Vector2 _rollAreaMax;
 
         private const float _throwDuration = 0.8f;
-        private const float _throwHeight = 3f;
-        private const float _diceSize = 0.5f;
+        private const float _throwScale = 1.35f;
+        private const float _spacing = 1.1f;
+        private const float _landSquash = 0.85f;
+        private const float _landDuration = 0.08f;
+        private const float _settleDelay = 0.45f;
+
+        private static Vector2 _diceSize;
 
         private static List<Dice> _dicesToRoll;
 
@@ -24,6 +29,11 @@ namespace DiceBattle.Animations
 
         public static void Animate(List<Dice> dices, RectTransform safeArea)
         {
+            if (dices.Count == 0)
+            {
+                return;
+            }
+
             _safeArea = safeArea;
             _dicesToRoll = dices;
 
@@ -52,9 +62,12 @@ namespace DiceBattle.Animations
             _rollAreaMin = new Vector2(corners[0].x, corners[0].y);
             _rollAreaMax = new Vector2(corners[2].x, corners[2].y);
 
-            float margin = _diceSize;
-            _rollAreaMin += new Vector2(margin, margin);
-            _rollAreaMax -= new Vector2(margin, margin);
+            // The canvas is Screen Space - Overlay, so world units are pixels and depend on the canvas scale.
+            var diceRect = (RectTransform)_dicesToRoll[0].transform;
+            _diceSize = Vector2.Scale(diceRect.rect.size, diceRect.lossyScale);
+
+            _rollAreaMin += _diceSize * 0.5f;
+            _rollAreaMax -= _diceSize * 0.5f;
         }
 
         private static void GenerateNonOverlappingPositions(int diceCount)
@@ -78,8 +91,8 @@ namespace DiceBattle.Animations
                     validPosition = true;
                     foreach (Vector2 existingPos in _finalPositions)
                     {
-                        float distance = Vector2.Distance(newPos, existingPos);
-                        if (distance < _diceSize * 2.2f) // 2.2f for small gap
+                        Vector2 offset = newPos - existingPos;
+                        if (Mathf.Abs(offset.x) < _diceSize.x * _spacing && Mathf.Abs(offset.y) < _diceSize.y * _spacing)
                         {
                             validPosition = false;
                             break;
@@ -95,38 +108,19 @@ namespace DiceBattle.Animations
 
         private static void AnimateDice(Dice dice, Vector2 targetPos, int index)
         {
-            Vector3 startPos = dice.transform.position;
             Vector3 endPos = new Vector3(targetPos.x, targetPos.y, dice.transform.position.z);
 
             // Small delay for each dice
             float delay = index * 0.05f;
 
-            // Movement animation with parabola using moveLocal and separate Y animation
             LeanTween.move(dice.gameObject, endPos, _throwDuration)
                 .setDelay(delay)
-                .setEase(LeanTweenType.easeInOutQuad);
+                .setEase(LeanTweenType.easeOutCubic);
 
-            // Separate height animation (parabola)
-            float currentY = startPos.y;
-            LeanTween.value(dice.gameObject, currentY, currentY + _throwHeight, _throwDuration * 0.5f)
+            // Top-down throw: the dice grows while in the air and shrinks back on landing
+            LeanTween.value(dice.gameObject, 0f, Mathf.PI, _throwDuration)
                 .setDelay(delay)
-                .setEase(LeanTweenType.easeOutQuad)
-                .setOnUpdate((float val) =>
-                {
-                    Vector3 pos = dice.transform.position;
-                    pos.y = val;
-                    dice.transform.position = pos;
-                });
-
-            LeanTween.value(dice.gameObject, currentY + _throwHeight, endPos.y, _throwDuration * 0.5f)
-                .setDelay(delay + _throwDuration * 0.5f)
-                .setEase(LeanTweenType.easeInQuad)
-                .setOnUpdate((float val) =>
-                {
-                    Vector3 pos = dice.transform.position;
-                    pos.y = val;
-                    dice.transform.position = pos;
-                });
+                .setOnUpdate((float angle) => dice.transform.localScale = Vector3.one * (1f + (_throwScale - 1f) * Mathf.Sin(angle)));
 
             AnimateFaceCycling(dice, delay);
 
@@ -147,11 +141,6 @@ namespace DiceBattle.Animations
                 .setDelay(delay)
                 .setEase(LeanTweenType.easeOutQuad)
                 .setOnComplete(() => DiceRollComplete(index));
-
-            LeanTween.scale(dice.gameObject, dice.transform.localScale * 1.1f, _throwDuration * 0.3f)
-                .setDelay(delay + _throwDuration * 0.7f)
-                .setEase(LeanTweenType.easeOutQuad)
-                .setLoopPingPong(1);
         }
 
         private static void AnimateFaceCycling(Dice dice, float delay)
@@ -175,11 +164,16 @@ namespace DiceBattle.Animations
 
         private static void DiceRollComplete(int index)
         {
-            _dicesToRoll[index].Roll();
+            Dice dice = _dicesToRoll[index];
+            dice.Roll();
+
+            LeanTween.scale(dice.gameObject, Vector3.one * _landSquash, _landDuration)
+                .setEase(LeanTweenType.easeOutQuad)
+                .setOnComplete(() => LeanTween.scale(dice.gameObject, Vector3.one, _landDuration).setEase(LeanTweenType.easeOutQuad));
 
             if (index >= _dicesToRoll.Count - 1)
             {
-                LeanTween.delayedCall(1f, () => OnDiceRollComplete?.Invoke());
+                LeanTween.delayedCall(_settleDelay, () => OnDiceRollComplete?.Invoke());
             }
         }
     }

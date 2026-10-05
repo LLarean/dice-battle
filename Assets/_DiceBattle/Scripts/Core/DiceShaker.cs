@@ -20,7 +20,6 @@ namespace DiceBattle.Core
             foreach (Dice dice in dices)
             {
                 dice.transform.SetParent(_rollArea);
-                dice.transform.localPosition = Vector3.zero;
             }
 
             DiceAnimation.Animate(dices, _rollArea);
