@@ -5,13 +5,12 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 ## In order
 
 1. **Defeat can be dodged.** Fleeing a battle is free and restarts the fight; closing the app on the defeat screen keeps the run (the wipe happens only on the Restart button). Waits for the owner's decision: flee = defeat, wipe at the moment of defeat.
-2. **Tournament shows two hints** with the same "opponent's turn" text.
-3. **UI stubs** *(unverified)*: Tutorial, easter egg, Info, Share — finish or hide.
-4. **Rarity and drop chances.** AdditionalDice is stronger than its tier (Golden was cut down to "any face counts 2"); LastStand, Joker and Reliable are weaker. The reward pool is a plain shuffle. Do together with 5 and 6.
-5. **After loot:** two buttons, "To tavern" and "To inventory".
-6. **Dice without an own face** (Reliable, Golden, Joker, AdditionalTry, AdditionalDice) look empty and differ only by colour. Needs a type badge.
-7. **Sound:** victory and defeat jingles play over the music without ducking; Menu and Battle share one track.
-8. **Playtest the difficulty curve.** Target win rate by enemy: 100, 99, 97, 95, 88, 85, 82, 80, 68, 55%. The solver is an upper bound; soften with −1 enemy damage if it plays too hard. A full build of five special dice still solves at 91–99% against enemies 7–10.
+2. **UI stubs** *(unverified)*: Tutorial, easter egg, Info, Share — finish or hide.
+3. **Rarity and drop chances.** AdditionalDice is stronger than its tier (Golden was cut down to "any face counts 2"); LastStand, Joker and Reliable are weaker. The reward pool is a plain shuffle. Do together with 4 and 5.
+4. **After loot:** two buttons, "To tavern" and "To inventory".
+5. **Dice without an own face** (Reliable, Golden, Joker, AdditionalTry, AdditionalDice) look empty and differ only by colour. Needs a type badge.
+6. **Sound:** victory and defeat jingles play over the music without ducking; Menu and Battle share one track.
+7. **Playtest the difficulty curve.** Target win rate by enemy: 100, 99, 97, 95, 88, 85, 82, 80, 68, 55%. The solver is an upper bound; soften with −1 enemy damage if it plays too hard. A full build of five special dice still solves at 91–99% against enemies 7–10.
 
 ## Before release
 
