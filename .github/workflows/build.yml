@@ -1,0 +1,69 @@
+name: Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Target platform
+        type: choice
+        default: Android
+        options:
+          - Android
+          - WebGL
+  push:
+    tags:
+      - 'v*'
+
+concurrency:
+  group: build-${{ github.ref }}-${{ inputs.platform || 'Android' }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build for ${{ inputs.platform || 'Android' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      TARGET_PLATFORM: ${{ inputs.platform || 'Android' }}
+    steps:
+      # The Unity editor image does not fit on a stock runner.
+      - uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          large-packages: false
+          swap-storage: false
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-${{ env.TARGET_PLATFORM }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: Library-${{ env.TARGET_PLATFORM }}-
+
+      - uses: game-ci/unity-builder@v6
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: ${{ env.TARGET_PLATFORM }}
+          buildName: dice-battle
+          versioning: None
+          androidVersionCode: ${{ github.run_number }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dice-battle-${{ env.TARGET_PLATFORM }}-${{ github.ref_name }}-${{ github.run_number }}
+          path: build/${{ env.TARGET_PLATFORM }}
+          if-no-files-found: error
+          retention-days: 14
+
+      - if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/Android/dice-battle.apk
+          fail_on_unmatched_files: true
