@@ -33,7 +33,7 @@ MonoBehaviour:
     GrowthDamage: 2
     StartArmor: 1
     GrowthArmor: 2
-  - Name: player_names.lacelot
+  - Name: player_names.merlin
     Portraits:
     - {fileID: 213636260, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
     StartHealth: 15
