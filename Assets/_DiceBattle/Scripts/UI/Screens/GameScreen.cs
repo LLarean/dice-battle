@@ -96,6 +96,8 @@ namespace DiceBattle.UI
 
         public void ResetDice() => _gameBoard.ResetDice();
 
+        public void SetDiceFaces(DiceValue[] faces) => _gameBoard.SetFaces(faces);
+
         public void EnableDiceInteractable()
         {
             _gameBoard.EnableDiceInteractable();
@@ -177,7 +179,11 @@ namespace DiceBattle.UI
 
         #region Unity lifecycle
 
-        private void Awake() => _gameLogic = new GameLogic(_config, this);
+        private void Awake()
+        {
+            _gameLogic = new GameLogic(_config, this);
+            SetContextLabel(LocalizationManager.Localize(LocKeys.Button.RollAll));
+        }
 
         private void Start()
         {
@@ -187,8 +193,6 @@ namespace DiceBattle.UI
             _gameBoard.OnDiceToggled += HandleDiceToggle;
             _gameBoard.OnRollCompleted += HandleRollComplete;
             _shakeDetector.OnShake += HandleContextClicked;
-
-            SetContextLabel(LocalizationManager.Localize(LocKeys.Button.RollAll));
         }
 
         private void OnDestroy()

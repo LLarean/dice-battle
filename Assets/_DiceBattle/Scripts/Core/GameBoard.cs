@@ -40,6 +40,14 @@ namespace DiceBattle.Core
 
         public void SetSelectionStatus(bool isSelected) => _dices.ForEach(dice => dice.SetSelection(isSelected));
 
+        public void SetFaces(DiceValue[] faces)
+        {
+            for (int i = 0; i < _dices.Count && i < faces.Length; i++)
+            {
+                _dices[i].SetFace(faces[i]);
+            }
+        }
+
         public void SetDeck(List<DiceType> deck)
         {
             if (deck.Count != _dices.Count)

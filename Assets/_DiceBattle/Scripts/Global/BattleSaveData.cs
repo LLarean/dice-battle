@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using DiceBattle.Core;
 using UnityEngine;
 
@@ -23,6 +25,7 @@ namespace DiceBattle.Global
         public int MaxDiceRerolls;
         public int RemainingDiceRerolls;
         public bool LastStandUsed;
+        public DiceValue[] DiceFaces;
     }
 
     public static class BattleSaveData
@@ -31,7 +34,7 @@ namespace DiceBattle.Global
 
         public static bool HasSavedBattle() => PlayerPrefs.HasKey(_playerPrefsKey);
 
-        public static void Save(MatchData matchData)
+        public static void Save(MatchData matchData, List<Dice> dices)
         {
             var snapshot = new BattleSnapshot
             {
@@ -40,6 +43,7 @@ namespace DiceBattle.Global
                 MaxDiceRerolls = matchData.MaxDiceRerolls,
                 RemainingDiceRerolls = matchData.RemainingDiceRerolls,
                 LastStandUsed = matchData.LastStandUsed,
+                DiceFaces = dices.Select(dice => dice.DiceValue).ToArray(),
             };
 
             string json = JsonUtility.ToJson(snapshot);

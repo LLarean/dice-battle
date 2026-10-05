@@ -6,6 +6,8 @@ using UnityEngine;
 
 namespace DiceBattle.UI
 {
+    // Subscribes before any screen's OnEnable, so a battle restored mid-turn can show its hint at once.
+    [DefaultExecutionOrder(-1)]
     public class Hint : MonoBehaviour, IHintHandler
     {
         [SerializeField] private TextMeshProUGUI _message;
@@ -38,11 +40,9 @@ namespace DiceBattle.UI
             gameObject.SetActive(false);
         }
 
-        private void Start()
+        private void Awake()
         {
             SignalSystem.Subscribe(this);
-
-            // Screens raise Hide from OnEnable, before this component is subscribed.
             gameObject.SetActive(_isVisibleOnStart);
         }
 

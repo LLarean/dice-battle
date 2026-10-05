@@ -54,10 +54,7 @@ namespace DiceBattle.Core
             _gameScreen.ClearPlayerDicePreview();
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
 
-            if (_config.CanSaveBattle)
-            {
-                BattleSaveData.Save(_matchData);
-            }
+            SaveBattle();
         }
 
         public void AbandonBattle()
@@ -99,6 +96,13 @@ namespace DiceBattle.Core
             _gameScreen.SetContextAvailable(true);
             _gameScreen.ClearPlayerDicePreview();
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
+
+            if (saved.RemainingDiceRerolls > 0)
+            {
+                _gameScreen.SetDiceFaces(saved.DiceFaces);
+                UpdateDicePreview();
+                UpdateButtonStates();
+            }
         }
 
         public void OnRollCompleted()
@@ -111,6 +115,7 @@ namespace DiceBattle.Core
             _isRolling = false;
             UpdateDicePreview();
             UpdateButtonStates();
+            SaveBattle();
         }
 
         // Equipment bonuses are already shown by UnitPanel, so the preview carries dice results only.
@@ -132,14 +137,14 @@ namespace DiceBattle.Core
             if (_matchData.RemainingDiceRerolls == 1)
             {
                 GameData.HasEverRolledDice = true;
-                _isRolling = true;
+                StartRoll();
                 _gameScreen.RollDice();
             }
             else if (_matchData.RemainingDiceRerolls < _matchData.MaxDiceRerolls)
             {
                 if (_gameScreen.HaveSelectedDice)
                 {
-                    _isRolling = true;
+                    StartRoll();
                     _gameScreen.RerollSelectedDice();
                 }
                 else
@@ -179,6 +184,21 @@ namespace DiceBattle.Core
             // _gameScreen.ToggleAllDice();
         }
 
+        // The attempt is saved as spent before the faces change, so quitting mid-roll cannot win it back.
+        private void StartRoll()
+        {
+            _isRolling = true;
+            SaveBattle();
+        }
+
+        private void SaveBattle()
+        {
+            if (_config.CanSaveBattle && _battleEnded == false)
+            {
+                BattleSaveData.Save(_matchData, _gameScreen.Dices);
+            }
+        }
+
         private void EndTurn()
         {
             _matchData.DiceList = GameData.GetEquippedAsDiceList();
@@ -195,11 +215,7 @@ namespace DiceBattle.Core
 
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
             UpdateButtonStates();
-
-            if (_config.CanSaveBattle && _battleEnded == false)
-            {
-                BattleSaveData.Save(_matchData);
-            }
+            SaveBattle();
         }
 
         private void AnimatePlayerHealth()

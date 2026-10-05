@@ -95,10 +95,14 @@ namespace DiceBattle.Core
             int firstIndex = _type == DiceType.Reliable ? 1 : 0;
 
             int randomIndex = _random.Next(firstIndex, _faceSprites.Length);
-            _diceValue = DebugOverrides.TryGetForcedFace(_boardIndex, out DiceValue forcedFace) ? forcedFace : (DiceValue)randomIndex;
-            _faceIcon.sprite = _faceSprites[(int)_diceValue];
-
+            SetFace(DebugOverrides.TryGetForcedFace(_boardIndex, out DiceValue forcedFace) ? forcedFace : (DiceValue)randomIndex);
             ClearSelection();
+        }
+
+        public void SetFace(DiceValue diceValue)
+        {
+            _diceValue = diceValue;
+            _faceIcon.sprite = _faceSprites[(int)_diceValue];
             ShowMultiplier();
         }
 
@@ -135,14 +139,14 @@ namespace DiceBattle.Core
             _multiplier.color = Color.gray;
         }
 
-        private void Start()
+        // Not in Start: a restored battle sets the faces right after the dice are created.
+        private void Awake()
         {
             _button.onClick.AddListener(HangleButtonClicked);
             _random = new Random();
 
             if (_isMenu == false)
             {
-                _multiplier.gameObject.SetActive(false);
                 ResetToEmpty();
             }
         }
