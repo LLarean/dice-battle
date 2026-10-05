@@ -3175,6 +3175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _message: {fileID: 1725218535}
+  _isVisibleOnStart: 0
 --- !u!222 &444332377
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12269,6 +12270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _message: {fileID: 69769365}
+  _isVisibleOnStart: 0
 --- !u!222 &1371891151
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17702,6 +17704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _message: {fileID: 1033008206}
+  _isVisibleOnStart: 1
 --- !u!222 &1948114946
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19848,6 +19851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _message: {fileID: 722354673}
+  _isVisibleOnStart: 0
 --- !u!1001 &2121550416
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ namespace DiceBattle.UI
     public class Hint : MonoBehaviour, IHintHandler
     {
         [SerializeField] private TextMeshProUGUI _message;
+        [SerializeField] private bool _isVisibleOnStart;
 
         // public void ShowAttempts(int attemptCount)
         // {
@@ -40,6 +41,9 @@ namespace DiceBattle.UI
         private void Start()
         {
             SignalSystem.Subscribe(this);
+
+            // Screens raise Hide from OnEnable, before this component is subscribed.
+            gameObject.SetActive(_isVisibleOnStart);
         }
 
         private void OnDestroy()
