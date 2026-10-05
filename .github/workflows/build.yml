@@ -36,9 +36,20 @@ jobs:
           large-packages: false
           swap-storage: false
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/cache@v4
+      - id: name
+        run: |
+          # A release tag defines the version; other builds take it from the project settings.
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            version="${GITHUB_REF_NAME#v}"
+          else
+            version="$(grep -oP '^\s*bundleVersion: \K\S+' ProjectSettings/ProjectSettings.asset)"
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "value=DiceBattle-$version-b$GITHUB_RUN_NUMBER" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v6
         with:
           path: Library
           key: Library-${{ env.TARGET_PLATFORM }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
@@ -51,13 +62,14 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: ${{ env.TARGET_PLATFORM }}
-          buildName: dice-battle
-          versioning: None
+          buildName: ${{ steps.name.outputs.value }}
+          versioning: Custom
+          version: ${{ steps.name.outputs.version }}
           androidVersionCode: ${{ github.run_number }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
-          name: dice-battle-${{ env.TARGET_PLATFORM }}-${{ github.ref_name }}-${{ github.run_number }}
+          name: ${{ steps.name.outputs.value }}-${{ env.TARGET_PLATFORM }}
           path: build/${{ env.TARGET_PLATFORM }}
           if-no-files-found: error
           retention-days: 14
@@ -65,5 +77,5 @@ jobs:
       - if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: build/Android/dice-battle.apk
+          files: build/Android/*.apk
           fail_on_unmatched_files: true
