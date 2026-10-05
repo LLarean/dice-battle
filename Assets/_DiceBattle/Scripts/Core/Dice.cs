@@ -69,9 +69,12 @@ namespace DiceBattle.Core
             _rarityGlow.gameObject.SetActive(rarity != DiceRarity.Common);
         }
 
+        public void SetBodyColor(DiceType type) => _faceIcon.color = DiceTypeColors.Get(type);
+
         public void SetType(DiceType type)
         {
             _type = type;
+            SetBodyColor(type);
             SetRarityGlow(type.GetRarity());
         }
 

@@ -102,6 +102,7 @@ namespace DiceBattle.UI
             {
                 dice.transform.SetParent(_rollAnimationArea);
                 dice.gameObject.SetActive(true);
+                dice.SetBodyColor(DiceType.Default);
             }
 
             DiceAnimation.Animate(_dice, _rollAnimationArea);
@@ -118,6 +119,7 @@ namespace DiceBattle.UI
             {
                 _dice[i].SetFixedFace(_currentRewards[i].GetIconCategory());
                 _dice[i].SetRarityGlow(_currentRewards[i].GetRarity());
+                _dice[i].SetBodyColor(_currentRewards[i]);
             }
 
             FlyDiceToCards();

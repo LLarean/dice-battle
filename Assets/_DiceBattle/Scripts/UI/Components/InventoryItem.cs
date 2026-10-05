@@ -59,6 +59,7 @@ namespace DiceBattle.UI
             _title.text = item.Type.Title();
             _description.text = item.Type.Description();
             _dice.SetFixedFace(item.Type.GetIconCategory());
+            _dice.SetBodyColor(item.Type);
 
             ShowMultiplier();
             RefreshRarityGlow(item.Type.GetRarity());
