@@ -24,7 +24,6 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 - A type mark on the board dice: the five face-less types have an icon on cards only.
 - Mark new dice inside the inventory; the tavern badge only counts them.
 - Animation polish, none of it agreed: the loot and inventory cards have no press reaction (no `BaseButton`, plain colour tint); only the main menu background has an intro zoom and sparkles, the tavern has parallax only, the battle, tournament and game over screens have a static background; `ButtonShine` is on the two Start buttons and, as the idle hint driven by `RollButtonHint`, on the two roll buttons.
-- `RollButtonHint` is paused until the first roll of a turn (`DisableDiceInteractable`), so its "never rolled before → hint at once" branch in `OnEnable` never fires: a new player gets no hint on the very first roll.
 - `GameOverScreen` as a window instead of a screen.
 
 ## Deferred

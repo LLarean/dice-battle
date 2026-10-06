@@ -21,6 +21,12 @@ namespace DiceBattle.UI
 
         public void SetPaused(bool isPaused)
         {
+            // The very first roll is hinted at once, although the dice are still locked.
+            if (GameData.HasEverRolledDice == false)
+            {
+                return;
+            }
+
             _isPaused = isPaused;
 
             if (isPaused)
