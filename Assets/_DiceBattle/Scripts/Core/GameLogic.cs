@@ -50,6 +50,7 @@ namespace DiceBattle.Core
             _matchData.LastStandUsed = false;
 
             _gameScreen.DisableDiceInteractable();
+            _gameScreen.SetContextLabel(LocalizationManager.Localize(LocKeys.Button.RollAll));
             _gameScreen.SetContextAvailable(true);
             _gameScreen.ClearPlayerDicePreview();
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
@@ -93,6 +94,7 @@ namespace DiceBattle.Core
             _matchData.LastStandUsed = saved.LastStandUsed;
 
             _gameScreen.DisableDiceInteractable();
+            _gameScreen.SetContextLabel(LocalizationManager.Localize(LocKeys.Button.RollAll));
             _gameScreen.SetContextAvailable(true);
             _gameScreen.ClearPlayerDicePreview();
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());

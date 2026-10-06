@@ -182,7 +182,6 @@ namespace DiceBattle.UI
         private void Awake()
         {
             _gameLogic = new GameLogic(_config, this);
-            SetContextLabel(LocalizationManager.Localize(LocKeys.Button.RollAll));
         }
 
         private void Start()
