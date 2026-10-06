@@ -16,7 +16,7 @@ A map, not a spec. Paths are relative to `Assets/_DiceBattle/Scripts`.
 | `Animations` | LeanTween helpers; `DiceAnimation` is the shared roll animation |
 | `Audio` | `AudioPlayer`, `SoundType` |
 | `Auxiliary` | Extensions, palettes (`DiceTypeColors`, `DiceRarityColors`), `DebugOptions` (editor only) |
-| `Localization` | `LocKeys` (all keys as constants), `LocalizedTMP` |
+| `Localization` | `LocKeys` (all keys as constants), `LocalizedTMP`, `CjkFontFallback` (scene object of the same name: on a language change makes `YujiSyuku-Regular SDF` for Japanese or `MaShanZheng-Regular SDF` for Chinese the only fallback of the main font, because the two languages share code points but draw them differently) |
 | `Editor` | `DebugOptionsEditor` (groups debug buttons by the `Group:` prefix of the button text) |
 
 ## Communication

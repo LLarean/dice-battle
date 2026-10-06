@@ -18,6 +18,6 @@ Keep these docs current: when a change makes a statement here wrong, fix the sta
 - No comments unless the logic is non-obvious; comments in English.
 - Player-facing text goes through localization (`LocKeys` + CSV in `Assets/SimpleLocalization/Resources/Localization/`, 8 languages). Never hardcode a visible string.
 - Scene and prefab changes are made through the editor (CLI `eval`), never by hand-editing YAML.
-- The two TMP font assets (`StieglitzSP-Bold 2 SDF`, `LiberationSans SDF - Fallback`) get dirty after every Play session (dynamic atlas). Do not commit them unless asked.
+- The dynamic TMP font assets (`StieglitzSP-Bold 2 SDF`, `LiberationSans SDF - Fallback`, `YujiSyuku-Regular SDF`, `MaShanZheng-Regular SDF`) get dirty after every Play session (dynamic atlas). Do not commit them unless asked.
 - Verify UI changes in Play mode and look at a screenshot before reporting them done. Sound cannot be verified by the agent — say so.
 - Play-mode checks use the developer's real save (PlayerPrefs). Avoid picking loot or finishing battles unless the task needs it.

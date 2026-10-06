@@ -9,7 +9,7 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 
 ## Before release
 
-- Go through the third-party assets (art, fonts, sounds, music, plugins under `Assets/`), check their licences and list them in the credits (owner's request, 2026-10-05). Known so far: the Forest Folk music pack asks for the credit "Prompt.fm".
+- Go through the third-party assets (art, fonts, sounds, music, plugins under `Assets/`), check their licences and list them in the credits (owner's request, 2026-10-05). Known so far: the Forest Folk music pack asks for the credit "Prompt.fm"; Yuji Syuku and Ma Shan Zheng are under the SIL OFL 1.1 (licence texts lie next to the fonts).
 - The music ducking under jingles and the menu track were set by numbers only — listen to them.
 - `BackgroundParallax` on a phone: the tilt is now measured from how the phone is held (slowly recentred). Written without a device — check on a real phone.
 - Custom keystore instead of the debug one.
@@ -30,5 +30,6 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 
 ## Deferred
 
-- **Fonts:** static atlases and CJK glyphs wait until CJK fonts are chosen. `StieglitzSP` lacks `+ •`, `ß`, `œ`, `¡¿` and all Japanese/Chinese characters; the fallback covers them for now.
+- **Fonts:** bake static atlases at the end (owner's decision, 2026-10-06); until then everything is dynamic. `StieglitzSP` lacks `+ •`, `ß`, `œ`, `¡¿`; the default TMP fallback covers them. Japanese uses Yuji Syuku, Chinese uses Ma Shan Zheng (see architecture); both are Regular only and were checked on the main menu only — go through the other screens for fit and readability (the Japanese title wraps mid-word).
+- `AvailableLanguages` lists `SystemLanguage.Chinese`, but devices usually report `ChineseSimplified` / `ChineseTraditional`, so a Chinese device probably starts in English.
 - Rejected for the MVP: HP carry-over between fights, new enemies.
