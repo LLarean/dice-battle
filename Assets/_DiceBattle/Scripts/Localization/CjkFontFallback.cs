@@ -6,7 +6,7 @@ namespace DiceBattle.Localization
 {
     public class CjkFontFallback : MonoBehaviour
     {
-        [SerializeField] private TMP_FontAsset _mainFont;
+        [SerializeField] private TMP_FontAsset[] _mainFonts;
         [SerializeField] private TMP_FontAsset _japaneseFont;
         [SerializeField] private TMP_FontAsset _chineseFont;
 
@@ -32,15 +32,19 @@ namespace DiceBattle.Localization
                 _ => null
             };
 
-            _mainFont.fallbackFontAssetTable.Clear();
-
-            if (fallback != null)
+            foreach (TMP_FontAsset mainFont in _mainFonts)
             {
-                _mainFont.fallbackFontAssetTable.Add(fallback);
-            }
+                mainFont.fallbackFontAssetTable.Remove(_japaneseFont);
+                mainFont.fallbackFontAssetTable.Remove(_chineseFont);
 
-            // The main font caches characters it found in a fallback; rereading drops that cache.
-            _mainFont.ReadFontAssetDefinition();
+                if (fallback != null)
+                {
+                    mainFont.fallbackFontAssetTable.Insert(0, fallback);
+                }
+
+                // A font caches characters it found in a fallback; rereading drops that cache.
+                mainFont.ReadFontAssetDefinition();
+            }
         }
     }
 }
