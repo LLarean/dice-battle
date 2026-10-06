@@ -1,6 +1,7 @@
 Key,English,German,Russian,French,Portuguese,Japanese,Chinese,Spanish
-ui.game_title,Heroes and Dice,Helden und Würfel,Герои и кости,Héros et dés,Heróis e Dados,ヒーローズ＆ダイス,英雄与骰子,Héroes y Dados
-ui.button.language,EN,DE,RU,FR,PT,JA,ZH,ES
+ui.game_title,Heroes and Dice,Helden und Würfel,Герои и кости,Héros et dés,Heróis e Dados,"ヒーローズ＆
+ダイス",英雄与骰子,Héroes y Dados
+ui.button.language,English,Deutsch,Русский,Français,Português,日本語,中文,Español
 ui.button.again,Again,Nochmal,Снова,Encore,De novo,もう一度,再来,Otra vez
 ui.button.end_turn,End Turn,Zug beenden,Закончить ход,Fin du tour,Terminar turno,ターン終了,结束回合,Terminar turno
 ui.button.roll_all,Roll All,Alle würfeln,Бросить все,Tout lancer,Rolar tudo,すべて振る,全部重掷,Tirar todo

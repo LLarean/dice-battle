@@ -30,5 +30,5 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 
 ## Deferred
 
-- **Fonts:** bake static atlases at the end (owner's decision, 2026-10-06); until then everything is dynamic. `StieglitzSP` lacks `+ •`, `ß`, `œ`, `¡¿`; the default TMP fallback covers them. Japanese uses Yuji Syuku, Chinese uses Ma Shan Zheng (see architecture); both are Regular only and were checked on the main menu only — go through the other screens for fit and readability (the Japanese title wraps mid-word).
+- **Fonts:** bake static atlases at the end (owner's decision, 2026-10-06); until then everything is dynamic. `StieglitzSP` lacks `+ •`, `ß`, `œ`, `¡¿`; the default TMP fallback covers them. Its accented Latin letters are drawn without the accents (`ZURUCK`, `ESPANOL`, `HEROIS`), which misspells German, French, Portuguese and Spanish — needs a font with real diacritics or a decision to live with it. Japanese uses Yuji Syuku, Chinese uses Ma Shan Zheng (see architecture); both are Regular only and were checked on the main menu only — go through the other screens for fit and readability.
 - Rejected for the MVP: HP carry-over between fights, new enemies.
