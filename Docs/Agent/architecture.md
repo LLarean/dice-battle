@@ -64,7 +64,7 @@ Everything is PlayerPrefs (`PlayerPrefsKeys`). There is no migration: a breaking
 
 ## Audio
 
-`AudioPlayer` has two music sources and crossfades between them (`_musicFadeDuration`); each track resumes where it stopped. Tracks are identified by clip, so two `SoundType`s mapped to the same clip do not restart it. Menu and Battle currently share one clip. SFX go through `PlayOneShot` with a random pitch.
+`AudioPlayer` has two music sources and crossfades between them (`_musicFadeDuration`); each track resumes where it stopped. Tracks are identified by clip, so two `SoundType`s mapped to the same clip do not restart it. Menu, Tavern and Battle each have their own track in `SoundConfig.asset`. SFX go through `PlayOneShot` with a random pitch. The Victory, Defeat and Reward jingles duck the music to `_duckedMusicVolume` for the length of the clip.
 
 ## Debug
 
