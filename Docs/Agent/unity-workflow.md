@@ -18,7 +18,7 @@ Docs/Agent/tools/unity.sh errors 10
 Docs/Agent/tools/unity.sh stop
 ```
 
-Screenshots and logs go to the session scratchpad, never into the repo.
+Screenshots and logs go to the session scratchpad, never into the repo. The only exception is `Docs/Screenshots`: the README images, captured in English at 1080x1920 and scaled down to 540x960. Retake them when a screen changes noticeably.
 
 ## Pitfalls
 

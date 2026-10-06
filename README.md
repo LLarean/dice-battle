@@ -1,15 +1,72 @@
-# DiceBattle
+# Heroes and Dice
 
-![Status](https://img.shields.io/badge/status-experiment-orange?style=flat-square)
-![Genre](https://img.shields.io/badge/genre-adventure-blueviolet?style=flat-square)
-![Dice](https://img.shields.io/badge/dice-modified-red?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PC9zdmc+)
+![Status](https://img.shields.io/badge/status-work%20in%20progress-orange?style=flat-square)
+![Unity](https://img.shields.io/badge/Unity-6000.0.61f1-black?style=flat-square&logo=unity)
+![Code licence](https://img.shields.io/badge/code-MIT-blue?style=flat-square)
 
-> *A roll of the dice decides your fate.*
+A small mobile dice battler made with Unity: roll five dice, keep what helps, reroll the rest, and beat ten enemies on the way to the dragon. Portrait, one hand, short sessions.
 
-**DiceBattle** is an experimental adventure project, created as a personal sandbox for exploring game development. Its core mechanics revolve around a modified dice-rolling system: every hero decision, every encounter, and every plot twist is determined not by chance, but by a unique combination of rolls with non‑standard rules and modifiers.
+> **Work in progress.** The game is playable from start to finish, but it has not been released yet. Rules, balance, art and this document will still change.
 
-The player travels through procedurally assembled locations, meets characters, and makes choices—all through the lens of dice that don't quite work the way you'd expect.
+<p>
+  <img src="Docs/Screenshots/menu.png" width="200" alt="Main menu">
+  <img src="Docs/Screenshots/tavern.png" width="200" alt="Tavern">
+  <img src="Docs/Screenshots/battle.png" width="200" alt="Battle">
+  <img src="Docs/Screenshots/loot.png" width="200" alt="Reward choice">
+</p>
 
----
+## How it plays
 
-*⚠️ This is a learning experiment, not a full-fledged product. Everything here can break—and that's perfectly fine.*
+A battle is a series of turns. Every die has four possible faces: **attack**, **defense**, **heal** and an **empty** one.
+
+1. Roll all the dice. You have up to three tries per turn: tap the dice you want to reroll, or keep the roll and finish.
+2. When you finish, the hero heals, gains armor for this turn and strikes the enemy. The enemy's armor is subtracted from the hit, but a hit always deals at least 1.
+3. The enemy strikes back, minus the hero's armor. Then the armor from the dice wears off.
+4. Five or more attack faces in one roll is a critical hit: the enemy dies at once.
+
+The battle ends when either side runs out of health.
+
+### Campaign
+
+Ten enemies in a row, from the Small Slime to the Dragon. After each victory you pick one of three dice as a reward and decide in the inventory which ones go on the board. Beating the dragon starts New Game+ with tougher enemies. There are three heroes to choose from: a knight, an archer and a mage, each with its own health, damage and armor.
+
+### Special dice
+
+A basic die has no effect. The others change what their own roll is worth:
+
+| Die | Effect |
+| --- | --- |
+| Sharp / Sturdy / Healing | Its attack / defense / heal face counts as 2 |
+| Reliable | Never lands on the empty face |
+| Thorny | Its defense face also deals 1 damage |
+| Vampiric | Its attack face also heals 1 |
+| Joker | Copies the most common face of the other dice |
+| Golden | Any of its faces counts as 2 |
+| Last Chance | Once per battle, survives a lethal hit with 1 HP |
+| Try Die | Grants another try |
+| Extra Die | Grants an extra slot on the board (up to 7 dice) |
+
+### Tournament
+
+A bracket of matches against a bot that plays by the same rules. Both sides use the same standard set of dice, so the inventory does not matter here. Leaving a match counts as a defeat, and a defeat ends the bracket.
+
+## Languages
+
+English, German, Russian, French, Portuguese, Spanish, Japanese, Chinese.
+
+## Building
+
+- Unity **6000.0.61f1**. Open the project and start from `Assets/_DiceBattle/Scenes/Boot.unity`.
+- CI: the `Build` workflow in `.github/workflows/build.yml` builds Android or WebGL on a manual run, and Android on a `v*` tag.
+
+## Project layout
+
+- `Assets/_DiceBattle` — the game: scripts, scenes, prefabs, data, art, audio, fonts.
+- Other folders under `Assets/` — third-party packages.
+- `Docs/Agent` — notes on the architecture, the editor workflow and the backlog.
+
+## Licence
+
+The [MIT licence](LICENSE) in this repository covers **the source code only** (`Assets/_DiceBattle/Scripts`).
+
+Art, music, sounds, fonts and third-party packages belong to their authors and stay under their own licences; the MIT licence does not apply to them. Licence files are kept next to the assets where the authors provide them. A full list of third-party assets with authors, sources and licences is being put together and will be added here and to the in-game credits.
