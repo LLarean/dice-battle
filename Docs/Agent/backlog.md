@@ -4,12 +4,13 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 
 ## In order
 
-5. **Playtest the difficulty curve.** Target win rate by enemy: 100, 99, 97, 95, 88, 85, 82, 80, 68, 55%. The solver is an upper bound; soften with −1 enemy damage if it plays too hard. A full build of five special dice still solves at 91–99% against enemies 7–10.
-6. **Options and credits** (owner's request, 2026-10-05). `OptionsWindow` has only the two volume sliders, the version and the Credits button; `IconButton(Info)` and `IconButton(Share)` are inactive and their handlers just close the window. `CreditsWindow` is a bare window with a close button. Needed: real credits content, and working links wherever they belong (store page / share, privacy policy, contacts, credits entries) — nothing in the code calls `Application.OpenURL` yet. The owner has to supply the URLs and the credits text; all visible text goes through localization.
+1. **Playtest the difficulty curve.** Target win rate by enemy: 100, 99, 97, 95, 88, 85, 82, 80, 68, 55%. The solver is an upper bound; soften with −1 enemy damage if it plays too hard. A full build of five special dice still solves at 91–99% against enemies 7–10.
+2. **Options and credits** (owner's request, 2026-10-05). `OptionsWindow` has only the two volume sliders, the version and the Credits button; `IconButton(Info)` and `IconButton(Share)` stay hidden for the MVP (owner's decision, 2026-10-06). `CreditsWindow` is a bare window with a close button. Needed: real credits content, and working links wherever they belong (store page / share, privacy policy, contacts, credits entries) — nothing in the code calls `Application.OpenURL` yet. The owner has to supply the URLs and the credits text; all visible text goes through localization. `OptionsWindow` holds two active `Button(Credits)` objects of different size — check whether one is a leftover.
 
 ## Before release
 
-- Go through the third-party assets (art, fonts, sounds, music, plugins under `Assets/`), check their licences and list them in the credits (owner's request, 2026-10-05).
+- Go through the third-party assets (art, fonts, sounds, music, plugins under `Assets/`), check their licences and list them in the credits (owner's request, 2026-10-05). Known so far: the Forest Folk music pack asks for the credit "Prompt.fm".
+- The music ducking under jingles and the menu track were set by numbers only — listen to them.
 - `BackgroundParallax` on a phone: the tilt is now measured from how the phone is held (slowly recentred). Written without a device — check on a real phone.
 - Custom keystore instead of the debug one.
 - Pin `jlumbroso/free-disk-space@main` to a SHA in `.github/workflows/build.yml`.
@@ -21,6 +22,8 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 
 - `Button(Tutor)` in the main menu is a stub (the handler only logs): finish or delete.
 - Short monster lines.
+- A type mark on the board dice: the five face-less types have an icon on cards only.
+- Mark new dice inside the inventory; the tavern badge only counts them.
 - Animation polish, none of it agreed: the loot and inventory cards have no press reaction (no `BaseButton`, plain colour tint); only the main menu background has an intro zoom and sparkles, the tavern has parallax only, the battle, tournament and game over screens have a static background; `ButtonShine` is only on the two Start buttons.
 - `GameOverScreen` as a window instead of a screen.
 
