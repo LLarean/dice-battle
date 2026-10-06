@@ -37,7 +37,6 @@ namespace DiceBattle.UI
         {
             if (IsFullClear)
             {
-                SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
                 SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TavernScreen));
                 return;
             }

@@ -48,6 +48,7 @@ namespace DiceBattle.UI
             }
 
             LockScreenTransitions();
+            CloseAllWindows();
 
             if (_currentScreen != null)
             {
@@ -61,14 +62,21 @@ namespace DiceBattle.UI
 
         public void ShowWindow(ScreenType screenType)
         {
-            if (IsWindowTransitioning)
+            Screen window = GetScreen(screenType);
+
+            // The battle result comes from the game, not from a tap: it is never dropped
+            // and replaces whatever the player opened while the battle was ending.
+            if (IsBattleResultWindow(window))
+            {
+                CloseAllWindows();
+            }
+            else if (IsWindowTransitioning)
             {
                 return;
             }
 
             LockWindowTransitions();
 
-            Screen window = GetScreen(screenType);
             window.Show();
             _openWindows.Push(window);
         }
@@ -84,6 +92,14 @@ namespace DiceBattle.UI
 
             Screen window = _openWindows.Pop();
             window.Hide();
+        }
+
+        private void CloseAllWindows()
+        {
+            while (_openWindows.Count > 0)
+            {
+                _openWindows.Pop().Hide();
+            }
         }
 
         private static bool IsBattleResultWindow(Screen window) =>

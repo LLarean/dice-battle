@@ -31,7 +31,7 @@ A handler subscribes in `Awake`/`Start` and unsubscribes in `OnDestroy`. Screens
 
 ## Screens
 
-`ScreenChanger` owns everything under `RootUI`. Screens replace each other (`ShowScreen`), windows stack on top (`ShowWindow` / `CloseTopWindow`). Input is locked for `TransitionLockDuration` after a change. Each screen starts its logic and music in `OnEnable`.
+`ScreenChanger` owns everything under `RootUI`. Screens replace each other (`ShowScreen`), windows stack on top (`ShowWindow` / `CloseTopWindow`). Input is locked for `TransitionLockDuration` after a change. `ShowScreen` closes every open window. A battle result window (`LootScreen`, `GameOverScreen`) ignores the lock and closes the other windows first, so a window the player opened while the battle was ending cannot swallow the result. Each screen starts its logic and music in `OnEnable`.
 
 Flow: `SplashScreen` → `MainMenuScreen` → `TavernScreen` → `GameScreen` (campaign battle) → `LootScreen` (window, pick 1 of 3) → tavern. Tavern also leads to `InventoryScreen` and `TournamentPyramidScreen` → `TournamentScreen`.
 

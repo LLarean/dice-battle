@@ -69,7 +69,6 @@ namespace DiceBattle.UI
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Reward));
 
-            SignalSystem.Raise<IScreenHandler>(handler => handler.CloseTopWindow());
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TavernScreen));
         }
 
