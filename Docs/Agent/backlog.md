@@ -19,7 +19,6 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 
 ## Optional
 
-- `Button(Tutor)` in the main menu is a stub (the handler only logs): finish or delete.
 - Short monster lines.
 - A type mark on the board dice: the five face-less types have an icon on cards only.
 - Mark new dice inside the inventory; the tavern badge only counts them.

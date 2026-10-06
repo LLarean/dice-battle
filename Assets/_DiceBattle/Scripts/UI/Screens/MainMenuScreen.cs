@@ -18,7 +18,6 @@ namespace DiceBattle.UI
     public class MainMenuScreen : Screen
     {
         [Header("UI References")]
-        [SerializeField] private Button _tutor;
         [SerializeField] private Button _language;
         [Space]
         [SerializeField] private TextMeshProUGUI _title;
@@ -69,7 +68,6 @@ namespace DiceBattle.UI
 
         private void Start()
         {
-            _tutor.onClick.AddListener(HandleTutorClick);
             _language.onClick.AddListener(HandleLanguageClick);
             _options.onClick.AddListener(HandleOptionsClick);
             _start.onClick.AddListener(HandleStartClick);
@@ -87,7 +85,6 @@ namespace DiceBattle.UI
 
         private void OnDestroy()
         {
-            _tutor.onClick.RemoveAllListeners();
             _language.onClick.RemoveAllListeners();
             _options.onClick.RemoveAllListeners();
             _start.onClick.RemoveAllListeners();
@@ -103,11 +100,6 @@ namespace DiceBattle.UI
         #endregion
 
         #region Handlers
-
-        private void HandleTutorClick()
-        {
-            Debug.Log("Tutor clicked");
-        }
 
         private void HandleLanguageClick()
         {
