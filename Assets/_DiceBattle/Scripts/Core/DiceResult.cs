@@ -75,19 +75,19 @@ namespace DiceBattle.Core
 
         public static DiceValue ResolveFace(Dice dice, List<Dice> dices)
         {
-            if (dice.Type != DiceType.Joker || dice.DiceValue != DiceValue.Empty)
+            if (dice.Type != DiceType.Joker)
             {
                 return dice.DiceValue;
             }
 
-            // Ties go to the lower enum value, so Attack wins and helps toward a critical hit.
+            // GroupBy keeps first-seen order and the sort is stable, so a tie goes to the leftmost face.
+            // With nothing to copy the Joker keeps its own roll.
             return dices
                 .Where(other => other != dice && other.DiceValue != DiceValue.Empty)
                 .GroupBy(other => other.DiceValue)
                 .OrderByDescending(group => group.Count())
-                .ThenBy(group => group.Key)
                 .Select(group => group.Key)
-                .DefaultIfEmpty(DiceValue.Empty)
+                .DefaultIfEmpty(dice.DiceValue)
                 .First();
         }
     }

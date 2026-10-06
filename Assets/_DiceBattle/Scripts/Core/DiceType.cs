@@ -20,7 +20,7 @@ namespace DiceBattle
         Thorns, // Defense also deals 1 damage
         Vampiric, // Attack also heals 1
         Golden, // any face counts as 2
-        Joker, // Empty turns into the most common face among the other dice
+        Joker, // Copies the most common face among the other dice
 
         // Passive, the die itself rolls as a default one
         LastStand, // survives one lethal hit with 1 HP, once per battle

@@ -57,6 +57,8 @@ namespace DiceBattle.Core
                 : _typeSprites[index - _faceSprites.Length];
         }
 
+        public void ShowFace(DiceValue diceValue) => _faceIcon.sprite = _faceSprites[(int)diceValue];
+
         public void HideMultiplier() => _multiplier.gameObject.SetActive(false);
 
         public void ResetToEmpty()

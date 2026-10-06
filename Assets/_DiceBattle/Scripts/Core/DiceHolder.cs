@@ -104,19 +104,28 @@ namespace DiceBattle.Core
 
         private void RaiseDiceLanded(Dice dice)
         {
-            RefreshMultipliers();
+            RefreshFaces();
 
             DiceContribution contribution = DiceResult.Contribution(dice, _occupied);
 
             SignalSystem.Raise<IDiceResultHandler>(handler => handler.OnDiceLanded(this, dice, contribution));
         }
 
-        // Joker depends on the other dice, so a reroll can change labels of dice kept in place.
-        private void RefreshMultipliers()
+        // Joker copies the other dice, so a reroll can change a die kept in place.
+        // A die still on its way keeps the rolled face until it lands in the slot.
+        public void RefreshFaces()
         {
-            foreach (Dice dice in _occupied)
+            for (int i = 0; i < _occupied.Count; i++)
             {
+                Dice dice = _occupied[i];
+
+                if (dice.transform.parent != _slots[i].transform)
+                {
+                    continue;
+                }
+
                 DiceValue face = DiceResult.ResolveFace(dice, _occupied);
+                dice.ShowFace(face);
                 dice.ShowFixedMultiplier(face, DiceResult.FaceValue(dice, _occupied));
             }
         }

@@ -44,7 +44,7 @@ Main menu easter egg: tapping a die rerolls it; when all dice show the same face
 - `DiceResult` is the single source of truth for what a roll is worth. Effects trigger only on the die's own face and are additive:
   - Sharp / Sturdy / Healing: own face counts 2
   - Vampiric: Attack also heals 1; Thorns: Defense also deals 1
-  - Reliable: never rolls Empty; Joker: Empty becomes the most common other face
+  - Reliable: never rolls Empty; Joker: always counts as the most common non-empty face of the other dice (tie → leftmost; nothing to copy → its own roll). `DiceHolder.RefreshFaces` shows that face once the die is in its slot, and it changes live when the others are rerolled
   - Golden: any own face counts 2 as it
   - LastStand: survive a lethal hit once per battle at 1 HP
   - AdditionalTry: +1 reroll; AdditionalDice: +1 board slot (not a physical die)

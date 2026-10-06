@@ -46,6 +46,8 @@ namespace DiceBattle.Core
             {
                 _dices[i].SetFace(faces[i]);
             }
+
+            _diceHolder.RefreshFaces();
         }
 
         public void SetDeck(List<DiceType> deck)
