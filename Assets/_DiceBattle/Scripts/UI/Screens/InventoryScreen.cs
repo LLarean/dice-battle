@@ -31,14 +31,9 @@ namespace DiceBattle.UI
         [Space]
         [SerializeField] private GameConfig _gameConfig;
 
-        private int DeckCapacity
-        {
-            get
-            {
-                int extra = Inventory.EquippedItems().Count(i => i.Type == DiceType.AdditionalDice);
-                return _gameConfig.DiceStartCount + extra;
-            }
-        }
+        private int DeckCapacity => DiceRuleset.DiceCount(_gameConfig.DiceStartCount);
+
+        private static int EquippedExtraSlots => Inventory.EquippedItems().Count(i => i.Type == DiceType.AdditionalDice);
 
         #region Unity lifecycle
 
@@ -88,7 +83,7 @@ namespace DiceBattle.UI
             if (item.IsEquipped)
             {
                 Dice equippedCopy = _itemByDice.FirstOrDefault(pair => pair.Value == inventoryItem).Key;
-                if (equippedCopy != null)
+                if (equippedCopy != null || item.Type == DiceType.AdditionalDice)
                 {
                     Unequip(inventoryItem, equippedCopy);
                 }
@@ -96,7 +91,11 @@ namespace DiceBattle.UI
                 return;
             }
 
-            if (item.Type != DiceType.AdditionalDice && _deckHolder.FreeSlotCount == 0)
+            bool hasRoom = item.Type == DiceType.AdditionalDice
+                ? EquippedExtraSlots < DiceRuleset.MaxExtraSlots
+                : _deckHolder.FreeSlotCount > 0;
+
+            if (hasRoom == false)
             {
                 inventoryItem.PlayRejectShake();
                 return;
@@ -134,7 +133,7 @@ namespace DiceBattle.UI
                 CreateItem(item);
             }
 
-            foreach (InventoryItem inventoryItem in _inventoryItems.Where(i => i.Data.IsEquipped))
+            foreach (InventoryItem inventoryItem in _inventoryItems.Where(i => i.Data.IsEquipped && i.Data.Type != DiceType.AdditionalDice))
             {
                 AddDiceCopyToHolder(inventoryItem);
             }
@@ -196,8 +195,11 @@ namespace DiceBattle.UI
             inventoryItem.SetEquippedStatus(false);
             inventoryItem.PlayDeselectReaction();
 
-            _deckHolder.RemoveCopy(copy, animate: true);
-            _itemByDice.Remove(copy);
+            if (copy != null)
+            {
+                _deckHolder.RemoveCopy(copy, animate: true);
+                _itemByDice.Remove(copy);
+            }
 
             PlayClick();
 

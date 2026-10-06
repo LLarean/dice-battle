@@ -47,7 +47,7 @@ Main menu easter egg: tapping a die rerolls it; when all dice show the same face
   - Reliable: never rolls Empty; Joker: always counts as the most common non-empty face of the other dice (tie → leftmost; nothing to copy → its own roll). `DiceHolder.RefreshFaces` shows that face once the die is in its slot, and it changes live when the others are rerolled
   - Golden: any own face counts 2 as it
   - LastStand: survive a lethal hit once per battle at 1 HP
-  - AdditionalTry: +1 reroll; AdditionalDice: +1 board slot (not a physical die)
+  - AdditionalTry: +1 reroll; AdditionalDice: +1 board slot (not a physical die); at most `DiceRuleset.MaxExtraSlots` (2) count, so the board never exceeds 7 dice — the width of the board and of the inventory deck row. The inventory rejects equipping a third one, and loot stops offering the type once two are owned
 - 5 or more Attack faces is a critical: instant kill. The owner wants this kept.
 - Rarity (`GetRarity`): Legendary = AdditionalDice; Rare = Golden, AdditionalTry, LastStand; Uncommon = Thorns, Vampiric, Joker; the rest Common. Only Legendary has a glow. Rarity sets the drop weight (`GetDropWeight`: 10 / 6 / 3 / 2).
 - On cards (loot, inventory) a die shows a fixed face from `GetIconCategory`. Types without an own face (Reliable, Golden, Joker, AdditionalTry, AdditionalDice) use the type sprites `Art/Sources/Dices/dice_reliable|golden|joker|reroll|extra.png` (`Dice._typeSprites`), cut from Kenney board-game icons. On the board these dice still differ only by colour.

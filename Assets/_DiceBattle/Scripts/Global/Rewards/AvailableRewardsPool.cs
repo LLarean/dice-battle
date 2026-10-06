@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DiceBattle.Core;
 using DiceBattle.UI;
 using UnityEngine;
 using Random = System.Random;
@@ -75,11 +76,15 @@ namespace DiceBattle.Global
             return result;
         }
 
+        private static bool IsUseless(DiceType type) =>
+            type == DiceType.AdditionalDice
+            && Inventory.AllItems().Count(item => item.Type == DiceType.AdditionalDice) >= DiceRuleset.MaxExtraSlots;
+
         private static List<DiceType> GetRandomOffer(int count)
         {
             List<DiceType> candidates = Enum.GetValues(typeof(DiceType))
                 .Cast<DiceType>()
-                .Where(type => type != DiceType.Default)
+                .Where(type => type != DiceType.Default && IsUseless(type) == false)
                 .ToList();
 
             var offer = new List<DiceType>();

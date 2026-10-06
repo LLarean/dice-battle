@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DiceBattle.Global;
 using DiceBattle.UI;
@@ -11,6 +12,9 @@ namespace DiceBattle.Core
     /// </summary>
     public static class DiceRuleset
     {
+        // Seven dice is what fits the width of the board and of the inventory deck row.
+        public const int MaxExtraSlots = 2;
+
         private static DiceList _override;
         private static int _diceCountOverride;
 
@@ -19,7 +23,7 @@ namespace DiceBattle.Core
         public static int DiceCount(int baseCount) =>
             _override != null
                 ? _diceCountOverride
-                : baseCount + Current.DiceTypes.Count(t => t == DiceType.AdditionalDice);
+                : baseCount + Math.Min(MaxExtraSlots, Current.DiceTypes.Count(t => t == DiceType.AdditionalDice));
 
         /// <summary>
         /// Die types in board order: equipped dice first, free slots filled with default dice.
