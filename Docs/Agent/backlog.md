@@ -7,6 +7,17 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 1. **Playtest the difficulty curve.** Target win rate by enemy: 100, 99, 97, 95, 88, 85, 82, 80, 68, 55%. The solver is an upper bound; soften with −1 enemy damage if it plays too hard. A full build of five special dice still solves at 91–99% against enemies 7–10.
 2. **Options and credits** (owner's request, 2026-10-05). `OptionsWindow` has only the two volume sliders, the version and the Credits button; `IconButton(Info)` and `IconButton(Share)` stay hidden for the MVP (owner's decision, 2026-10-06). `CreditsWindow` is a bare window with a close button. Needed: real credits content, and working links wherever they belong (store page / share, privacy policy, contacts, credits entries) — nothing in the code calls `Application.OpenURL` yet. The owner has to supply the URLs and the credits text; all visible text goes through localization.
 
+## Release plan
+
+Agreed on 2026-10-06: the first release is free, without ads, web only. itch.io goes first (no moderation, so the WebGL build can be shaken down there), Yandex Games second. Android stores come later.
+
+- WebGL has never been built. Run the `Build` workflow with the `WebGL` platform and fix what breaks.
+- Check the web build on real phones: download size and load time (the Japanese and Chinese fonts ship their source files), whether PlayerPrefs survive a browser restart, sound, the splash screen (`Loader` waits a fixed 3 s on top of the real loading), the portrait layout in a desktop browser.
+- Yandex Games needs its SDK; read the platform requirements before starting *(unverified: language taken from the SDK, audio paused while the tab is hidden, no links to other stores, cloud saves through the SDK)*.
+- Analytics, minimal: a thin wrapper with a provider behind it (Yandex Metrika on the web, AppMetrica on Android later). Events: first launch, battle start (enemy index), victory, defeat, loot pick (dice type), campaign completed, New Game+ start, tournament match. Needs a privacy policy link (see item 2 above).
+- Store pages: itch.io asks for an AI-content disclosure per project (graphics, sound, text, code) — fill it in from the asset list, which gets an "AI: yes / no / unknown" column.
+- Promo materials: icon, cover, screenshots, a gameplay GIF. Screenshots and the GIF can be captured from the editor; the cover needs art.
+
 ## Before release
 
 - Go through the third-party assets (art, fonts, sounds, music, plugins under `Assets/`), check their licences and list them in the credits (owner's request, 2026-10-05). Known so far: the Forest Folk music pack asks for the credit "Prompt.fm"; Yuji Syuku and Ma Shan Zheng are under the SIL OFL 1.1 (licence texts lie next to the fonts).
@@ -14,7 +25,6 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 - `BackgroundParallax` on a phone: the tilt is now measured from how the phone is held (slowly recentred). Written without a device — check on a real phone.
 - Custom keystore instead of the debug one.
 - `com.unity.pipeline` is experimental; no tag build has run with it yet.
-- WebGL has never been built.
 - Old saves from before the dice redesign throw on removed enum values — decide between a version check with a wipe and leaving it.
 
 ## Optional
