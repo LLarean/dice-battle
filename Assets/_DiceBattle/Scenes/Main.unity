@@ -16581,6 +16581,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5591343169715997400, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1746385512}
+    - targetCorrespondingSourceObject: {fileID: 5591343169715997400, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1746385517}
   m_SourcePrefab: {fileID: 100100000, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
 --- !u!224 &1746385508 stripped
 RectTransform:
@@ -16638,11 +16641,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f44bd22307524f44bcb3e06a17d7a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 1746385512}
+  _shine: {fileID: 1746385517}
   _idleThreshold: 10
-  _pulseMinAlpha: 0.5
-  _pulseMaxAlpha: 1
-  _pulseDuration: 0.6
+--- !u!114 &1746385517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746385510}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787ef15ecc6e6ac4b84675b64af5b5ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interval: 2
+  _duration: 0.6
+  _width: 60
+  _opacity: 0.5
 --- !u!1 &1748593379
 GameObject:
   m_ObjectHideFlags: 0
@@ -20003,6 +20019,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5591343169715997400, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2074005228}
+    - targetCorrespondingSourceObject: {fileID: 5591343169715997400, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2074005235}
   m_SourcePrefab: {fileID: 100100000, guid: 7b46a791c06e3b2429fbb06e900f5a3c, type: 3}
 --- !u!224 &2074005224 stripped
 RectTransform:
@@ -20060,11 +20079,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f44bd22307524f44bcb3e06a17d7a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasGroup: {fileID: 2074005228}
+  _shine: {fileID: 2074005235}
   _idleThreshold: 10
-  _pulseMinAlpha: 0.5
-  _pulseMaxAlpha: 1
-  _pulseDuration: 0.6
+--- !u!114 &2074005235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074005227}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787ef15ecc6e6ac4b84675b64af5b5ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interval: 2
+  _duration: 0.6
+  _width: 60
+  _opacity: 0.5
 --- !u!1001 &2078003037
 PrefabInstance:
   m_ObjectHideFlags: 0

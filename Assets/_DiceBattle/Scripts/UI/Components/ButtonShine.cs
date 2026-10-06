@@ -51,6 +51,7 @@ namespace DiceBattle.UI
         private void OnDisable()
         {
             LeanTween.cancel(_streakRect.gameObject);
+            ResetPosition();
         }
 
         private void Update()

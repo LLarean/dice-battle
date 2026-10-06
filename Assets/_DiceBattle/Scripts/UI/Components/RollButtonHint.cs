@@ -5,21 +5,18 @@ namespace DiceBattle.UI
 {
     public class RollButtonHint : MonoBehaviour
     {
-        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private ButtonShine _shine;
         [Space]
         [SerializeField] private float _idleThreshold = 10f;
-        [SerializeField] private float _pulseMinAlpha = 0.5f;
-        [SerializeField] private float _pulseMaxAlpha = 1f;
-        [SerializeField] private float _pulseDuration = 0.6f;
 
         private float _idleTimer;
-        private bool _isPulsing;
+        private bool _isShining;
         private bool _isPaused;
 
         public void Notify()
         {
             _idleTimer = 0f;
-            StopPulse();
+            StopShine();
         }
 
         public void SetPaused(bool isPaused)
@@ -28,7 +25,7 @@ namespace DiceBattle.UI
 
             if (isPaused)
             {
-                StopPulse();
+                StopShine();
             }
             else
             {
@@ -38,7 +35,7 @@ namespace DiceBattle.UI
 
         private void Update()
         {
-            if (_isPaused || _isPulsing)
+            if (_isPaused || _isShining)
             {
                 return;
             }
@@ -47,7 +44,7 @@ namespace DiceBattle.UI
 
             if (_idleTimer >= _idleThreshold)
             {
-                StartPulse();
+                StartShine();
             }
         }
 
@@ -56,30 +53,24 @@ namespace DiceBattle.UI
             _idleTimer = GameData.HasEverRolledDice ? 0f : _idleThreshold;
         }
 
-        private void OnDisable() => StopPulse();
+        private void OnDisable() => StopShine();
 
-        private void StartPulse()
+        private void StartShine()
         {
-            _isPulsing = true;
-
-            _canvasGroup.alpha = _pulseMinAlpha;
-            LeanTween.alphaCanvas(_canvasGroup, _pulseMaxAlpha, _pulseDuration)
-                .setEase(LeanTweenType.easeInOutSine)
-                .setLoopPingPong(-1);
+            _isShining = true;
+            _shine.enabled = true;
         }
 
-        private void StopPulse()
+        private void StopShine()
         {
-            if (!_isPulsing)
+            if (_isShining == false)
             {
                 return;
             }
 
-            _isPulsing = false;
+            _isShining = false;
             _idleTimer = 0f;
-
-            LeanTween.cancel(_canvasGroup.gameObject);
-            _canvasGroup.alpha = 1f;
+            _shine.enabled = false;
         }
     }
 }
