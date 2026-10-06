@@ -20,6 +20,8 @@ namespace DiceBattle.Localization
         {
             LocalizationManager.Read();
 
+            language = MergeChineseVariants(language);
+
             SystemLanguage resolvedLanguage = AvailableLanguages.IsAvailable(language)
                 ? language
                 : AvailableLanguages.DefaultLanguage;
@@ -27,5 +29,11 @@ namespace DiceBattle.Localization
             LocalizationManager.Language = resolvedLanguage.ToString();
             GameSettings.SelectedLanguage = resolvedLanguage;
         }
+
+        // Devices report the script variant, the game has a single Chinese translation.
+        private static SystemLanguage MergeChineseVariants(SystemLanguage language) =>
+            language is SystemLanguage.ChineseSimplified or SystemLanguage.ChineseTraditional
+                ? SystemLanguage.Chinese
+                : language;
     }
 }

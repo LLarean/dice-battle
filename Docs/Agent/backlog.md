@@ -31,5 +31,4 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 ## Deferred
 
 - **Fonts:** bake static atlases at the end (owner's decision, 2026-10-06); until then everything is dynamic. `StieglitzSP` lacks `+ •`, `ß`, `œ`, `¡¿`; the default TMP fallback covers them. Japanese uses Yuji Syuku, Chinese uses Ma Shan Zheng (see architecture); both are Regular only and were checked on the main menu only — go through the other screens for fit and readability (the Japanese title wraps mid-word).
-- `AvailableLanguages` lists `SystemLanguage.Chinese`, but devices usually report `ChineseSimplified` / `ChineseTraditional`, so a Chinese device probably starts in English.
 - Rejected for the MVP: HP carry-over between fights, new enemies.
