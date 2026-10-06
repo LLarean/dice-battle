@@ -27,6 +27,8 @@ namespace DiceBattle.Core
         [SerializeField] private TextMeshProUGUI _multiplier;
         [Header("Empty, Attack, Defense, Heal")]
         [SerializeField] private Sprite[] _faceSprites;
+        [Header("Lock, Crown, Question, Reroll, ExtraDice")]
+        [SerializeField] private Sprite[] _typeSprites;
         [Space]
         [SerializeField] private bool _isMenu;
 
@@ -45,9 +47,14 @@ namespace DiceBattle.Core
         public bool Interactable => _button.interactable;
         public bool IsSelected => _selectionIcon.gameObject.activeSelf;
 
+        // Categories past the rollable faces are type icons shown only on cards.
         public void SetFixedFace(DiceIconCategory category)
         {
-            _faceIcon.sprite = _faceSprites[(int)category];
+            int index = (int)category;
+
+            _faceIcon.sprite = index < _faceSprites.Length
+                ? _faceSprites[index]
+                : _typeSprites[index - _faceSprites.Length];
         }
 
         public void HideMultiplier() => _multiplier.gameObject.SetActive(false);

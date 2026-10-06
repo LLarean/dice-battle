@@ -1,4 +1,5 @@
 using Assets.SimpleLocalization.Scripts;
+using DiceBattle.Animations;
 using DiceBattle.Audio;
 using DiceBattle.Data;
 using DiceBattle.Events;
@@ -19,9 +20,15 @@ namespace DiceBattle.UI
         [SerializeField] private Button _start;
         [SerializeField] private TextMeshProUGUI _startLabel;
         [SerializeField] private Button _inventory;
+        [SerializeField] private GameObject _newDiceBadge;
+        [SerializeField] private TMP_Text _newDiceCount;
         [Space]
         [SerializeField] private Innkeeper _innkeeper;
         [SerializeField] private GameConfig _gameConfig;
+
+        private const float _badgePopScale = 1.3f;
+        private const float _badgePopDuration = 0.4f;
+        private const float _badgePopDelay = 0.4f;
 
         private bool IsFullClear => GameData.CompletedLevels >= _gameConfig.Enemies.Count;
 
@@ -41,14 +48,21 @@ namespace DiceBattle.UI
             _restart.onClick.RemoveAllListeners();
             _start.onClick.RemoveAllListeners();
             _inventory.onClick.RemoveAllListeners();
+            LeanTween.cancel(_newDiceBadge);
         }
 
         private void OnEnable()
         {
             _innkeeper.ShowMessage(_gameConfig);
             SetLabel();
+            ShowNewDiceBadge();
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Tavern));
+
+            // The tavern can already be open under the loot window, so OnEnable alone would miss the pick.
+            GameData.OnNewDiceCountChanged += ShowNewDiceBadge;
         }
+
+        private void OnDisable() => GameData.OnNewDiceCountChanged -= ShowNewDiceBadge;
 
         #endregion
 
@@ -96,6 +110,21 @@ namespace DiceBattle.UI
         }
 
         #endregion
+
+        private void ShowNewDiceBadge()
+        {
+            int newDiceCount = GameData.NewDiceCount;
+
+            LeanTween.cancel(_newDiceBadge);
+            _newDiceBadge.transform.localScale = Vector3.one;
+            _newDiceBadge.SetActive(newDiceCount > 0);
+            _newDiceCount.text = newDiceCount.ToString();
+
+            if (newDiceCount > 0)
+            {
+                DiceAnimation.Lift(_newDiceBadge, _badgePopScale, _badgePopDuration, _badgePopDelay);
+            }
+        }
 
         private void SetLabel()
         {

@@ -227,6 +227,12 @@ MonoBehaviour:
   - {fileID: -2500287713041957420, guid: 15934780e3fe3a44cbb0440d31a52a8f, type: 3}
   - {fileID: -4746029775332315738, guid: defcbf24c708b9844a3654434ba738b2, type: 3}
   - {fileID: -9074059593656266840, guid: a5df1040e21f3ec42a55afdc13c013e3, type: 3}
+  _typeSprites:
+  - {fileID: -2500287713041957420, guid: ef3c6a72c59f489a8f5a40c3c5f1fac7, type: 3}
+  - {fileID: -2500287713041957420, guid: d6803e4e418744688d0f19d26631d325, type: 3}
+  - {fileID: -2500287713041957420, guid: d900a0ed9cad44efaf1db8dbb3999f8d, type: 3}
+  - {fileID: -2500287713041957420, guid: ca97bb4ff88e4e3297257a76117c526f, type: 3}
+  - {fileID: -2500287713041957420, guid: b4930737e4674a8bb3f6d17dec03ab62, type: 3}
   _isMenu: 0
 --- !u!114 &8128745317300924866
 MonoBehaviour:

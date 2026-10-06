@@ -16,6 +16,7 @@
 
         public const string AllItems = "AllItems";
         public const string RewardsList = "RewardsList";
+        public const string NewDiceCount = "NewDiceCount";
 
         public const string BattleState = "BattleState";
         public const string PendingLootRewardIndex = "PendingLootRewardIndex";

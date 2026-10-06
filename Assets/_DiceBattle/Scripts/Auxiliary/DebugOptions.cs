@@ -156,8 +156,6 @@ namespace DiceBattle.Auxiliary
         private void RegenerateRewardsPool()
         {
             AvailableRewardsPool.Clear();
-            GameData.SaveRandomRewards(GameData.LoadRandomRewards());
-            GameData.LogRandomRewards();
         }
 
         [Button("Loot: Log Rewards Pool")]

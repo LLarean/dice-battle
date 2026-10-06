@@ -57,6 +57,7 @@ namespace DiceBattle.UI
         private void OnEnable()
         {
             _deckHolder.OnSlotDiceClicked += HandleSlotDiceClicked;
+            GameData.ClearNewDiceCount();
             Refresh();
         }
 

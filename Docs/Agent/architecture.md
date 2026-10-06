@@ -47,11 +47,12 @@ Flow: `SplashScreen` → `MainMenuScreen` → `TavernScreen` → `GameScreen` (c
   - LastStand: survive a lethal hit once per battle at 1 HP
   - AdditionalTry: +1 reroll; AdditionalDice: +1 board slot (not a physical die)
 - 5 or more Attack faces is a critical: instant kill. The owner wants this kept.
-- Rarity (`GetRarity`): Legendary = LastStand; Rare = Golden, Joker, AdditionalDice; Uncommon = Reliable, Thorns, Vampiric, AdditionalTry; the rest Common. Only Legendary has a glow.
+- Rarity (`GetRarity`): Legendary = AdditionalDice; Rare = Golden, AdditionalTry, LastStand; Uncommon = Thorns, Vampiric, Joker; the rest Common. Only Legendary has a glow. Rarity sets the drop weight (`GetDropWeight`: 10 / 6 / 3 / 2).
+- On cards (loot, inventory) a die shows a fixed face from `GetIconCategory`. Types without an own face (Reliable, Golden, Joker, AdditionalTry, AdditionalDice) use the type sprites `Art/Sources/Dices/dice_reliable|golden|joker|reroll|extra.png` (`Dice._typeSprites`), cut from Kenney board-game icons. On the board these dice still differ only by colour.
 
 ## Campaign
 
-10 enemies in `GameConfig.asset`, three player classes (Knight, Archer, Mage). After the dragon, New Game+ scales enemy HP only (`Spawner`). Loot after each victory: `GameData.GetRandomRewards(level * 3, 3)` (the count is the number of cards on `LootScreen`) from a shuffled pool saved in `AvailableRewardsPool`; the pending reward index survives an app kill (`SetPendingLootReward`).
+10 enemies in `GameConfig.asset`, three player classes (Knight, Archer, Mage). After the dragon, New Game+ scales enemy HP only (`Spawner`). Loot after each victory: `GameData.GetRandomRewards(level * 3, 3)` (the count is the number of cards on `LootScreen`). `AvailableRewardsPool` is a flat saved list of offers that grows on demand; each offer is three different types drawn by rarity weight, so reopening the loot of a level shows the same cards. The pending reward index survives an app kill (`SetPendingLootReward`). Picking a die raises `GameData.NewDiceCount`, shown as a red badge on the tavern inventory button until the inventory is opened.
 
 An unfinished battle is saved (`BattleSaveData`) when `GameConfig.CanSaveBattle` is set and restored by `GameScreen.OnEnable`. It is written at the start of a battle, when a roll starts (attempt already spent, old faces), when it lands (new faces) and at the end of a turn, so quitting never gives a roll back.
 

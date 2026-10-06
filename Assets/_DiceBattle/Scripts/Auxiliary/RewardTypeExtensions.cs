@@ -11,6 +11,11 @@ namespace DiceBattle
         Sword,
         Shield,
         Heart,
+        Lock,
+        Crown,
+        Question,
+        Reroll,
+        ExtraDice,
     }
 
     public static class RewardTypeExtensions
@@ -27,6 +32,12 @@ namespace DiceBattle
                 DiceType.Healing => DiceIconCategory.Heart,
                 DiceType.LastStand => DiceIconCategory.Heart,
 
+                DiceType.Reliable => DiceIconCategory.Lock,
+                DiceType.Golden => DiceIconCategory.Crown,
+                DiceType.Joker => DiceIconCategory.Question,
+                DiceType.AdditionalTry => DiceIconCategory.Reroll,
+                DiceType.AdditionalDice => DiceIconCategory.ExtraDice,
+
                 _ => DiceIconCategory.Empty,
             };
         }
@@ -34,18 +45,27 @@ namespace DiceBattle
         public static DiceRarity GetRarity(this DiceType diceType)
         {
             return diceType switch {
-                DiceType.LastStand => DiceRarity.Legendary,
+                DiceType.AdditionalDice => DiceRarity.Legendary,
 
                 DiceType.Golden => DiceRarity.Rare,
-                DiceType.Joker => DiceRarity.Rare,
-                DiceType.AdditionalDice => DiceRarity.Rare,
+                DiceType.AdditionalTry => DiceRarity.Rare,
+                DiceType.LastStand => DiceRarity.Rare,
 
-                DiceType.Reliable => DiceRarity.Uncommon,
                 DiceType.Thorns => DiceRarity.Uncommon,
                 DiceType.Vampiric => DiceRarity.Uncommon,
-                DiceType.AdditionalTry => DiceRarity.Uncommon,
+                DiceType.Joker => DiceRarity.Uncommon,
 
                 _ => DiceRarity.Common,
+            };
+        }
+
+        public static int GetDropWeight(this DiceRarity rarity)
+        {
+            return rarity switch {
+                DiceRarity.Uncommon => 6,
+                DiceRarity.Rare => 3,
+                DiceRarity.Legendary => 2,
+                _ => 10,
             };
         }
 

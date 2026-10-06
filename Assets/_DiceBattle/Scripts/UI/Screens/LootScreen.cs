@@ -63,6 +63,7 @@ namespace DiceBattle.UI
 
             // Clear first so the inventory save persists both; otherwise a kill in between duplicates the reward.
             GameData.ClearPendingLootReward();
+            GameData.IncrementNewDiceCount();
             Inventory.AddItemToUnequipped(new Item { Type = diceType, IsEquipped = false });
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));

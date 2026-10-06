@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DiceBattle.Data;
@@ -44,6 +45,7 @@ namespace DiceBattle.Global
             ResetSelectedCharacterClass();
             BattleSaveData.Clear();
             ClearPendingLootReward();
+            ClearNewDiceCount();
             PlayerPrefs.Save();
         }
 
@@ -76,10 +78,6 @@ namespace DiceBattle.Global
 
         #region Random Rewards
 
-        public static DiceList LoadRandomRewards() => AvailableRewardsPool.Load();
-
-        public static void SaveRandomRewards(DiceList diceList) => AvailableRewardsPool.Save(diceList);
-
         public static List<DiceType> GetRandomRewards(int startIndex, int count) =>
             AvailableRewardsPool.GetRewardsRange(AvailableRewardsPool.Load(), startIndex, count);
 
@@ -107,6 +105,26 @@ namespace DiceBattle.Global
         }
 
         public static void ClearPendingLootReward() => PlayerPrefs.DeleteKey(PlayerPrefsKeys.PendingLootRewardIndex);
+
+        #endregion
+
+        #region New dice
+
+        public static event Action OnNewDiceCountChanged;
+
+        public static int NewDiceCount => PlayerPrefs.GetInt(PlayerPrefsKeys.NewDiceCount, 0);
+
+        public static void IncrementNewDiceCount()
+        {
+            PlayerPrefs.SetInt(PlayerPrefsKeys.NewDiceCount, NewDiceCount + 1);
+            OnNewDiceCountChanged?.Invoke();
+        }
+
+        public static void ClearNewDiceCount()
+        {
+            PlayerPrefs.DeleteKey(PlayerPrefsKeys.NewDiceCount);
+            OnNewDiceCountChanged?.Invoke();
+        }
 
         #endregion
 
