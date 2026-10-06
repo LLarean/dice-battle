@@ -35,6 +35,8 @@ A handler subscribes in `Awake`/`Start` and unsubscribes in `OnDestroy`. Screens
 
 Flow: `SplashScreen` → `MainMenuScreen` → `TavernScreen` → `GameScreen` (campaign battle) → `LootScreen` (window, pick 1 of 3) → tavern. Tavern also leads to `InventoryScreen` and `TournamentPyramidScreen` → `TournamentScreen`.
 
+Main menu easter egg: tapping a die rerolls it; when all dice show the same face an extra die drops in and all are rethrown (`MainMenuScreen.TriggerEasterEgg`). At `_maxDiceCount` a match plays the Reward jingle and goes back to three; reopening the menu also resets.
+
 ## Dice rules
 
 - A die has a `DiceType` (its effect) and rolls a `DiceValue` face: Empty, Attack, Defense, Heal.

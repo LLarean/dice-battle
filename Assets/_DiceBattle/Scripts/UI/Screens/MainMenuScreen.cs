@@ -35,8 +35,12 @@ namespace DiceBattle.UI
         [Header("Config")]
         [SerializeField] private GameConfig _config;
 
+        private const int _maxDiceCount = 6;
+        private const float _extraDiceRemoveDuration = 0.2f;
+
         private GameObjectAnimations _gameObjectAnimations;
         private readonly List<Action> _diceToggleHandlers = new();
+        private int _startDiceCount;
 
         private bool HasSavedBattle => _config.CanSaveBattle && BattleSaveData.HasSavedBattle();
 
@@ -46,12 +50,14 @@ namespace DiceBattle.UI
         {
             _gameObjectAnimations = new GameObjectAnimations(_rootUI);
             _gameObjectAnimations.SetParams(.2f, .5f, LeanTweenType.easeOutBack);
+            _startDiceCount = _dice.Count;
         }
 
         private void OnEnable()
         {
             _gameObjectAnimations.SlideIn(_title.rectTransform);
             _gameObjectAnimations.SlideIn(_bottomButtons, -1);
+            RemoveExtraDice();
             DiceAnimation.Animate(_dice, _rollAnimationArea);
 
             SetStartLabel();
@@ -70,11 +76,7 @@ namespace DiceBattle.UI
 
             foreach (Dice dice in _dice)
             {
-                Dice clickedDice = dice;
-                Action handler = () => HandleDiceToggled(clickedDice);
-
-                _diceToggleHandlers.Add(handler);
-                clickedDice.OnToggled += handler;
+                SubscribeToDice(dice);
             }
         }
 
@@ -141,8 +143,22 @@ namespace DiceBattle.UI
 
         #endregion
 
+        private void SubscribeToDice(Dice dice)
+        {
+            Action handler = () => HandleDiceToggled(dice);
+
+            _diceToggleHandlers.Add(handler);
+            dice.OnToggled += handler;
+        }
+
+        // Faces are blank while the dice are in the air, so a mid-roll tap must not count as a match.
         private void CheckEasterEgg()
         {
+            if (DiceAnimation.IsRolling)
+            {
+                return;
+            }
+
             DiceValue firstValue = _dice[0].DiceValue;
 
             for (int i = 1; i < _dice.Count; i++)
@@ -153,12 +169,55 @@ namespace DiceBattle.UI
                 }
             }
 
-            TriggerEasterEgg(firstValue);
+            TriggerEasterEgg();
         }
 
-        private void TriggerEasterEgg(DiceValue diceValue)
+        // Every match adds a die and rethrows them all; a match at the cap goes back to the starting set.
+        private void TriggerEasterEgg()
         {
-            Debug.Log($"Easter egg triggered! All dice show {diceValue}.");
+            if (_dice.Count < _maxDiceCount)
+            {
+                AddExtraDice();
+                SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.DiceThrow));
+            }
+            else
+            {
+                RemoveExtraDice();
+                SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Reward));
+            }
+
+            DiceAnimation.Animate(_dice, _rollAnimationArea);
+        }
+
+        private void AddExtraDice()
+        {
+            Dice extraDice = Instantiate(_dice[0], _dice[0].transform.parent);
+            var diceRect = (RectTransform)extraDice.transform;
+
+            var corners = new Vector3[4];
+            _rootUI.GetWorldCorners(corners);
+            float aboveScreen = corners[1].y + diceRect.rect.height * diceRect.lossyScale.y;
+            extraDice.transform.position = new Vector3(_rollAnimationArea.position.x, aboveScreen);
+
+            _dice.Add(extraDice);
+            SubscribeToDice(extraDice);
+        }
+
+        private void RemoveExtraDice()
+        {
+            for (int i = _dice.Count - 1; i >= _startDiceCount; i--)
+            {
+                GameObject extraDice = _dice[i].gameObject;
+
+                _dice[i].OnToggled -= _diceToggleHandlers[i];
+                _dice[i].DisableButton();
+                _dice.RemoveAt(i);
+                _diceToggleHandlers.RemoveAt(i);
+
+                LeanTween.cancel(extraDice);
+                LeanTween.scale(extraDice, Vector3.zero, _extraDiceRemoveDuration).setEase(LeanTweenType.easeInBack);
+                Destroy(extraDice, _extraDiceRemoveDuration);
+            }
         }
 
         private void SetStartLabel()

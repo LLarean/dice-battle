@@ -27,6 +27,8 @@ namespace DiceBattle.Animations
 
         public static event Action OnDiceRollComplete;
 
+        public static bool IsRolling { get; private set; }
+
         public static void Animate(List<Dice> dices, RectTransform safeArea)
         {
             if (dices.Count == 0)
@@ -36,6 +38,7 @@ namespace DiceBattle.Animations
 
             _safeArea = safeArea;
             _dicesToRoll = dices;
+            IsRolling = true;
 
             DisableIcons();
             UpdateAreaBounds();
@@ -183,6 +186,7 @@ namespace DiceBattle.Animations
 
             if (index >= _dicesToRoll.Count - 1)
             {
+                IsRolling = false;
                 LeanTween.delayedCall(_settleDelay, () => OnDiceRollComplete?.Invoke());
             }
         }
