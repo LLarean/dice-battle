@@ -13,7 +13,6 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 - The music ducking under jingles and the menu track were set by numbers only — listen to them.
 - `BackgroundParallax` on a phone: the tilt is now measured from how the phone is held (slowly recentred). Written without a device — check on a real phone.
 - Custom keystore instead of the debug one.
-- Pin `jlumbroso/free-disk-space@main` to a SHA in `.github/workflows/build.yml`.
 - `com.unity.pipeline` is experimental; no tag build has run with it yet.
 - WebGL has never been built.
 - Old saves from before the dice redesign throw on removed enum values — decide between a version check with a wipe and leaving it.

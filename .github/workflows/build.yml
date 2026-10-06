@@ -30,7 +30,7 @@ jobs:
       TARGET_PLATFORM: ${{ inputs.platform || 'Android' }}
     steps:
       # The Unity editor image does not fit on a stock runner.
-      - uses: jlumbroso/free-disk-space@main
+      - uses: jlumbroso/free-disk-space@36e9a5af4eddb91fc11aec4c6f6f79b3cc0cb523 # main, 2026-10-06
         with:
           tool-cache: false
           large-packages: false
