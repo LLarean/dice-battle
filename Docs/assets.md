@@ -27,13 +27,10 @@ Paths are relative to `Assets/_DiceBattle` unless they start with `Assets/`.
 | Volume slider | [UI Pack](https://kenney.nl/assets/ui-pack) 2.0 (`PNG/Red/Default`, `PNG/Grey/Default`) | Kenney | `Art/Sources/slide_horizontal_*.png`, `button_square_depth_flat.png` | CC0 | optional | sliders yes, button no |
 | Angry emote | [Emotes Pack](https://kenney.nl/assets/emotes-pack) (`PNG/Vector/Style 1`) | Kenney | `Art/Sources/Emotes` | CC0 | optional | no |
 | Tavern and inventory background | own | — | `Art/Sources/Tavern(new).jpg` | Generated with ChatGPT (2026-10). Under the OpenAI Terms of Use the output belongs to the user, commercial use included; no attribution asked | — | yes |
-| Previous tavern background | own | — | `Art/Sources/Tavern.jpeg` | terms of the tool it was made with were never checked | ? | no |
 | Menu background (village under the mountains) | own | — | `Art/Sources/Village(new).jpg` | Generated with ChatGPT (2026-10). Under the OpenAI Terms of Use the output belongs to the user, commercial use included; no attribution asked | — | yes |
-| Previous menu background (village by the lake) | [24 Fantasy Medieval Backgrounds. Game Ready. 16:9](https://maciaz.itch.io/24-fantasy-medieval-backgrounds) — page removed by the author (404 on 2026-10-07) | Maciaz (DevilMayPlay Studio) | `Art/Sources/village-island-1.png` | Was a free pack of 24 PNG 1600x900, pixel art post-processed into an oil-painting look, no AI according to the listing. The usage terms were not saved and can no longer be read | ? | no (only the default sprite of the `Background(Main)` prefab, overridden in the scene) |
 | Studio logo (Manul Wizard) | own | — | `Art/Logo` | — | — | yes (`05.png`) |
 | Language button flags (8) | own | — | `Art/Flags` | Own drawings of national flags (public-domain designs), simplified: Spain without the coat of arms, Brazil without the stars and motto | — | yes |
 | Hero sprites | [Medieval Warrior Pack 3](https://luizmelo.itch.io/medieval-warrior-pack-3) | LuizMelo | `Art/Sources/Medieval Warrior Pack 3` | CC0 (`License.txt` in the folder) | optional | no |
-| Wooden pixel UI sheet | ? | ? | `Art/Sources/freeversion.png` | ? | ? | no |
 
 ## Music
 
@@ -92,9 +89,6 @@ Good manners (no obligation): Kenney (icons, dice, slider, dice and UI sounds), 
 
 ## Open questions
 
-- `village-island-1.png`: replaced in the scene, but still the default sprite of the `Background(Main)` prefab and still in this public repository with unknown terms. Point the prefab at `Village(new).jpg` and delete the file.
-- `Tavern.jpeg`: no longer referenced by anything; delete the file.
-- Source of `freeversion.png`.
 - Redistribution: juandefuego, Chequered Ink, Prompt.fm and Ivan Duch forbid passing their files on as assets, and this repository is public with the files in it unaltered. Shipping them inside a build is fine; keeping them in a public repository is the doubtful part. Either ask the authors or take the files out of the repository (and its history).
-- `Art/Sources/tavern_interior.png` lies in the working tree untracked and unreferenced; source unknown.
+- `Daggers in the Dark.mp3` and the wavewire sound were not compared with a fresh download; their terms are taken from the authors' pages.
 - Unused assets (Build = no) can be deleted to shrink the repository and this list.

@@ -149,6 +149,7 @@ MonoBehaviour:
   _smooth: 6
   _invert: 1
   _gyroTiltRange: 20
+  _gyroRecenterSpeed: 0.5
 --- !u!222 &8760702288204407451
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -177,7 +178,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 845198daebfb0a84db0219f52cad94d8, type: 3}
+  m_Sprite: {fileID: 125919892563266269, guid: a604ff46aeea90249b22182767965d2e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
