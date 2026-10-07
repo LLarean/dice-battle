@@ -1605,19 +1605,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182705706}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8333333, y: 0.8333333, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 775132540}
   - {fileID: 1381595743}
   - {fileID: 822715857}
-  m_Father: {fileID: 1017251807}
+  m_Father: {fileID: 999766068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -401, y: -680}
+  m_AnchoredPosition: {x: -796, y: -778}
   m_SizeDelta: {x: 485.3844, y: 416.2393}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &182705708
@@ -2055,7 +2055,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -2082,13 +2082,13 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 00000000
+  m_ActiveFontFeatures: 
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
   m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
-  m_isOrthographic: 0
+  m_isOrthographic: 1
   m_isCullingEnabled: 0
   m_horizontalMapping: 0
   m_verticalMapping: 0
@@ -8750,7 +8750,6 @@ RectTransform:
   - {fileID: 22441825}
   - {fileID: 2054401914}
   - {fileID: 555811814}
-  - {fileID: 182705707}
   - {fileID: 422043317}
   m_Father: {fileID: 14530408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12545,8 +12544,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -30, y: -30}
+  m_AnchoredPosition: {x: 0, y: 19.229614}
+  m_SizeDelta: {x: -30, y: -68.4592}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1381595744
 MonoBehaviour:
@@ -22067,7 +22066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1367157838849908537, guid: 51784f6e22d965642a031591edc191a9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 92
+      value: 405
       objectReference: {fileID: 0}
     - target: {fileID: 1367157838849908537, guid: 51784f6e22d965642a031591edc191a9, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -22085,6 +22084,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5023018672274207878, guid: 51784f6e22d965642a031591edc191a9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 125919892563266269, guid: a604ff46aeea90249b22182767965d2e, type: 3}
     - target: {fileID: 8034931700675799938, guid: 51784f6e22d965642a031591edc191a9, type: 3}
       propertyPath: m_Name
       value: Background(Main)
@@ -22175,7 +22178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 698738173356278989, guid: 824fae3206056a349b89e0d4d382ebc8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 190
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 698738173356278989, guid: 824fae3206056a349b89e0d4d382ebc8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -22193,13 +22196,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3863484070217809496, guid: 824fae3206056a349b89e0d4d382ebc8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3792190897576312315, guid: ace408afd6370d5409ff355a869e014c, type: 3}
     - target: {fileID: 8683757341373939267, guid: 824fae3206056a349b89e0d4d382ebc8, type: 3}
       propertyPath: m_Name
       value: Background(Tavern)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 698738173356278989, guid: 824fae3206056a349b89e0d4d382ebc8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 182705707}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8683757341373939267, guid: 824fae3206056a349b89e0d4d382ebc8, type: 3}
       insertIndex: 1
