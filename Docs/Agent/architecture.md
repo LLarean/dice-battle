@@ -16,7 +16,7 @@ A map, not a spec. Paths are relative to `Assets/_DiceBattle/Scripts`.
 | `Animations` | LeanTween helpers; `DiceAnimation` is the shared roll animation |
 | `Audio` | `AudioPlayer`, `SoundType` |
 | `Auxiliary` | Extensions, palettes (`DiceTypeColors`, `DiceRarityColors`), `DebugOptions` (editor only) |
-| `Localization` | `LocKeys` (all keys as constants), `LocalizedTMP`, `CjkFontFallback` (prefab of the same name, placed in both `Boot` and `Main` so the splash tip is covered too: on a language change makes `YujiSyuku-Regular SDF` for Japanese or `MaShanZheng-Regular SDF` for Chinese the only CJK fallback of the fonts in `_mainFonts` (`StieglitzSP-Bold 2 SDF` and `LiberationSans SDF`, which the dice hints and credits use), because the two languages share code points but draw them differently) |
+| `Localization` | `LocKeys` (all keys as constants), `LocalizedTMP`, `LanguageFlag` (shows the flag of the current language on the main menu language button; Portuguese uses the Brazilian flag), `CjkFontFallback` (prefab of the same name, placed in both `Boot` and `Main` so the splash tip is covered too: on a language change makes `YujiSyuku-Regular SDF` for Japanese or `MaShanZheng-Regular SDF` for Chinese the only CJK fallback of the fonts in `_mainFonts` (`StieglitzSP-Bold 2 SDF` and `LiberationSans SDF`, which the dice hints and credits use), because the two languages share code points but draw them differently) |
 | `Editor` | `DebugOptionsEditor` (groups debug buttons by the `Group:` prefix of the button text) |
 
 ## Communication

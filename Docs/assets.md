@@ -31,6 +31,7 @@ Paths are relative to `Assets/_DiceBattle` unless they start with `Assets/`.
 | Menu background (village under the mountains) | own | — | `Art/Sources/Village(new).jpg` | Generated with ChatGPT (2026-10). Under the OpenAI Terms of Use the output belongs to the user, commercial use included; no attribution asked | — | yes |
 | Previous menu background (village by the lake) | [24 Fantasy Medieval Backgrounds. Game Ready. 16:9](https://maciaz.itch.io/24-fantasy-medieval-backgrounds) — page removed by the author (404 on 2026-10-07) | Maciaz (DevilMayPlay Studio) | `Art/Sources/village-island-1.png` | Was a free pack of 24 PNG 1600x900, pixel art post-processed into an oil-painting look, no AI according to the listing. The usage terms were not saved and can no longer be read | ? | no (only the default sprite of the `Background(Main)` prefab, overridden in the scene) |
 | Studio logo (Manul Wizard) | own | — | `Art/Logo` | — | — | yes (`05.png`) |
+| Language button flags (8) | own | — | `Art/Flags` | Own drawings of national flags (public-domain designs), simplified: Spain without the coat of arms, Brazil without the stars and motto | — | yes |
 | Hero sprites | [Medieval Warrior Pack 3](https://luizmelo.itch.io/medieval-warrior-pack-3) | LuizMelo | `Art/Sources/Medieval Warrior Pack 3` | CC0 (`License.txt` in the folder) | optional | no |
 | Wooden pixel UI sheet | ? | ? | `Art/Sources/freeversion.png` | ? | ? | no |
 
