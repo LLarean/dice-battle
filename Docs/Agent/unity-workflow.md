@@ -23,7 +23,7 @@ Screenshots and logs go to the session scratchpad, never into the repo. The only
 ## Pitfalls
 
 - Another Unity project may be open on the same machine; the helper always passes `--project-path`.
-- If the owner has the editor in Play mode, do not stop it. Unity defers compilation while playing — report and wait.
+- If the owner has the editor in Play mode, do not stop it. Unity defers compilation while playing — report and wait. The helper enforces it: `play` refuses when the editor is already playing and `stop` only ends a session that `play` started. A refused `play` exits with 1 — chain the following steps with `&&` so that clicks and scene edits do not land in the owner's session.
 - Always go through the helper for `eval`: it passes `--timeout 25000`. A bare CLI `eval` gives up on a busy main thread after 5 s and logs "Failed to handle /api/exec request: Main thread operation timed out" in the owner's console. The helper still retries on a timeout. A timed-out eval may still have run — check state before repeating anything with side effects.
 - In `eval` code use escaped double-quoted strings. Char literals and `bool + char` do not compile there.
 - Play mode pauses when the editor loses focus unless `Application.runInBackground` is true. `play` sets it, `stop` restores it.
