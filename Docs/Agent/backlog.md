@@ -20,7 +20,7 @@ Agreed on 2026-10-06: the first release is free, without ads, web only. itch.io 
 
 ## Before release
 
-- Go through the third-party assets (art, fonts, sounds, music, plugins under `Assets/`), check their licences and list them in the credits (owner's request, 2026-10-05). Known so far: the Forest Folk music pack asks for the credit "Prompt.fm"; Yuji Syuku and Ma Shan Zheng are under the SIL OFL 1.1 (licence texts lie next to the fonts).
+- Go through the third-party assets (art, fonts, sounds, music, plugins under `Assets/`), check their licences and list them in the credits (owner's request, 2026-10-05). The list with sources, licences and credit obligations is in [Docs/assets.md](../assets.md); what is left is its "Open questions" section and putting the entries into `CreditsWindow`.
 - The music ducking under jingles and the menu track were set by numbers only — listen to them.
 - `BackgroundParallax` on a phone: the tilt is now measured from how the phone is held (slowly recentred). Written without a device — check on a real phone.
 - Custom keystore instead of the debug one.
