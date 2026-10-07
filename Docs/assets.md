@@ -37,7 +37,7 @@ Paths are relative to `Assets/_DiceBattle` unless they start with `Assets/`.
 | What it is in the game | Asset | Author | Path | Licence | Credit | Build |
 |---|---|---|---|---|---|---|
 | Tavern music: "Mosslight Market", "Willow's Waltz" | [Forest Folk – Cozy Fantasy Loop Pack](https://promptfm.itch.io/forest-folk-cozy-fantasy-loop-pack) | Prompt.fm | `Audio/Music/Forest_Folk_Pack` | Author's terms (`license.txt` in the folder): royalty-free, **credit required ("Prompt.fm")**, no re-upload as a pack. AI-generated | **required** | yes |
-| "Daggers in the Dark" | [Dragon Tales 1](https://ivanduch.com/albums/dragon-tales-1/) | Ivan Duch | `Audio/Music/Daggers in the Dark.mp3` | Author's terms: free tracks may be used **if the composer is credited**; no redistribution as standalone audio | **required** | yes |
+| "Daggers in the Dark" | [Dragon Tales 1 (Free)](https://ivanduch.itch.io/dragon-tales-1) on itch.io, track 05 of the [album](https://ivanduch.com/albums/dragon-tales-1/); the file's ID3 tags name the artist and album | Ivan Duch | `Audio/Music/Daggers in the Dark.mp3` | **CC BY 4.0** per the itch.io page (read 2026-10-07), with the author's addition: not to be distributed alone, only as part of a project, **credit to Ivan Duch always included** | **required** | yes |
 
 ## Sounds
 
@@ -90,5 +90,5 @@ Good manners (no obligation): Kenney (icons, dice, slider, dice and UI sounds), 
 ## Open questions
 
 - Redistribution: juandefuego, Chequered Ink, Prompt.fm and Ivan Duch forbid passing their files on as assets, and this repository is public with the files in it unaltered. Shipping them inside a build is fine; keeping them in a public repository is the doubtful part. Either ask the authors or take the files out of the repository (and its history).
-- `Daggers in the Dark.mp3` and the wavewire sound were not compared with a fresh download; their terms are taken from the authors' pages.
+- `Daggers in the Dark.mp3` and the wavewire sound were not compared byte for byte with a fresh download; their terms are taken from the authors' pages.
 - Unused assets (Build = no) can be deleted to shrink the repository and this list.
