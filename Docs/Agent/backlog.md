@@ -5,7 +5,7 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 ## In order
 
 1. **Playtest the difficulty curve.** Target win rate by enemy: 100, 99, 97, 95, 88, 85, 82, 80, 68, 55%. The solver is an upper bound; soften with −1 enemy damage if it plays too hard. A full build of five special dice still solves at 91–99% against enemies 7–10.
-2. **Options and credits** (owner's request, 2026-10-05). `OptionsWindow` has only the two volume sliders, the version and the Credits button; `IconButton(Info)` and `IconButton(Share)` stay hidden for the MVP (owner's decision, 2026-10-06). `CreditsWindow` is a bare window with a close button. Needed: real credits content, and working links wherever they belong (store page / share, privacy policy, contacts, credits entries) — nothing in the code calls `Application.OpenURL` yet. The owner has to supply the URLs and the credits text; all visible text goes through localization.
+2. **Options and credits** (owner's request, 2026-10-05). `OptionsWindow` has only the two volume sliders, the version and the Credits button; `IconButton(Info)` and `IconButton(Share)` stay hidden for the MVP (owner's decision, 2026-10-06). `CreditsWindow` lists every third-party asset that is in the build (see [Docs/assets.md](../assets.md)). Needed: working links wherever they belong (store page / share, privacy policy, contacts, credits entries) — nothing in the code calls `Application.OpenURL` yet. The owner has to supply the URLs; all visible text goes through localization.
 
 ## Release plan
 
@@ -20,7 +20,7 @@ Agreed on 2026-10-06: the first release is free, without ads, web only. itch.io 
 
 ## Before release
 
-- Go through the third-party assets (art, fonts, sounds, music, plugins under `Assets/`), check their licences and list them in the credits (owner's request, 2026-10-05). The list with sources, licences and credit obligations is in [Docs/assets.md](../assets.md); what is left is its "Open questions" section and putting the entries into `CreditsWindow`.
+- Go through the third-party assets (art, fonts, sounds, music, plugins under `Assets/`), check their licences and list them in the credits (owner's request, 2026-10-05). The list with sources, licences and credit obligations is in [Docs/assets.md](../assets.md); what is left is its "Open questions" section.
 - The music ducking under jingles and the menu track were set by numbers only — listen to them.
 - `BackgroundParallax` on a phone: the tilt is now measured from how the phone is held (slowly recentred). Written without a device — check on a real phone.
 - Custom keystore instead of the debug one.

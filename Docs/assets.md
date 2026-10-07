@@ -73,6 +73,8 @@ Paths are relative to `Assets/_DiceBattle` unless they start with `Assets/`.
 
 ## What the credits must contain today
 
+The owner's decision (2026-10-07): the credits name every asset that is in the build, whatever its licence asks for. `CreditsWindow` in `Main.unity` holds the list as scene objects under `Scroll View/Viewport/ItemsSpawn`: a localized header (`ui.credits.*` in `UI.csv`) and a text block of "author — asset" lines per section; names and titles are not translated. When an asset enters or leaves the build, change the list in the same commit.
+
 Required:
 
 - Music: "Mosslight Market", "Willow's Waltz" — Prompt.fm
