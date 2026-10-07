@@ -24,8 +24,8 @@ Paths are relative to `Assets/_DiceBattle` unless they start with `Assets/`.
 | Dice faces: sword, shield, empty; lock, crossed hand, skull | [Board Game Icons](https://kenney.nl/assets/board-game-icons) | Kenney | `Art/Sources/Dices` | CC0 | optional | yes (skull, lock, hand: no) |
 | Dice faces: extra, golden, health, joker, reliable, reroll | own composites of [Board Game Icons](https://kenney.nl/assets/board-game-icons) | own, from Kenney's icons | `Art/Sources/Dices` | CC0 source | optional | yes |
 | UI icons (arrows, hourglass, book, card, d4, heart, shield, sword…) | [Board Game Icons](https://kenney.nl/assets/board-game-icons) 1.1 | Kenney | `Art/Sources/kenney_board-game-icons` | CC0 (`License.txt` in the folder) | optional | yes (14 of 510 icons) |
-| Volume slider | probably [UI Pack](https://kenney.nl/assets/ui-pack) | Kenney | `Art/Sources/slide_horizontal_*.png`, `button_square_depth_flat.png` | CC0 if confirmed | ? | sliders yes, button no |
-| Angry emote | probably [Emotes Pack](https://kenney.nl/assets/emotes-pack) | Kenney | `Art/Sources/Emotes` | CC0 if confirmed | ? | no |
+| Volume slider | [UI Pack](https://kenney.nl/assets/ui-pack) 2.0 (`PNG/Red/Default`, `PNG/Grey/Default`) | Kenney | `Art/Sources/slide_horizontal_*.png`, `button_square_depth_flat.png` | CC0 | optional | sliders yes, button no |
+| Angry emote | [Emotes Pack](https://kenney.nl/assets/emotes-pack) (`PNG/Vector/Style 1`) | Kenney | `Art/Sources/Emotes` | CC0 | optional | no |
 | Tavern and inventory background | own | — | `Art/Sources/Tavern(new).jpg` | Generated with ChatGPT (2026-10). Under the OpenAI Terms of Use the output belongs to the user, commercial use included; no attribution asked | — | yes |
 | Previous tavern background | own | — | `Art/Sources/Tavern.jpeg` | terms of the tool it was made with were never checked | ? | no |
 | Menu background (village under the mountains) | own | — | `Art/Sources/Village(new).jpg` | Generated with ChatGPT (2026-10). Under the OpenAI Terms of Use the output belongs to the user, commercial use included; no attribution asked | — | yes |
@@ -47,8 +47,8 @@ Paths are relative to `Assets/_DiceBattle` unless they start with `Assets/`.
 | What it is in the game | Asset | Author | Path | Licence | Credit | Build |
 |---|---|---|---|---|---|---|
 | Dice grab / shake / throw | [Casino Audio](https://kenney.nl/assets/casino-audio) 1.1 | Kenney | `Audio/Sounds/kenney_casino-audio` | CC0 (`License.txt` in the folder) | optional | yes |
-| UI click | probably [Interface Sounds](https://kenney.nl/assets/interface-sounds) | Kenney | `Audio/Sounds/switch_002.ogg` | CC0 if confirmed | ? | yes |
-| Gold, party created / disbanded, war declared | [16 Free Fantasy SFX – Guild / Equipment / Extras](https://juandefuego.itch.io/16-free-fantasy-sfx-party-equipment-extras) | juandefuego | `Audio/free 16 sfxs - juandefuego` | ? (no licence file in the pack) | ? | yes (4 of 16) |
+| UI click | [Interface Sounds](https://kenney.nl/assets/interface-sounds) 1.0 | Kenney | `Audio/Sounds/switch_002.ogg` | CC0 | optional | yes |
+| Gold, party created / disbanded, war declared | [16 Free Fantasy SFX – Guild / Equipment / Extras](https://juandefuego.itch.io/16-free-fantasy-sfx-party-equipment-extras) | juandefuego | `Audio/free 16 sfxs - juandefuego` | Author's terms (pack page, read 2026-10-07; the pack ships no licence file): royalty-free, commercial use allowed, "credit is appreciated", not for resale or redistribution | requested | yes (4 of 16) |
 | Sword slice | [400 Sounds Pack](https://ci.itch.io/400-sounds-pack), "Weapons" | Chequered Ink | `Audio/Sounds/sword_slice.wav` | Author's terms, see the next row | optional | yes |
 | Hits, crunches, splats | [400 Sounds Pack](https://ci.itch.io/400-sounds-pack), "Combat & Gore" | Chequered Ink | `Audio/Sounds/Combat and Gore` | Author's terms: any use incl. commercial, with or without credit; unaltered files may not be resold or redistributed | optional | no |
 | Locked door rattle | [LockedDoor-01](https://freesound.org/people/wavewire/sounds/833020/) | wavewire (Freesound) | `Audio/Sounds/833020__wavewire__lockeddoor-01.wav` | **CC BY 4.0** | **required** once used | no |
@@ -86,14 +86,15 @@ Requested by the authors:
 - Battle backgrounds — Lornn
 - Monsters — James Mungall
 - Font Stieglitz SP — Sasha Pavljenko
+- Sounds — juandefuego
 
-Good manners (no obligation): Kenney (icons, dice, dice sounds), PONETI (GUI Parts), juandefuego (sounds), fonts Yuji Syuku, Ma Shan Zheng, Liberation Sans, LeanTween, Simple Localization, NaughtyAttributes.
+Good manners (no obligation): Kenney (icons, dice, slider, dice and UI sounds), PONETI (GUI Parts), Chequered Ink (sword slice), fonts Yuji Syuku, Ma Shan Zheng, Liberation Sans, LeanTween, Simple Localization, NaughtyAttributes.
 
 ## Open questions
 
 - `village-island-1.png`: replaced in the scene, but still the default sprite of the `Background(Main)` prefab and still in this public repository with unknown terms. Point the prefab at `Village(new).jpg` and delete the file.
 - `Tavern.jpeg`: no longer referenced by anything; delete the file.
 - Source of `freeversion.png`.
-- Confirm the three "probably Kenney" rows (UI Pack, Emotes Pack, Interface Sounds).
-- Licence of the juandefuego pack — it ships no licence file.
+- Redistribution: juandefuego, Chequered Ink, Prompt.fm and Ivan Duch forbid passing their files on as assets, and this repository is public with the files in it unaltered. Shipping them inside a build is fine; keeping them in a public repository is the doubtful part. Either ask the authors or take the files out of the repository (and its history).
+- `Art/Sources/tavern_interior.png` lies in the working tree untracked and unreferenced; source unknown.
 - Unused assets (Build = no) can be deleted to shrink the repository and this list.
