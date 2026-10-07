@@ -22,11 +22,11 @@ Paths are relative to `Assets/_DiceBattle` unless they start with `Assets/`.
 | Enemy sprites | [JRPG Monster Assets](https://jmungall.itch.io/jrpg-monster-assets) | James Mungall | `Art/Sources/JRPG Monster Asset 1.png` (+ `(Source)` copy, unused) | Author's terms: free for personal and commercial projects, royalty-free, not CC0; attribution requested | requested | yes |
 | Window frames, buttons, bars, name plates | [GUI Parts](https://assetstore.unity.com/packages/package/159068) | PONETI | `Assets/GUI_Parts` | Unity Asset Store EULA (free asset) | optional | yes (13 of 44 sprites) |
 | Dice faces: sword, shield, empty; lock, crossed hand, skull | [Board Game Icons](https://kenney.nl/assets/board-game-icons) | Kenney | `Art/Sources/Dices` | CC0 | optional | yes (skull, lock, hand: no) |
-| Dice faces: extra, golden, health, joker, reliable, reroll | derived from the Kenney dice above | ? | `Art/Sources/Dices` | ? | ? | yes |
+| Dice faces: extra, golden, health, joker, reliable, reroll | own composites of [Board Game Icons](https://kenney.nl/assets/board-game-icons) | own, from Kenney's icons | `Art/Sources/Dices` | CC0 source | optional | yes |
 | UI icons (arrows, hourglass, book, card, d4, heart, shield, sword…) | [Board Game Icons](https://kenney.nl/assets/board-game-icons) 1.1 | Kenney | `Art/Sources/kenney_board-game-icons` | CC0 (`License.txt` in the folder) | optional | yes (14 of 510 icons) |
 | Volume slider | probably [UI Pack](https://kenney.nl/assets/ui-pack) | Kenney | `Art/Sources/slide_horizontal_*.png`, `button_square_depth_flat.png` | CC0 if confirmed | ? | sliders yes, button no |
 | Angry emote | probably [Emotes Pack](https://kenney.nl/assets/emotes-pack) | Kenney | `Art/Sources/Emotes` | CC0 if confirmed | ? | no |
-| Tavern background | ? | ? | `Art/Sources/Tavern.jpeg` | ? | ? | yes |
+| Tavern background | own; to be replaced | — | `Art/Sources/Tavern.jpeg` | terms of the tool it was made with are still to be checked | ? | yes |
 | Menu background (village by the lake) | ? | ? | `Art/Sources/village-island-1.png` | ? | ? | yes |
 | Studio logo (Manul Wizard) | own | — | `Art/Logo` | — | — | yes (`05.png`) |
 | Hero sprites | [Medieval Warrior Pack 3](https://luizmelo.itch.io/medieval-warrior-pack-3) | LuizMelo | `Art/Sources/Medieval Warrior Pack 3` | CC0 (`License.txt` in the folder) | optional | no |
@@ -66,7 +66,7 @@ Paths are relative to `Assets/_DiceBattle` unless they start with `Assets/`.
 | What it does | Asset | Author | Path | Licence | Credit | Build |
 |---|---|---|---|---|---|---|
 | Tweens | [LeanTween](https://github.com/dentedpixel/LeanTween) | Russell Savage (Dented Pixel); easing equations by Robert Penner | `Assets/LeanTween` | MIT + BSD for the easing equations (`License.txt` in the folder) | notice | yes |
-| Localization (CSV) | [Simple Localization](https://github.com/hippogamesunity/SimpleLocalization) | Hippo Games | `Assets/SimpleLocalization` | ? (no licence file in the folder; check the repository / Asset Store page) | ? | yes |
+| Localization (CSV) | [Simple Localization with Google Sheets](https://assetstore.unity.com/packages/tools/gui/simple-localization-with-google-sheets-120113) | Hippo | `Assets/SimpleLocalization` | Unity Asset Store EULA (free asset) | optional | yes |
 | Inspector attributes | [NaughtyAttributes](https://github.com/dbrizov/NaughtyAttributes) | Denis Rizov | UPM package | MIT | notice | editor-facing, compiled in |
 | Signals | [signal-system](https://github.com/llarean/signal-system) | own | UPM package | — | — | yes |
 | Engine, TextMesh Pro, URP, Input System and other `com.unity.*` packages | Unity | Unity Technologies | UPM packages | Unity Companion Licence | — | yes |
@@ -88,8 +88,9 @@ Good manners (no obligation): Kenney (icons, dice, dice sounds), PONETI (GUI Par
 
 ## Open questions
 
-- Source and licence of `Tavern.jpeg` and `village-island-1.png` (both are in the build).
-- Source of `sword_slice.wav`, `freeversion.png`, and who drew the six extra dice faces.
+- Source and licence of `village-island-1.png` (in the build).
+- `Tavern.jpeg`: check the terms of the tool it was made with, or replace the art.
+- Source of `sword_slice.wav` and `freeversion.png`.
 - Confirm the three "probably Kenney" rows (UI Pack, Emotes Pack, Interface Sounds).
-- Licence of the juandefuego pack and of Simple Localization — neither ships a licence file.
+- Licence of the juandefuego pack — it ships no licence file.
 - Unused assets (Build = no) can be deleted to shrink the repository and this list.
