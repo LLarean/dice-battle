@@ -69,7 +69,11 @@ namespace DiceBattle.Core
             _diceHolder.AnimateDiceToSlots(() => OnRollCompleted?.Invoke());
         }
 
-        private void HandleDiceToggle() => OnDiceToggled?.Invoke();
+        private void HandleDiceToggle()
+        {
+            _dices.ForEach(dice => dice.StopTapHint());
+            OnDiceToggled?.Invoke();
+        }
 
         // GameScreen.OnEnable may run before this Awake and have built the dice already.
         private void Awake()

@@ -32,7 +32,7 @@ Agreed on 2026-10-06: the first release is free, without ads, web only. itch.io 
 - Short monster lines.
 - A type mark on the board dice: the five face-less types have an icon on cards only.
 - Mark new dice inside the inventory; the tavern badge only counts them.
-- Animation polish, none of it agreed: the loot and inventory cards have no press reaction (no `BaseButton`, plain colour tint); only the main menu background has an intro zoom and sparkles, the tavern has parallax only, the battle, tournament and game over screens have a static background; `ButtonShine` is on the two Start buttons and, as the idle hint driven by `RollButtonHint`, on the two roll buttons.
+- Animation polish, none of it agreed: the loot and inventory cards have no press reaction (no `BaseButton`, plain colour tint); only the main menu background has an intro zoom, the tavern has parallax and sparkles, the battle, tournament and game over screens have a static background; `ButtonShine` is on the two Start buttons and, as the idle hint driven by `RollButtonHint`, on the two roll buttons; the board dice pulse until the first die is ever tapped.
 - `GameOverScreen` as a window instead of a screen.
 
 ## Deferred

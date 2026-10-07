@@ -13,6 +13,7 @@
 
         public const string SelectedCharacterClass = "SelectedCharacterClass";
         public const string HasEverRolledDice = "HasEverRolledDice";
+        public const string HasEverSelectedDice = "HasEverSelectedDice";
 
         public const string AllItems = "AllItems";
         public const string RewardsList = "RewardsList";

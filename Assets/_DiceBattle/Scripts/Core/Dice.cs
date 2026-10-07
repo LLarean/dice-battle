@@ -5,6 +5,7 @@ using DiceBattle.Animations;
 using DiceBattle.Audio;
 using DiceBattle.Auxiliary;
 using DiceBattle.Events;
+using DiceBattle.Global;
 using DiceBattle.Localization;
 using DiceBattle.UI;
 using GameSignals;
@@ -34,11 +35,14 @@ namespace DiceBattle.Core
 
         private const float _togglePopScale = 1.15f;
         private const float _togglePopDuration = 0.15f;
+        private const float _tapHintScale = 1.08f;
+        private const float _tapHintDuration = 0.6f;
 
         private Random _random;
         private DiceValue _diceValue = DiceValue.Empty;
         private DiceType _type = DiceType.Default;
         private int _boardIndex = -1;
+        private int _tapHintTweenId = -1;
 
         public event Action OnToggled;
 
@@ -140,12 +144,30 @@ namespace DiceBattle.Core
         {
             _button.interactable = true;
             _multiplier.color = Color.white;
+
+            if (_isMenu == false && GameData.HasEverSelectedDice == false)
+            {
+                StartTapHint();
+            }
         }
 
         public void DisableButton()
         {
             _button.interactable = false;
             _multiplier.color = Color.gray;
+            StopTapHint();
+        }
+
+        public void StopTapHint()
+        {
+            if (_tapHintTweenId == -1)
+            {
+                return;
+            }
+
+            LeanTween.cancel(_tapHintTweenId);
+            _tapHintTweenId = -1;
+            transform.localScale = Vector3.one;
         }
 
         // Not in Start: a restored battle sets the faces right after the dice are created.
@@ -171,11 +193,25 @@ namespace DiceBattle.Core
 
             if (_isMenu == false)
             {
+                GameData.HasEverSelectedDice = true;
+                StopTapHint();
                 Toggle();
                 DiceAnimation.Lift(gameObject, _togglePopScale, _togglePopDuration, 0f);
             }
 
             OnToggled?.Invoke();
+        }
+
+        private void StartTapHint()
+        {
+            StopTapHint();
+
+            // The landing squash may still be running, so the pulse does not start from the current scale.
+            _tapHintTweenId = LeanTween.scale(gameObject, Vector3.one * _tapHintScale, _tapHintDuration)
+                .setFrom(Vector3.one)
+                .setEase(LeanTweenType.easeInOutSine)
+                .setLoopPingPong(-1)
+                .id;
         }
 
         private void ShowMultiplier()

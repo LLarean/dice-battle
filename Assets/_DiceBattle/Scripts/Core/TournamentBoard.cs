@@ -87,7 +87,11 @@ namespace DiceBattle.Core
             _activeHolder.AnimateDiceToSlots(() => OnRollCompleted?.Invoke());
         }
 
-        private void HandlePlayerDiceToggle() => OnPlayerDiceToggled?.Invoke();
+        private void HandlePlayerDiceToggle()
+        {
+            _playerDices.ForEach(dice => dice.StopTapHint());
+            OnPlayerDiceToggled?.Invoke();
+        }
 
         private void Awake()
         {
