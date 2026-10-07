@@ -90,6 +90,9 @@ namespace DiceBattle.Localization
             public const string Hero = "innkeeper.hero";
             public const string Legend = "innkeeper.legend";
 
+            public const string Newcomer = "innkeeper.newcomer";
+            public const string Tip = "innkeeper.tip";
+
             public const string AfterDefeat = "innkeeper.after_defeat";
             public const string AfterDragon = "innkeeper.after_dragon";
             public const string AfterTournamentWin = "innkeeper.after_tournament_win";

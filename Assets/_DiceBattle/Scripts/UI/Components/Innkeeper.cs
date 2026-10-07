@@ -17,6 +17,7 @@ namespace DiceBattle.UI
         private const int FriendVictories = 6;
         private const int HeroVictories = 10;
         private const float RumorChance = 0.35f;
+        private const float TipChance = 0.5f;
 
         [SerializeField] private TextMeshProUGUI _message;
         [SerializeField] private Button _quest;
@@ -58,7 +59,18 @@ namespace DiceBattle.UI
                 return RandomKey(GetEventPrefix(pendingEvent));
             }
 
+            if (GameData.HasEverRolledDice == false)
+            {
+                return RandomKey(LocKeys.Innkeeper.Newcomer);
+            }
+
             bool isFullClear = GameData.CompletedLevels >= config.Enemies.Count;
+            string stagePrefix = GetStagePrefix(isFullClear);
+
+            if (stagePrefix == LocKeys.Innkeeper.Traveler && Random.value < TipChance)
+            {
+                return RandomKey(LocKeys.Innkeeper.Tip);
+            }
 
             if (isFullClear == false && Random.value < RumorChance)
             {
@@ -70,7 +82,7 @@ namespace DiceBattle.UI
                 }
             }
 
-            return RandomKey(GetStagePrefix(isFullClear));
+            return RandomKey(stagePrefix);
         }
 
         private static string GetEventPrefix(InnkeeperEvent innkeeperEvent) => innkeeperEvent switch

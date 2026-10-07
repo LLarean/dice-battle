@@ -60,6 +60,10 @@ An unfinished battle is saved (`BattleSaveData`) when `GameConfig.CanSaveBattle`
 
 Dodging a campaign defeat is left in on purpose (owner's decision, 2026-10-05): fleeing is free, and closing the app on the defeat screen keeps the run. The tournament is strict: fleeing or closing the app mid-match is a defeat (`TournamentBracket.IsMatchInProgress`), and a defeat ends the bracket.
 
+## Teaching the game
+
+There is no tutorial. The rules reach the player through three things: the `HelpWindow` text (`ui.window.help_message`, opened by the innkeeper's hints button in a battle), the innkeeper's bubble in the tavern, and `RollButtonHint` (shine on an idle roll button). `Innkeeper.PickKey` picks in this order: a pending one-shot event; `innkeeper.newcomer` until the first roll ever (`GameData.HasEverRolledDice`); for the traveler stage a rule tip from `innkeeper.tip` half of the time; a rumour about the next enemy; the stage pool. The help text and the tips describe the rules in words — when a rule changes (rerolls, critical, armor, deck), change them in the same commit. The help text names no number of tries on purpose: it depends on `GameConfig.MaxAttempts` and Try dice.
+
 ## Saves
 
 Everything is PlayerPrefs (`PlayerPrefsKeys`). There is no migration: a breaking change needs `DebugOptions` → reset. `GameData.ResetAll` is the full wipe.
