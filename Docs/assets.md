@@ -46,7 +46,7 @@ Paths are relative to `Assets/_DiceBattle` unless they start with `Assets/`.
 | Dice grab / shake / throw | [Casino Audio](https://kenney.nl/assets/casino-audio) 1.1 | Kenney | `Audio/Sounds/kenney_casino-audio` | CC0 (`License.txt` in the folder) | optional | yes |
 | UI click | probably [Interface Sounds](https://kenney.nl/assets/interface-sounds) | Kenney | `Audio/Sounds/switch_002.ogg` | CC0 if confirmed | ? | yes |
 | Gold, party created / disbanded, war declared | [16 Free Fantasy SFX – Guild / Equipment / Extras](https://juandefuego.itch.io/16-free-fantasy-sfx-party-equipment-extras) | juandefuego | `Audio/free 16 sfxs - juandefuego` | ? (no licence file in the pack) | ? | yes (4 of 16) |
-| Sword slice | ? (possibly the 400 Sounds Pack) | ? | `Audio/Sounds/sword_slice.wav` | ? | ? | yes |
+| Sword slice | [400 Sounds Pack](https://ci.itch.io/400-sounds-pack), "Weapons" | Chequered Ink | `Audio/Sounds/sword_slice.wav` | Author's terms, see the next row | optional | yes |
 | Hits, crunches, splats | [400 Sounds Pack](https://ci.itch.io/400-sounds-pack), "Combat & Gore" | Chequered Ink | `Audio/Sounds/Combat and Gore` | Author's terms: any use incl. commercial, with or without credit; unaltered files may not be resold or redistributed | optional | no |
 | Locked door rattle | [LockedDoor-01](https://freesound.org/people/wavewire/sounds/833020/) | wavewire (Freesound) | `Audio/Sounds/833020__wavewire__lockeddoor-01.wav` | **CC BY 4.0** | **required** once used | no |
 
@@ -90,7 +90,7 @@ Good manners (no obligation): Kenney (icons, dice, dice sounds), PONETI (GUI Par
 
 - Source and licence of `village-island-1.png` (in the build).
 - `Tavern.jpeg`: check the terms of the tool it was made with, or replace the art.
-- Source of `sword_slice.wav` and `freeversion.png`.
+- Source of `freeversion.png`.
 - Confirm the three "probably Kenney" rows (UI Pack, Emotes Pack, Interface Sounds).
 - Licence of the juandefuego pack — it ships no licence file.
 - Unused assets (Build = no) can be deleted to shrink the repository and this list.
