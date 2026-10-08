@@ -66,7 +66,6 @@ namespace DiceBattle.UI
             GameData.IncrementNewDiceCount();
             Inventory.AddItemToUnequipped(new Item { Type = diceType, IsEquipped = false });
 
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Reward));
 
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TavernScreen));

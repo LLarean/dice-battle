@@ -12,8 +12,6 @@ namespace DiceBattle.Core
         public int MaxDiceRerolls;
         public int RemainingDiceRerolls;
 
-        public int PlayerHealthChange;
-        public int EnemyHealthChange;
 
         public bool IsLastEnemy;
         public bool LastStandUsed;

@@ -44,7 +44,27 @@ namespace DiceBattle.Animations
 
         public static void AnimateDamage(Image portrait)
         {
+            AnimateBlock(portrait);
+
+            LTSeq sequence = LeanTween.sequence();
+
+            for (int i = 0; i < _flashCount; i++)
+            {
+                sequence.append(LeanTween.value(portrait.gameObject, portrait.color, Color.red, _flashDuration)
+                    .setOnUpdate(val => portrait.color = val));
+
+                sequence.append(LeanTween.value(portrait.gameObject, Color.red, Color.white, _flashDuration)
+                    .setOnUpdate(val => portrait.color = val));
+            }
+
+            sequence.append(() => portrait.color = Color.white);
+        }
+
+        // The hit landed but took no health: the same jolt as damage, without the red flash.
+        public static void AnimateBlock(Image portrait)
+        {
             LeanTween.cancel(portrait.gameObject);
+            portrait.color = Color.white;
 
             RectTransform rect = portrait.rectTransform;
             rect.localScale = Vector3.one;
@@ -61,19 +81,6 @@ namespace DiceBattle.Animations
             LeanTween.scale(rect, Vector3.one * _damageSquash, _damageSquashDuration)
                 .setEase(LeanTweenType.easeOutQuad)
                 .setOnComplete(() => LeanTween.scale(rect, Vector3.one, _damageSquashDuration).setEase(LeanTweenType.easeOutBack));
-
-            LTSeq sequence = LeanTween.sequence();
-
-            for (int i = 0; i < _flashCount; i++)
-            {
-                sequence.append(LeanTween.value(portrait.gameObject, portrait.color, Color.red, _flashDuration)
-                    .setOnUpdate(val => portrait.color = val));
-
-                sequence.append(LeanTween.value(portrait.gameObject, Color.red, Color.white, _flashDuration)
-                    .setOnUpdate(val => portrait.color = val));
-            }
-
-            sequence.append(() => portrait.color = Color.white);
         }
     }
 }

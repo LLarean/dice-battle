@@ -205,6 +205,8 @@ namespace DiceBattle.UI
 
         public void AnimateDamage() => HealthAnimation.AnimateDamage(_portrait);
 
+        public void AnimateBlock() => HealthAnimation.AnimateBlock(_portrait);
+
         private void SetMaxHealth(int healthAmount)
         {
             _health.maxValue = healthAmount;

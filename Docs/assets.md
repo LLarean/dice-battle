@@ -47,7 +47,9 @@ Paths are relative to `Assets/_DiceBattle` unless they start with `Assets/`.
 | UI click | [Interface Sounds](https://kenney.nl/assets/interface-sounds) 1.0 | Kenney | `Audio/Sounds/switch_002.ogg` | CC0 | optional | yes |
 | Gold, party created / disbanded, war declared | [16 Free Fantasy SFX – Guild / Equipment / Extras](https://juandefuego.itch.io/16-free-fantasy-sfx-party-equipment-extras) | juandefuego | `Audio/free 16 sfxs - juandefuego` | Author's terms (pack page, read 2026-10-07; the pack ships no licence file): royalty-free, commercial use allowed, "credit is appreciated", not for resale or redistribution | requested | yes (4 of 16) |
 | Sword slice | [400 Sounds Pack](https://ci.itch.io/400-sounds-pack), "Weapons" | Chequered Ink | `Audio/Sounds/sword_slice.wav` | Author's terms, see the next row | optional | yes |
-| Hits, crunches, splats | [400 Sounds Pack](https://ci.itch.io/400-sounds-pack), "Combat & Gore" | Chequered Ink | `Audio/Sounds/Combat and Gore` | Author's terms: any use incl. commercial, with or without credit; unaltered files may not be resold or redistributed | optional | no |
+| Hits, crunches, splats | [400 Sounds Pack](https://ci.itch.io/400-sounds-pack), "Combat & Gore" | Chequered Ink | `Audio/Sounds/Combat and Gore` | Author's terms: any use incl. commercial, with or without credit; unaltered files may not be resold or redistributed | optional | partly: slime, lizard attacks and impacts |
+| Lizard whoosh, rejected equip, locked level | [400 Sounds Pack](https://ci.itch.io/400-sounds-pack), "Other", "UI", "Environment" | Chequered Ink | `Audio/Sounds/400 Sounds Pack` | Same terms as the row above | optional | yes |
+| Sword, bow, fireball, rock, fire breath attacks and their impacts | Sound pack from [tommusic.itch.io](https://tommusic.itch.io/) (exact pack title not recorded; the archive unpacks to "OGG Files") | TomMusic | `Audio/Sounds/TomMusic` | Author's terms (pack `ReadMe.rtf`): royalty-free, commercial use allowed, credit not mandatory but appreciated, not for resale or redistribution | optional | yes |
 | Locked door rattle | [LockedDoor-01](https://freesound.org/people/wavewire/sounds/833020/) | wavewire (Freesound) | `Audio/Sounds/833020__wavewire__lockeddoor-01.wav` | **CC BY 4.0** | **required** once used | no |
 
 ## Fonts
@@ -87,10 +89,10 @@ Requested by the authors:
 - Font Stieglitz SP — Sasha Pavljenko
 - Sounds — juandefuego
 
-Good manners (no obligation): Kenney (icons, dice, slider, dice and UI sounds), PONETI (GUI Parts), Chequered Ink (sword slice), fonts Yuji Syuku, Ma Shan Zheng, Liberation Sans, LeanTween, Simple Localization, NaughtyAttributes.
+Good manners (no obligation): Kenney (icons, dice, slider, dice and UI sounds), PONETI (GUI Parts), Chequered Ink (sword slice, attack and UI sounds), TomMusic (attack sounds), fonts Yuji Syuku, Ma Shan Zheng, Liberation Sans, LeanTween, Simple Localization, NaughtyAttributes.
 
 ## Open questions
 
-- Redistribution: juandefuego, Chequered Ink, Prompt.fm and Ivan Duch forbid passing their files on as assets, and this repository is public with the files in it unaltered. Shipping them inside a build is fine; keeping them in a public repository is the doubtful part. Either ask the authors or take the files out of the repository (and its history).
+- Redistribution: juandefuego, Chequered Ink, TomMusic, Prompt.fm and Ivan Duch forbid passing their files on as assets, and this repository is public with the files in it unaltered. Shipping them inside a build is fine; keeping them in a public repository is the doubtful part. Either ask the authors or take the files out of the repository (and its history).
 - `Daggers in the Dark.mp3` and the wavewire sound were not compared byte for byte with a fresh download; their terms are taken from the authors' pages.
 - Unused assets (Build = no) can be deleted to shrink the repository and this list.

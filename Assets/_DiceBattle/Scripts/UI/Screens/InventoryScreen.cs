@@ -98,6 +98,7 @@ namespace DiceBattle.UI
             if (hasRoom == false)
             {
                 inventoryItem.PlayRejectShake();
+                SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Reject));
                 return;
             }
 

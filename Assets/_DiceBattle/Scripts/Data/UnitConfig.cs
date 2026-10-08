@@ -1,4 +1,5 @@
 ﻿using System;
+using DiceBattle.Audio;
 using DiceBattle.UI;
 using UnityEngine;
 
@@ -20,6 +21,9 @@ namespace DiceBattle.Data
         [Header("Armor")]
         public int StartArmor = 0;
         public int GrowthArmor = 1;
+        [Header("Sounds")]
+        public SoundType AttackSound;
+        public SoundType ImpactSound;
 
         public UnitData CreateUnitData() => new()
         {

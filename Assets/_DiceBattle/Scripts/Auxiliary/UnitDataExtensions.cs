@@ -17,6 +17,8 @@ namespace DiceBattle
             CurrentHealth = source.MaxHealth,
             Damage = source.Damage,
             Armor = source.Armor,
+            AttackSound = source.AttackSound,
+            ImpactSound = source.ImpactSound,
         };
 
         // Relies on the key naming convention: "enemy_descriptions.slime_small" -> "slime".

@@ -27,5 +27,21 @@
         Menu,
         Tavern,
         Battle,
+
+        SwordAttack,
+        SwordImpact,
+        BowAttack,
+        BowImpact,
+        FireballAttack,
+        SpellImpact,
+        SlimeImpact,
+        RockAttack,
+        ClawAttack,
+        PunchImpact,
+        FireBreathAttack,
+        FireImpact,
+
+        Reject,
+        LockedLevel,
     }
 }

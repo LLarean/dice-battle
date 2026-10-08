@@ -2604,7 +2604,8 @@ PrefabInstance:
     - target: {fileID: 7646674360337949471, guid: 602b0c20822832746ac9185aea09b812, type: 3}
       propertyPath: m_text
       value: "Kenney \u2014 Casino Audio, Interface Sounds\njuandefuego \u2014 16
-        Free Fantasy SFX\nChequered Ink \u2014 400 Sounds Pack"
+        Free Fantasy SFX\nChequered Ink \u2014 400 Sounds Pack\nTomMusic \u2014 Sound
+        Effects"
       objectReference: {fileID: 0}
     - target: {fileID: 7646674360337949471, guid: 602b0c20822832746ac9185aea09b812, type: 3}
       propertyPath: m_fontSize

@@ -1,4 +1,5 @@
 ﻿using System;
+using DiceBattle.Audio;
 using UnityEngine;
 
 namespace DiceBattle.UI
@@ -19,5 +20,8 @@ namespace DiceBattle.UI
 
         public int Damage;
         public int Armor;
+
+        public SoundType AttackSound;
+        public SoundType ImpactSound;
     }
 }

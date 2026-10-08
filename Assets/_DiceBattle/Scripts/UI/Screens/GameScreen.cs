@@ -130,6 +130,8 @@ namespace DiceBattle.UI
 
         public void PlayerAnimateDamage() => _player.AnimateDamage();
 
+        public void PlayerAnimateBlock() => _player.AnimateBlock();
+
         public void EnemyAnimateHeal() => _enemy.AnimateHeal();
 
         public void EnemyAnimateDamage() => _enemy.AnimateDamage();

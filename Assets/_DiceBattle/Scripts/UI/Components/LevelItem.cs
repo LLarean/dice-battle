@@ -5,12 +5,13 @@ using DiceBattle.Events;
 using GameSignals;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace DiceBattle.UI
 {
     [RequireComponent(typeof(Button))]
-    public class LevelItem : MonoBehaviour
+    public class LevelItem : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private Button _button;
         [SerializeField] private Image _portrait;
@@ -45,6 +46,14 @@ namespace DiceBattle.UI
         }
 
         public void DisableAggry() => _aggry.gameObject.SetActive(false);
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (_button.interactable == false)
+            {
+                SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.LockedLevel));
+            }
+        }
 
         private void Start() => _button.onClick.AddListener(ClickHandle);
 

@@ -20,6 +20,9 @@ namespace DiceBattle.Core
         private readonly DiceResult _diceResult = new();
 
         private const float _battleEndPause = 1f;
+        private const float _playerHitDelay = 0.2f;
+        private const float _enemyAttackDelay = 0.4f;
+        private const float _enemyHitDelay = 0.65f;
 
         private readonly MatchData _matchData = new();
         private bool _battleEnded;
@@ -27,6 +30,8 @@ namespace DiceBattle.Core
         public bool IsBattleEnded => _battleEnded;
         private bool _isRolling;
         private int _battleEndTweenId = -1;
+        private bool _isTurnResolving;
+        private readonly int[] _turnTweenIds = { -1, -1, -1 };
 
         private UnitConfig PlayerConfig => _config.GetPlayerConfig(GameData.SelectedCharacterClass);
 
@@ -39,6 +44,7 @@ namespace DiceBattle.Core
 
         public void InitializeGame()
         {
+            CancelTurnTweens();
             _battleEnded = false;
             _isRolling = false;
             ResetNumbers();
@@ -62,6 +68,7 @@ namespace DiceBattle.Core
         {
             _battleEnded = true;
             LeanTween.cancel(_battleEndTweenId);
+            CancelTurnTweens();
 
             if (_config.CanSaveBattle)
             {
@@ -79,6 +86,7 @@ namespace DiceBattle.Core
 
         public void RestoreGame()
         {
+            CancelTurnTweens();
             _battleEnded = false;
             _isRolling = false;
             ResetNumbers();
@@ -129,7 +137,7 @@ namespace DiceBattle.Core
 
         public void ContextClick()
         {
-            if (_battleEnded || _isRolling)
+            if (_battleEnded || _isRolling || _isTurnResolving)
             {
                 return;
             }
@@ -195,7 +203,7 @@ namespace DiceBattle.Core
 
         private void SaveBattle()
         {
-            if (_config.CanSaveBattle && _battleEnded == false)
+            if (_config.CanSaveBattle && _battleEnded == false && _isTurnResolving == false)
             {
                 BattleSaveData.Save(_matchData, _gameScreen.Dices);
             }
@@ -205,9 +213,6 @@ namespace DiceBattle.Core
         {
             _matchData.DiceList = GameData.GetEquippedAsDiceList();
             _diceResult.Calculate(_gameScreen.Dices);
-            _matchData.PlayerHealthChange = _matchData.PlayerData.CurrentHealth;
-            _matchData.EnemyHealthChange = _matchData.EnemyData.CurrentHealth;
-
             _gameScreen.ClearPlayerDicePreview();
             PlayerTurn();
             _matchData.RemainingDiceRerolls = 0;
@@ -218,40 +223,6 @@ namespace DiceBattle.Core
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
             UpdateButtonStates();
             SaveBattle();
-        }
-
-        private void AnimatePlayerHealth()
-        {
-            _matchData.PlayerHealthChange = _matchData.PlayerData.CurrentHealth - _matchData.PlayerHealthChange;
-
-            switch (_matchData.PlayerHealthChange)
-            {
-                case < 0:
-                    _gameScreen.PlayerAnimateDamage();
-                    break;
-                case > 0:
-                    _gameScreen.PlayerAnimateHeal();
-                    break;
-            }
-
-            _matchData.PlayerHealthChange = 0;
-        }
-
-        private void AnimateEnemyHealth()
-        {
-            _matchData.EnemyHealthChange = _matchData.EnemyData.CurrentHealth - _matchData.EnemyHealthChange;
-
-            switch (_matchData.EnemyHealthChange)
-            {
-                case < 0:
-                    _gameScreen.EnemyAnimateDamage();
-                    break;
-                case > 0:
-                    _gameScreen.EnemyAnimateHeal();
-                    break;
-            }
-
-            _matchData.EnemyHealthChange = 0;
         }
 
         #region Updates
@@ -289,7 +260,7 @@ namespace DiceBattle.Core
                 _gameScreen.SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.Finish));
             }
 
-            _gameScreen.SetContextAvailable(_isRolling == false && _battleEnded == false);
+            _gameScreen.SetContextAvailable(_isRolling == false && _battleEnded == false && _isTurnResolving == false);
             ShowAttempts();
         }
 
@@ -304,8 +275,6 @@ namespace DiceBattle.Core
         private void ResetNumbers()
         {
             _matchData.RemainingDiceRerolls = 0;
-            _matchData.PlayerHealthChange = 0;
-            _matchData.EnemyHealthChange = 0;
 
             SetMaxAttempts();
         }
@@ -334,29 +303,71 @@ namespace DiceBattle.Core
 
         #region Player actions
 
+        // The swing, the hit and the enemy's answer are spread in time so that each has its own sound and reaction.
+        // Nothing is saved until the enemy has answered: quitting in between replays the turn with the same dice.
         private void PlayerTurn()
         {
+            _isTurnResolving = true;
+
             ApplyPlayerHealing();
             ApplyPlayerArmor();
-            ApplyPlayerAttack();
 
-            AnimateEnemyHealth();
+            PlaySound(PlayerConfig.AttackSound);
+            _turnTweenIds[0] = LeanTween.delayedCall(_playerHitDelay, CompletePlayerAttack).id;
+        }
+
+        private void CompletePlayerAttack()
+        {
+            ApplyPlayerAttack();
 
             if (_matchData.EnemyData.CurrentHealth <= 0 || DebugOverrides.IsInstaWin)
             {
+                _isTurnResolving = false;
                 OnEnemyDefeated();
-            }
-            else
-            {
-                EnemyTurn();
+                UpdatePlayerStats();
+                return;
             }
 
+            SoundType attackSound = _matchData.EnemyData.AttackSound;
+            _turnTweenIds[1] = LeanTween.delayedCall(_enemyAttackDelay, () => PlaySound(attackSound)).id;
+            _turnTweenIds[2] = LeanTween.delayedCall(_enemyHitDelay, CompleteEnemyTurn).id;
+        }
+
+        private void CompleteEnemyTurn()
+        {
+            _isTurnResolving = false;
+
+            EnemyTurn();
             UpdatePlayerStats();
+            UpdateButtonStates();
+            SaveBattle();
+        }
+
+        private void CancelTurnTweens()
+        {
+            _isTurnResolving = false;
+
+            for (int i = 0; i < _turnTweenIds.Length; i++)
+            {
+                LeanTween.cancel(_turnTweenIds[i]);
+                _turnTweenIds[i] = -1;
+            }
+        }
+
+        private static void PlaySound(SoundType soundType)
+        {
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(soundType));
         }
 
         private void ApplyPlayerHealing()
         {
+            int healthBefore = _matchData.PlayerData.CurrentHealth;
             _gameScreen.PlayerTakeHeal(_diceResult.Heal);
+
+            if (_matchData.PlayerData.CurrentHealth > healthBefore)
+            {
+                _gameScreen.PlayerAnimateHeal();
+            }
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerHeal));
         }
@@ -381,7 +392,8 @@ namespace DiceBattle.Core
                 _gameScreen.EnemyTakeDamage(_matchData.PlayerData.Damage);
             }
 
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyHit));
+            _gameScreen.EnemyAnimateDamage();
+            PlaySound(PlayerConfig.ImpactSound);
         }
 
         private void RemovePlayerArmor()
@@ -413,9 +425,19 @@ namespace DiceBattle.Core
 
         private void EnemyTurn()
         {
+            int healthBefore = _matchData.PlayerData.CurrentHealth;
             _gameScreen.PlayerTakeDamage(_matchData.EnemyData.Damage);
 
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.SlimeAttack));
+            PlaySound(_matchData.EnemyData.ImpactSound);
+
+            if (_matchData.PlayerData.CurrentHealth < healthBefore)
+            {
+                _gameScreen.PlayerAnimateDamage();
+            }
+            else
+            {
+                _gameScreen.PlayerAnimateBlock();
+            }
 
             bool isLethal = _matchData.PlayerData.CurrentHealth <= 0 && TryTriggerLastStand() == false;
 
@@ -425,8 +447,6 @@ namespace DiceBattle.Core
                 return;
             }
 
-
-            AnimatePlayerHealth();
             RemovePlayerArmor();
             RemovePlayerDamage();
         }

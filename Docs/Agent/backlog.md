@@ -38,11 +38,11 @@ Agreed on 2026-10-06: the first release is free, without ads, web only. itch.io 
 ## Deferred
 
 - **Fonts:** bake static atlases at the end (owner's decision, 2026-10-06); until then everything is dynamic. `StieglitzSP` lacks `+ •`, `ß`, `œ`, `¡¿`; the default TMP fallback covers them. Its accented Latin letters are drawn without the accents (`ZURUCK`, `ESPANOL`, `HEROIS`), which misspells German, French, Portuguese and Spanish — needs a font with real diacritics or a decision to live with it. Japanese uses Yuji Syuku, Chinese uses Ma Shan Zheng (see architecture); both are Regular only and were checked on the main menu only — go through the other screens for fit and readability.
-- **Sound pass** (owner's decision, 2026-10-07: skipped for the MVP, to be picked up in the continuation). Today only the dice, the buttons, the three jingles and the music are audible.
-  - The end of a turn is silent: `PlayerHeal`, `PlayerArmor`, `EnemyHit`, `SlimeAttack` and `EnemyDefeated` are raised by `GameLogic` but have no clips in `SoundConfig`. They all fire in the same frame of `PlayerTurn`, so assigning clips as is gives a mush — the hits need to be spaced in time together with their animations first.
+- **Sound pass** (owner's decision, 2026-10-07: skipped for the MVP; 2026-10-08: attack sounds added as a trial, see architecture, "Audio"). The rest stays deferred.
+  - Listen to the trial: clip choice per class and enemy, the three delays in `GameLogic` (`_playerHitDelay`, `_enemyAttackDelay`, `_enemyHitDelay`), volume against the music. The skeletons share the knight's and the archer's clips. Neither side has a swing animation yet, only a reaction to being hit.
+  - `PlayerHeal`, `PlayerArmor` and `EnemyDefeated` are raised by `GameLogic` but have no clips.
   - Agreed first candidates, each a new `SoundType` (append at the end of the enum — `SoundConfig` stores the values by index): critical hit (the `IsCritical` branch of `ApplyPlayerAttack`; check that it does not collide with the `Victory` jingle), loot window opening, equipping and unequipping a die (now `Click`).
-  - Attack sounds were dropped for the MVP: a single universal clip is not convincing, and per-class / per-enemy clips need the clip stored in the class and enemy data plus mixing.
-  - `TournamentLogic` raises no sounds at all. `PlayerAttack` and `GameOver` have clips but are never raised; `EnemySpawn` has neither.
+  - `TournamentLogic` raises no sounds at all. `PlayerAttack` and `GameOver` have clips but are never raised; `EnemyHit` and `EnemySpawn` have neither.
   - Further ideas, none agreed: Last Stand and Golden triggers, a rarity accent on loot, class change, tavern door, an ambience loop under the music (needs a second channel in `AudioPlayer`), a separate dragon or tournament track.
   - Every clip that goes in gets a row in [Docs/assets.md](../assets.md).
 - Rejected for the MVP: HP carry-over between fights, new enemies.

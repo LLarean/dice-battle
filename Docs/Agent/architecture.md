@@ -72,6 +72,8 @@ Everything is PlayerPrefs (`PlayerPrefsKeys`). There is no migration: a breaking
 
 `AudioPlayer` has two music sources and crossfades between them (`_musicFadeDuration`); each track resumes where it stopped. Tracks are identified by clip, so two `SoundType`s mapped to the same clip do not restart it. Menu, Tavern and Battle each have their own track in `SoundConfig.asset`. SFX go through `PlayOneShot` with a random pitch. The Victory, Defeat and Reward jingles duck the music to `_duckedMusicVolume` for the length of the clip.
 
+Attack sounds are data: `UnitConfig` (hero classes) and `UnitData` (enemies) carry `AttackSound` and `ImpactSound`, both `SoundType`s named after the weapon, so several units can share one set. The end of a turn is spread in time by `GameLogic`: heal, armour and the hero's swing at once, the hero's hit (damage, impact sound, enemy reaction) `_playerHitDelay` later, then the enemy's swing after `_enemyAttackDelay` and its hit after `_enemyHitDelay`, both counted from the hero's hit. Each reaction belongs to its own hit: the hero's portrait flashes red when health was lost and only jolts (`HealthAnimation.AnimateBlock`) when the armour took it all. Until the enemy has answered `_isTurnResolving` blocks the context button and the battle save, so quitting in between replays the turn with the same dice. A rejected equip plays `Reject`, a tap on a locked level plays `LockedLevel`.
+
 ## Debug
 
 `DebugOptions` (scene object, editor only) has buttons for battle, campaign, loot, inventory, tournament, innkeeper and saves. `DebugOverrides` can force dice faces.

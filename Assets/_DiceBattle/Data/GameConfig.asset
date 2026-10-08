@@ -23,6 +23,8 @@ MonoBehaviour:
     GrowthDamage: 2
     StartArmor: 2
     GrowthArmor: 2
+    AttackSound: 19
+    ImpactSound: 20
   - Name: player_names.robin_good
     Portraits:
     - {fileID: -955355205, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
@@ -33,6 +35,8 @@ MonoBehaviour:
     GrowthDamage: 2
     StartArmor: 1
     GrowthArmor: 2
+    AttackSound: 21
+    ImpactSound: 22
   - Name: player_names.merlin
     Portraits:
     - {fileID: 213636260, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
@@ -43,6 +47,8 @@ MonoBehaviour:
     GrowthDamage: 2
     StartArmor: 0
     GrowthArmor: 2
+    AttackSound: 23
+    ImpactSound: 24
   Enemies:
   - Name: enemy_names.slime_small
     Description: enemy_descriptions.slime_small
@@ -52,6 +58,8 @@ MonoBehaviour:
     CurrentHealth: 5
     Damage: 2
     Armor: 0
+    AttackSound: 8
+    ImpactSound: 25
   - Name: enemy_names.slime
     Description: enemy_descriptions.slime
     Portrait: {fileID: 750657890, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
@@ -60,6 +68,8 @@ MonoBehaviour:
     CurrentHealth: 8
     Damage: 4
     Armor: 0
+    AttackSound: 8
+    ImpactSound: 25
   - Name: enemy_names.slime_big
     Description: enemy_descriptions.slime_big
     Portrait: {fileID: 1682503996, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
@@ -68,6 +78,8 @@ MonoBehaviour:
     CurrentHealth: 14
     Damage: 8
     Armor: 0
+    AttackSound: 8
+    ImpactSound: 25
   - Name: enemy_names.skeleton_archer
     Description: enemy_descriptions.skeleton_archer
     Portrait: {fileID: -110279060, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
@@ -76,6 +88,8 @@ MonoBehaviour:
     CurrentHealth: 14
     Damage: 9
     Armor: 0
+    AttackSound: 21
+    ImpactSound: 22
   - Name: enemy_names.skeleton_warrior
     Description: enemy_descriptions.skeleton_warrior
     Portrait: {fileID: -135622888, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
@@ -84,6 +98,8 @@ MonoBehaviour:
     CurrentHealth: 12
     Damage: 8
     Armor: 2
+    AttackSound: 19
+    ImpactSound: 20
   - Name: enemy_names.elemental
     Description: enemy_descriptions.elemental
     Portrait: {fileID: 1616578468, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
@@ -92,6 +108,8 @@ MonoBehaviour:
     CurrentHealth: 15
     Damage: 10
     Armor: 0
+    AttackSound: 26
+    ImpactSound: 24
   - Name: enemy_names.elemental_big
     Description: enemy_descriptions.elemental_big
     Portrait: {fileID: -89511923, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
@@ -100,6 +118,8 @@ MonoBehaviour:
     CurrentHealth: 16
     Damage: 10
     Armor: 0
+    AttackSound: 26
+    ImpactSound: 24
   - Name: enemy_names.lizard
     Description: enemy_descriptions.lizard
     Portrait: {fileID: 441093746, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
@@ -108,6 +128,8 @@ MonoBehaviour:
     CurrentHealth: 15
     Damage: 9
     Armor: 1
+    AttackSound: 27
+    ImpactSound: 28
   - Name: enemy_names.lizard_warrior
     Description: enemy_descriptions.lizard_warrior
     Portrait: {fileID: 328333050, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
@@ -116,6 +138,8 @@ MonoBehaviour:
     CurrentHealth: 16
     Damage: 8
     Armor: 2
+    AttackSound: 27
+    ImpactSound: 28
   - Name: enemy_names.dragon
     Description: enemy_descriptions.dragon
     Portrait: {fileID: 86372833, guid: a787ddc3c35124f4980fdbd26ace0ebb, type: 3}
@@ -124,6 +148,8 @@ MonoBehaviour:
     CurrentHealth: 23
     Damage: 8
     Armor: 1
+    AttackSound: 29
+    ImpactSound: 30
   DefaultInventory:
   - ID: 0
     Type: 0
@@ -148,4 +174,3 @@ MonoBehaviour:
   - 1.15
   - 1.2
   - 1.25
-  IsInstaWin: 0
