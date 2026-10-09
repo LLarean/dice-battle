@@ -38,6 +38,19 @@ jobs:
 
       - uses: actions/checkout@v7
 
+      # Audio/Licensed is a private repository; a read-only deploy key fetches it.
+      - env:
+          LICENSED_DEPLOY_KEY: ${{ secrets.LICENSED_DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$LICENSED_DEPLOY_KEY" > ~/.ssh/licensed_key
+          chmod 600 ~/.ssh/licensed_key
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          export GIT_SSH_COMMAND="ssh -i ~/.ssh/licensed_key -o IdentitiesOnly=yes"
+          git -c url."git@github.com:".insteadOf="https://github.com/" submodule update --init
+          rm ~/.ssh/licensed_key
+          test -n "$(ls Assets/_DiceBattle/Audio/Licensed)"
+
       - id: name
         run: |
           # A release tag defines the version; other builds take it from the project settings.

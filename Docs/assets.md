@@ -14,6 +14,8 @@ Everything under `Assets/` that was not made for this project, with its source, 
 
 Paths are relative to `Assets/_DiceBattle` unless they start with `Assets/`.
 
+`Audio/Licensed` is a private git submodule. It holds the packs whose authors forbid passing the files on as assets (juandefuego, Chequered Ink, TomMusic, Prompt.fm, Ivan Duch): they ship inside a build but are not published with the source. A pack with such terms goes there, never next to the public assets.
+
 ## Art
 
 | What it is in the game | Asset | Author | Path | Licence | Credit | Build |
@@ -36,8 +38,8 @@ Paths are relative to `Assets/_DiceBattle` unless they start with `Assets/`.
 
 | What it is in the game | Asset | Author | Path | Licence | Credit | Build |
 |---|---|---|---|---|---|---|
-| Tavern music: "Mosslight Market", "Willow's Waltz" | [Forest Folk – Cozy Fantasy Loop Pack](https://promptfm.itch.io/forest-folk-cozy-fantasy-loop-pack) | Prompt.fm | `Audio/Music/Forest_Folk_Pack` | Author's terms (`license.txt` in the folder): royalty-free, **credit required ("Prompt.fm")**, no re-upload as a pack. AI-generated | **required** | yes |
-| "Daggers in the Dark" | [Dragon Tales 1 (Free)](https://ivanduch.itch.io/dragon-tales-1) on itch.io, track 05 of the [album](https://ivanduch.com/albums/dragon-tales-1/); the file's ID3 tags name the artist and album | Ivan Duch | `Audio/Music/Daggers in the Dark.mp3` | **CC BY 4.0** per the itch.io page (read 2026-10-07), with the author's addition: not to be distributed alone, only as part of a project, **credit to Ivan Duch always included** | **required** | yes |
+| Tavern music: "Mosslight Market", "Willow's Waltz" | [Forest Folk – Cozy Fantasy Loop Pack](https://promptfm.itch.io/forest-folk-cozy-fantasy-loop-pack) | Prompt.fm | `Audio/Licensed/Forest_Folk_Pack` | Author's terms (`license.txt` in the folder): royalty-free, **credit required ("Prompt.fm")**, no re-upload as a pack. AI-generated | **required** | yes |
+| "Daggers in the Dark" | [Dragon Tales 1 (Free)](https://ivanduch.itch.io/dragon-tales-1) on itch.io, track 05 of the [album](https://ivanduch.com/albums/dragon-tales-1/); the file's ID3 tags name the artist and album | Ivan Duch | `Audio/Licensed/Daggers in the Dark.mp3` | **CC BY 4.0** per the itch.io page (read 2026-10-07), with the author's addition: not to be distributed alone, only as part of a project, **credit to Ivan Duch always included** | **required** | yes |
 
 ## Sounds
 
@@ -45,11 +47,11 @@ Paths are relative to `Assets/_DiceBattle` unless they start with `Assets/`.
 |---|---|---|---|---|---|---|
 | Dice grab / shake / throw | [Casino Audio](https://kenney.nl/assets/casino-audio) 1.1 | Kenney | `Audio/Sounds/kenney_casino-audio` | CC0 (`License.txt` in the folder) | optional | yes |
 | UI click | [Interface Sounds](https://kenney.nl/assets/interface-sounds) 1.0 | Kenney | `Audio/Sounds/switch_002.ogg` | CC0 | optional | yes |
-| Gold, party created / disbanded, war declared | [16 Free Fantasy SFX – Guild / Equipment / Extras](https://juandefuego.itch.io/16-free-fantasy-sfx-party-equipment-extras) | juandefuego | `Audio/free 16 sfxs - juandefuego` | Author's terms (pack page, read 2026-10-07; the pack ships no licence file): royalty-free, commercial use allowed, "credit is appreciated", not for resale or redistribution | requested | yes (4 of 16) |
-| Sword slice | [400 Sounds Pack](https://ci.itch.io/400-sounds-pack), "Weapons" | Chequered Ink | `Audio/Sounds/sword_slice.wav` | Author's terms, see the next row | optional | yes |
-| Hits, crunches, splats | [400 Sounds Pack](https://ci.itch.io/400-sounds-pack), "Combat & Gore" | Chequered Ink | `Audio/Sounds/Combat and Gore` | Author's terms: any use incl. commercial, with or without credit; unaltered files may not be resold or redistributed | optional | partly: slime, lizard attacks and impacts |
-| Lizard whoosh, rejected equip, locked level | [400 Sounds Pack](https://ci.itch.io/400-sounds-pack), "Other", "UI", "Environment" | Chequered Ink | `Audio/Sounds/400 Sounds Pack` | Same terms as the row above | optional | yes |
-| Sword, bow, fireball, rock, fire breath attacks and their impacts | Sound pack from [tommusic.itch.io](https://tommusic.itch.io/) (exact pack title not recorded; the archive unpacks to "OGG Files") | TomMusic | `Audio/Sounds/TomMusic` | Author's terms (pack `ReadMe.rtf`): royalty-free, commercial use allowed, credit not mandatory but appreciated, not for resale or redistribution | optional | yes |
+| Gold, party created / disbanded, war declared | [16 Free Fantasy SFX – Guild / Equipment / Extras](https://juandefuego.itch.io/16-free-fantasy-sfx-party-equipment-extras) | juandefuego | `Audio/Licensed/free 16 sfxs - juandefuego` | Author's terms (pack page, read 2026-10-07; the pack ships no licence file): royalty-free, commercial use allowed, "credit is appreciated", not for resale or redistribution | requested | yes (4 of 16) |
+| Sword slice | [400 Sounds Pack](https://ci.itch.io/400-sounds-pack), "Weapons" | Chequered Ink | `Audio/Licensed/sword_slice.wav` | Author's terms, see the next row | optional | yes |
+| Hits, crunches, splats | [400 Sounds Pack](https://ci.itch.io/400-sounds-pack), "Combat & Gore" | Chequered Ink | `Audio/Licensed/Combat and Gore` | Author's terms: any use incl. commercial, with or without credit; unaltered files may not be resold or redistributed | optional | partly: slime, lizard attacks and impacts |
+| Lizard whoosh, rejected equip, locked level | [400 Sounds Pack](https://ci.itch.io/400-sounds-pack), "Other", "UI", "Environment" | Chequered Ink | `Audio/Licensed/400 Sounds Pack` | Same terms as the row above | optional | yes |
+| Sword, bow, fireball, rock, fire breath attacks and their impacts | Sound pack from [tommusic.itch.io](https://tommusic.itch.io/) (exact pack title not recorded; the archive unpacks to "OGG Files") | TomMusic | `Audio/Licensed/TomMusic` | Author's terms (pack `ReadMe.rtf`): royalty-free, commercial use allowed, credit not mandatory but appreciated, not for resale or redistribution | optional | yes |
 | Locked door rattle | [LockedDoor-01](https://freesound.org/people/wavewire/sounds/833020/) | wavewire (Freesound) | `Audio/Sounds/833020__wavewire__lockeddoor-01.wav` | **CC BY 4.0** | **required** once used | no |
 
 ## Fonts
@@ -93,6 +95,5 @@ Good manners (no obligation): Kenney (icons, dice, slider, dice and UI sounds), 
 
 ## Open questions
 
-- Redistribution: juandefuego, Chequered Ink, TomMusic, Prompt.fm and Ivan Duch forbid passing their files on as assets, and this repository is public with the files in it unaltered. Shipping them inside a build is fine; keeping them in a public repository is the doubtful part. Either ask the authors or take the files out of the repository (and its history).
 - `Daggers in the Dark.mp3` and the wavewire sound were not compared byte for byte with a fresh download; their terms are taken from the authors' pages.
 - Unused assets (Build = no) can be deleted to shrink the repository and this list.

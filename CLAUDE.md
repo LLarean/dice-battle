@@ -16,6 +16,7 @@ Keep these docs current: when a change makes a statement here wrong, fix the sta
 - All game code lives in `Assets/_DiceBattle/Scripts`. Third-party folders under `Assets/` are not ours.
 - Private fields and constants are `_camelCase`; comparisons with booleans are written `== false`; braces on every block.
 - No comments unless the logic is non-obvious; comments in English.
+- Third-party audio or art whose terms forbid redistribution goes into the private submodule `Assets/_DiceBattle/Audio/Licensed`, never into this public repository; every third-party file gets a row in `Docs/assets.md`.
 - Player-facing text goes through localization (`LocKeys` + CSV in `Assets/SimpleLocalization/Resources/Localization/`, 8 languages). Never hardcode a visible string.
 - Scene and prefab changes are made through the editor (CLI `eval`), never by hand-editing YAML.
 - The dynamic TMP font assets (`StieglitzSP-Bold 2 SDF`, `LiberationSans SDF - Fallback`, `YujiSyuku-Regular SDF`, `MaShanZheng-Regular SDF`) get dirty after every Play session (dynamic atlas). Do not commit them unless asked.

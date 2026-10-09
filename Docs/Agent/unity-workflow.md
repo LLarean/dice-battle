@@ -52,5 +52,6 @@ Screenshots and logs go to the session scratchpad, never into the repo. The only
 ## Git
 
 - Small commits per stage, pushed to `origin main`. CI builds only on `v*` tags or manually.
+- `Assets/_DiceBattle/Audio/Licensed` is a private submodule (`dice-battle-licensed`). Clone with `--recurse-submodules`, or run `git submodule update --init` afterwards. A change inside it is committed and pushed there first, then the new pointer is committed here.
 - `core.autocrlf` is on; the LF/CRLF warnings are noise.
 - To split scene hunks between commits: save `git diff` to a patch, filter hunks, `git apply --cached`.

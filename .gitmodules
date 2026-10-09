@@ -1,0 +1,3 @@
+[submodule "Assets/_DiceBattle/Audio/Licensed"]
+	path = Assets/_DiceBattle/Audio/Licensed
+	url = https://github.com/LLarean/dice-battle-licensed.git
