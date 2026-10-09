@@ -35,6 +35,8 @@ A handler subscribes in `Awake`/`Start` and unsubscribes in `OnDestroy`. Screens
 
 Flow: `SplashScreen` → `MainMenuScreen` → `TavernScreen` → `GameScreen` (campaign battle) → `LootScreen` (window, pick 1 of 3) → tavern. Tavern also leads to `InventoryScreen` and `TournamentPyramidScreen` → `TournamentScreen`.
 
+Screen sizes: the canvas matches width (1080), so only the height changes — about 1455 on a 3:4 tablet, 2400 on a 20:9 phone. The orientation is locked to portrait. Android does not render under the camera cutout (`Render outside safe area` is off), which leaves a black band there; nothing reads `Screen.safeArea`. The tavern background is a square that follows the screen height, so whatever sits on it (the innkeeper's bubble) is anchored as a fraction of it, not as an offset from a corner. A layout change is checked at 1080x1920, a tall phone (1440x2960 or 1080x2400) and a tablet (2028x2732).
+
 Main menu easter egg: tapping a die rerolls it; when all dice show the same face an extra die drops in and all are rethrown (`MainMenuScreen.TriggerEasterEgg`). At `_maxDiceCount` a match plays the Reward jingle and goes back to three; reopening the menu also resets.
 
 ## Dice rules
