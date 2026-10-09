@@ -42,14 +42,20 @@ jobs:
       - env:
           LICENSED_DEPLOY_KEY: ${{ secrets.LICENSED_DEPLOY_KEY }}
         run: |
+          key="$HOME/.ssh/licensed_key"
+          fail() { echo "::error::$1"; exit 1; }
+          [ -n "$LICENSED_DEPLOY_KEY" ] || fail "The LICENSED_DEPLOY_KEY secret is empty or missing"
           mkdir -p ~/.ssh
-          printf '%s\n' "$LICENSED_DEPLOY_KEY" > ~/.ssh/licensed_key
-          chmod 600 ~/.ssh/licensed_key
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          export GIT_SSH_COMMAND="ssh -i ~/.ssh/licensed_key -o IdentitiesOnly=yes"
-          git -c url."git@github.com:".insteadOf="https://github.com/" submodule update --init
-          rm ~/.ssh/licensed_key
-          test -n "$(ls Assets/_DiceBattle/Audio/Licensed)"
+          # A key pasted on Windows may carry CR line endings, which ssh rejects.
+          printf '%s\n' "$LICENSED_DEPLOY_KEY" | tr -d '\r' > "$key"
+          chmod 600 "$key"
+          ssh-keygen -y -f "$key" > /dev/null 2>&1 || fail "LICENSED_DEPLOY_KEY is not a valid private key"
+          ssh-keyscan github.com >> ~/.ssh/known_hosts 2> /dev/null
+          export GIT_SSH_COMMAND="ssh -i $key -o IdentitiesOnly=yes"
+          git -c url."git@github.com:".insteadOf="https://github.com/" submodule update --init \
+            || fail "Could not fetch Audio/Licensed: $($GIT_SSH_COMMAND -T git@github.com 2>&1 | tail -n 1)"
+          rm "$key"
+          [ -n "$(ls Assets/_DiceBattle/Audio/Licensed)" ] || fail "Audio/Licensed is empty after the fetch"
 
       - id: name
         run: |
