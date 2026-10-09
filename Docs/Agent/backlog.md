@@ -46,3 +46,11 @@ Agreed on 2026-10-06: the first release is free, without ads, web only. itch.io 
   - Further ideas, none agreed: Last Stand and Golden triggers, a rarity accent on loot, class change, tavern door, an ambience loop under the music (needs a second channel in `AudioPlayer`), a separate dragon or tournament track.
   - Every clip that goes in gets a row in [Docs/assets.md](../assets.md).
 - Rejected for the MVP: HP carry-over between fights, new enemies.
+
+## If the game finds an audience
+
+The owner thinking aloud on 2026-10-09 — not a plan, nothing agreed, and only worth a look if players actually show up.
+
+- A real ladder against other players with a shared rating, in the spirit of Hearthstone. No paid advantages.
+- Deck building reworked: dice are earned through small separate campaigns, each of which can carry a story.
+- What it would mean for the code (agent's note): accounts, rating and matchmaking need a backend, rolls have to be validated on the server, saves have to leave PlayerPrefs. The closest thing today is the tournament (`TournamentLogic`, the standard deck from `DiceRuleset.SetStandard`), which plays against a bot.
