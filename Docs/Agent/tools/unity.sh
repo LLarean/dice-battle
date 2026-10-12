@@ -2,6 +2,8 @@
 # Drives the Unity editor that has this project open.
 # usage: unity.sh eval "<C#>" | evalfile <file.cs> | click "<button path>" | shot <file.png> | buttons | play | stop | refresh | errors
 U=~/AppData/Local/Unity/bin/unity
+# A winget install puts the CLI on PATH instead.
+[ -x "$U" ] || U=unity
 PROJECT="$(cd "$(dirname "$0")/../../.." && pwd -W 2>/dev/null || pwd)"
 # Exists while a Play session started by "play" is running, so "stop" never ends the owner's session.
 MARKER="${TMPDIR:-/tmp}/dicebattle-agent-play"
