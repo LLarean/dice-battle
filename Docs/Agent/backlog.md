@@ -19,7 +19,8 @@ Agreed on 2026-10-06: the first release is free, without ads, web only. itch.io 
 - Yandex Games needs its SDK; read the platform requirements before starting *(unverified: language taken from the SDK, audio paused while the tab is hidden, no links to other stores, cloud saves through the SDK)*.
 - Analytics, minimal: a thin wrapper with a provider behind it (Yandex Metrika on the web, AppMetrica on Android later). Events: first launch, battle start (enemy index), victory, defeat, loot pick (dice type), campaign completed, New Game+ start, tournament match. Needs a privacy policy link (see item 2 above).
 - Store pages: itch.io asks for an AI-content disclosure per project (graphics, sound, text, code) — fill it in from the asset list, which gets an "AI: yes / no / unknown" column.
-- Promo materials: icon, cover, screenshots, a gameplay GIF. Screenshots and the GIF can be captured from the editor; the cover needs art.
+- Promo materials: icon, cover, screenshots, a gameplay GIF, store texts. The folders and what each one still lacks are in [Docs/Promo](../Promo/README.md). Screenshots and the GIF can be captured from the editor; the cover needs art.
+- Windows build (owner's request, 2026-10-13): a free download next to the APK, and a quicker way to playtest the balance. The `Build` workflow takes `StandaloneWindows64` and a `v*` tag attaches a zip to the release; neither has run on CI yet. The desktop icon is the default one (`dice_sword.png`).
 
 ## Before release
 
