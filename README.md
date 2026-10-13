@@ -58,7 +58,8 @@ English, German, Russian, French, Portuguese, Spanish, Japanese, Chinese.
 
 - Unity **6000.0.61f1**. Open the project and start from `Assets/_DiceBattle/Scenes/Boot.unity`.
 - Part of the music and sounds is not in this repository: their authors do not allow the files to be passed on, so they live in a private submodule (`Assets/_DiceBattle/Audio/Licensed`). Without it the project opens and plays, only those clips are silent. The packs and where to get them are listed in [Docs/assets.md](Docs/assets.md).
-- CI: the `Build` workflow in `.github/workflows/build.yml` builds Android or WebGL on a manual run, and Android on a `v*` tag.
+- CI: the `Build` workflow in `.github/workflows/build.yml` builds Android, WebGL or Windows on a manual run. A `v*` tag builds Android and Windows and attaches the APK and a zip with the Windows player to the release.
+- On a desktop the game opens in a phone-shaped window sized to the display.
 
 ## Project layout
 
