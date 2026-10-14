@@ -33,7 +33,6 @@ namespace DiceBattle.Core
             int count = DiceCount(baseCount);
 
             return Current.DiceTypes
-                .Where(type => type != DiceType.AdditionalDice)
                 .Concat(Enumerable.Repeat(DiceType.Default, count))
                 .Take(count)
                 .ToList();

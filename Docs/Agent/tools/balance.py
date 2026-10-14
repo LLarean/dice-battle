@@ -48,7 +48,7 @@ def canon(equipped):
 def board(equipped):
     extra = min(MAX_EXTRA, sum(1 for t in equipped if t == 'AdditionalDice'))
     count = BASE_DICE + extra
-    deck = [t for t in equipped if t != 'AdditionalDice'] + ['Default'] * count
+    deck = list(equipped) + ['Default'] * count
     return deck[:count]
 
 
@@ -195,24 +195,18 @@ def capacity(equipped):
     return BASE_DICE + min(MAX_EXTRA, equipped.count('AdditionalDice'))
 
 
-def slots_used(equipped):
-    return sum(1 for t in equipped if t != 'AdditionalDice')
+def fits(equipped):
+    return len(equipped) <= capacity(equipped) and equipped.count('AdditionalDice') <= MAX_EXTRA
 
 
 def equip_options(equipped, new):
     """Decks reachable by taking `new`: add it, swap it for one equipped die, or leave it in the bag."""
-    options = [tuple(equipped)]
-    if new == 'AdditionalDice':
-        if equipped.count(new) < MAX_EXTRA:
-            options.append(tuple(equipped) + (new,))
-        return options
-    if slots_used(equipped) < capacity(equipped):
-        options.append(tuple(equipped) + (new,))
-    for old in set(t for t in equipped if t != 'AdditionalDice'):
+    options = [tuple(equipped), tuple(equipped) + (new,)]
+    for old in set(equipped):
         swapped = list(equipped)
         swapped.remove(old)
         options.append(tuple(swapped) + (new,))
-    return options
+    return [deck for deck in options if fits(deck)]
 
 
 def campaign(job):
@@ -238,10 +232,7 @@ def campaign(job):
         else:
             card = rng.choice(cards)
             owned.append(card)
-            if card == 'AdditionalDice':
-                if equipped.count(card) < MAX_EXTRA:
-                    equipped += (card,)
-            elif slots_used(equipped) < capacity(equipped):
+            if fits(equipped + (card,)):
                 equipped += (card,)
     return cls, strong, rates, trail
 

@@ -83,7 +83,7 @@ namespace DiceBattle.UI
             if (item.IsEquipped)
             {
                 Dice equippedCopy = _itemByDice.FirstOrDefault(pair => pair.Value == inventoryItem).Key;
-                if (equippedCopy != null || item.Type == DiceType.AdditionalDice)
+                if (equippedCopy != null)
                 {
                     Unequip(inventoryItem, equippedCopy);
                 }
@@ -91,9 +91,8 @@ namespace DiceBattle.UI
                 return;
             }
 
-            bool hasRoom = item.Type == DiceType.AdditionalDice
-                ? EquippedExtraSlots < DiceRuleset.MaxExtraSlots
-                : _deckHolder.FreeSlotCount > 0;
+            bool hasRoom = _deckHolder.FreeSlotCount > 0
+                && (item.Type != DiceType.AdditionalDice || EquippedExtraSlots < DiceRuleset.MaxExtraSlots);
 
             if (hasRoom == false)
             {
@@ -134,7 +133,7 @@ namespace DiceBattle.UI
                 CreateItem(item);
             }
 
-            foreach (InventoryItem inventoryItem in _inventoryItems.Where(i => i.Data.IsEquipped && i.Data.Type != DiceType.AdditionalDice))
+            foreach (InventoryItem inventoryItem in _inventoryItems.Where(i => i.Data.IsEquipped))
             {
                 AddDiceCopyToHolder(inventoryItem);
             }

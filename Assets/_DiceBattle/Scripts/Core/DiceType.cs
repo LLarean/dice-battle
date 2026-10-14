@@ -25,7 +25,7 @@ namespace DiceBattle
         // Passive, the die itself rolls as a default one
         LastStand, // survives one lethal hit with 1 HP, once per battle
         AdditionalTry, // +1 reroll
-        AdditionalDice, // +1 slot, takes no slot itself
+        AdditionalDice, // takes a slot and adds an empty one
     }
 
     public enum DiceRarity
