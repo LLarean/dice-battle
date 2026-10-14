@@ -18,6 +18,7 @@ Keep these docs current: when a change makes a statement here wrong, fix the sta
 - No comments unless the logic is non-obvious; comments in English.
 - Third-party audio or art whose terms forbid redistribution goes into the private submodule `Assets/_DiceBattle/Audio/Licensed`, never into this public repository; every third-party file gets a row in `Docs/assets.md`.
 - Player-facing text goes through localization (`LocKeys` + CSV in `Assets/SimpleLocalization/Resources/Localization/`, 8 languages). Never hardcode a visible string.
+- The Japanese and Chinese fonts in the build are cut down to the characters the texts use; the full ones sit in `Full~` next to them. After changing a Japanese or Chinese text, run `python Docs/Agent/tools/subset_cjk_fonts.py` and commit the fonts with the text.
 - Scene and prefab changes are made through the editor (CLI `eval`), never by hand-editing YAML.
 - The dynamic TMP font assets (`StieglitzSP-Bold 2 SDF`, `LiberationSans SDF - Fallback`, `YujiSyuku-Regular SDF`, `MaShanZheng-Regular SDF`) get dirty after every Play session (dynamic atlas). Do not commit them unless asked.
 - Verify UI changes in Play mode and look at a screenshot before reporting them done. Sound cannot be verified by the agent — say so.

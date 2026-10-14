@@ -59,8 +59,8 @@ Paths are relative to `Assets/_DiceBattle` unless they start with `Assets/`.
 | What it is in the game | Asset | Author | Path | Licence | Credit | Build |
 |---|---|---|---|---|---|---|
 | Main font | Stieglitz SP Bold | Sasha Pavljenko ([pavljenko.ru](https://pavljenko.ru)) | `Fonts/Sources/stieglitz SP` | Author's free licence (`Short License.pdf` in the folder): free incl. commercial use, the font file may not be resold; a signed licence certificate is sold separately (500 RUB / 5 USD) | requested | yes |
-| Japanese fallback | [Yuji Syuku](https://github.com/Kinutafontfactory/Yuji) | The Yuji Project Authors | `Fonts/Sources/Yuji Syuku` | SIL OFL 1.1 (`OFL.txt` in the folder) | notice | yes |
-| Chinese fallback | [Ma Shan Zheng](https://github.com/googlefonts/mashanzheng) | The Ma Shan Zheng Project Authors | `Fonts/Sources/Ma Shan Zheng` | SIL OFL 1.1 (`OFL.txt` in the folder) | notice | yes |
+| Japanese fallback | [Yuji Syuku](https://github.com/Kinutafontfactory/Yuji) | The Yuji Project Authors | `Fonts/Sources/Yuji Syuku` (cut to the used characters, the full font in `Full~`) | SIL OFL 1.1 (`OFL.txt` in the folder) | notice | yes |
+| Chinese fallback | [Ma Shan Zheng](https://github.com/googlefonts/mashanzheng) | The Ma Shan Zheng Project Authors | `Fonts/Sources/Ma Shan Zheng` (cut to the used characters, the full font in `Full~`) | SIL OFL 1.1 (`OFL.txt` in the folder) | notice | yes |
 | Dice hints, credits, generic fallback | Liberation Sans (TMP Essentials) | The Liberation Fonts Project | `Assets/TextMesh Pro/Fonts` | SIL OFL 1.1 (`LiberationSans - OFL.txt` in the folder) | notice | yes |
 | TMP default emoji sprite sheet | EmojiOne (TMP Essentials) | EmojiOne | `Assets/TextMesh Pro/Sprites` | CC BY 4.0 (`EmojiOne Attribution.txt` in the folder) | required only if emoji are shown | in `Resources`, not shown |
 | — | [Kenney Fonts](https://kenney.nl/assets/kenney-fonts), Kenney Future | Kenney | `Fonts/Sources/Kenney Future.ttf` | CC0 | optional | no |
