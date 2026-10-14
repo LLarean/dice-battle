@@ -27,7 +27,6 @@ Agreed on 2026-10-06: the first release is free, without ads, web only. itch.io 
 - Go through the third-party assets (art, fonts, sounds, music, plugins under `Assets/`), check their licences and list them in the credits (owner's request, 2026-10-05). The list with sources, licences and credit obligations is in [Docs/assets.md](../assets.md); what is left is its "Open questions" section.
 - Custom keystore instead of the debug one.
 - `com.unity.pipeline` is experimental; no tag build has run with it yet.
-- Old saves from before the dice redesign throw on removed enum values — decide between a version check with a wipe and leaving it.
 
 ## Optional
 

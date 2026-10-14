@@ -68,7 +68,7 @@ There is no tutorial. The rules reach the player through four things: the `HelpW
 
 ## Saves
 
-Everything is PlayerPrefs (`PlayerPrefsKeys`). There is no migration: a breaking change needs `DebugOptions` → reset. `GameData.ResetAll` is the full wipe.
+Everything is PlayerPrefs (`PlayerPrefsKeys`). There is no migration. `GameData.ResetAll` is the full wipe. `SaveVersion` runs before the first scene loads: when the stored version is lower than its `_current`, it wipes the progress (`ResetAll` and the tournament) and keeps the settings, the language, the first-roll and first-tap flags and the innkeeper's memory. A fresh install has nothing to wipe. A change that makes older saves wrong (an enum value removed or reordered, a format change) raises `_current` in the same commit. Version 1 drops the saves from before the dice redesign: their `DiceType` numbers mean other dice now.
 
 ## Audio
 

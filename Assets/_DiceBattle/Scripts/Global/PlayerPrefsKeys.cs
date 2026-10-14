@@ -6,6 +6,7 @@
         public const string SoundVolume = "SoundVolume";
         public const string SelectedLanguage = "SelectedLanguage";
 
+        public const string SaveVersion = "SaveVersion";
         public const string GameData = "GameData";
         public const string CompletedLevels = "CompletedLevels";
         public const string CurrentLevel = "CurrentLevel";
