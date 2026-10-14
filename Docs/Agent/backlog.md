@@ -14,7 +14,7 @@ Agreed on 2026-10-05: work top to bottom. Fonts are handled separately (see Defe
 
 Agreed on 2026-10-06: the first release is free, without ads, web only. itch.io goes first (no moderation, so the WebGL build can be shaken down there), Yandex Games second. Android stores come later.
 
-- WebGL has never been built. Run the `Build` workflow with the `WebGL` platform and fix what breaks.
+- WebGL has never been built. Run the `Build` workflow with the `WebGL` platform and fix what breaks. The build is set to Gzip with decompression fallback (2026-10-14): itch.io does not send the headers Brotli needs, and the fallback makes the build start on any host without server setup.
 - Check the web build on real phones: download size and load time (the Japanese and Chinese fonts ship their source files), whether PlayerPrefs survive a browser restart, sound, the splash screen (`Loader` waits a fixed 3 s on top of the real loading), the portrait layout in a desktop browser.
 - Yandex Games needs its SDK; read the platform requirements before starting *(unverified: language taken from the SDK, audio paused while the tab is hidden, no links to other stores, cloud saves through the SDK)*.
 - Analytics, minimal: a thin wrapper with a provider behind it (Yandex Metrika on the web, AppMetrica on Android later). Events: first launch, battle start (enemy index), victory, defeat, loot pick (dice type), campaign completed, New Game+ start, tournament match. Needs a privacy policy link (see item 2 above).
