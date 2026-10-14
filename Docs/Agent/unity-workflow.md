@@ -32,6 +32,7 @@ Screenshots and logs go to the session scratchpad, never into the repo. The only
 - Python on Windows does not see Git Bash's `/tmp`; use the scratchpad path.
 - The UI prefabs `LabelButton`, `Slider` and `Window` carry placeholder keys in `LocalizedTMP` (`ui.button`, `ui.slider`, `ui.window`). A new instance shows the raw key until it gets a real one.
 - If the game sits on frame 2 with untranslated labels, `runInBackground` was lost: set it again with `eval` before judging texts.
+- A texture whose sides are not multiples of 4 cannot be block-compressed and goes into the build raw (a 1672x941 background took 4.5 MB instead of 0.8). Pad new art to a multiple of 4 on the top and right: sprite rects count from the bottom left, so they stay put.
 - `DebugOptions._needResetAll` is on in the scene: every Play start wipes all saves. To test anything that survives a restart, set the field to false through reflection in edit mode (do not save the scene) and set it back afterwards.
 
 ## Useful paths in the scene
