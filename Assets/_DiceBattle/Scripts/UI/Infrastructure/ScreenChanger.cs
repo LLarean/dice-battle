@@ -169,6 +169,12 @@ namespace DiceBattle.UI
             }
             else if (_currentScreen.TryGetComponent(out MainMenuScreen mainMenuScreen))
             {
+                // A web page cannot close its own tab, so there is nothing to quit to.
+                if (Application.platform == RuntimePlatform.WebGLPlayer)
+                {
+                    return;
+                }
+
                 var confirmData = new ConfirmData(LocalizationManager.Localize(LocKeys.Window.QuitTavernTitle),
                     LocalizationManager.Localize(LocKeys.Window.QuitTavernMessage), onAccept: QuitGame,
                     acceptText: LocalizationManager.Localize(LocKeys.Button.Quit), cancelText: LocalizationManager.Localize(LocKeys.Button.Stay));
