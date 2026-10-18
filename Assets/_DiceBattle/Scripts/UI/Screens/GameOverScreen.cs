@@ -13,7 +13,11 @@ namespace DiceBattle.UI
     public class GameOverScreen : Screen
     {
         [Space]
+        [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private TextMeshProUGUI _finalScore;
+        [SerializeField] private TextMeshProUGUI _lastFight;
+        [SerializeField] private Image _background;
+        [SerializeField] private AspectRatioFitter _backgroundFitter;
         [SerializeField] private Button _restart;
         [SerializeField] private TextMeshProUGUI _restartLabel;
         [Space]
@@ -27,7 +31,15 @@ namespace DiceBattle.UI
 
         private void OnEnable()
         {
+            _title.text = LocalizationManager.Localize(IsFullClear ? LocKeys.Title.Win : LocKeys.Title.Defeat);
             _finalScore.text = LocalizationManager.Localize(LocKeys.Message.VictoryCount, GameData.CompletedLevels);
+
+            UnitData lastEnemy = _config.Enemies[Mathf.Min(GameData.CompletedLevels, _config.Enemies.Count - 1)];
+            _lastFight.gameObject.SetActive(IsFullClear == false);
+            _lastFight.text = LocalizationManager.Localize(LocKeys.Message.LastFight, LocalizationManager.Localize(lastEnemy.Name));
+
+            _background.sprite = lastEnemy.Background;
+            _backgroundFitter.aspectRatio = lastEnemy.Background.rect.width / lastEnemy.Background.rect.height;
 
             string key = IsFullClear ? LocKeys.Button.ToTavern : LocKeys.Button.Repeat;
             _restartLabel.text = LocalizationManager.Localize(key);

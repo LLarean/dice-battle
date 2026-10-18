@@ -24,6 +24,12 @@
             public const string Ok = "ui.button.ok";
         }
 
+        public static class Title
+        {
+            public const string Win = "ui.title.win";
+            public const string Defeat = "ui.title.defeat";
+        }
+
         public static class Message
         {
             public const string Attempts = "ui.message.attempts";
@@ -31,6 +37,7 @@
             public const string AttemptsLeft = "ui.message.attempts_left";
 
             public const string VictoryCount = "ui.message.victory_count";
+            public const string LastFight = "ui.message.last_fight";
             public const string DiceSlots = "ui.message.dice_slots";
         }
 

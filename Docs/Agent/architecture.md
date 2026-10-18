@@ -62,6 +62,8 @@ While the player rolls, the health stats preview the turn (`GameScreen.SetOutcom
 
 An unfinished battle is saved (`BattleSaveData`) when `GameConfig.CanSaveBattle` is set and restored by `GameScreen.OnEnable`. It is written at the start of a battle, when a roll starts (attempt already spent, old faces), when it lands (new faces) and at the end of a turn, so quitting never gives a roll back.
 
+`GameOverScreen` serves both ends of a run: Defeat with the last enemy's name, or Victory after the dragon, over that enemy's background dimmed. Its labels are set from code, so none of them carries `LocalizedTMP` (its `Start` would overwrite the text on the first show).
+
 Dodging a campaign defeat is left in on purpose (owner's decision, 2026-10-05): fleeing is free, and closing the app on the defeat screen keeps the run. The tournament is strict: fleeing or closing the app mid-match is a defeat (`TournamentBracket.IsMatchInProgress`), and a defeat ends the bracket.
 
 ## Teaching the game

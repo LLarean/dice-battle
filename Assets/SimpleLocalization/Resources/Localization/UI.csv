@@ -25,6 +25,7 @@ ui.message.left,left,übrig,осталось,restants,restantes,残り,剩余,re
 ui.message.attempts_left,Attempts left: {0},Versuche übrig: {0},Осталось попыток: {0},Essais restants : {0},Tentativas restantes: {0},残り{0}回,剩余{0}次,Intentos restantes: {0}
 ui.slider.sound_title,Sound,Ton,Звук,Son,Som,効果音,音效,Sonido
 ui.title.win,Victory,Sieg,Победа,Victoire,Vitória,勝利,胜利,Victoria
+ui.title.defeat,Defeat,Niederlage,Поражение,Défaite,Derrota,敗北,失败,Derrota
 ui.slider.music_title,Music,Musik,Музыка,Musique,Música,音楽,音乐,Música
 ui.button.to_battle,To Battle,In den Kampf,В бой,Au combat,Para a batalha,戦いへ,前往战斗,A la batalla
 ui.button.to_tavern,To Tavern,Zur Taverne,В таверну,À la taverne,Para a taberna,酒場へ,前往酒馆,A la taberna
@@ -49,6 +50,7 @@ ui.window.quit_tavern_title,Leaving the tavern?,Verlässt du die Taverne?,Беж
 ui.window.quit_tavern_message,"The innkeeper will be upset, but he'll survive. Shall we quit?","Der Wirt wird traurig sein, aber er übersteht es. Wollen wir das Spiel beenden?","Трактирщик обидится, но переживёт. Выходим?","L'aubergiste sera vexé, mais il s'en remettra. On quitte le jeu ?","O taberneiro vai ficar chateado, mas vai superar. Vamos sair?",宿屋の主人は気を悪くするだろうが、乗り越えるだろう。終了しますか？,店主会不高兴，但他会挺过去的。要退出吗？,"El posadero se disgustará, pero lo superará. ¿Salimos?"
 ui.button.quit,Quit,Beenden,Выйти,Quitter,Sair,終了,退出,Salir
 ui.message.victory_count,You defeated {0} enemies!,Du hast {0} Gegner besiegt!,Вы победили {0} врагов!,Vous avez vaincu {0} ennemis !,Você derrotou {0} inimigos!,{0}体の敵を倒した！,你击败了{0}个敌人！,¡Has derrotado a {0} enemigos!
+ui.message.last_fight,Last fight: {0},Letzter Kampf: {0},Последний бой: {0},Dernier combat : {0},Última luta: {0},最後の戦い：{0},最后一战：{0},Última pelea: {0}
 ui.message.dice_slots,{0} of {1},{0} von {1},{0} из {1},{0} sur {1},{0} de {1},{1}中{0},{0}/{1},{0} de {1}
 ui.button.ok,OK,OK,Хорошо,OK,OK,OK,好的,Vale
 ui.button.take,Take,Nehmen,Взять,Prendre,Pegar,受け取る,领取,Tomar
