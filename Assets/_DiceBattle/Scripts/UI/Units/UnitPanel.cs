@@ -21,6 +21,8 @@ namespace DiceBattle.UI
         [Tooltip("The source of the dice whose results are displayed by this panel. Leave empty if the unit has no dice of its own.")]
         [SerializeField] private DiceHolder _diceHolder;
 
+        private const float _calloutMargin = 40f;
+
         private readonly Dictionary<Dice, DiceContribution> _contributionByDice = new();
         private readonly List<GameObject> _flyingNumbers = new();
 
@@ -154,8 +156,13 @@ namespace DiceBattle.UI
             _health.value = 0;
             SetCurrentHealth(0);
 
-            string text = LocalizationManager.Localize(LocKeys.GameHits.Critical);
+            ShowCallout(LocalizationManager.Localize(LocKeys.GameHits.Critical));
+        }
+
+        public void ShowCallout(string text)
+        {
             TMP_Text label = FloatingText.Spawn(_title, _portrait.transform.position, text, FloatingText.Critical, 2f);
+            FloatingText.KeepInsideCanvas(label, _calloutMargin);
             FloatingTextAnimation.Rise(label, 1.6f);
         }
 

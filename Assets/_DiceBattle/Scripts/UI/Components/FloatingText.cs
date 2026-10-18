@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace DiceBattle.UI
@@ -31,6 +31,17 @@ namespace DiceBattle.UI
             label.text = text;
 
             return label;
+        }
+
+        public static void KeepInsideCanvas(TMP_Text label, float margin)
+        {
+            var rect = label.rectTransform;
+            var canvasRect = (RectTransform)rect.parent;
+            float limit = Mathf.Max(0f, canvasRect.rect.width / 2f - label.preferredWidth / 2f - margin);
+
+            Vector3 position = rect.localPosition;
+            position.x = Mathf.Clamp(position.x, -limit, limit);
+            rect.localPosition = position;
         }
     }
 }

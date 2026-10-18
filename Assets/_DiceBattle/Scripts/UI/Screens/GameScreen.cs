@@ -88,6 +88,8 @@ namespace DiceBattle.UI
 
         public void PlayerTakeHeal(int healAmount) => _player.TakeHeal(healAmount);
 
+        public void PlayerShowCallout(string text) => _player.ShowCallout(text);
+
         #endregion
 
         #region Dice

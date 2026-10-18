@@ -467,6 +467,7 @@ namespace DiceBattle.Core
 
             _matchData.LastStandUsed = true;
             _gameScreen.PlayerTakeHeal(1);
+            _gameScreen.PlayerShowCallout(DiceType.LastStand.Title());
 
             return true;
         }
