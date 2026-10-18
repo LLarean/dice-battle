@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DiceBattle.Animations;
 using DiceBattle.Audio;
 using DiceBattle.Core;
@@ -7,6 +7,7 @@ using DiceBattle.Global;
 using GameSignals;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DiceBattle.UI
 {
@@ -14,6 +15,7 @@ namespace DiceBattle.UI
     {
         [Space]
         [SerializeField] private TMP_Text _message;
+        [SerializeField] private Button _take;
         [Space]
         [SerializeField] private List<Dice> _dice;
         [SerializeField] private RectTransform _rollAnimationArea;
@@ -26,6 +28,7 @@ namespace DiceBattle.UI
         private readonly List<DiceType> _currentRewards = new();
 
         private bool _isRolling;
+        private int _selectedIndex = -1;
 
         private void Start()
         {
@@ -35,6 +38,7 @@ namespace DiceBattle.UI
             }
 
             DiceAnimation.OnDiceRollComplete += HandleRollComplete;
+            _take.onClick.AddListener(HandleTakeClick);
         }
 
         private void OnDestroy()
@@ -45,6 +49,7 @@ namespace DiceBattle.UI
             }
 
             DiceAnimation.OnDiceRollComplete -= HandleRollComplete;
+            _take.onClick.RemoveAllListeners();
             LeanTween.cancel(gameObject);
         }
 
@@ -54,8 +59,44 @@ namespace DiceBattle.UI
             StartRewardRoll();
         }
 
+        // The first tap only marks a card, so a slip of the finger cannot take the wrong die; a second tap on it takes it.
         private void HandleItemSelect(DiceType diceType)
         {
+            int index = _currentRewards.IndexOf(diceType);
+
+            if (index == _selectedIndex)
+            {
+                TakeReward(diceType);
+                return;
+            }
+
+            if (_selectedIndex >= 0)
+            {
+                _rewardItems[_selectedIndex].SetEquippedStatus(false);
+            }
+
+            _selectedIndex = index;
+            _rewardItems[index].SetEquippedStatus(true);
+            _rewardItems[index].PlaySelectReaction();
+
+            _message.gameObject.SetActive(false);
+            _take.gameObject.SetActive(true);
+
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
+        }
+
+        private void HandleTakeClick()
+        {
+            if (_selectedIndex >= 0)
+            {
+                TakeReward(_currentRewards[_selectedIndex]);
+            }
+        }
+
+        private void TakeReward(DiceType diceType)
+        {
+            _take.interactable = false;
+
             foreach (InventoryItem rewardItem in _rewardItems)
             {
                 rewardItem.SetInteractable(false);
@@ -82,6 +123,9 @@ namespace DiceBattle.UI
             GameData.LogRandomRewards();
 
             _message.gameObject.SetActive(false);
+            _take.gameObject.SetActive(false);
+            _take.interactable = true;
+            _selectedIndex = -1;
 
             for (int i = 0; i < _rewardItems.Count; i++)
             {
