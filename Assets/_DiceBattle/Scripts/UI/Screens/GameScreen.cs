@@ -62,7 +62,25 @@ namespace DiceBattle.UI
         public void SetPlayerDicePreview(int armorBonus, int damageBonus, int healBonus) =>
             _player.SetDicePreview(armorBonus, damageBonus, healBonus);
 
-        public void ClearPlayerDicePreview() => _player.ClearDicePreview();
+        public void ClearPlayerDicePreview()
+        {
+            _player.ClearDicePreview();
+            _enemy.ClearIncomingAttack();
+        }
+
+        public void SetOutcomePreview(int playerDamage, bool isCritical, int enemyDamage)
+        {
+            _enemy.SetIncomingAttack(playerDamage, _minimumPlayerHit, isCritical);
+
+            if (_enemy.IsIncomingAttackLethal)
+            {
+                _player.ClearIncomingAttack();
+            }
+            else
+            {
+                _player.SetIncomingAttack(enemyDamage, 0, false);
+            }
+        }
 
         public void SetEnemyData(UnitData unitData)
         {

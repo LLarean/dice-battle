@@ -133,6 +133,9 @@ namespace DiceBattle.Core
         {
             _diceResult.Calculate(_gameScreen.Dices);
             _gameScreen.SetPlayerDicePreview(_diceResult.Armor, _diceResult.Damage, _diceResult.Heal);
+
+            int playerDamage = Mathf.Max(0, PlayerConfig.StartDamage + _diceResult.Damage);
+            _gameScreen.SetOutcomePreview(playerDamage, _diceResult.IsCritical, _matchData.EnemyData.Damage);
         }
 
         public void ContextClick()

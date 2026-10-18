@@ -31,6 +31,14 @@ namespace DiceBattle.UI
         private int _armorBonus;
         private int _damageBonus;
         private int _healBonus;
+        private bool _hasIncomingAttack;
+        private int _incomingDamage;
+        private int _incomingMinimumDamage;
+        private bool _isIncomingCritical;
+
+        public bool IsIncomingAttackLethal => _hasIncomingAttack && ExpectedLoss(PreviewHealth) >= PreviewHealth;
+
+        private int PreviewHealth => Mathf.Min(_unitData.MaxHealth, _unitData.CurrentHealth + _healBonus);
 
         public void SetUnitData(UnitData unitData)
         {
@@ -73,10 +81,45 @@ namespace DiceBattle.UI
             SetArmor(_unitData.Armor);
         }
 
+        // Shows on the health stat what the next hit would take, counting the armour and healing of the dice preview.
+        public void SetIncomingAttack(int damage, int minimumDamage, bool isCritical)
+        {
+            _hasIncomingAttack = true;
+            _incomingDamage = damage;
+            _incomingMinimumDamage = minimumDamage;
+            _isIncomingCritical = isCritical;
+
+            SetCurrentHealth(_unitData.CurrentHealth);
+        }
+
+        public void ClearIncomingAttack()
+        {
+            _hasIncomingAttack = false;
+
+            SetCurrentHealth(_unitData.CurrentHealth);
+        }
+
+        private int ExpectedLoss(int health)
+        {
+            if (_hasIncomingAttack == false)
+            {
+                return 0;
+            }
+
+            if (_isIncomingCritical)
+            {
+                return health;
+            }
+
+            int armor = _unitData.Armor + _armorBonus;
+            return Mathf.Min(health, Mathf.Max(_incomingMinimumDamage, _incomingDamage - armor));
+        }
+
         public void ClearDicePreview()
         {
             CancelFlyingNumbers();
             _contributionByDice.Clear();
+            _hasIncomingAttack = false;
 
             SetDicePreview(0, 0, 0);
         }
@@ -225,7 +268,7 @@ namespace DiceBattle.UI
 
             int previewHealth = Mathf.Min(_unitData.MaxHealth, healthAmount + _healBonus);
             int healthBonus = previewHealth - healthAmount;
-            _stats.SetHealth($"{healthAmount}/{_health.maxValue}", healthBonus);
+            _stats.SetHealth($"{healthAmount}/{_health.maxValue}", healthBonus, ExpectedLoss(previewHealth), _isIncomingCritical);
         }
 
         private void SetAttack(int attackAmount) =>

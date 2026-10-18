@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DiceBattle.UI
 {
@@ -12,7 +12,8 @@ namespace DiceBattle.UI
         public StatItem Attack => _attack;
         public StatItem Armor => _armor;
 
-        public void SetHealth(string value, int bonus = 0) => _health.SetValue(value, bonus);
+        public void SetHealth(string value, int bonus = 0, int loss = 0, bool isCriticalLoss = false) =>
+            _health.SetValue(value, bonus, loss, isCriticalLoss);
 
         public void SetAttack(string value, int bonus = 0) => _attack.SetValue(value, bonus);
 
