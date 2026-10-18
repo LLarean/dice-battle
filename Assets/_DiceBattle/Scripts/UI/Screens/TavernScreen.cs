@@ -1,4 +1,4 @@
-using Assets.SimpleLocalization.Scripts;
+﻿using Assets.SimpleLocalization.Scripts;
 using DiceBattle.Animations;
 using DiceBattle.Audio;
 using DiceBattle.Data;
@@ -97,11 +97,31 @@ namespace DiceBattle.UI
         {
             if (IsFullClear)
             {
-                GameData.AdvanceNewGamePlus();
-                DefaultInventory.InitializeDefault(_gameConfig.DiceStartCount);
+                ConfirmNewGamePlus();
+                return;
             }
 
             SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
+        }
+
+        private void ConfirmNewGamePlus()
+        {
+            string title = LocalizationManager.Localize(LocKeys.Window.NewGamePlusTitle);
+            string message = LocalizationManager.Localize(LocKeys.Window.NewGamePlusMessage);
+            string acceptText = LocalizationManager.Localize(LocKeys.Button.NewGame);
+            string cancelText = LocalizationManager.Localize(LocKeys.Button.Stay);
+
+            var confirmData = new ConfirmData(title,
+                message,
+                onAccept: () =>
+                {
+                    GameData.AdvanceNewGamePlus();
+                    DefaultInventory.InitializeDefault(_gameConfig.DiceStartCount);
+                    SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.GameScreen));
+                }, acceptText: acceptText, cancelText: cancelText);
+
+            SignalSystem.Raise<IScreenHandler>(handler => handler.ShowWindow(ScreenType.ConfirmWindow));
+            SignalSystem.Raise<IConfirmHandler>(h => h.SetConfirmData(confirmData));
         }
 
         private void HandleInventoryClick()

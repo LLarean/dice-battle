@@ -1,4 +1,4 @@
-namespace DiceBattle.Localization
+﻿namespace DiceBattle.Localization
 {
     public static class LocKeys
     {
@@ -38,6 +38,9 @@ namespace DiceBattle.Localization
         {
             public const string RestartTitle = "ui.window.restart_title";
             public const string RestartMessage = "ui.window.restart_message";
+
+            public const string NewGamePlusTitle = "ui.window.new_game_plus_title";
+            public const string NewGamePlusMessage = "ui.window.new_game_plus_message";
 
             public const string AbandonTitle = "ui.window.abandon_title";
             public const string AbandonMessage = "ui.window.abandon_message";
