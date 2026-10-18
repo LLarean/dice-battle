@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,7 +7,7 @@ namespace DiceBattle.UI
 {
     public class Loader : MonoBehaviour
     {
-        private const float _loadDuration = 6f;
+        private const float _minimumDuration = 2f;
         private const float _spriteChangeTime = 0.5f;
 
         [SerializeField] private Image _image;
@@ -32,20 +32,30 @@ namespace DiceBattle.UI
             StopAllCoroutines();
         }
 
+        // The main scene loads behind the animation; the minimum leaves time to read the tip on a fast load.
+        // deltaTime is capped per frame, so a startup hitch does not eat that time.
         private IEnumerator PlayAnimation()
         {
-            for (int i = 0; i <= _loadDuration; i++)
-            {
-                int spriteIndex = i % _sprites.Length;
-                _image.sprite = _sprites[spriteIndex];
+            AsyncOperation loading = SceneManager.LoadSceneAsync("Main");
+            loading.allowSceneActivation = false;
 
-                if (i < _loadDuration)
+            float elapsed = 0f;
+            float nextSpriteChange = _spriteChangeTime;
+
+            while (elapsed < _minimumDuration || loading.progress < 0.9f)
+            {
+                yield return null;
+                elapsed += Time.deltaTime;
+
+                if (elapsed >= nextSpriteChange)
                 {
-                    yield return new WaitForSeconds(_spriteChangeTime);
+                    _currentIndex = (_currentIndex + 1) % _sprites.Length;
+                    _image.sprite = _sprites[_currentIndex];
+                    nextSpriteChange += _spriteChangeTime;
                 }
             }
 
-            SceneManager.LoadScene("Main");
+            loading.allowSceneActivation = true;
         }
     }
 }
