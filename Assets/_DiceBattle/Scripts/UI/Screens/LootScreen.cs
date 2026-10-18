@@ -78,9 +78,7 @@ namespace DiceBattle.UI
             _selectedIndex = index;
             _rewardItems[index].SetEquippedStatus(true);
             _rewardItems[index].PlaySelectReaction();
-
-            _message.gameObject.SetActive(false);
-            _take.gameObject.SetActive(true);
+            _take.SetAvailable(true);
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Click));
         }
@@ -95,7 +93,7 @@ namespace DiceBattle.UI
 
         private void TakeReward(DiceType diceType)
         {
-            _take.interactable = false;
+            _take.SetAvailable(false);
 
             foreach (InventoryItem rewardItem in _rewardItems)
             {
@@ -124,7 +122,7 @@ namespace DiceBattle.UI
 
             _message.gameObject.SetActive(false);
             _take.gameObject.SetActive(false);
-            _take.interactable = true;
+            _take.SetAvailable(false);
             _selectedIndex = -1;
 
             for (int i = 0; i < _rewardItems.Count; i++)
@@ -192,6 +190,7 @@ namespace DiceBattle.UI
                         if (remaining == 0)
                         {
                             _message.gameObject.SetActive(true);
+                            _take.gameObject.SetActive(true);
                             _isRolling = false;
                         }
                     });
