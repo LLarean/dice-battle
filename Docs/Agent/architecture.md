@@ -52,7 +52,7 @@ Main menu easter egg: tapping a die rerolls it; when all dice show the same face
   - AdditionalTry: +1 reroll; AdditionalDice: equips into a free slot like any die, rolls as a default one and adds one empty slot, so the board grows by one die while the room for other dice stays the same; at most `DiceRuleset.MaxExtraSlots` (2) count, so the board never exceeds 7 dice — the width of the board and of the inventory deck row. The inventory rejects equipping a third one, and loot stops offering the type once two are owned
 - 5 or more Attack faces is a critical: instant kill. The owner wants this kept.
 - Rarity (`GetRarity`): Legendary = AdditionalDice; Rare = Golden, AdditionalTry, LastStand; Uncommon = Thorns, Vampiric, Joker; the rest Common. Only Legendary has a glow. Rarity sets the drop weight (`GetDropWeight`: 10 / 6 / 3 / 2).
-- On cards (loot, inventory) a die shows a fixed face from `GetIconCategory`. Types without an own face (Reliable, Golden, Joker, AdditionalTry, AdditionalDice) use the type sprites `Art/Sources/Dices/dice_reliable|golden|joker|reroll|extra.png` (`Dice._typeSprites`), cut from Kenney board-game icons. On the board these dice still differ only by colour.
+- On cards (loot, inventory) a die shows a fixed face from `GetIconCategory`. Types without an own face (Reliable, Golden, Joker, AdditionalTry, AdditionalDice) use the type sprites `Art/Sources/Dices/dice_reliable|golden|joker|reroll|extra.png` (`Dice._typeSprites`), cut from Kenney board-game icons. On the board the same sprite sits in a dark badge on the top right corner of the die (`Dice._typeMark`, set by `SetType`, which only the board calls).
 
 ## Campaign
 

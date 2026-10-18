@@ -26,6 +26,9 @@ namespace DiceBattle.Core
         [SerializeField] private Image _rarityGlow;
         [SerializeField] private Image _selectionIcon;
         [SerializeField] private TextMeshProUGUI _multiplier;
+        [Tooltip("Corner icon on the board for the types whose effect shows on no face of their own.")]
+        [SerializeField] private GameObject _typeMark;
+        [SerializeField] private Image _typeMarkIcon;
         [Header("Empty, Attack, Defense, Heal")]
         [SerializeField] private Sprite[] _faceSprites;
         [Header("Lock, Crown, Question, Reroll, ExtraDice")]
@@ -93,6 +96,20 @@ namespace DiceBattle.Core
             _type = type;
             SetBodyColor(type);
             SetRarityGlow(type.GetRarity());
+            SetTypeMark(type);
+        }
+
+        private void SetTypeMark(DiceType type)
+        {
+            int index = (int)type.GetIconCategory() - _faceSprites.Length;
+            bool hasMark = index >= 0;
+
+            _typeMark.SetActive(hasMark);
+
+            if (hasMark)
+            {
+                _typeMarkIcon.sprite = _typeSprites[index];
+            }
         }
 
         public void SetBoardIndex(int index) => _boardIndex = index;
