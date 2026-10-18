@@ -118,8 +118,6 @@ namespace DiceBattle.UI
 
         public void ResetSelection() => _gameBoard.ClearAllSelection();
 
-        public void ToggleAllDice() => _gameBoard.ToggleAll();
-
         public void SetSelectionStatus(bool isSelected) => _gameBoard.SetSelectionStatus(isSelected);
 
         #endregion

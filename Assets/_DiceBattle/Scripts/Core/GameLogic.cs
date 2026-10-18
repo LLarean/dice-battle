@@ -190,8 +190,6 @@ namespace DiceBattle.Core
             {
                 _gameScreen.SetSelectionStatus(false);
             }
-
-            // _gameScreen.ToggleAllDice();
         }
 
         // The attempt is saved as spent before the faces change, so quitting mid-roll cannot win it back.
@@ -367,16 +365,18 @@ namespace DiceBattle.Core
             if (_matchData.PlayerData.CurrentHealth > healthBefore)
             {
                 _gameScreen.PlayerAnimateHeal();
+                PlaySound(SoundType.PlayerHeal);
             }
-
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerHeal));
         }
 
         private void ApplyPlayerArmor()
         {
             _matchData.PlayerData.Armor = Mathf.Max(0, PlayerConfig.StartArmor + _diceResult.Armor);
 
-            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.PlayerArmor));
+            if (_diceResult.Armor > 0)
+            {
+                PlaySound(SoundType.PlayerArmor);
+            }
         }
 
         private void ApplyPlayerAttack()
@@ -499,8 +499,6 @@ namespace DiceBattle.Core
             GameData.IncrementLevels();
 
             UpdateData();
-            // Спавн следующего врага отключён: после победы враг остаётся повержен (0 здоровья) до возврата в таверну.
-            // _matchData.EnemyData = _spawner.SpawnEnemy();
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.Victory));
             RemovePlayerArmor();
