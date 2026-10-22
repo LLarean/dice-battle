@@ -64,7 +64,7 @@ namespace DiceBattle.UI
             _rect.localScale = Vector3.one * startScale;
             gameObject.SetActive(true);
 
-            if (!isWindow)
+            if (isWindow == false)
             {
                 _canvasGroup.alpha = 0f;
                 LeanTween.alphaCanvas(_canvasGroup, 1f, duration).setEase(LeanTweenType.easeOutQuad);

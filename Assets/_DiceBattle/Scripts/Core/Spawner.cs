@@ -77,7 +77,9 @@ namespace DiceBattle.Core
         {
             float multiplier = _config.GetNewGamePlusMultiplier(GameData.NewGamePlusCycle);
             if (multiplier == 1f)
+            {
                 return;
+            }
 
             enemyData.MaxHealth = Mathf.RoundToInt(enemyData.MaxHealth * multiplier);
             enemyData.CurrentHealth = enemyData.MaxHealth;

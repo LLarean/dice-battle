@@ -13,7 +13,9 @@ namespace DiceBattle
         public void SetDefaultInventory()
         {
             if (Inventory.AllItems().Count != 0)
+            {
                 return;
+            }
 
             InitializeDefault(_gameConfig.DiceStartCount);
         }

@@ -144,7 +144,7 @@ namespace DiceBattle.UI
         private void HandleDiceToggle()
         {
             bool allSelected = _board.PlayerDices.All(dice => dice.IsSelected);
-            bool allUnselected = _board.PlayerDices.All(dice => !dice.IsSelected);
+            bool allUnselected = _board.PlayerDices.All(dice => dice.IsSelected == false);
 
             if (allSelected)
             {

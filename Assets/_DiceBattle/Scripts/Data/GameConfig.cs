@@ -34,7 +34,9 @@ namespace DiceBattle.Data
         public float GetNewGamePlusMultiplier(int cycle)
         {
             if (cycle <= 0 || NewGamePlusMultipliers.Length == 0)
+            {
                 return 1f;
+            }
 
             int index = Mathf.Min(cycle - 1, NewGamePlusMultipliers.Length - 1);
             return NewGamePlusMultipliers[index];

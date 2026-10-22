@@ -12,10 +12,14 @@ namespace DiceBattle
             set
             {
                 if (_value == null && value == null)
+                {
                     return;
+                }
 
                 if (_value != null && _value.Equals(value))
+                {
                     return;
+                }
 
                 var prev = _value;
                 _value = value;

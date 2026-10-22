@@ -414,7 +414,9 @@ namespace DiceBattle.Core
             _battleEnded = true;
 
             if (_config.CanSaveBattle)
+            {
                 BattleSaveData.Clear();
+            }
 
             GameData.PendingInnkeeperEvent = InnkeeperEvent.Defeat;
 
@@ -480,7 +482,9 @@ namespace DiceBattle.Core
             _battleEnded = true;
 
             if (_config.CanSaveBattle)
+            {
                 BattleSaveData.Clear();
+            }
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(SoundType.EnemyDefeated));
 

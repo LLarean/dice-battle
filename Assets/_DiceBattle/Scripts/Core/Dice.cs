@@ -145,7 +145,7 @@ namespace DiceBattle.Core
 
         public void Toggle()
         {
-            _selectionIcon.gameObject.SetActive(!_selectionIcon.gameObject.activeSelf);
+            _selectionIcon.gameObject.SetActive(_selectionIcon.gameObject.activeSelf == false);
             _image.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
             _multiplier.color = _selectionIcon.gameObject.activeSelf ? Color.yellow : Color.white;
         }

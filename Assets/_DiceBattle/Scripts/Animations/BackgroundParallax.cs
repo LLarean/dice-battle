@@ -46,7 +46,9 @@ namespace DiceBattle.Animations
             normalized = Vector2.ClampMagnitude(normalized, 1f);
 
             if (_invert)
+            {
                 normalized = -normalized;
+            }
 
             Vector2 target = _basePosition + Vector2.Scale(normalized, _maxOffset);
             _rect.anchoredPosition = Vector2.Lerp(_rect.anchoredPosition, target, Time.deltaTime * _smooth);

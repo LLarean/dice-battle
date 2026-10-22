@@ -44,7 +44,7 @@ namespace DiceBattle.Localization.Editor
         [MenuItem("Tools/Localization/Collect Hardcoded Text To CSV")]
         public static void Collect()
         {
-            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+            if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo() == false)
             {
                 Debug.LogWarning("Localization export cancelled: unsaved scene changes.");
                 return;
@@ -52,7 +52,10 @@ namespace DiceBattle.Localization.Editor
 
             var path = EditorUtility.SaveFilePanel("Save localization CSV", Application.dataPath, "LocalizationExport", "csv");
 
-            if (string.IsNullOrEmpty(path)) return;
+            if (string.IsNullOrEmpty(path))
+            {
+                return;
+            }
 
             Run(path);
             EditorUtility.RevealInFinder(path);
@@ -106,7 +109,7 @@ namespace DiceBattle.Localization.Editor
                 }
             }
 
-            if (!string.IsNullOrEmpty(openScenePath))
+            if (string.IsNullOrEmpty(openScenePath) == false)
             {
                 EditorSceneManager.OpenScene(openScenePath, OpenSceneMode.Single);
             }
@@ -121,7 +124,10 @@ namespace DiceBattle.Localization.Editor
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
 
-                if (prefab == null) continue;
+                if (prefab == null)
+                {
+                    continue;
+                }
 
                 foreach (var tmp in prefab.GetComponentsInChildren<TMP_Text>(true))
                 {
@@ -139,7 +145,10 @@ namespace DiceBattle.Localization.Editor
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 var asset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
 
-                if (asset == null) continue;
+                if (asset == null)
+                {
+                    continue;
+                }
 
                 var so = new SerializedObject(asset);
                 var prop = so.GetIterator();
@@ -149,8 +158,14 @@ namespace DiceBattle.Localization.Editor
                 {
                     enterChildren = true;
 
-                    if (prop.propertyType != SerializedPropertyType.String) continue;
-                    if (string.IsNullOrWhiteSpace(prop.stringValue)) continue;
+                    if (prop.propertyType != SerializedPropertyType.String)
+                    {
+                        continue;
+                    }
+                    if (string.IsNullOrWhiteSpace(prop.stringValue))
+                    {
+                        continue;
+                    }
 
                     AddRow(rows, prop.stringValue, $"Config:{asset.name}", prop.propertyPath);
                 }
@@ -165,7 +180,7 @@ namespace DiceBattle.Localization.Editor
             {
                 var key = new SerializedObject(localized).FindProperty("_localizationKey").stringValue;
 
-                if (!string.IsNullOrWhiteSpace(key))
+                if (string.IsNullOrWhiteSpace(key) == false)
                 {
                     rows.Add(new Row { Key = key, Source = $"{sourcePrefix}:LocalizedTMP", Text = tmp.text });
                     return;
@@ -190,7 +205,10 @@ namespace DiceBattle.Localization.Editor
                     var line = lines[i];
                     var match = LocalizeCallRegex.Match(line);
 
-                    if (!match.Success) continue;
+                    if (match.Success == false)
+                    {
+                        continue;
+                    }
 
                     var arg = match.Groups["arg"].Value.Trim();
                     var context = $"{relativePath}:{i + 1}";
@@ -297,7 +315,10 @@ namespace DiceBattle.Localization.Editor
 
         private static void AddRow(List<Row> rows, string text, string source, string context)
         {
-            if (string.IsNullOrWhiteSpace(text)) return;
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return;
+            }
 
             var key = $"{source}.{context}".Replace(' ', '_');
 

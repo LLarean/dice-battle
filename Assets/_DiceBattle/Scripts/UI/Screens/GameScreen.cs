@@ -181,7 +181,7 @@ namespace DiceBattle.UI
             SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.RerollSelected));
 
             bool isAllSelected = _gameBoard.Dices.All(dice => dice.IsSelected);
-            bool isAllUnselected = _gameBoard.Dices.All(dice => !dice.IsSelected);
+            bool isAllUnselected = _gameBoard.Dices.All(dice => dice.IsSelected == false);
 
             if (isAllSelected)
             {
@@ -227,9 +227,13 @@ namespace DiceBattle.UI
         private void OnEnable()
         {
             if (_config.CanSaveBattle && BattleSaveData.HasSavedBattle())
+            {
                 _gameLogic.RestoreGame();
+            }
             else
+            {
                 _gameLogic.InitializeGame();
+            }
 
             SignalSystem.Raise<ISoundHandler>(handler => handler.PlayMusic(SoundType.Battle));
         }

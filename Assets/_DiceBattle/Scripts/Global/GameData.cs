@@ -19,7 +19,9 @@ namespace DiceBattle.Global
         {
             var list = new DiceList();
             foreach (Item item in Inventory.EquippedItems())
+            {
                 list.DiceTypes.Add(item.Type);
+            }
             return list;
         }
 

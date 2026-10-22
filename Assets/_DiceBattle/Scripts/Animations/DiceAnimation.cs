@@ -98,7 +98,7 @@ namespace DiceBattle.Animations
                 bool validPosition = false;
                 int attempts = 0;
 
-                while (!validPosition && attempts < maxAttempts)
+                while (validPosition == false && attempts < maxAttempts)
                 {
                     newPos = new Vector2(
                         Random.Range(_rollAreaMin.x, _rollAreaMax.x),
