@@ -14,6 +14,8 @@ namespace DiceBattle.Core
     {
         // Seven dice is what fits the width of the board and of the inventory deck row.
         public const int MaxExtraSlots = 2;
+        // A hero's blow always gets through armour; an enemy's can be blocked completely.
+        public const int MinimumHeroHit = 1;
 
         private static DiceList _override;
         private static int _diceCountOverride;

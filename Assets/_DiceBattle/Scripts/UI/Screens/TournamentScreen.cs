@@ -57,9 +57,9 @@ namespace DiceBattle.UI
 
         #region Damage / healing
 
-        public void PlayerTakeDamage(int amount) => _player.TakeDamage(amount);
+        public void PlayerTakeDamage(int amount) => _player.TakeDamage(amount, DiceRuleset.MinimumHeroHit);
 
-        public void EnemyTakeDamage(int amount) => _enemy.TakeDamage(amount);
+        public void EnemyTakeDamage(int amount) => _enemy.TakeDamage(amount, DiceRuleset.MinimumHeroHit);
 
         public void PlayerTakeCriticalHit()
         {
