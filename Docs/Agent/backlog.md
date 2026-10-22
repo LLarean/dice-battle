@@ -47,7 +47,7 @@ Agreed on 2026-10-06: the first release is free, without ads, web only. itch.io 
   - Listen to the trial: clip choice per class and enemy, the three delays in `GameLogic` (`_playerHitDelay`, `_enemyAttackDelay`, `_enemyHitDelay`), volume against the music. The skeletons share the knight's and the archer's clips. Neither side has a swing animation yet, only a reaction to being hit.
   - `PlayerHeal`, `PlayerArmor` and `EnemyDefeated` are raised by `GameLogic` but have no clips.
   - Agreed first candidates, each a new `SoundType` (append at the end of the enum — `SoundConfig` stores the values by index): critical hit (the `IsCritical` branch of `ApplyPlayerAttack`; check that it does not collide with the `Victory` jingle), loot window opening, equipping and unequipping a die (now `Click`).
-  - `TournamentLogic` raises no sounds at all. `PlayerAttack` and `GameOver` have clips but are never raised; `EnemyHit` and `EnemySpawn` have neither.
+  - `TournamentLogic` raises only the attack and impact sounds of both heroes; no Victory or Defeat jingle at the end of a match. `PlayerAttack` and `GameOver` have clips but are never raised; `EnemyHit` and `EnemySpawn` have neither.
   - Further ideas, none agreed: Last Stand and Golden triggers, a rarity accent on loot, class change, tavern door, an ambience loop under the music (needs a second channel in `AudioPlayer`), a separate dragon or tournament track.
   - Every clip that goes in gets a row in [Docs/assets.md](../assets.md).
 - Rejected for the MVP: HP carry-over between fights, new enemies.

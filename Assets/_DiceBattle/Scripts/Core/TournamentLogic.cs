@@ -16,8 +16,13 @@ namespace DiceBattle.Core
     /// </summary>
     public class TournamentLogic
     {
-        private const int RollsPerTurn = 2;
-        private const float MatchEndPause = 1f;
+        private const int _rollsPerTurn = 2;
+        private const float _matchEndPause = 1f;
+        private const float _enemyResultPause = 0.6f;
+        private const float _playerHitDelay = 0.2f;
+        private const float _enemyAttackDelay = 0.4f;
+        private const float _enemyHitDelay = 0.65f;
+        private const float _nextRoundPause = 0.8f;
 
         private enum Phase
         {
@@ -69,8 +74,8 @@ namespace DiceBattle.Core
 
         private void BeginRound()
         {
-            _playerRollsLeft = RollsPerTurn;
-            _enemyRollsLeft = RollsPerTurn;
+            _playerRollsLeft = _rollsPerTurn;
+            _enemyRollsLeft = _rollsPerTurn;
             _phase = Phase.PlayerRolling;
             _isPlayerRolling = false;
 
@@ -110,7 +115,7 @@ namespace DiceBattle.Core
                 return;
             }
 
-            if (_playerRollsLeft == RollsPerTurn)
+            if (_playerRollsLeft == _rollsPerTurn)
             {
                 StartPlayerRoll(_screen.RollPlayer);
             }
@@ -181,7 +186,7 @@ namespace DiceBattle.Core
             _screen.ClearPlayerDicePreview();
 
             _phase = Phase.EnemyRolling;
-            _enemyRollsLeft = RollsPerTurn;
+            _enemyRollsLeft = _rollsPerTurn;
             SignalSystem.Raise<IHintHandler>(handler => handler.Show(LocalizationManager.Localize(LocKeys.GameHits.EnemyTurn)));
 
             LeanTween.delayedCall(_screen.gameObject, 0.5f, StartEnemyTurn);
@@ -214,16 +219,24 @@ namespace DiceBattle.Core
             _enemy.Result.Calculate(_screen.EnemyDices);
 
             _phase = Phase.Resolving;
-            ResolveRound();
+            LeanTween.delayedCall(_screen.gameObject, _enemyResultPause, ResolveRound);
         }
 
+        // Paced like a campaign turn: the bot's dice stay readable, then the player's blow, then the answer.
         private void ResolveRound()
         {
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
 
-            ApplyDefense(_player, _screen.PlayerTakeHeal);
-            ApplyDefense(_enemy, _screen.EnemyTakeHeal);
+            ApplyDefense(_player, _screen.PlayerTakeHeal, _screen.PlayerAnimateHeal);
+            ApplyDefense(_enemy, _screen.EnemyTakeHeal, _screen.EnemyAnimateHeal);
+            _screen.UpdateStats();
 
+            PlaySound(_player.Data.AttackSound);
+            LeanTween.delayedCall(_screen.gameObject, _playerHitDelay, CompletePlayerAttack);
+        }
+
+        private void CompletePlayerAttack()
+        {
             ApplyAttack(_player, _screen.EnemyTakeDamage, _screen.EnemyTakeCriticalHit, _screen.EnemyAnimateDamage);
 
             if (_enemy.Data.CurrentHealth <= 0)
@@ -232,6 +245,13 @@ namespace DiceBattle.Core
                 return;
             }
 
+            SoundType attackSound = _enemy.Data.AttackSound;
+            LeanTween.delayedCall(_screen.gameObject, _enemyAttackDelay, () => PlaySound(attackSound));
+            LeanTween.delayedCall(_screen.gameObject, _enemyHitDelay, CompleteEnemyAttack);
+        }
+
+        private void CompleteEnemyAttack()
+        {
             ApplyAttack(_enemy, _screen.PlayerTakeDamage, _screen.PlayerTakeCriticalHit, _screen.PlayerAnimateDamage);
 
             if (_player.Data.CurrentHealth <= 0)
@@ -242,16 +262,29 @@ namespace DiceBattle.Core
 
             _player.Data.Armor = _player.BaseArmor;
             _enemy.Data.Armor = _enemy.BaseArmor;
+            _screen.UpdateStats();
 
+            LeanTween.delayedCall(_screen.gameObject, _nextRoundPause, StartNextRound);
+        }
+
+        private void StartNextRound()
+        {
             _screen.ResetPlayerDice();
             _screen.ResetEnemyDice();
 
             BeginRound();
         }
 
-        private static void ApplyDefense(TournamentFighter fighter, System.Action<int> heal)
+        private static void ApplyDefense(TournamentFighter fighter, System.Action<int> heal, System.Action animateHeal)
         {
+            int healthBefore = fighter.Data.CurrentHealth;
             heal(fighter.Result.Heal);
+
+            if (fighter.Data.CurrentHealth > healthBefore)
+            {
+                animateHeal();
+            }
+
             fighter.Data.Armor = fighter.BaseArmor + fighter.Result.Armor;
         }
 
@@ -268,6 +301,12 @@ namespace DiceBattle.Core
             }
 
             animateDamage();
+            PlaySound(attacker.Data.ImpactSound);
+        }
+
+        private static void PlaySound(SoundType soundType)
+        {
+            SignalSystem.Raise<ISoundHandler>(handler => handler.PlaySound(soundType));
         }
 
         private void EndMatch(bool playerWon)
@@ -284,7 +323,7 @@ namespace DiceBattle.Core
             }
 
             DiceRuleset.Reset();
-            _matchEndTweenId = LeanTween.delayedCall(MatchEndPause,
+            _matchEndTweenId = LeanTween.delayedCall(_matchEndPause,
                 () => SignalSystem.Raise<IScreenHandler>(handler => handler.ShowScreen(ScreenType.TournamentPyramidScreen))).id;
         }
 

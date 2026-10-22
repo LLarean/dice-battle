@@ -33,6 +33,8 @@ namespace DiceBattle.Data
             CurrentHealth = StartHealth,
             Damage = StartDamage,
             Armor = StartArmor,
+            AttackSound = AttackSound,
+            ImpactSound = ImpactSound,
         };
     }
 }

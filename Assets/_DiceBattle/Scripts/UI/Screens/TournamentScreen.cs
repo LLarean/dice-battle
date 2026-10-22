@@ -53,6 +53,12 @@ namespace DiceBattle.UI
 
         public void ClearPlayerDicePreview() => _player.ClearDicePreview();
 
+        public void UpdateStats()
+        {
+            _player.UpdateStats();
+            _enemy.UpdateStats();
+        }
+
         #endregion
 
         #region Damage / healing
@@ -78,6 +84,10 @@ namespace DiceBattle.UI
         public void EnemyTakeHeal(int amount) => _enemy.TakeHeal(amount);
 
         public void PlayerAnimateDamage() => _player.AnimateDamage();
+
+        public void PlayerAnimateHeal() => _player.AnimateHeal();
+
+        public void EnemyAnimateHeal() => _enemy.AnimateHeal();
 
         public void EnemyAnimateDamage() => _enemy.AnimateDamage();
 

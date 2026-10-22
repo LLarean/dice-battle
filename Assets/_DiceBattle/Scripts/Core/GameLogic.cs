@@ -364,6 +364,7 @@ namespace DiceBattle.Core
 
             if (_diceResult.Armor > 0)
             {
+                _gameScreen.UpdatePlayerStats();
                 PlaySound(SoundType.PlayerArmor);
             }
         }
