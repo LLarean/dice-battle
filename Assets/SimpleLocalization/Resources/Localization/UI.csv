@@ -20,9 +20,7 @@ ui.window.restart_message,"The heroes give up, but new ones always come. All pro
 ui.window.new_game_plus_title,Another round?,Noch eine Runde?,Ещё один круг?,Encore un tour ?,Mais uma rodada?,もう一周？,再来一轮？,¿Otra ronda?
 ui.window.new_game_plus_message,The beasts return with more health. The collected dice stay behind: the new run starts with plain ones.,Die Biester kehren mit mehr Lebenspunkten zurück. Die gesammelten Würfel bleiben hier: Der neue Durchgang beginnt mit einfachen Würfeln.,Чудища вернутся с запасом здоровья побольше. Собранные кубики останутся здесь: новый круг начнётся с простых.,Les bêtes reviennent avec plus de vie. Les dés récoltés restent ici : la nouvelle partie commence avec des dés simples.,As feras voltam com mais vida. Os dados coletados ficam para trás: a nova jornada começa com dados simples.,魔物たちは体力を増して戻ってくる。集めたサイコロは置いていく。新しい周回は普通のサイコロから始まる。,怪物们会带着更多生命归来。收集的骰子留在这里，新一轮从普通骰子开始。,Las bestias vuelven con más vida. Los dados reunidos se quedan aquí: la nueva partida empieza con dados simples.
 ui.window.restart_title,Bury the heroes?,Die Helden begraben?,Похоронить героев?,Enterrer les héros ?,Enterrar os heróis?,英雄たちを葬る？,埋葬这些英雄？,¿Enterrar a los héroes?
-ui.message.attempts,attempts,Versuche,попыток,essais,tentativas,回,次,intentos
-ui.message.left,left,übrig,осталось,restants,restantes,残り,剩余,restantes
-ui.message.attempts_left,Attempts left: {0},Versuche übrig: {0},Осталось попыток: {0},Essais restants : {0},Tentativas restantes: {0},残り{0}回,剩余{0}次,Intentos restantes: {0}
+ui.message.attempts_left,Tries left: {0},Versuche übrig: {0},Осталось попыток: {0},Essais restants : {0},Tentativas restantes: {0},残り{0}回,剩余{0}次,Intentos restantes: {0}
 ui.slider.sound_title,Sound,Ton,Звук,Son,Som,効果音,音效,Sonido
 ui.title.win,Victory,Sieg,Победа,Victoire,Vitória,勝利,胜利,Victoria
 ui.title.defeat,Defeat,Niederlage,Поражение,Défaite,Derrota,敗北,失败,Derrota

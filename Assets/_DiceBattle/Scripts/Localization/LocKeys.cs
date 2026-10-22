@@ -32,8 +32,6 @@
 
         public static class Message
         {
-            public const string Attempts = "ui.message.attempts";
-            public const string Left = "ui.message.left";
             public const string AttemptsLeft = "ui.message.attempts_left";
 
             public const string VictoryCount = "ui.message.victory_count";
@@ -75,7 +73,6 @@
         {
             public const string RollDice = "game_hits.roll_dice";
             public const string Finish = "game_hits.finish";
-            public const string RollsLeft = "game_hits.rolls_left";
             public const string EnemyTurn = "game_hits.enemy_turn";
             public const string RerollSelected = "game_hits.reroll_selected";
             public const string RerollAll = "game_hits.reroll_all";
