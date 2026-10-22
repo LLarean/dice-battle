@@ -15,7 +15,7 @@ using UnityEngine.UI;
 
 namespace DiceBattle.UI
 {
-    public class GameScreen : Screen, IChangeHandler
+    public class GameScreen : Screen
     {
         [SerializeField] private GameConfig _config;
         [Space]
@@ -38,8 +38,6 @@ namespace DiceBattle.UI
         public List<Dice> Dices => _gameBoard.Dices;
         public bool HaveSelectedDice => _gameBoard.HaveSelectedDice;
         public bool HaveUnselectedDice => _gameBoard.HaveUnselectedDice;
-
-        public void UpdateRewards() => _gameLogic.UpdateData();
 
         public bool IsBattleEnded => _gameLogic.IsBattleEnded;
 
@@ -178,8 +176,6 @@ namespace DiceBattle.UI
 
         private void HandleDiceToggle()
         {
-            SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.RerollSelected));
-
             bool isAllSelected = _gameBoard.Dices.All(dice => dice.IsSelected);
             bool isAllUnselected = _gameBoard.Dices.All(dice => dice.IsSelected == false);
 
@@ -187,9 +183,13 @@ namespace DiceBattle.UI
             {
                 SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.RerollAll));
             }
-            if (isAllUnselected)
+            else if (isAllUnselected)
             {
                 SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.Finish));
+            }
+            else
+            {
+                SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.RerollSelected));
             }
         }
 

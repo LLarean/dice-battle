@@ -22,8 +22,7 @@ namespace DiceBattle.Global
         public UnitSnapshot PlayerState;
         public UnitSnapshot EnemyState;
 
-        public int MaxDiceRerolls;
-        public int RemainingDiceRerolls;
+        public int RollsMade;
         public bool LastStandUsed;
         public DiceValue[] DiceFaces;
     }
@@ -40,8 +39,7 @@ namespace DiceBattle.Global
             {
                 PlayerState = ToSnapshot(matchData.PlayerData),
                 EnemyState = ToSnapshot(matchData.EnemyData),
-                MaxDiceRerolls = matchData.MaxDiceRerolls,
-                RemainingDiceRerolls = matchData.RemainingDiceRerolls,
+                RollsMade = matchData.RollsMade,
                 LastStandUsed = matchData.LastStandUsed,
                 DiceFaces = dices.Select(dice => dice.DiceValue).ToArray(),
             };

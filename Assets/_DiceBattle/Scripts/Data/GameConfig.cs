@@ -21,9 +21,8 @@ namespace DiceBattle.Data
         public List<Item> DefaultInventory = new();
         public int DiceStartCount = 5;
 
-        [Header("Maximum attempts")]
-        [Tooltip("Maximum number of dice rolls")]
-        public int MaxAttempts = 3;
+        [Tooltip("Rerolls after the first roll of a turn, before Try dice")]
+        public int RerollsPerTurn = 1;
         [Space]
         public bool CanSaveBattle = true;
 

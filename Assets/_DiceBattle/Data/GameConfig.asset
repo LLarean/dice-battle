@@ -167,7 +167,7 @@ MonoBehaviour:
     Type: 0
     IsEquipped: 1
   DiceStartCount: 5
-  MaxAttempts: 3
+  RerollsPerTurn: 1
   CanSaveBattle: 1
   NewGamePlusMultipliers:
   - 1.1

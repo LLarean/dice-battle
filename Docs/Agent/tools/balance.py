@@ -2,7 +2,7 @@
 
 Rules mirrored from GameLogic / DiceResult / DiceRuleset / UnitPanel:
 - faces Empty/Attack/Defense/Heal, uniform; Reliable never rolls Empty
-- one roll plus (MaxAttempts - 2 + AdditionalTry) rerolls of any subset
+- one roll plus (RerollsPerTurn + AdditionalTry) rerolls of any subset
 - heal first (capped), then the hero hits for max(1, dmg - enemyArmor), 5+ Attack faces kill
 - a surviving enemy hits for max(0, enemyDmg - armor); LastStand saves once at 1 HP
 - the hero starts every battle at full health
@@ -37,7 +37,7 @@ if os.environ.get('ENEMY_DMG'):
     ENEMIES = [(h, int(d), a) for (h, _, a), d in zip(ENEMIES, os.environ['ENEMY_DMG'].split(','))]
 BASE_DICE = 5
 MAX_EXTRA = 2
-MAX_ATTEMPTS = 3
+REROLLS_PER_TURN = 1
 CRIT = 5
 
 
@@ -93,7 +93,7 @@ def tables(equipped):
     empties = np.zeros_like(dmg)
     for i in range(n):
         empties |= (f[i] == EMPTY) << i
-    rerolls = MAX_ATTEMPTS - 2 + deck.count('AdditionalTry')
+    rerolls = REROLLS_PER_TURN + deck.count('AdditionalTry')
     return n, dmg, arm, heal, attacks >= CRIT, weights, empties, rerolls, 'LastStand' in deck
 
 

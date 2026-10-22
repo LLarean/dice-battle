@@ -34,6 +34,7 @@ namespace DiceBattle.Core
         private readonly int[] _turnTweenIds = { -1, -1, -1 };
 
         private UnitConfig PlayerConfig => _config.GetPlayerConfig(GameData.SelectedCharacterClass);
+        private int RerollsLeft => _matchData.RerollsPerTurn + 1 - _matchData.RollsMade;
 
         public GameLogic(GameConfig config, GameScreen gameScreen)
         {
@@ -97,8 +98,7 @@ namespace DiceBattle.Core
 
             _matchData.EnemyData = _spawner.RestoreEnemy(saved);
             _matchData.PlayerData = _spawner.RestoreHero(saved);
-            _matchData.MaxDiceRerolls = saved.MaxDiceRerolls;
-            _matchData.RemainingDiceRerolls = saved.RemainingDiceRerolls;
+            _matchData.RollsMade = saved.RollsMade;
             _matchData.LastStandUsed = saved.LastStandUsed;
 
             _gameScreen.DisableDiceInteractable();
@@ -107,7 +107,7 @@ namespace DiceBattle.Core
             _gameScreen.ClearPlayerDicePreview();
             SignalSystem.Raise<IHintHandler>(handler => handler.Hide());
 
-            if (saved.RemainingDiceRerolls > 0)
+            if (saved.RollsMade > 0)
             {
                 _gameScreen.SetDiceFaces(saved.DiceFaces);
                 UpdateDicePreview();
@@ -145,25 +145,18 @@ namespace DiceBattle.Core
                 return;
             }
 
-            _matchData.RemainingDiceRerolls++;
-
-            if (_matchData.RemainingDiceRerolls == 1)
+            if (_matchData.RollsMade == 0)
             {
+                _matchData.RollsMade++;
                 GameData.HasEverRolledDice = true;
                 StartRoll();
                 _gameScreen.RollDice();
             }
-            else if (_matchData.RemainingDiceRerolls < _matchData.MaxDiceRerolls)
+            else if (RerollsLeft > 0 && _gameScreen.HaveSelectedDice)
             {
-                if (_gameScreen.HaveSelectedDice)
-                {
-                    StartRoll();
-                    _gameScreen.RerollSelectedDice();
-                }
-                else
-                {
-                    EndTurn();
-                }
+                _matchData.RollsMade++;
+                StartRoll();
+                _gameScreen.RerollSelectedDice();
             }
             else
             {
@@ -175,12 +168,7 @@ namespace DiceBattle.Core
 
         public void AllClick()
         {
-            if (_isRolling || _matchData.RemainingDiceRerolls <= 0)
-            {
-                return;
-            }
-
-            if (_matchData.RemainingDiceRerolls >= _matchData.MaxDiceRerolls)
+            if (_isRolling || _matchData.RollsMade == 0 || RerollsLeft == 0)
             {
                 return;
             }
@@ -216,7 +204,7 @@ namespace DiceBattle.Core
             _diceResult.Calculate(_gameScreen.Dices);
             _gameScreen.ClearPlayerDicePreview();
             PlayerTurn();
-            _matchData.RemainingDiceRerolls = 0;
+            _matchData.RollsMade = 0;
 
             _gameScreen.ResetSelection();
             _gameScreen.SetContextLabel(LocalizationManager.Localize(LocKeys.Button.RollAll));
@@ -228,7 +216,7 @@ namespace DiceBattle.Core
 
         #region Updates
 
-        public void UpdateData()
+        private void UpdateData()
         {
             _matchData.PlayerData.Update(_config);
             _matchData.PlayerData.Log();
@@ -246,11 +234,11 @@ namespace DiceBattle.Core
 
         private void UpdateButtonStates()
         {
-            if (_matchData.RemainingDiceRerolls == 0 || _isRolling)
+            if (_matchData.RollsMade == 0 || _isRolling)
             {
                 _gameScreen.DisableDiceInteractable();
             }
-            else if (_matchData.RemainingDiceRerolls >= _matchData.MaxDiceRerolls - 1)
+            else if (RerollsLeft == 0)
             {
                 _gameScreen.DisableDiceInteractable();
                 _gameScreen.SetContextLabel(LocalizationManager.Localize(LocKeys.GameHits.Finish));
@@ -267,26 +255,24 @@ namespace DiceBattle.Core
 
         private void ShowAttempts()
         {
-            int attemptsLeft = _matchData.MaxDiceRerolls - 1 - _matchData.RemainingDiceRerolls;
-
-            string message = LocalizationManager.Localize(LocKeys.Message.AttemptsLeft, attemptsLeft);
+            string message = LocalizationManager.Localize(LocKeys.Message.AttemptsLeft, RerollsLeft);
             SignalSystem.Raise<IHintHandler>(handler => handler.Show(message));
         }
 
         private void ResetNumbers()
         {
-            _matchData.RemainingDiceRerolls = 0;
+            _matchData.RollsMade = 0;
 
-            SetMaxAttempts();
+            SetRerollsPerTurn();
         }
 
-        private void SetMaxAttempts()
+        private void SetRerollsPerTurn()
         {
             DiceList receivedRewards = GameData.GetEquippedAsDiceList();
             int additionalTryCount = receivedRewards.DiceTypes.Count(reward => reward == DiceType.AdditionalTry);
-            _matchData.MaxDiceRerolls = DebugOverrides.HasInfiniteRerolls
+            _matchData.RerollsPerTurn = DebugOverrides.HasInfiniteRerolls
                 ? DebugOverrides.InfiniteRerolls
-                : _config.MaxAttempts + additionalTryCount;
+                : _config.RerollsPerTurn + additionalTryCount;
         }
 
         private void UpdatePlayerStats()
@@ -297,7 +283,7 @@ namespace DiceBattle.Core
             _gameScreen.UpdatePlayerStats();
 
             UpdateDeck();
-            SetMaxAttempts();
+            SetRerollsPerTurn();
         }
 
         #endregion

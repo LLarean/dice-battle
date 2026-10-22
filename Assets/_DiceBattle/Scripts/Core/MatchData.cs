@@ -9,9 +9,8 @@ namespace DiceBattle.Core
 
         public DiceList DiceList;
 
-        public int MaxDiceRerolls;
-        public int RemainingDiceRerolls;
-
+        public int RerollsPerTurn;
+        public int RollsMade;
 
         public bool IsLastEnemy;
         public bool LastStandUsed;
