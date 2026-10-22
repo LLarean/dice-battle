@@ -8,7 +8,7 @@ A map, not a spec. Paths are relative to `Assets/_DiceBattle/Scripts`.
 | --- | --- |
 | `Core` | Battle rules and flow: `GameLogic` (campaign), `TournamentLogic` (tournament), `Dice`, `DiceHolder`, `DiceResult`, `DiceRuleset`, `Spawner`, `TournamentBracket` |
 | `UI/Screens`, `UI/Windows` | One class per screen/window; `UI/Infrastructure` has `ScreenChanger` and `ScreenType` |
-| `UI/Components`, `UI/Units` | Reusable widgets (`InventoryItem`, `Hint`, `Innkeeper`, `UnitPanel`, ...). Every scrolling list is an instance of `Prefabs/UI/ScrollView.prefab` (vertical only, styled scrollbar that hides when the content fits); content goes under `Viewport/ItemsSpawn` |
+| `UI/Components`, `UI/Units` | Reusable widgets (`InventoryItem`, `Hint`, `Innkeeper`, `UnitPanel`, ...). Every scrolling list is an instance of `Prefabs/UI/ScrollView.prefab` (vertical only, styled scrollbar that hides when the content fits; `ScrollViewportFit` narrows the viewport for the scrollbar whenever the content changes size, which `ScrollRect` does not do on its own); content goes under `Viewport/ItemsSpawn` and must let its layout group control the children's width, or they overlap the scrollbar |
 | `Global` | Persistent state behind static facades: `GameData`, `GameSettings`, `BattleSaveData`, `Rewards/AvailableRewardsPool` |
 | `Inventory` | `Inventory`, `Item`, `ItemsStorage` |
 | `Data` | ScriptableObject types: `GameConfig`, `UnitConfig`, `SoundConfig`; assets in `Assets/_DiceBattle/Data` |

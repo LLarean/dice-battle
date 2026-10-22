@@ -12306,7 +12306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8283039089370559594, guid: cb3ec35c2b262d74dba6f0bb319d6589, type: 3}
       propertyPath: m_ChildControlWidth
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8283039089370559594, guid: cb3ec35c2b262d74dba6f0bb319d6589, type: 3}
       propertyPath: m_ChildControlHeight
